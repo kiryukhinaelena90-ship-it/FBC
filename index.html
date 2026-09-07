@@ -3110,6 +3110,7 @@ function ensureRUI(){
     const btn=$('fbcRunAnalysis'), evidenceBtn=$('fbcRunEvidenceAnalysis'), progress=$('fbcAnalysisProgress');
     try{
       if(progress)progress.classList.add('is-active');
+      await new Promise(requestAnimationFrame);
       if(btn){btn.disabled=true;btn.classList.add('fbc-run-busy');btn.textContent=T('Analyse läuft…','Анализ выполняется…')}
       if(evidenceBtn){evidenceBtn.disabled=true;evidenceBtn.classList.add('fbc-run-busy');evidenceBtn.textContent=T('Analyse läuft…','Анализ выполняется…')}
       $('fbcRStatus').textContent=T('R berechnet die Entscheidung…','R рассчитывает решение…');
