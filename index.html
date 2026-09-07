@@ -2731,7 +2731,7 @@ function setupOwnerVacation(daysSelector,vacationSelector){
   refreshOwnerVacationRecommendations();
   applyRecommendation();
 }
-});refreshOwnerVacationRecommendations()});applyRecommendation()}
+
 function setupOwnerAutoDays(hoursSelector,daysSelector,vacationSelector){const hours=$(hoursSelector),days=$(daysSelector),vacation=$(vacationSelector);if(!hours||!days)return;hours.addEventListener('input',()=>{if(days.dataset.autoDays!=='true')return;const h=parseDecimal(hours.value);if(!h)return;days.value=String(minimumRecommendedDays(h));if(vacation&&vacation.dataset.autoVacation==='true')vacation.value=String(Number(days.value)*6);refreshOwnerVacationRecommendations();refreshScheduleAdvice()})}
 function modeCosts(p){return $$(`.mode-cost[data-mode="${p}"]`).reduce((sum,input)=>sum+parseDecimal(input.value),0)}
 function modeTime(p){const weekly=num(`#${p}OwnerHours`),days=Math.max(1,num(`#${p}OwnerDays`)),vac=num(`#${p}OwnerVacation`),holidays=holidayDays2026(days),annual=Math.max(0,weekly*52-(vac+holidays)*(weekly/days));return{weekly,days,holidays,workMonth:annual/12}}
