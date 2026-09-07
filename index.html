@@ -3125,8 +3125,11 @@ function ensureRUI(){
       if(evidenceBtn){evidenceBtn.disabled=false;evidenceBtn.classList.remove('fbc-run-busy');evidenceBtn.textContent=T('Mit diesen Grenzen neu berechnen','Считать заново с этими границами')}
     }
   }
-  $('fbcRunAnalysis').addEventListener('click',runRAnalysis);
-  $('fbcRunEvidenceAnalysis').addEventListener('click',runRAnalysis);
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('#fbcRunAnalysis,#fbcRunEvidenceAnalysis');
+  if(!btn)return;
+  runRAnalysis();
+});
 }
 
 function employeeCost(){
