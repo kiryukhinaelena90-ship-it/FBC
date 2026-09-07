@@ -3033,7 +3033,7 @@ function renderPdfReport(){
 function ensureRUI(){
   const emp=$('employee'); if(!emp||$('fbcRLayer'))return;
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
-  layer.innerHTML=`<div class="section-kicker">${T(R · DECISION SUPPORT,'R · АНАЛИТИКА И РЕШЕНИЯ')}</div><div class="fbc-r-title-row"><h2>${T('Analyse, Robustheit und Entscheidung','Анализ, устойчивость и решение')}</h2><button class="fbc-r-primary" type="button" id="fbcRunAnalysis">${T('R-Analyse starten','Запустить R-анализ')}</button></div>
+  layer.innerHTML=`<div class="section-kicker">${T('R · DECISION SUPPORT','R · АНАЛИТИКА И РЕШЕНИЯ')}</div><div class="fbc-r-title-row"><h2>${T('Analyse, Robustheit und Entscheidung','Анализ, устойчивость и решение')}</h2><button class="fbc-r-primary" type="button" id="fbcRunAnalysis">${T('R-Analyse starten','Запустить R-анализ')}</button></div>
   <div class="fbc-r-status" id="fbcRStatus" style="margin-top:10px">${T('Noch kein R-Payload','R-payload ещё не получен')}</div>
   <div class="fbc-analysis-progress" id="fbcAnalysisProgress" aria-live="polite"><div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div><small class="fbc-analysis-progress-text">${T('Analyse wird berechnet …','Выполняется расчёт …')}</small></div>
   <div class="fbc-r-grid" style="margin-top:12px"><div class="fbc-r-metric"><span>${T('Aktuell verfügbar','Сейчас доступно')}</span><strong id="fbcRCurrent">—</strong></div><div class="fbc-r-metric"><span>${T('Monatsziel','Месячная цель')}</span><strong id="fbcRTarget">—</strong></div><div class="fbc-r-metric"><span>${T('P(Ziel)','P(цель)')}</span><strong id="fbcRProb">—</strong></div></div>
