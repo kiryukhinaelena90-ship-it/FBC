@@ -2768,7 +2768,12 @@ function addTeamMember(preset={}){
   applyAutomaticDaysFromHours(hours,days,vacation);
   refreshScheduleAdvice();
 });
-  const applyTeamVacation=()=>{days.dataset.autoDays='false';const d=Math.max(1,Math.min(5,Math.round(parseDecimal(days.value)||5)));if(vacation.dataset.autoVacation==='true')vacation.value=d*6};days.addEventListener('input',applyTeamVacation);days.addEventListener('change',applyTeamVacation);vacation.addEventListener('input',()=>{vacation.dataset.autoVacation='false'});node.querySelectorAll('input,select').forEach(el=>{el.autocomplete='off';el.addEventListener('input',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()});el.addEventListener('change',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()})});node.querySelector('.apply-team-wage').addEventListener('click',()=>{const role=node.querySelector('.team-role').value,wageOrientation=orientation(role,form.value);node.querySelector('.team-wage').value=wageOrientation.mid.toFixed(2);calculateTeam()});node.querySelector('.apply-team-price').addEventListener('click',()=>{const recommendation=Number(node.dataset.recommendedPrice)||0;if(recommendation>0){node.querySelector('.team-price').value=recommendation.toFixed(2);calculateTeam()}});node.querySelector('.remove-team').addEventListener('click',()=>{node.remove();calculateTeam()});applySchedule();refreshTeamOrientationRows();configureValidation();refreshScheduleAdvice();calculateTeam()
+  days.addEventListener('input',event=>{
+  if(event.isTrusted){
+    confirmValue(days);
+  }
+  applyTeamVacation();
+});days.addEventListener('change',applyTeamVacation);vacation.addEventListener('input',()=>{vacation.dataset.autoVacation='false'});node.querySelectorAll('input,select').forEach(el=>{el.autocomplete='off';el.addEventListener('input',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()});el.addEventListener('change',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()})});node.querySelector('.apply-team-wage').addEventListener('click',()=>{const role=node.querySelector('.team-role').value,wageOrientation=orientation(role,form.value);node.querySelector('.team-wage').value=wageOrientation.mid.toFixed(2);calculateTeam()});node.querySelector('.apply-team-price').addEventListener('click',()=>{const recommendation=Number(node.dataset.recommendedPrice)||0;if(recommendation>0){node.querySelector('.team-price').value=recommendation.toFixed(2);calculateTeam()}});node.querySelector('.remove-team').addEventListener('click',()=>{node.remove();calculateTeam()});applySchedule();refreshTeamOrientationRows();configureValidation();refreshScheduleAdvice();calculateTeam()
 }
 function calculateTeam(){
   refreshTeamOrientationRows();
