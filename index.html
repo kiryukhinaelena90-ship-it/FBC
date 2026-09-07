@@ -1604,6 +1604,51 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   #teamRows .team-row-fields{grid-template-columns:1fr!important}
 }
 </style>
+
+<style id="fbc-p1-decision-style">
+.fbc-decision-evidence{margin-top:14px;border:1px solid #dfe5e9;border-radius:12px;background:#fafcfd;overflow:hidden}
+.fbc-decision-evidence>summary{cursor:pointer;padding:12px 14px;font-weight:800;color:#284e6d;list-style:none}
+.fbc-decision-evidence>summary::-webkit-details-marker{display:none}
+.fbc-decision-evidence>summary:after{content:"+";float:right;font-size:18px;line-height:1}
+.fbc-decision-evidence[open]>summary:after{content:"–"}
+.fbc-decision-body{padding:0 14px 14px}
+.fbc-decision-help{font-size:11px;line-height:1.45;color:#687684;margin:0 0 10px}
+.fbc-bound-row{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(95px,.75fr) minmax(78px,.55fr);gap:9px;align-items:center;padding:9px 0;border-top:1px solid #e8edf0}
+.fbc-bound-row:first-of-type{border-top:0}
+.fbc-bound-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:750;color:#344c5d}
+.fbc-bound-row .unit{margin:0}
+.fbc-bound-months{display:flex;align-items:center;gap:5px}
+.fbc-bound-months input{width:58px}
+.fbc-cost-extra{display:grid;grid-template-columns:minmax(145px,1fr) minmax(95px,.7fr);gap:8px}
+.fbc-r-detailbox{margin-top:10px;border:1px solid #dfe5e9;border-radius:10px;padding:11px 12px;background:#fff}
+.fbc-r-detailbox[hidden]{display:none}
+.fbc-r-detail-title{font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#687684;margin-bottom:7px}
+.fbc-r-change-row,.fbc-r-shapley-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-top:1px solid #eef2f4;font-size:12px}
+.fbc-r-change-row:first-of-type,.fbc-r-shapley-row:first-of-type{border-top:0}
+.fbc-r-change-row b,.fbc-r-shapley-row b{white-space:nowrap;color:#284e6d}
+@media(max-width:680px){
+  .fbc-bound-row{grid-template-columns:1fr}
+  .fbc-bound-months{justify-content:flex-start}
+}
+</style>
+
+
+<style id="fbc-stat-overlay-v2">
+.fbc-ref-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px}
+.fbc-ref-modal.is-open{display:flex}
+.fbc-ref-backdrop{position:absolute;inset:0;background:rgba(17,31,43,.55);backdrop-filter:blur(3px)}
+.fbc-ref-dialog{position:relative;width:min(980px,96vw);max-height:90vh;overflow:auto;background:#fff;border:1px solid #d7e1e8;border-radius:16px;box-shadow:0 22px 70px rgba(18,35,51,.22);padding:24px}
+.fbc-ref-close{position:absolute;right:16px;top:14px;width:34px;height:34px;border:1px solid #d6e0e7;border-radius:9px;background:#fff;color:#1d3652;font-size:22px;cursor:pointer}
+.fbc-ref-dialog h2{margin:0 44px 5px 0!important}.fbc-ref-sub{margin:0 0 14px;color:#667684;font-size:13px}.fbc-ref-source{font-size:12px;color:#667684;margin-bottom:14px}
+.fbc-ref-chart{border:1px solid #e1e7ec;border-radius:12px;background:#fbfcfd;padding:10px;overflow:auto}.fbc-ref-chart svg{display:block;width:100%;min-width:620px;height:auto;color:#1d3652}
+.fbc-ref-note{margin-top:12px;padding:10px 12px;background:#f4f7f9;border-left:2px solid #9babb9;color:#596875;font-size:12px;line-height:1.45}
+.fbc-stat-info-pill{display:inline-flex;align-items:center;border:1px solid #dbe4ea;border-radius:999px;padding:4px 8px;margin-top:10px;font-size:10px;color:#5f7180}
+#fbcRStatsInline{display:none!important}
+.fbc-decision-intro{margin:12px 0 8px;padding:12px 14px;border:1px solid #dce5eb;border-radius:12px;background:#f8fafb}
+.fbc-decision-intro b{display:block;margin-bottom:4px}.fbc-decision-intro small{display:block;color:#647582;line-height:1.45}
+.fbc-run-busy{opacity:.7;pointer-events:none}
+@media(max-width:650px){.fbc-ref-modal{padding:10px}.fbc-ref-dialog{padding:18px 14px}}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -2939,11 +2984,7 @@ function statMeta(key){
     interest:{title:'Kreditzins',y:'% p.a.',x:T('Monat / Jahr','Месяц / год')}
   }[key]||{title:key,y:'',x:''};
 }
-function jumpToStat(key){
-  const layer=$('fbcRLayer'); if(!layer)return;
-  const chart=$('fbcChart_'+key); layer.scrollIntoView({behavior:'smooth',block:'start'});
-  if(chart){chart.style.outline='2px solid #7e9ab0';setTimeout(()=>chart.style.outline='',1200)}
-}
+function jumpToStat(key){document.dispatchEvent(new CustomEvent('fbc:open-stat',{detail:{key}}));}
 function methodsUsed(p){
   const m=get(p||{},'production_meta.methods_used')||get(p||{},'methods_used')||get(p||{},'audit.methods_used')||[];
   return Array.isArray(m)?m:[];
@@ -2962,7 +3003,7 @@ function renderPdfReport(){
   const p10=get(p,'robustness.p10')??get(p,'post_decision.p10');
   const p90=get(p,'robustness.p90')??get(p,'post_decision.p90');
   const be=get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue');
-  const ebe=get(p,'break_even.employee.billable_hours')??get(p,'break_even.employee.break_even_hours');
+  const ebe=get(p,'break_even.employee.break_even_hours');
   const dscr=get(p,'post_decision.capital_service_ratio')??get(p,'financing.dscr');
   const rec=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation')??T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.');
   const methods=methodsUsed(p);
@@ -2979,8 +3020,12 @@ function renderPdfReport(){
   <div class="pdf-row"><span>P(Ziel erreicht)</span><b>${pct(prob)}</b></div>
   <div class="pdf-row"><span>Business Break-even</span><b>${money(be)}</b></div>
   <div class="pdf-row"><span>Mitarbeiter Break-even</span><b>${ebe==null?'—':Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h/Monat'}</b></div>
-  <div class="pdf-row"><span>Kapitaldienst / DSCR</span><b>${dscr==null?'—':Number(dscr).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})}</b></div>
+  <div class="pdf-row"><span>Kapitaldienst / DSCR</span><b>${Number.isFinite(Number(dscr))?Number(dscr).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2}):'—'}</b></div>
   <h2>${T('EMPFEHLUNG','РЕКОМЕНДАЦИЯ')}</h2><div class="pdf-rec">${esc(typeof rec==='string'?rec:JSON.stringify(rec))}</div>
+  ${(()=>{const ch=get(p,'recommendation.changes');return Array.isArray(ch)&&ch.length?`<h2>${T('BESTÄTIGTE ENTSCHEIDUNG','ПОДТВЕРЖДЁННОЕ РЕШЕНИЕ')}</h2>${ch.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${esc(String(c.current??'—'))} → ${esc(String(c.proposed??'—'))} ${esc(c.unit||'')}</b></div>`).join('')}`:''})()}
+  ${(()=>{const sh=get(p,'recommendation.explanation');const cc=sh&&Array.isArray(sh.contributions)?sh.contributions:[];return sh?.available&&cc.length?`<h2>SHAPLEY · ${T('Warum diese Kombination?','Почему эта комбинация?')}</h2>${cc.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${money(c.contribution_eur??c.contribution)}</b></div>`).join('')}`:''})()}
+  <h2>${T('STATISTISCHER HINTERGRUND','СТАТИСТИЧЕСКИЙ ФОН')}</h2><div class="pdf-rec">${T('Energie, Kraftstoff, Arbeitskosten und Kreditzins werden als separater Informationslayer geführt. Historische Reihen sind unabhängig von der Entscheidung einsehbar; sie werden nicht automatisch als Entscheidungsinput verwendet.','Энергия, топливо, затраты на труд и кредитная ставка ведутся как отдельный информационный слой. Исторические ряды доступны независимо от решения и не используются автоматически как вход для рекомендации.')}</div>
+  ${(()=>{const sob=get(p,'sobol')??get(p,'sensitivity.sobol')??get(p,'robustness.sobol');if(!sob)return'';return `<h2>SOBOL · ${T('Sensitivität','Чувствительность')}</h2><div class="pdf-rec">${esc(typeof sob==='string'?sob:JSON.stringify(sob))}</div>`})()}
   <h2>${T('METHODEN · nur tatsächlich ausgeführt','МЕТОДЫ · только реально выполненные')}</h2><div class="pdf-methods">${methods.length?methods.map(esc).join(' · '):'—'}</div>`;
 }
 
@@ -2991,8 +3036,63 @@ function ensureRUI(){
   <div class="fbc-r-status" id="fbcRStatus" style="margin-top:10px">${T('Noch kein R-Payload','R-payload ещё не получен')}</div>
   <div class="fbc-r-grid" style="margin-top:12px"><div class="fbc-r-metric"><span>${T('Aktuell verfügbar','Сейчас доступно')}</span><strong id="fbcRCurrent">—</strong></div><div class="fbc-r-metric"><span>${T('Monatsziel','Месячная цель')}</span><strong id="fbcRTarget">—</strong></div><div class="fbc-r-metric"><span>${T('P(Ziel)','P(цель)')}</span><strong id="fbcRProb">—</strong></div></div>
   <div class="fbc-r-note" id="fbcRRecommendation">${T('Empfehlungen werden ausschließlich aus dem validierten R-Payload angezeigt.','Рекомендации показываются только из валидированного R-payload.')}</div>
+  <div class="fbc-r-detailbox" id="fbcRChanges" hidden></div>
+  <div class="fbc-r-detailbox" id="fbcRShapley" hidden></div>
+
+  <div class="fbc-decision-intro" id="fbcDecisionIntro"><b>${T('Welche Wege soll FBC prüfen?','Какие варианты FBC стоит проверить?')}</b><small>${T('FBC nennt mögliche Stellschrauben. Sie bestätigen nur, was in Ihrem Geschäft tatsächlich machbar ist; die Auswahl der besten Kombination bleibt beim Optimizer.','FBC показывает возможные рычаги. Вы подтверждаете только то, что реально возможно в вашем бизнесе; лучшую комбинацию выбирает Optimizer.')}</small></div>
+  <details class="fbc-decision-evidence" id="fbcDecisionEvidence">
+    <summary>${T('Reale Grenzen bestätigen','Подтвердить реальные границы')}</summary>
+    <div class="fbc-decision-body">
+      <p class="fbc-decision-help">${T('Nur Grenzen bestätigen, die Sie wirklich vertreten können: maximaler Preis, tatsächlich verkäufliche Kundenstunden oder eine konkret mögliche Kostensenkung. Ohne Bestätigung bleibt P0 aktiv.','Подтверждайте только то, что действительно можете обосновать: максимальную цену, реально продаваемые клиентские часы или конкретно возможное снижение расходов. Без подтверждений остаётся P0.')}</p>
+
+      <div class="fbc-bound-row">
+        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundOwnerPriceOn"> ${T('Inhaberpreis erhöhen bis','Цена владельца до')}</label>
+        <div class="unit"><input id="fbcBoundOwnerPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
+        <label class="fbc-bound-months"><input id="fbcBoundOwnerPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+      </div>
+
+      <div class="fbc-bound-row">
+        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundOwnerHoursOn"> ${T('Mehr abrechenbare Inhaberstunden bis','Оплачиваемые часы владельца до')}</label>
+        <div class="unit"><input id="fbcBoundOwnerHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
+        <label class="fbc-bound-months"><input id="fbcBoundOwnerHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+      </div>
+
+      <div class="fbc-bound-row">
+        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundEmpPriceOn"> ${T('Mitarbeiter-Kundenpreis bis','Цена сотрудника клиенту до')}</label>
+        <div class="unit"><input id="fbcBoundEmpPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
+        <label class="fbc-bound-months"><input id="fbcBoundEmpPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+      </div>
+
+      <div class="fbc-bound-row">
+        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundEmpHoursOn"> ${T('Mehr abrechenbare Mitarbeiterstunden bis','Оплачиваемые часы сотрудника до')}</label>
+        <div class="unit"><input id="fbcBoundEmpHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
+        <label class="fbc-bound-months"><input id="fbcBoundEmpHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+      </div>
+
+      <div class="fbc-bound-row">
+        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundCostOn"> ${T('Konkrete Kosten senken','Конкретно снизить расходы')}</label>
+        <div class="fbc-cost-extra">
+          <select id="fbcBoundCostKey">
+            <option value="office">${T('Raum / Büro','Помещение / офис')}</option>
+            <option value="energy">${T('Energie / Strom','Энергия / электричество')}</option>
+            <option value="vehicle">${T('Fahrzeug','Автомобиль')}</option>
+            <option value="fuel">${T('Kraftstoff','Топливо')}</option>
+            <option value="software">${T('Programme / Software','Программы / ПО')}</option>
+            <option value="accounting">${T('Steuerberater / Buchhaltung','Бухгалтерия / налоговый консультант')}</option>
+            <option value="insurance">${T('Betriebsversicherung','Страхование бизнеса')}</option>
+            <option value="material">${T('Material','Материалы')}</option>
+            <option value="marketing">${T('Werbung / Akquise','Реклама / привлечение')}</option>
+            <option value="other">${T('Sonstiges','Прочее')}</option>
+          </select>
+          <div class="unit"><input id="fbcBoundCostMin" type="text" inputmode="decimal" placeholder="${T('neuer Betrag','новая сумма')}"><b>€</b></div>
+        </div>
+        <label class="fbc-bound-months"><input id="fbcBoundCostMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+      </div>
+    </div>
+  </details>
+
   <h3 style="margin-top:18px">Break-even</h3><div class="fbc-r-grid"><div class="fbc-r-metric"><span>${T('Business Break-even','Безубыточность бизнеса')}</span><strong id="fbcRBusinessBE">—</strong></div><div class="fbc-r-metric"><span>${T('Mitarbeiter Break-even','Безубыточность сотрудника')}</span><strong id="fbcREmployeeBE">—</strong></div><div class="fbc-r-metric"><span>DSCR / Kapitaldienst</span><strong id="fbcRDSCR">—</strong></div></div>
-  <h3 style="margin-top:18px">${T('Statistik & Prognose','Статистика и прогноз')}</h3><div class="fbc-stat-grid">${['energy','fuel','labor','interest'].map(k=>`<div><b>${({energy:'Energie',fuel:'Kraftstoff',labor:'Arbeitskosten',interest:'Kreditzins'})[k]}</b><div class="fbc-r-chart" id="fbcChart_${k}"><small>${T('Wird aus R-Payload gerendert.','Будет построено из R-payload.')}</small></div></div>`).join('')}</div>
+  <div id="fbcRStatsInline" aria-hidden="true"><h3 style="margin-top:18px">${T('Statistik & Prognose','Статистика и прогноз')}</h3><div class="fbc-stat-grid">${['energy','fuel','labor','interest'].map(k=>`<div><b>${({energy:'Energie',fuel:'Kraftstoff',labor:'Arbeitskosten',interest:'Kreditzins'})[k]}</b><div class="fbc-r-chart" id="fbcChart_${k}"></div></div>`).join('')}</div></div>
 `;
   emp.appendChild(layer);
 
@@ -3003,7 +3103,20 @@ function ensureRUI(){
 
   const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
-  $('fbcRunAnalysis').addEventListener('click',async()=>{try{await window.FBC_R_BACKEND_ADAPTER.analyze(window.FBC_ANALYSIS_CONFIG||{});}catch(e){$('fbcRStatus').textContent=T('R-Analyse nicht verfügbar: ','R-анализ недоступен: ')+String(e.message||e)}});
+  $('fbcRunAnalysis').addEventListener('click',async()=>{
+    const btn=$('fbcRunAnalysis');
+    try{
+      if(btn){btn.disabled=true;btn.classList.add('fbc-run-busy');btn.textContent=T('Analyse läuft…','Анализ выполняется…')}
+      $('fbcRStatus').textContent=T('R berechnet die Entscheidung…','R рассчитывает решение…');
+      const evidence=readDecisionEvidence();
+      const base=window.FBC_ANALYSIS_CONFIG||{};
+      await window.FBC_R_BACKEND_ADAPTER.analyze({...base,...evidence});
+    }catch(e){
+      $('fbcRStatus').textContent=T('R-Analyse nicht verfügbar: ','R-анализ недоступен: ')+String(e.message||e)
+    }finally{
+      if(btn){btn.disabled=false;btn.classList.remove('fbc-run-busy');btn.textContent=window.FBC_R_ANALYSIS_PAYLOAD?T('Analyse aktualisieren','Обновить анализ'):T('R-Analyse starten','Запустить R-анализ')}
+    }
+  });
 }
 
 function employeeCost(){
@@ -3021,11 +3134,73 @@ function snapshot(){
   const ownerRevenue=o.price*o.billable_hours_month, employeeRevenue=price*bill, operating=Object.values(costs).reduce((a,b)=>a+b,0), fin=financing();
   return{schema_version:'FBC_P0_FACTUAL_1.0',errors,owner:o,employee:{form:$('empForm')?.value||'part',wage_hour:num('empWage'),hours_week:num('empHours'),days_week:num('empDays')||5,vacation_days:num('empVacation'),direct_billing:direct,customer_price:price,paid_available_hours_month:e.workHours||0,billable_hours_month:bill,personnel_cost_month:e.total||0,employer_addon_rate:e.rate||0,holidays:e.holidays||0},operating_costs:costs,financing:fin,current:{owner_revenue:ownerRevenue,employee_revenue:employeeRevenue,revenue:ownerRevenue+employeeRevenue,operating_costs:operating,personnel_cost:e.total||0},legal_form:$('legalForm')?.value||'freelance',trade_tax_rate:num('tradeTaxRate')};
 }
+
+function readDecisionEvidence(){
+  const s=snapshot();
+  const confirmed_bounds={}, cost_evidence={};
+  const impl=(id)=>({
+    months_to_full:Math.max(0,Math.round(num(id)||0)),
+    mode:'linear',
+    source_type:'user_confirmed'
+  });
+  const requireAbove=(onId,valId,current,label,maxValue=null)=>{
+    if(!$(onId)?.checked)return null;
+    const v=num(valId);
+    if(!Number.isFinite(v)||v<=current)throw new Error(label+': '+T('Obergrenze muss über dem aktuellen Wert liegen.','верхняя граница должна быть выше текущего значения.'));
+    if(Number.isFinite(Number(maxValue))&&v>Number(maxValue)+1e-9)throw new Error(label+': '+T('Obergrenze überschreitet die aktuell verfügbare Kapazität.','верхняя граница превышает текущую доступную мощность.'));
+    return v;
+  };
+
+  const op=requireAbove('fbcBoundOwnerPriceOn','fbcBoundOwnerPrice',Number(s.owner.price||0),T('Inhaberpreis','Цена владельца'));
+  if(op!=null)confirmed_bounds.owner_price={
+    lower:Number(s.owner.price||0),upper:op,source_type:'user_confirmed',
+    reason:T('Vom Nutzer bestätigter Preisrahmen','Подтверждённая пользователем граница цены'),
+    implementation:impl('fbcBoundOwnerPriceMonths')
+  };
+
+  const oh=requireAbove('fbcBoundOwnerHoursOn','fbcBoundOwnerHours',Number(s.owner.billable_hours_month||0),T('Inhaberstunden','Часы владельца'),Number(s.owner.available_hours_month||0));
+  if(oh!=null)confirmed_bounds.owner_hours={
+    lower:Number(s.owner.billable_hours_month||0),upper:oh,source_type:'user_confirmed',
+    reason:T('Vom Nutzer bestätigte Nachfrage / abrechenbare Stunden','Подтверждённый пользователем спрос / оплачиваемые часы'),
+    implementation:impl('fbcBoundOwnerHoursMonths')
+  };
+
+  if(s.employee.direct_billing){
+    const ep=requireAbove('fbcBoundEmpPriceOn','fbcBoundEmpPrice',Number(s.employee.customer_price||0),T('Mitarbeiter-Kundenpreis','Цена сотрудника клиенту'));
+    if(ep!=null)confirmed_bounds.employee_customer_price={
+      lower:Number(s.employee.customer_price||0),upper:ep,source_type:'user_confirmed',
+      reason:T('Vom Nutzer bestätigter Kundenpreisrahmen','Подтверждённая пользователем граница клиентской цены'),
+      implementation:impl('fbcBoundEmpPriceMonths')
+    };
+
+    const eh=requireAbove('fbcBoundEmpHoursOn','fbcBoundEmpHours',Number(s.employee.billable_hours_month||0),T('Mitarbeiterstunden','Часы сотрудника'),Number(s.employee.paid_available_hours_month||0));
+    if(eh!=null)confirmed_bounds.employee_billable_hours={
+      lower:Number(s.employee.billable_hours_month||0),upper:eh,source_type:'user_confirmed',
+      reason:T('Vom Nutzer bestätigte Nachfrage / abrechenbare Stunden','Подтверждённый пользователем спрос / оплачиваемые часы'),
+      implementation:impl('fbcBoundEmpHoursMonths')
+    };
+  }
+
+  if($('fbcBoundCostOn')?.checked){
+    const key=$('fbcBoundCostKey')?.value;
+    const current=Number(s.operating_costs?.[key]||0), lower=num('fbcBoundCostMin');
+    if(!key||!Number.isFinite(lower)||lower<0||lower>=current)
+      throw new Error(T('Bei Kostensenkung muss der bestätigte neue Betrag unter dem aktuellen Betrag liegen.','Для снижения расходов новая подтверждённая сумма должна быть ниже текущей.'));
+    cost_evidence[key]={
+      lower,upper:current,source_type:'user_confirmed',
+      reason:T('Vom Nutzer bestätigte Kostensenkung','Подтверждённое пользователем снижение расходов'),
+      implementation:impl('fbcBoundCostMonths')
+    };
+  }
+
+  return {confirmed_bounds,cost_evidence};
+}
+
 function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
 window.FBC_P0_PRODUCTION_BRIDGE={snapshot,financing,buildConfig,status:()=>{const s=snapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}};
 window.FBC_P1_PRODUCTION_BRIDGE={buildConfig,renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
 window.FBC_P2_ASSURANCE_BRIDGE={apply:p=>{window.FBC_P2_ASSURANCE_PAYLOAD=p?.assurance||p?.audit||null;return window.FBC_P2_ASSURANCE_PAYLOAD}};
-window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=get(p||{},'post_decision.capital_service_ratio')??get(p||{},'financing.dscr');if($('fbcRDSCR'))$('fbcRDSCR').textContent=v==null?'—':Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2});return v}};
+window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=get(p||{},'post_decision.capital_service_ratio')??get(p||{},'financing.dscr');if($('fbcRDSCR'))$('fbcRDSCR').textContent=Number.isFinite(Number(v))?Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2}):'—';return v}};
 
 function chart(host,data,key){
   if(!host)return;
@@ -3052,7 +3227,49 @@ function chart(host,data,key){
     <text x="${(l+W-r)/2}" y="${H-4}" text-anchor="middle" fill="#4f6372" font-size="10">${esc(meta.x)}</text>
   </svg><small class="fbc-chart-source">${T('Datenreihe aus validiertem R-Payload','Ряд данных из валидированного R-payload')}</small>`;
 }
-function applyPayload(p){window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');$('fbcRCurrent').textContent=money(get(p,'current.expected_net')??get(p,'current.net_available'));$('fbcRTarget').textContent=money(get(p,'current.monthly_target'));$('fbcRProb').textContent=pct(get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability'));const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');$('fbcRRecommendation').textContent=exp||T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');$('fbcRBusinessBE').textContent=money(get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue')??get(p,'post_decision.business_break_even_margin_eur'));const ebe=get(p,'break_even.employee.billable_hours')??get(p,'break_even.employee.break_even_hours');$('fbcREmployeeBE').textContent=ebe==null?'—':Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h';window.FBC_P2_ASSURANCE_BRIDGE.apply(p);window.FBC_CAPITAL_SERVICE_BRIDGE.apply(p);const fs=get(p,'factor_forecasts')||get(p,'forecasts')||{};for(const k of ['energy','fuel','labor','interest'])chart($('fbcChart_'+k),get(fs,k+'.path')||get(fs,k+'.series')||fs[k],k);document.dispatchEvent(new CustomEvent('fbc:r-payload',{detail:p}));return p}
+function renderDecisionDetails(p){
+  const box=$('fbcRChanges'), shbox=$('fbcRShapley');
+  const changes=get(p,'recommendation.changes');
+  const projected=get(p,'recommendation.projected_net')??get(p,'recommendation.expected_net_after');
+  if(box){
+    if(Array.isArray(changes)&&changes.length){
+      box.hidden=false;
+      box.innerHTML=`<div class="fbc-r-detail-title">${T('Konkrete Änderung','Конкретное изменение')}</div>`+
+        changes.map(c=>`<div class="fbc-r-change-row"><span>${esc(c.label||c.lever||'')}</span><b>${esc(String(c.current??'—'))} → ${esc(String(c.proposed??'—'))} ${esc(c.unit||'')}</b></div>`).join('')+
+        (Number.isFinite(Number(projected))?`<div class="fbc-r-change-row"><span>${T('Netto nach Empfehlung','Нетто после рекомендации')}</span><b>${money(projected)}</b></div>`:'');
+    }else{box.hidden=true;box.innerHTML=''}
+  }
+  const sh=get(p,'recommendation.explanation');
+  const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
+  if(shbox){
+    if(sh?.available&&contrib.length){
+      shbox.hidden=false;
+      shbox.innerHTML=`<div class="fbc-r-detail-title">${T('Warum diese Kombination? · Shapley','Почему эта комбинация? · Shapley')}</div>`+
+        contrib.map(c=>`<div class="fbc-r-shapley-row"><span>${esc(c.label||c.lever||'')}</span><b>${money(c.contribution_eur??c.contribution)}</b></div>`).join('');
+    }else{shbox.hidden=true;shbox.innerHTML=''}
+  }
+}
+
+function applyPayload(p){
+  window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;
+  if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');
+  if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');
+  $('fbcRCurrent').textContent=money(get(p,'current.expected_net')??get(p,'current.net_available'));
+  $('fbcRTarget').textContent=money(get(p,'current.monthly_target'));
+  $('fbcRProb').textContent=pct(get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability'));
+  const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
+  $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
+  renderDecisionDetails(p);
+  $('fbcRBusinessBE').textContent=money(get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue')??get(p,'post_decision.business_break_even_margin_eur'));
+  const ebe=get(p,'break_even.employee.break_even_hours');
+  $('fbcREmployeeBE').textContent=Number.isFinite(Number(ebe))?Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h':'—';
+  window.FBC_P2_ASSURANCE_BRIDGE.apply(p);
+  window.FBC_CAPITAL_SERVICE_BRIDGE.apply(p);
+  const fs=get(p,'factor_forecasts')||get(p,'forecasts')||{};
+  for(const k of ['energy','fuel','labor','interest'])chart($('fbcChart_'+k),get(fs,k+'.path')||get(fs,k+'.series')||fs[k],k);
+  document.dispatchEvent(new CustomEvent('fbc:r-payload',{detail:p}));
+  return p
+}
 async function analyze(analysis={}){const url=window.FBC_R_API_URL||'/api/analyze';const req=buildConfig(analysis);const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(req)});if(!r.ok)throw new Error('HTTP '+r.status);return applyPayload(await r.json())}
 window.FBC_R_BACKEND_ADAPTER={buildRequest:buildConfig,applyPayload,analyze};
 
@@ -3063,6 +3280,26 @@ function installStatLinks(){
 }
 function boot(){ensureRUI();installStatLinks();const fin=$('fbcFinanceCard');if(fin&&$('fbcFinActive')?.checked)fin.open=true;}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,0),{once:true});else boot();
+})();
+</script>
+
+<script id="fbc-stat-overlay-v2-js">
+(()=>{
+'use strict';
+const HIST={"energy":[{"date":"2021-01","label":"Jan 2021","value":100.7},{"date":"2021-02","label":"Feb 2021","value":101.0},{"date":"2021-03","label":"Mär 2021","value":101.3},{"date":"2021-04","label":"Apr 2021","value":101.1},{"date":"2021-05","label":"Mai 2021","value":101.3},{"date":"2021-06","label":"Jun 2021","value":101.6},{"date":"2021-07","label":"Jul 2021","value":101.9},{"date":"2021-08","label":"Aug 2021","value":102.1},{"date":"2021-09","label":"Sep 2021","value":102.7},{"date":"2021-10","label":"Okt 2021","value":104.7},{"date":"2021-11","label":"Nov 2021","value":105.9},{"date":"2021-12","label":"Dez 2021","value":106.4},{"date":"2022-01","label":"Jan 2022","value":115.1},{"date":"2022-02","label":"Feb 2022","value":118.6},{"date":"2022-03","label":"Mär 2022","value":128.9},{"date":"2022-04","label":"Apr 2022","value":129.7},{"date":"2022-05","label":"Mai 2022","value":133.1},{"date":"2022-06","label":"Jun 2022","value":136.3},{"date":"2022-07","label":"Jul 2022","value":135.9},{"date":"2022-08","label":"Aug 2022","value":139.9},{"date":"2022-09","label":"Sep 2022","value":146.5},{"date":"2022-10","label":"Okt 2022","value":154.0},{"date":"2022-11","label":"Nov 2022","value":155.7},{"date":"2022-12","label":"Dez 2022","value":139.0},{"date":"2023-01","label":"Jan 2023","value":157.1},{"date":"2023-02","label":"Feb 2023","value":156.8},{"date":"2023-03","label":"Mär 2023","value":157.1},{"date":"2023-04","label":"Apr 2023","value":157.1},{"date":"2023-05","label":"Mai 2023","value":156.2},{"date":"2023-06","label":"Jun 2023","value":155.4},{"date":"2023-07","label":"Jul 2023","value":154.9},{"date":"2023-08","label":"Aug 2023","value":155.9},{"date":"2023-09","label":"Sep 2023","value":155.7},{"date":"2023-10","label":"Okt 2023","value":154.1},{"date":"2023-11","label":"Nov 2023","value":151.5},{"date":"2023-12","label":"Dez 2023","value":149.7},{"date":"2024-01","label":"Jan 2024","value":151.8},{"date":"2024-02","label":"Feb 2024","value":151.2},{"date":"2024-03","label":"Mär 2024","value":149.8},{"date":"2024-04","label":"Apr 2024","value":152.1},{"date":"2024-05","label":"Mai 2024","value":151.1},{"date":"2024-06","label":"Jun 2024","value":150.8},{"date":"2024-07","label":"Jul 2024","value":150.8},{"date":"2024-08","label":"Aug 2024","value":150.0},{"date":"2024-09","label":"Sep 2024","value":149.4},{"date":"2024-10","label":"Okt 2024","value":149.2},{"date":"2024-11","label":"Nov 2024","value":148.8},{"date":"2024-12","label":"Dez 2024","value":148.9},{"date":"2025-01","label":"Jan 2025","value":148.0},{"date":"2025-02","label":"Feb 2025","value":147.8},{"date":"2025-03","label":"Mär 2025","value":147.4},{"date":"2025-04","label":"Apr 2025","value":146.9},{"date":"2025-05","label":"Mai 2025","value":146.5},{"date":"2025-06","label":"Jun 2025","value":146.6},{"date":"2025-07","label":"Jul 2025","value":146.9},{"date":"2025-08","label":"Aug 2025","value":146.6},{"date":"2025-09","label":"Sep 2025","value":146.6},{"date":"2025-10","label":"Okt 2025","value":146.6},{"date":"2025-11","label":"Nov 2025","value":147.0},{"date":"2025-12","label":"Dez 2025","value":146.4},{"date":"2026-01","label":"Jan 2026","value":143.2},{"date":"2026-02","label":"Feb 2026","value":142.6},{"date":"2026-03","label":"Mär 2026","value":145.7},{"date":"2026-04","label":"Apr 2026","value":146.4},{"date":"2026-05","label":"Mai 2026","value":145.3},{"date":"2026-06","label":"Jun 2026","value":144.2},{"date":"2026-07","label":"Jul 2026","value":144.8}],"fuel":[{"date":"2021-01","label":"Jan 2021","value":108.5},{"date":"2021-02","label":"Feb 2021","value":111.8},{"date":"2021-03","label":"Mär 2021","value":117.4},{"date":"2021-04","label":"Apr 2021","value":117.7},{"date":"2021-05","label":"Mai 2021","value":118.8},{"date":"2021-06","label":"Jun 2021","value":120.8},{"date":"2021-07","label":"Jul 2021","value":123.9},{"date":"2021-08","label":"Aug 2021","value":125.1},{"date":"2021-09","label":"Sep 2021","value":125.7},{"date":"2021-10","label":"Okt 2021","value":132.8},{"date":"2021-11","label":"Nov 2021","value":136.7},{"date":"2021-12","label":"Dez 2021","value":130.9},{"date":"2022-01","label":"Jan 2022","value":135.2},{"date":"2022-02","label":"Feb 2022","value":140.3},{"date":"2022-03","label":"Mär 2022","value":172.3},{"date":"2022-04","label":"Apr 2022","value":162.2},{"date":"2022-05","label":"Mai 2022","value":166.8},{"date":"2022-06","label":"Jun 2022","value":160.1},{"date":"2022-07","label":"Jul 2022","value":151.5},{"date":"2022-08","label":"Aug 2022","value":144.6},{"date":"2022-09","label":"Sep 2022","value":162.9},{"date":"2022-10","label":"Okt 2022","value":161.4},{"date":"2022-11","label":"Nov 2022","value":155.9},{"date":"2022-12","label":"Dez 2022","value":141.9},{"date":"2023-01","label":"Jan 2023","value":144.6},{"date":"2023-02","label":"Feb 2023","value":144.8},{"date":"2023-03","label":"Mär 2023","value":144.6},{"date":"2023-04","label":"Apr 2023","value":146.9},{"date":"2023-05","label":"Mai 2023","value":143.1},{"date":"2023-06","label":"Jun 2023","value":143.4},{"date":"2023-07","label":"Jul 2023","value":144.1},{"date":"2023-08","label":"Aug 2023","value":149.9},{"date":"2023-09","label":"Sep 2023","value":153.2},{"date":"2023-10","label":"Okt 2023","value":148.9},{"date":"2023-11","label":"Nov 2023","value":145.1},{"date":"2023-12","label":"Dez 2023","value":140.3},{"date":"2024-01","label":"Jan 2024","value":141.7},{"date":"2024-02","label":"Feb 2024","value":144.2},{"date":"2024-03","label":"Mär 2024","value":145.0},{"date":"2024-04","label":"Apr 2024","value":149.8},{"date":"2024-05","label":"Mai 2024","value":146.3},{"date":"2024-06","label":"Jun 2024","value":142.6},{"date":"2024-07","label":"Jul 2024","value":143.5},{"date":"2024-08","label":"Aug 2024","value":139.5},{"date":"2024-09","label":"Sep 2024","value":133.9},{"date":"2024-10","label":"Okt 2024","value":135.6},{"date":"2024-11","label":"Nov 2024","value":135.5},{"date":"2024-12","label":"Dez 2024","value":135.7},{"date":"2025-01","label":"Jan 2025","value":141.5},{"date":"2025-02","label":"Feb 2025","value":143.2},{"date":"2025-03","label":"Mär 2025","value":138.4},{"date":"2025-04","label":"Apr 2025","value":137.3},{"date":"2025-05","label":"Mai 2025","value":136.3},{"date":"2025-06","label":"Jun 2025","value":136.1},{"date":"2025-07","label":"Jul 2025","value":137.0},{"date":"2025-08","label":"Aug 2025","value":136.0},{"date":"2025-09","label":"Sep 2025","value":135.4},{"date":"2025-10","label":"Okt 2025","value":136.1},{"date":"2025-11","label":"Nov 2025","value":137.7},{"date":"2025-12","label":"Dez 2025","value":134.7},{"date":"2026-01","label":"Jan 2026","value":142.2},{"date":"2026-02","label":"Feb 2026","value":143.7},{"date":"2026-03","label":"Mär 2026","value":166.1},{"date":"2026-04","label":"Apr 2026","value":173.3},{"date":"2026-05","label":"Mai 2026","value":160.9},{"date":"2026-06","label":"Jun 2026","value":151.5},{"date":"2026-07","label":"Jul 2026","value":168.5}],"labor":[{"date":"2021-Q1","label":"Q1 2021","value":91.498},{"date":"2021-Q2","label":"Q2 2021","value":106.154},{"date":"2021-Q3","label":"Q3 2021","value":97.42},{"date":"2021-Q4","label":"Q4 2021","value":107.082},{"date":"2022-Q1","label":"Q1 2022","value":97.488},{"date":"2022-Q2","label":"Q2 2022","value":122.721},{"date":"2022-Q3","label":"Q3 2022","value":104.415},{"date":"2022-Q4","label":"Q4 2022","value":125.088},{"date":"2023-Q1","label":"Q1 2023","value":102.42},{"date":"2023-Q2","label":"Q2 2023","value":119.418},{"date":"2023-Q3","label":"Q3 2023","value":109.285},{"date":"2023-Q4","label":"Q4 2023","value":119.439},{"date":"2024-Q1","label":"Q1 2024","value":113.295},{"date":"2024-Q2","label":"Q2 2024","value":129.062},{"date":"2024-Q3","label":"Q3 2024","value":113.726},{"date":"2024-Q4","label":"Q4 2024","value":125.515},{"date":"2025-Q1","label":"Q1 2025","value":128.473},{"date":"2025-Q2","label":"Q2 2025","value":150.645},{"date":"2025-Q3","label":"Q3 2025","value":121.06},{"date":"2025-Q4","label":"Q4 2025","value":133.483}],"interest":[{"date":"2024-07","label":"07/24","value":5.36},{"date":"2024-08","label":"08/24","value":5.53},{"date":"2024-09","label":"09/24","value":5.28},{"date":"2024-10","label":"10/24","value":4.93},{"date":"2024-11","label":"11/24","value":5.04},{"date":"2024-12","label":"12/24","value":4.77},{"date":"2025-01","label":"01/25","value":4.66},{"date":"2025-02","label":"02/25","value":4.7},{"date":"2025-03","label":"03/25","value":4.46},{"date":"2025-04","label":"04/25","value":4.4},{"date":"2025-05","label":"05/25","value":4.18},{"date":"2025-06","label":"06/25","value":4.04},{"date":"2025-07","label":"07/25","value":4.1},{"date":"2025-08","label":"08/25","value":4.03},{"date":"2025-09","label":"09/25","value":3.98},{"date":"2025-10","label":"10/25","value":3.97},{"date":"2025-11","label":"11/25","value":4.06},{"date":"2025-12","label":"12/25","value":3.91},{"date":"2026-01","label":"01/26","value":4.02},{"date":"2026-02","label":"02/26","value":4.02},{"date":"2026-03","label":"03/26","value":3.93},{"date":"2026-04","label":"04/26","value":4.12},{"date":"2026-05","label":"05/26","value":4.1},{"date":"2026-06","label":"06/26","value":4.17},{"date":"2026-07","label":"07/26","value":4.36}]};
+const $s=id=>document.getElementById(id), isRU=()=>document.documentElement.lang==='ru', TT=(de,ru)=>isRU()?ru:de;
+const META={
+ energy:{title:['Energie · Statistik & Prognose','Энергия · статистика и прогноз'],source:'Destatis · GENESIS 61111-0006'},
+ fuel:{title:['Kraftstoff · Statistik & Prognose','Топливо · статистика и прогноз'],source:'Destatis · GENESIS 61111-0006'},
+ labor:{title:['Arbeitskosten · Statistik & Prognose','Затраты на труд · статистика и прогноз'],source:'Destatis · GENESIS 62421-0001 · WZ08-M'},
+ interest:{title:['Kreditzins · Statistik & Prognose','Кредитная ставка · статистика и прогноз'],source:'Deutsche Bundesbank · Sonstige Kredite · Selbständige'}
+};
+function histSvg(key){const a=HIST[key]||[];if(a.length<2)return'';const vals=a.map(q=>Number(q.value)).filter(Number.isFinite);let mn=Math.min(...vals),mx=Math.max(...vals),pad=(mx-mn)*.08||1;mn-=pad;mx+=pad;const W=900,H=360,l=76,r=28,t=28,b=58,w=W-l-r,h=H-t-b;const x=i=>l+w*i/(a.length-1),y=v=>t+h-(v-mn)/(mx-mn||1)*h;const unit=key==='interest'?'% p.a.':'Index';const xTitle=key==='labor'?TT('Quartal / Jahr','Квартал / год'):TT('Monat / Jahr','Месяц / год');let grid='',yt='';for(let i=0;i<=4;i++){const yy=t+h*i/4,val=mx-(mx-mn)*i/4;grid+=`<line x1="${l}" y1="${yy}" x2="${l+w}" y2="${yy}" stroke="#e8eef2"/>`;yt+=`<text x="${l-10}" y="${yy+4}" text-anchor="end" font-size="12" fill="#687b88">${Number(val).toLocaleString(isRU()?'ru-RU':'de-DE',{maximumFractionDigits:1})}</text>`;}let labels='';const step=Math.max(1,Math.floor(a.length/7));a.forEach((q,i)=>{if(i===0||i===a.length-1||i%step===0)labels+=`<text x="${x(i)}" y="${H-27}" text-anchor="middle" font-size="11" fill="#687b88">${q.label}</text>`});const last=a[a.length-1];return `<svg viewBox="0 0 ${W} ${H}" role="img">${grid}${yt}<path d="${a.map((q,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(Number(q.value)).toFixed(1)}`).join(' ')}" fill="none" stroke="#1d3652" stroke-width="3"/><circle cx="${x(a.length-1)}" cy="${y(Number(last.value))}" r="5" fill="#fff" stroke="#1d3652" stroke-width="2"/>${labels}<text x="18" y="${H/2}" transform="rotate(-90 18 ${H/2})" text-anchor="middle" font-size="12" fill="#4f6574">${unit}</text><text x="${l+w/2}" y="${H-5}" text-anchor="middle" font-size="12" fill="#4f6574">${xTitle}</text></svg>`;}
+function ensureModal(){if($s('fbcRefStatModal'))return;const m=document.createElement('div');m.id='fbcRefStatModal';m.className='fbc-ref-modal';m.setAttribute('aria-hidden','true');m.innerHTML=`<div class="fbc-ref-backdrop" data-close-stat></div><section class="fbc-ref-dialog" role="dialog" aria-modal="true"><button type="button" class="fbc-ref-close" data-close-stat>×</button><h2 id="fbcRefTitle"></h2><p class="fbc-ref-sub" id="fbcRefSub"></p><div class="fbc-ref-source" id="fbcRefSource"></div><div class="fbc-ref-chart" id="fbcRefChart"></div><div class="fbc-ref-note" id="fbcRefNote"></div><span class="fbc-stat-info-pill">${TT('Informationslayer · nicht automatisch Teil der Entscheidung','Информационный слой · не включается автоматически в решение')}</span></section>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target.closest('[data-close-stat]'))closeStat();});}
+function openStat(key){ensureModal();const m=$s('fbcRefStatModal'),mm=META[key];if(!m||!mm)return;$s('fbcRefTitle').textContent=TT(mm.title[0],mm.title[1]);$s('fbcRefSub').textContent=TT('Historischer Referenzverlauf. Die Statistik kann bereits vor der R-Analyse angesehen werden.','Исторический справочный ряд. Статистику можно смотреть ещё до R-анализа.');$s('fbcRefSource').textContent=TT('Quelle: ','Источник: ')+mm.source;$s('fbcRefChart').innerHTML=histSvg(key);$s('fbcRefNote').textContent=TT('Diese Statistik dient zur Einordnung der Marktentwicklung. Sie verändert die Entscheidung nicht automatisch und erfordert keine Abstimmung mit Fahrtenbuch oder Rechnungen.','Эта статистика нужна для понимания внешней динамики. Она не меняет решение автоматически и не требует сверки с путевыми листами или счетами.');m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeStat(){const m=$s('fbcRefStatModal');if(m){m.classList.remove('is-open');m.setAttribute('aria-hidden','true')}document.body.style.overflow='';}
+document.addEventListener('fbc:open-stat',e=>openStat(e.detail?.key||'labor'));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStat()});
+window.FBC_STATISTICS_LAYER={open:openStat,close:closeStat,history:HIST,meta:META};
 })();
 </script>
 </body>
