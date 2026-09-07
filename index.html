@@ -2760,7 +2760,14 @@ function addTeamMember(preset={}){
   $('#teamRows').append(node);node.querySelectorAll('[data-de]').forEach(el=>{const value=el.dataset[lang];if(value!==undefined)el.textContent=value});populateSelect(node.querySelector('.team-role'),roles);populateSelect(form,forms);node.querySelector('.team-role').value=preset.role||'office';form.value=preset.form||'part';node.querySelector('.team-wage').value=preset.wage??'';const schedule=scheduleOrientation(form.value);hours.value=preset.hours??schedule.hours;hours.dataset.autoHours=preset.hours==null?'true':'false';days.value=preset.days??schedule.days;vacation.value=preset.vacation??schedule.companyVacation;vacation.dataset.autoVacation='true';days.dataset.autoDays='true';node.querySelector('.team-price').value=preset.price??'';node.querySelector('.team-billable').checked=preset.billable!==false;node.querySelector('.team-billable-hours').value=preset.billableHours??'';
   const applySchedule=()=>{const next=scheduleOrientation(form.value);hours.placeholder=String(next.hours);if(hours.dataset.autoHours==='true')hours.value=String(next.hours);if(days.dataset.autoDays==='true'){const enteredHours=parseDecimal(hours.value);days.value=enteredHours?minimumRecommendedDays(enteredHours):next.days}if(vacation.dataset.autoVacation==='true')vacation.value=(parseDecimal(days.value)||next.days)*6};
   form.addEventListener('change',applySchedule);
-  hours.addEventListener('input',event=>{if(event.isTrusted)hours.dataset.autoHours='false';applyAutomaticDaysFromHours(hours,days,vacation);refreshScheduleAdvice()});
+  hours.addEventListener('input',event=>{
+  if(event.isTrusted){
+    confirmValue(hours);
+    hours.dataset.autoHours='false';
+  }
+  applyAutomaticDaysFromHours(hours,days,vacation);
+  refreshScheduleAdvice();
+});
   const applyTeamVacation=()=>{days.dataset.autoDays='false';const d=Math.max(1,Math.min(5,Math.round(parseDecimal(days.value)||5)));if(vacation.dataset.autoVacation==='true')vacation.value=d*6};days.addEventListener('input',applyTeamVacation);days.addEventListener('change',applyTeamVacation);vacation.addEventListener('input',()=>{vacation.dataset.autoVacation='false'});node.querySelectorAll('input,select').forEach(el=>{el.autocomplete='off';el.addEventListener('input',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()});el.addEventListener('change',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()})});node.querySelector('.apply-team-wage').addEventListener('click',()=>{const role=node.querySelector('.team-role').value,wageOrientation=orientation(role,form.value);node.querySelector('.team-wage').value=wageOrientation.mid.toFixed(2);calculateTeam()});node.querySelector('.apply-team-price').addEventListener('click',()=>{const recommendation=Number(node.dataset.recommendedPrice)||0;if(recommendation>0){node.querySelector('.team-price').value=recommendation.toFixed(2);calculateTeam()}});node.querySelector('.remove-team').addEventListener('click',()=>{node.remove();calculateTeam()});applySchedule();refreshTeamOrientationRows();configureValidation();refreshScheduleAdvice();calculateTeam()
 }
 function calculateTeam(){
