@@ -1,0 +1,50 @@
+{
+  "schema_version": "fbc_decision_payload_v1",
+  "current": {
+    "expected_net": 3906.41,
+    "monthly_target": 4000,
+    "target_gap_eur": 93.59,
+    "target_gap_percent": 2.34
+  },
+  "recommendation": {
+    "candidate_id": "no_change_without_evidence",
+    "active_levers": [],
+    "changes": [],
+    "projected_net": 3906.41,
+    "explanation": "No evidence -> no lever."
+  },
+  "target_path": {
+    "time_to_target_months": null,
+    "path": []
+  },
+  "post_decision": {
+    "post_target_stable": false,
+    "mc_target_probability": 0,
+    "business_break_even_margin_eur": 0,
+    "capital_service_ratio": null
+  },
+  "break_even": {
+    "business": {"revenue": 0},
+    "employee": {"billable_hours": 18.17}
+  },
+  "financing": {
+    "status": "no_financing",
+    "current": null,
+    "alternative": null,
+    "comparison": null
+  },
+  "robustness": {
+    "target_probability": 0,
+    "p10": 3901.52,
+    "p50": 3906.51,
+    "p90": 3910.95
+  },
+  "production_meta": {
+    "candidate_count": 1,
+    "optimizer_levers": [],
+    "employment_form": "midi",
+    "financing_separate": true,
+    "methods_used": []
+  },
+  "audit": {}
+}

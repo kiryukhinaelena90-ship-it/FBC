@@ -1,0 +1,22 @@
+FBC R INTEGRATION GATE — STAGE 1
+
+Frontend baseline: user-supplied index(20260907-103125)(1).html derived release
+Frontend endpoint: POST /api/analyze
+Request schema: FBC_P1_COCKPIT_REQUEST_1.0
+Response schema: fbc_decision_payload_v1
+Production mode: owner_employee
+
+CHECKS
+- api/analyze.js syntax: PASS
+- inline frontend JS syntax: PASS (10 scripts, 0 errors)
+- frontend metadata fbc_version/locale/mode: PASS
+- proxy no-backend behavior: PASS (503, no fallback)
+- valid canonical R response forwarding: PASS (200)
+- invalid canonical R response rejection: PASS (502)
+- malformed request rejection: PASS (422)
+
+IMPORTANT
+- Real R host is not yet deployed/configured.
+- R_BACKEND_ANALYZE_URL or R_BACKEND_URL must be set in Vercel.
+- MC file path/data and production policy are backend-side, never ordinary user form inputs.
+- Runner 39 requires confirmed bounds for optimizer execution; no-evidence requests require the factual/P0 path rather than invented bounds.

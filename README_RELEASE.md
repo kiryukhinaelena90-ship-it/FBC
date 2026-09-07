@@ -16,3 +16,18 @@ This release keeps that HTML as the UI baseline and applies only the release fix
 R endpoint expected by frontend: `POST /api/analyze`.
 The Vercel Telegram endpoints remain under `/api/telegram-*`.
 Secrets must remain in Vercel Environment Variables, never in frontend/GitHub.
+
+## R API integration stage 1
+
+Added `api/analyze.js` as the same-origin Vercel proxy for the real R backend.
+
+- Frontend POST target remains `/api/analyze`.
+- Proxy validates `FBC_P1_COCKPIT_REQUEST_1.0`.
+- Proxy forwards only to the server-side configured R endpoint.
+- Proxy validates `fbc_decision_payload_v1` before returning it to the browser.
+- No local recommendation fallback is used.
+- Frontend request now includes `fbc_version`, `locale`, and `mode=owner_employee`.
+
+See `docs/R_INTEGRATION.md` and `contracts/`.
+
+The R host itself is not bundled into Vercel. The canonical production runner is `39_run_real_production_export.R`, which loads the validated production modules and produces the decision payload. The R service must own MC data paths and other server-only configuration.
