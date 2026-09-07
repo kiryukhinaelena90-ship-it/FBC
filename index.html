@@ -3191,7 +3191,12 @@ function readDecisionEvidence(){
     implementation:impl('fbcBoundOwnerPriceMonths')
   };
 
-  const oh=requireAbove('fbcBoundOwnerHoursOn','fbcBoundOwnerHours',Number(s.owner.billable_hours_month||0),T('Inhaberstunden','Часы владельца'),Number(s.owner.available_hours_month||0));
+  const oh=requireAbove(
+  'fbcBoundOwnerHoursOn',
+  'fbcBoundOwnerHours',
+  Number(s.owner.billable_hours_month||0),
+  T('Inhaberstunden','Часы владельца')
+);
   if(oh!=null)confirmed_bounds.owner_hours={
     lower:Number(s.owner.billable_hours_month||0),upper:oh,source_type:'user_confirmed',
     reason:T('Vom Nutzer bestätigte Nachfrage / abrechenbare Stunden','Подтверждённый пользователем спрос / оплачиваемые часы'),
@@ -3206,7 +3211,12 @@ function readDecisionEvidence(){
       implementation:impl('fbcBoundEmpPriceMonths')
     };
 
-    const eh=requireAbove('fbcBoundEmpHoursOn','fbcBoundEmpHours',Number(s.employee.billable_hours_month||0),T('Mitarbeiterstunden','Часы сотрудника'),Number(s.employee.paid_available_hours_month||0));
+   const eh=requireAbove(
+  'fbcBoundEmpHoursOn',
+  'fbcBoundEmpHours',
+  Number(s.employee.billable_hours_month||0),
+  T('Mitarbeiterstunden','Часы сотрудника')
+);
     if(eh!=null)confirmed_bounds.employee_billable_hours={
       lower:Number(s.employee.billable_hours_month||0),upper:eh,source_type:'user_confirmed',
       reason:T('Vom Nutzer bestätigte Nachfrage / abrechenbare Stunden','Подтверждённый пользователем спрос / оплачиваемые часы'),
