@@ -3139,7 +3139,7 @@ function financing(){const active=!!$('fbcFinActive')?.checked;return{active,typ
 function snapshot(){
   const o=ownerState(),e=employeeCost(),direct=!!$('empBillable')?.checked,bill=direct?num('empBillableHoursMonth'):0,price=direct?num('empCustomerPrice'):0;
   const costs={office:num('empCostOffice'),vehicle:num('empCostVehicle'),fuel:num('empCostFuel'),energy:num('empCostEnergy'),software:num('empCostSoftware'),accounting:num('empCostAccounting'),insurance:num('empCostInsurance'),material:num('empCostMaterial'),marketing:num('empCostMarketing'),other:num('empCostOther')};
-  const errors=[];if(o.billable_hours_month>o.available_hours_month+1e-9)errors.push('owner_billable_exceeds_available');if(direct&&bill>e.workHours+1e-9)errors.push('employee_billable_exceeds_available');
+  const errors=[];if(o.billable_hours_month>o.available_hours_month+1e-9)errors.push('owner_billable_exceeds_available');
   const ownerRevenue=o.price*o.billable_hours_month, employeeRevenue=price*bill, operating=Object.values(costs).reduce((a,b)=>a+b,0), fin=financing();
   return{schema_version:'FBC_P0_FACTUAL_1.0',errors,owner:o,employee:{form:$('empForm')?.value||'part',wage_hour:num('empWage'),hours_week:num('empHours'),days_week:num('empDays')||5,vacation_days:num('empVacation'),direct_billing:direct,customer_price:price,paid_available_hours_month:e.workHours||0,billable_hours_month:bill,personnel_cost_month:e.total||0,employer_addon_rate:e.rate||0,holidays:e.holidays||0},operating_costs:costs,financing:fin,current:{owner_revenue:ownerRevenue,employee_revenue:employeeRevenue,revenue:ownerRevenue+employeeRevenue,operating_costs:operating,personnel_cost:e.total||0},legal_form:$('legalForm')?.value||'freelance',trade_tax_rate:num('tradeTaxRate')};
 }
