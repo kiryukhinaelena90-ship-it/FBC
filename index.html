@@ -3278,7 +3278,12 @@ function readDecisionEvidence(){
     return v;
   };
 
-  const op=requireAbove('fbcBoundOwnerPriceOn','fbcBoundOwnerPrice',Number(s.owner.price||0),T('Inhaberpreis','Цена владельца'));
+ const op=requireAbove(
+  'fbcBoundOwnerPriceOn',
+  'fbcBoundOwnerPrice',
+  Number(s.owner.price||0),
+  T('Inhaberpreis','Цена владельца')
+);
   if(op!=null)confirmed_bounds.owner_price={
     lower:Number(s.owner.price||0),upper:op,source_type:'user_confirmed',
     reason:T('Vom Nutzer bestätigter Preisrahmen','Подтверждённая пользователем граница цены'),
