@@ -1,0 +1,41 @@
+FBC USER-BASE RELEASE GATE
+
+STATIC
+- duplicate IDs: 0
+- inline JS syntax errors: 0
+- duplicate employeeReady/updateEmployee/updateCompany: 0
+- Naive · 3 Monate: 0
+- Linear · 1 Quartal: 0
+- scenarioCalc: 0
+- candidateCombinations: 0
+- localRankingMarkup: 0
+- FBC_V12_ACTION_LAYER: 0
+- visible "volle Kosten + 10 %": 0
+
+ACTION TESTS (headless Chromium, 1600x1000)
+- Solo / Employee / Team switching: PASS
+- Employee auto schedule after role/form context: PASS (40/5/30 default Vollzeit)
+- Wage range visible immediately: PASS
+- Cost-oriented employee customer price visible immediately: PASS
+- Apply cost-covering rate writes actual customer-price input: PASS
+- Actual employee revenue uses explicit billable-hours input: PASS
+- State preserved across tab switches: PASS
+- Team has explicit billable customer-hours input: PASS
+- Team orientation/cost-covering price renders: PASS
+- Mock R payload applies: PASS
+- Labor chart: Y=Index, X=Quartal/Jahr: PASS
+- Interest chart: Y=% p.a., X=Monat/Jahr: PASS
+- PDF action creates dedicated report and calls print: PASS
+- page runtime errors: 0
+
+MOBILE (390x844)
+- Solo / Employee / Team switching: PASS
+- DE/RU switch keeps Employee active and preserves entered wage: PASS
+- runtime errors: 0
+
+ARCHITECTURE
+- FBC_P0_PRODUCTION_BRIDGE: present
+- FBC_P1_PRODUCTION_BRIDGE: present
+- FBC_P2_ASSURANCE_BRIDGE: present
+- FBC_CAPITAL_SERVICE_BRIDGE: present
+- FBC_R_BACKEND_ADAPTER: present

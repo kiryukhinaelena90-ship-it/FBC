@@ -383,7 +383,7 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 }
 .team-row-fields{
   display:grid;
-  grid-template-columns:1.15fr 1.1fr .95fr .72fr .72fr .72fr 1.15fr 40px;
+  grid-template-columns:1.12fr 1.05fr .9fr .68fr .68fr .68fr 1.05fr .9fr 40px;
   gap:9px;
   align-items:end;
 }
@@ -1537,11 +1537,76 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
 gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </script>
 
+
+<style id="fbc-r-merge-style">
+/* V7.4 remains the UI shell; decision outputs come only from R. */
+#employee .price-result-section,
+#employee .scenario-panel.dual-scenario{display:none!important}
+#employee .customer-price-orientation{display:flex!important}
+.fbc-input-note{display:block;margin-top:5px;font-size:10px;line-height:1.35;color:#687684}
+#fbcRLayer{margin-top:18px}
+.fbc-r-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fbc-r-metric{border:1px solid var(--line,#dfe6eb);border-radius:12px;padding:14px;background:#fff}
+.fbc-r-metric span{display:block;font-size:11px;color:#687684;margin-bottom:6px}.fbc-r-metric strong{font-size:20px}
+.fbc-r-note{font-size:12px;line-height:1.5;color:#596875;margin-top:10px}
+.fbc-r-status{display:inline-flex;align-items:center;border:1px solid #dbe4ea;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700}
+.fbc-fin-details{margin-top:16px;border:1px solid var(--line,#dfe6eb);border-radius:12px;background:#fff;overflow:hidden}
+.fbc-fin-details>summary{cursor:pointer;padding:14px 16px;font-weight:750;list-style:none}.fbc-fin-details>summary::-webkit-details-marker{display:none}
+.fbc-fin-body{padding:0 16px 16px}.fbc-fin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fbc-r-chart{width:100%;min-height:170px;border:1px solid #e3e9ee;border-radius:10px;padding:8px;overflow:hidden}
+.fbc-r-chart svg{width:100%;height:auto;display:block}.fbc-stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.fbc-r-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.fbc-r-actions button{border:0;border-radius:8px;padding:10px 14px;font-weight:750;cursor:pointer}.fbc-r-primary{background:#1e3450;color:#fff}.fbc-r-secondary{background:#eef3f6;color:#1e3450}
+.fbc-pdfbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;padding:12px 0;border-top:1px solid #e3e8ee;border-bottom:1px solid #e3e8ee}.fbc-pdfbar small{color:#687684}.fbc-pdfbar button{border:0;border-radius:8px;padding:10px 14px;background:#1e3450;color:#fff;font-weight:750}
+@media(max-width:760px){.fbc-r-grid,.fbc-fin-grid,.fbc-stat-grid{grid-template-columns:1fr}.fbc-pdfbar{align-items:flex-start;flex-direction:column}.fbc-r-metric strong{font-size:18px}}
+</style>
+<link rel="canonical" href="https://futurebusinesscockpit.de/">
+
+<style id="fbc-release-polish">
+/* Release polish built from user's 2026-09-07 baseline */
+.fbc-stat-link{
+  appearance:none;border:0;background:transparent;color:#365a78;
+  padding:7px 0 5px;margin-top:8px;font:inherit;font-size:11px;font-weight:750;
+  cursor:pointer;border-bottom:1px dashed #7e9ab0;text-align:left;width:max-content;max-width:100%;
+}
+.fbc-stat-link:hover{color:#1e3450;border-bottom-color:#1e3450}
+.team-stat-link{margin-left:0}
+#employee .customer-price-orientation{display:flex!important}
+.fbc-axis-note{display:flex;justify-content:space-between;gap:10px;margin-top:4px;color:#687684;font-size:10px}
+.fbc-chart-source{display:block;margin-top:4px;color:#7b8994;font-size:9px}
+.fbc-r-chart svg text{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.fbc-cost-stat-link{display:inline-block;margin-left:8px;color:#365a78;border-bottom:1px dashed #7e9ab0;background:none;border-top:0;border-left:0;border-right:0;padding:0 0 2px;font-size:10px;cursor:pointer}
+#fbcPdfReport{display:none}
+@media print{
+  @page{size:A4;margin:12mm}
+  body>*:not(#fbcPdfReport){display:none!important}
+  #fbcPdfReport{display:block!important;background:#fff;color:#1f2f3d;font-family:Inter,Arial,sans-serif}
+  #fbcPdfReport .pdf-title{font-size:17pt;font-weight:800;margin-bottom:4mm}
+  #fbcPdfReport .pdf-sub{font-size:8.5pt;color:#607080;margin-bottom:5mm}
+  #fbcPdfReport .pdf-top{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-bottom:5mm}
+  #fbcPdfReport .pdf-top>div{border:1px solid #dfe6eb;border-radius:3mm;padding:3mm}
+  #fbcPdfReport small{display:block;color:#687684;font-size:7.5pt}
+  #fbcPdfReport strong{display:block;margin-top:1mm;font-size:12pt}
+  #fbcPdfReport h2{font-size:10pt;letter-spacing:.06em;margin:5mm 0 2mm;border-bottom:1px solid #dfe6eb;padding-bottom:1.5mm}
+  #fbcPdfReport .pdf-row{display:grid;grid-template-columns:1.2fr 1fr;gap:4mm;padding:1.6mm 0;border-bottom:1px solid #edf1f4;font-size:8.5pt}
+  #fbcPdfReport .pdf-row b{text-align:right}
+  #fbcPdfReport .pdf-rec{padding:3mm;border-left:3px solid #1e3450;background:#f5f8fa;font-size:8.5pt}
+  #fbcPdfReport .pdf-methods{font-size:7.5pt;color:#607080;line-height:1.4}
+}
+@media(max-width:1050px){
+  #teamRows .team-row-fields{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  #teamRows .team-row-fields{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:520px){
+  #teamRows .team-row-fields{grid-template-columns:1fr!important}
+}
+</style>
 </head>
 <body>
 <header class="site-header">
   <a class="brand" href="index.html">FUTURE <strong>BUSINESS COCKPIT</strong>
-<span>V6 PREVIEW</span>
+<span>Decision Support</span>
 </a>
   <nav class="topnav">
 <a href="#calculator" data-de="Kalkulation" data-ru="Расчёт">Kalkulation</a>
@@ -1910,6 +1975,12 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
         <small data-de="Aktueller Rechnungspreis ohne USt · €/Std." data-ru="Текущая цена клиенту без НДС · €/ч">Aktueller Rechnungspreis ohne USt · €/Std.</small>
         <input id="empCustomerPrice" class="decimal-input" type="text" inputmode="decimal" placeholder="0" aria-label="Aktueller Rechnungspreis ohne Umsatzsteuer pro Stunde">
       </label>
+
+      <label class="team-field fbc-emp-billable-hours">
+        <small data-de="Tatsächlich abrechenbare Kundenstunden / Monat" data-ru="Фактически оплачиваемые клиентом часы / месяц">Tatsächlich abrechenbare Kundenstunden / Monat</small>
+        <input id="empBillableHoursMonth" type="number" min="0" step="0.1" placeholder="0">
+        <span class="fbc-input-note" data-de="Nicht aus Vertrags- oder verfügbaren Stunden ableiten." data-ru="Не выводится автоматически из договорных или доступных часов.">Nicht aus Vertrags- oder verfügbaren Stunden ableiten.</span>
+      </label>
     </div>
 
     <div class="orientation-box">
@@ -1923,11 +1994,12 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
     <div class="orientation-box customer-price-orientation" id="empPriceOrientation">
       <div>
-        <small data-de="Erforderlicher Kundenpreis · volle Kosten + 10 %" data-ru="Необходимая цена для клиента · полные расходы + 10%">Erforderlicher Kundenpreis · volle Kosten + 10 %</small>
+        <small data-de="Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung" data-ru="Ориентировочная цена клиенту / ч · только покрытие затрат, не R-рекомендация">Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung</small>
         <strong id="empRecommendedPrice">—</strong>
       </div>
-      <button id="empApplyRecommendedPrice" type="button" data-de="Empfehlung übernehmen" data-ru="Взять рекомендацию">Empfehlung übernehmen</button>
+      <button id="empApplyRecommendedPrice" type="button" data-de="Kostendeckenden Satz übernehmen" data-ru="Подставить ставку покрытия затрат">Kostendeckenden Satz übernehmen</button>
     </div>
+    <button class="fbc-stat-link" type="button" data-stat-target="labor" data-de="Arbeitskosten · Statistik & Prognose" data-ru="Затраты на труд · статистика и прогноз">Arbeitskosten · Statistik & Prognose</button>
   </div>
 </article>
 <div class="hidden-compat" aria-hidden="true"><span id="applyEmpPriceRecommendation">—</span><span id="applyOrientation">—</span><span id="empHoursHint">—</span><span id="empOrientation">—</span><span id="empPrice">—</span><span id="empPriceRecommendation">—</span><span id="empPriceWrap">—</span><span id="empRuleInfo">—</span><span id="empVacationRecommendation">—</span><span id="empWarning">—</span><span id="rvExempt">—</span><span id="rvExemptWrap">—</span></div>
@@ -2213,6 +2285,10 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
       <small data-de="Aktueller Rechnungspreis ohne USt · €/Std." data-ru="Текущая цена клиенту без НДС · €/ч">Aktueller Rechnungspreis ohne USt · €/Std.</small>
       <input class="team-price decimal-input" type="text" inputmode="decimal" placeholder="0">
     </label>
+    <label class="team-field team-billable-hours-field">
+      <small data-de="Abrechenbare Kundenstunden / Monat" data-ru="Оплачиваемые клиентом часы / месяц">Abrechenbare Kundenstunden / Monat</small>
+      <input class="team-billable-hours" type="number" min="0" step="0.1" placeholder="0">
+    </label>
     <button class="remove-team" type="button" aria-label="Rolle entfernen">×</button>
   </div>
 
@@ -2227,11 +2303,12 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
   <div class="orientation-box customer-price-orientation team-price-orientation">
     <div>
-      <small data-de="Erforderlicher Kundenpreis · volle Kosten + 10 %" data-ru="Необходимая цена для клиента · полные расходы + 10%">Erforderlicher Kundenpreis · volle Kosten + 10 %</small>
+      <small data-de="Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung" data-ru="Ориентировочная цена клиенту / ч · только покрытие затрат, не R-рекомендация">Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung</small>
       <strong class="team-price-recommendation">—</strong>
     </div>
-    <button class="apply-team-price" type="button" data-de="Empfehlung übernehmen" data-ru="Взять рекомендацию">Empfehlung übernehmen</button>
+    <button class="apply-team-price" type="button" data-de="Kostendeckenden Satz übernehmen" data-ru="Подставить ставку покрытия затрат">Kostendeckenden Satz übernehmen</button>
   </div>
+  <button class="fbc-stat-link team-stat-link" type="button" data-stat-target="labor" data-de="Arbeitskosten · Statistik & Prognose" data-ru="Затраты на труд · статистика и прогноз">Arbeitskosten · Statistik & Prognose</button>
 </div>
 </template>
 
@@ -2486,7 +2563,7 @@ function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),nam
 function hasInput(id){const element=$(id);return Boolean(element&&String(element.value).trim()!=='')}
 function soloReady(){return hasInput('#soloPrice')&&hasInput('#soloHours')&&hasInput('#soloDays')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
 function soloStarted(){return ['#soloPrice','#soloHours','#soloDays','#soloVacation','#costOffice','#costVehicle','#costSoftware','#costAccounting','#costInsurance','#costMaterial','#costMarketing','#costOther','#ownerInsurance','#pensionFixed','#soloGoal','#tradeTaxRate'].some(hasInput)}
-function employeeReady(){return hasInput('#empOwnerGoal')&&hasInput('#empOwnerHours')&&hasInput('#empWage')&&hasInput('#empHours')&&hasInput('#empPrice')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
+/* legacy duplicate employeeReady removed in R-ready release */
 function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#teamOwnerNeed')&&rows.length>0&&rows.some(row=>String(row.querySelector('.team-wage').value).trim()!==''&&String(row.querySelector('.team-hours').value).trim()!=='')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
 function pendingCard(id,pending=true){const card=$(id)?.closest('.result-card');if(card)card.classList.toggle('pending-result',pending)}
@@ -2532,15 +2609,23 @@ function updateScenario(){const p=num('#scenarioPrice'),a=soloData(p);$('#scenar
 
 function employeeOwnerData(){const weekly=num('#empOwnerHours'),vac=num('#empOwnerVacation'),holidays=holidayDays2026(5),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/5));return{goal:num('#empOwnerGoal'),business:num('#empBusinessCosts'),insurance:num('#empOwnerInsurance'),pension:num('#empOwnerPension'),workMonth:annualHours/12,holidays}}
 function orientation(roleKey,formKey){const role=roles[roleKey]||roles.helper,factor=regions[$('#region').value]?.[1]||1;let low=Math.max(MIN_WAGE,role.range[0]*factor),high=Math.max(low,role.range[1]*factor);if(formKey==='mini')high=Math.max(low,Math.min(high,19.5));if(formKey==='student'){low=Math.max(MIN_WAGE,low*.9);high=Math.max(low,high*.88)}if(formKey==='intern'){low=MIN_WAGE;high=Math.max(low,Math.min(high,18))}return{low,high,mid:(low+high)/2}}
-function rolePriceRecommendation(roleKey,formKey,wage,hours,days,vacation){const o=orientation(roleKey,formKey),referenceWage=Math.max(wage,o.mid),reference=employmentData(formKey,referenceWage,hours,0,0,days,vacation,0);return reference.workHour*1.10}
+function rolePriceRecommendation(roleKey,formKey,wage,hours,days,vacation){
+  const o=orientation(roleKey,formKey),schedule=scheduleOrientation(formKey);
+  const referenceWage=Math.max(Number(wage)||0,o.mid);
+  const referenceHours=Number(hours)>0?Number(hours):schedule.hours;
+  const referenceDays=Number(days)>0?Number(days):schedule.days;
+  const referenceVacation=Number(vacation)>=0&&String(vacation)!==''?Number(vacation):schedule.companyVacation;
+  const reference=employmentData(formKey,referenceWage,referenceHours,0,0,referenceDays,referenceVacation,0);
+  return reference.workHour;
+}
 function employmentData(formKey,wage,hours,extraCost=0,customerPrice=0,days=5,vacation=30,sickReserve=0){const form=forms[formKey]||forms.part,safeDays=Math.max(1,Math.min(5,days||5)),contractHours=hours*52/12,holidays=holidayDays2026(safeDays),availableBeforeReserve=Math.max(0,hours*52-(Math.max(0,vacation)+holidays)*(hours/safeDays)),workHours=availableBeforeReserve*(1-Math.min(30,Math.max(0,sickReserve))/100)/12,gross=wage*contractHours,rate=form.rate,addons=gross*rate,total=gross+addons+extraCost,revenue=customerPrice*workHours,contribution=revenue-total;return{form,workHours,contractHours,gross,rate,addons,extraCost,total,revenue,contribution,customerPrice,workHour:workHours?total/workHours:0,days:safeDays,vacation,holidays}}
-function updateEmployee(){const role=$('#empRole').value,formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),extraCost=num('#empExtraCost'),customerPrice=num('#empCustomerPrice'),o=orientation(role,formKey),a=employmentData(formKey,wage,hours,extraCost,customerPrice),owner=employeeOwnerData(),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52;$('#empWageRange').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;$('#rvExemptWrap').classList.toggle('hidden',formKey!=='mini');const hoursHint=$('#empHoursHint');if(formKey==='mini'){hoursHint.textContent=t(`Bei ${euro(wage)}: max. ca. ${maxMiniMonth.toFixed(2)} Std./Monat bzw. ${maxMiniWeek.toFixed(2)} Std./Woche für die 603-€-Grenze.`,`При ${euro(wage)}: максимум примерно ${maxMiniMonth.toFixed(2)} ч/месяц или ${maxMiniWeek.toFixed(2)} ч/неделю для лимита 603 €.`);hoursHint.classList.remove('hidden');$('#empHours').max=maxMiniWeek.toFixed(2)}else if(formKey==='student'){hoursHint.textContent=t('Werkstudent: grundsätzlich max. 20 Std./Woche während der Vorlesungszeit. Ausnahmen nur unter besonderen Voraussetzungen.','Werkstudent: обычно максимум 20 ч/неделю во время учебного периода. Исключения возможны только при специальных условиях.');hoursHint.classList.remove('hidden');$('#empHours').max=20}else{hoursHint.textContent='';hoursHint.classList.add('hidden');$('#empHours').max=60}const external=a.form.type==='external';$('#empRuleInfo').textContent=external?t(`${label(a.form)} wird als externer Verrechnungssatz ohne normale Arbeitgeber-Sozialabgaben behandelt.`,`${label(a.form)} считается внешней ставкой без обычных социальных взносов работодателя.`):formKey==='mini'?t('Gewerblicher Minijob: bis zu 31,17 % pauschale Arbeitgeberabgaben; die regelmäßige Verdienstgrenze beträgt 603 € / Monat.','Коммерческий Minijob: до 31,17% паушальных взносов работодателя; регулярный лимит заработка — 603 € / месяц.'):formKey==='student'?t('Werkstudent: grundsätzlich höchstens 20 Std./Woche; Ausnahmen sind nur im Rahmen der 26-Wochen-Regel möglich.','Werkstudent: обычно не более 20 ч/неделю; исключения возможны только с учётом правила 26 недель.'):formKey==='short'?t('Kurzfristig: keine regulären SV-Beiträge; 2 % Orientierung für Umlagen/Unfallversicherung. Voraussetzungen prüfen.','Краткосрочно: без обычных соцвзносов; ориентир 2% на Umlagen/страхование. Условия нужно проверить.'):t('Basis 2026: KV 7,3 % + Ø Zusatzbeitrag 1,45 %, RV 9,3 %, AV 1,3 %, PV 1,8 % plus 0,7 % Orientierung für Umlagen/Unfallversicherung.','База 2026: KV 7,3% + средний Zusatzbeitrag 1,45%, RV 9,3%, AV 1,3%, PV 1,8% плюс ориентир 0,7% на Umlagen/страхование.');const warn=$('#empWarning');let warning='';if(wage<MIN_WAGE&&!external)warning=t(`Der gesetzliche Mindestlohn 2026 beträgt ${MIN_WAGE.toFixed(2)} € / Std.`,`Минимальная зарплата в 2026 году — ${MIN_WAGE.toFixed(2)} € / ч.`);else if(formKey==='mini'&&a.gross>MINIJOB_LIMIT)warning=t(`Das berechnete Monatsbrutto ${euro(a.gross)} liegt über der Minijob-Grenze. Bei diesem Lohn sind etwa ${maxMiniWeek.toFixed(2)} Std./Woche möglich.`,`Расчётное брутто ${euro(a.gross)} превышает лимит Minijob. При этой ставке возможно примерно ${maxMiniWeek.toFixed(2)} ч/неделю.`);else if(formKey==='student'&&hours>20)warning=t('Mehr als 20 Std./Woche: Werkstudentenstatus nur prüfen, wenn eine zulässige Ausnahme und die 26-Wochen-Regel erfüllt sind.','Более 20 ч/неделю: статус Werkstudent сохраняется только при допустимом исключении и соблюдении правила 26 недель.');else if(formKey==='midi'&&(a.gross<=MINIJOB_LIMIT||a.gross>2000))warning=t('Midijob liegt 2026 grundsätzlich zwischen 603,01 € und 2.000 € monatlich.','Midijob в 2026 году обычно находится между 603,01 € и 2 000 € в месяц.');warn.textContent=warning;warn.classList.toggle('hidden',!warning);$('#empResultTitle').textContent=`${label(roles[role])} · ${label(a.form)}`;$('#empGross').textContent=euro(a.gross)+' / Monat';$('#empAddons').textContent=`${euro(a.addons)} (${(a.rate*100).toFixed(2)} %)`;$('#empExtra').textContent=euro(a.extraCost);$('#empTotal').textContent=euro(a.total)+' / Monat';$('#empWorkHour').textContent=euro(a.workHour);$('#empRevenue').textContent=euro(a.revenue);$('#empContribution').textContent=euro(a.contribution);$('#empContribution').parentElement.classList.toggle('negative-result',a.contribution<0);$('#empContributionNote').textContent=t(`${euro(a.customerPrice)} Kundenpreis × ${a.workHours.toFixed(1)} verfügbare Mitarbeiterstunden nach Feiertagen 2026 = ${euro(a.revenue)} Umsatz. Nach ${euro(a.total)} Gesamtkosten trägt der Mitarbeiter ${euro(a.contribution)} zur Deckung des Betriebs bei.`,`${euro(a.customerPrice)} цена клиенту × ${a.workHours.toFixed(1)} доступных часов сотрудника после праздников 2026 года = ${euro(a.revenue)} выручки. После ${euro(a.total)} полной стоимости сотрудник вносит ${euro(a.contribution)} в покрытие расходов бизнеса.`);if(!employeeReady()){setEmployeePending();return}pendingCard("#empGross",false);pendingCard("#companyOwnerNeed",false);updateCompany(a,owner)}
-function updateCompany(emp,owner){const protection=owner.insurance+owner.pension,businessCosts=owner.business+emp.total,desired=owner.goal+protection,required=solveMonthlyRevenue(businessCosts,desired),planRevenue=Math.max(required.revenue,emp.revenue),profit=Math.max(0,planRevenue-businessCosts),tax=taxEstimate(profit*12),taxMonth=tax.total/12,ownerRevenue=Math.max(0,required.revenue-emp.revenue),totalNeed=owner.goal+protection+businessCosts+taxMonth,surplus=Math.max(0,emp.revenue-businessCosts-taxMonth-desired),rate=owner.workMonth?ownerRevenue/owner.workMonth:0;$('#companyOwnerNeed').textContent=euro(owner.goal);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyTaxes').textContent=euro(taxMonth);$('#companyTotal').textContent=euro(totalNeed);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyRemaining').textContent=euro(ownerRevenue);$('#companyTaxDetail').textContent=taxText(tax);$('#companyRequiredRate').textContent=euro(rate)+' / '+t('eigene Arbeitsstunde','рабочий час владельца');$('#companyVat').textContent=surplus>0?t(`Der Mitarbeiter-Umsatz deckt den gesamten Bedarf; rechnerischer Überschuss nach Steuern: ${euro(surplus)}.`,`Выручка сотрудника покрывает всю потребность; расчётный остаток после налогов: ${euro(surplus)}.`):vatRate()?t(`Rechnungspreis des Inhabers inkl. USt: ${euro(invoice(rate))} / Std.`,`Цена часа владельца с НДС: ${euro(invoice(rate))}.`):t('Kein Umsatzsteuer-Aufschlag gemäß Unternehmensprofil.','НДС не добавляется согласно профилю бизнеса.')}
+/* legacy duplicate updateEmployee removed in R-ready release */
+/* legacy duplicate updateCompany removed in R-ready release */
 
 function ownerModeMarkup(p){
   const who=p==='emp'?['INHABER/IN + MITARBEITER','ВЛАДЕЛЕЦ + СОТРУДНИК']:['TEAMCHECK · INHABER/IN UND BETRIEB','TEAMCHECK · ВЛАДЕЛЕЦ И БИЗНЕС'];
-  return `<article class="card" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2><div class="field-grid four"><label class="field"><span data-de="Kundenpreis netto / Std." data-ru="Цена клиенту без НДС / ч">Kundenpreis netto / Std.</span><div class="unit"><input id="${p}OwnerPrice" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field"><span data-de="Arbeitsstunden / Woche" data-ru="Рабочих часов / неделю">Arbeitsstunden / Woche</span><input id="${p}OwnerHours" type="number" min="0" max="80" step="0.1" placeholder="0"></label><label class="field"><span data-de="Arbeitstage / Woche" data-ru="Рабочих дней / неделю">Arbeitstage / Woche</span><input id="${p}OwnerDays" type="number" min="1" max="5" step="1" placeholder="0"></label><label class="field"><span data-de="Urlaubstage / Jahr" data-ru="Отпуск / дней в год">Urlaubstage / Jahr</span><input id="${p}OwnerVacation" type="number" min="0" max="60" placeholder="0"></label></div><div class="engine-note"><strong data-de="Zeit-Ergebnis:" data-ru="Расчёт времени:">Zeit-Ergebnis:</strong> <span id="${p}OwnerTimeInfo">—</span></div></article>
-  <article class="card" tabindex="0"><div class="step">02</div><h2 data-de="Betriebskosten" data-ru="Расходы бизнеса">Betriebskosten</h2><p class="intro" data-de="Nur die Kosten dieser Registerkarte." data-ru="Только расходы этой вкладки.">Nur die Kosten dieser Registerkarte.</p><div class="cost-lines">${[['⌂','Office','Raum / Büro','Помещение / офис','Miete, Nebenkosten','Аренда, коммунальные'],['◇','Vehicle','Fahrzeug','Автомобиль','Leasing, Kraftstoff','Лизинг, топливо'],['▣','Software','Programme / Software','Программы / ПО','Lizenzen, Cloud','Лицензии, облако'],['§','Accounting','Steuerberater / Buchhaltung','Налоговый консультант / бухгалтерия','Laufende Betreuung','Текущее сопровождение'],['◉','Insurance','Betriebsversicherungen','Страхование бизнеса','Betrieblich, nicht privat','Для бизнеса, не личное'],['⬡','Material','Material / direkte Kosten','Материалы / прямые затраты','Verbrauch, Einkauf','Расходники, закупки'],['↗','Marketing','Werbung / Akquise','Реклама / привлечение','Anzeigen, Vertrieb','Объявления, продажи'],['＋','Other','Sonstiges','Прочее','Weitere laufende Kosten','Другие текущие расходы']].map(x=>`<label><span class="cost-icon">${x[0]}</span><b data-de="${x[2]}" data-ru="${x[3]}">${x[2]}</b><div class="unit"><input id="${p}Cost${x[1]}" class="mode-cost decimal-input" data-mode="${p}" type="text" inputmode="decimal" placeholder="0"><b>€</b></div><small data-de="${x[4]}" data-ru="${x[5]}">${x[4]}</small></label>`).join('')}</div></article>
+  return `<article class="card" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2><div class="field-grid four"><label class="field"><span data-de="Kundenpreis netto / Std." data-ru="Цена клиенту без НДС / ч">Kundenpreis netto / Std.</span><div class="unit"><input id="${p}OwnerPrice" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field"><span data-de="Arbeitsstunden / Woche" data-ru="Рабочих часов / неделю">Arbeitsstunden / Woche</span><input id="${p}OwnerHours" type="number" min="0" max="80" step="0.1" placeholder="0"></label><label class="field fbc-owner-billable"><span data-de="Tatsächlich abrechenbare Stunden / Monat" data-ru="Фактически оплачиваемые клиентом часы / месяц">Tatsächlich abrechenbare Stunden / Monat</span><input id="${p}OwnerBillableHours" type="number" min="0" step="0.1" placeholder="0"><small data-de="Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage." data-ru="Только фактически проданные клиентам часы; свободная мощность не означает спрос.">Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage.</small></label><label class="field"><span data-de="Arbeitstage / Woche" data-ru="Рабочих дней / неделю">Arbeitstage / Woche</span><input id="${p}OwnerDays" type="number" min="1" max="5" step="1" placeholder="0"></label><label class="field"><span data-de="Urlaubstage / Jahr" data-ru="Отпуск / дней в год">Urlaubstage / Jahr</span><input id="${p}OwnerVacation" type="number" min="0" max="60" placeholder="0"></label></div><div class="engine-note"><strong data-de="Zeit-Ergebnis:" data-ru="Расчёт времени:">Zeit-Ergebnis:</strong> <span id="${p}OwnerTimeInfo">—</span></div></article>
+  <article class="card" tabindex="0"><div class="step">02</div><h2 data-de="Betriebskosten" data-ru="Расходы бизнеса">Betriebskosten</h2><p class="intro" data-de="Nur die Kosten dieser Registerkarte." data-ru="Только расходы этой вкладки.">Nur die Kosten dieser Registerkarte.</p><div class="cost-lines">${[['⌂','Office','Raum / Büro','Помещение / офис','Miete, Nebenkosten','Аренда, коммунальные'],['◇','Vehicle','Fahrzeug','Автомобиль','Leasing, Wartung, Fahrzeugkosten','Лизинг, обслуживание, расходы на автомобиль'],['⛽','Fuel','Kraftstoff','Топливо','Tatsächliche Kraftstoffkosten / Monat','Фактические расходы на топливо / месяц'],['⚡','Energy','Energie / Strom / Gas','Энергия / электричество / газ','Tatsächliche Energiekosten / Monat','Фактические расходы на энергию / месяц'],['▣','Software','Programme / Software','Программы / ПО','Lizenzen, Cloud','Лицензии, облако'],['§','Accounting','Steuerberater / Buchhaltung','Налоговый консультант / бухгалтерия','Laufende Betreuung','Текущее сопровождение'],['◉','Insurance','Betriebsversicherungen','Страхование бизнеса','Betrieblich, nicht privat','Для бизнеса, не личное'],['⬡','Material','Material / direkte Kosten','Материалы / прямые затраты','Verbrauch, Einkauf','Расходники, закупки'],['↗','Marketing','Werbung / Akquise','Реклама / привлечение','Anzeigen, Vertrieb','Объявления, продажи'],['＋','Other','Sonstiges','Прочее','Weitere laufende Kosten','Другие текущие расходы']].map(x=>`<label><span class="cost-icon">${x[0]}</span><b data-de="${x[2]}" data-ru="${x[3]}">${x[2]}</b><div class="unit"><input id="${p}Cost${x[1]}" class="mode-cost decimal-input" data-mode="${p}" type="text" inputmode="decimal" placeholder="0"><b>€</b></div><small data-de="${x[4]}" data-ru="${x[5]}">${x[4]}</small></label>`).join('')}</div></article>
   <article class="card" tabindex="0"><div class="step">04</div><h2 data-de="Absicherung des Inhabers" data-ru="Страхование владельца">Absicherung des Inhabers</h2><div class="field-grid four protection-grid"><label class="field"><span data-de="Rentenversicherung" data-ru="Пенсионное страхование">Rentenversicherung</span><select id="${p}PensionMode"><option value="statutory" data-de="Gesetzlich · einkommensgerecht" data-ru="Государственное · по расчётной прибыли">Gesetzlich · einkommensgerecht</option><option value="standard" data-de="Gesetzlich · Regelbeitrag" data-ru="Государственное · стандартный взнос">Gesetzlich · Regelbeitrag</option><option value="fixed" data-de="Eigener Monatsbetrag" data-ru="Своя сумма в месяц">Eigener Monatsbetrag</option><option value="none" data-de="Derzeit nicht berücksichtigt" data-ru="Пока не учитывать">Derzeit nicht berücksichtigt</option></select></label><label class="field"><span data-de="Private Versicherungen / Monat" data-ru="Личные страховки / месяц">Private Versicherungen / Monat</span><div class="unit"><input id="${p}OwnerInsurance" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field ${p}-pension-fixed hidden"><span data-de="Vorsorgebetrag / Monat" data-ru="Пенсионный взнос / месяц">Vorsorgebetrag / Monat</span><div class="unit"><input id="${p}PensionFixed" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label></div><div class="engine-note"><strong data-de="Automatisch berücksichtigt:" data-ru="Учтено автоматически:">Automatisch berücksichtigt:</strong> <span id="${p}PensionInfo">—</span></div></article>`;
 }
 
@@ -2586,17 +2671,20 @@ function solveModeRevenue(p,business,insurance,goal){let low=0,high=Math.max(100
 function employeeReady(){return hasInput('#empOwnerPrice')&&hasInput('#empOwnerHours')&&hasInput('#empOwnerDays')&&hasInput('#empWage')&&hasInput('#empHours')&&(!$('#empBillable').checked||hasInput('#empCustomerPrice'))}
 function employeeStarted(){return ['#empOwnerPrice','#empOwnerHours','#empOwnerDays','#empWage','#empHours','#empOwnerGoal'].some(hasInput)||modeCosts('emp')>0}
 function updateEmployee(){
-  const role=$('#empRole').value,formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,customerPrice,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,recommended=rolePriceRecommendation(role,formKey,wage,hours,days,vacation);
+  const role=$('#empRole').value,formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,recommended=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0;
+  emp.billableHours=actualBillable;
+  emp.revenue=customerPrice*actualBillable;
+  emp.contribution=emp.revenue-emp.total;
   $('#empCustomerPrice').disabled=!billable;$('#empCustomerPrice').closest('.team-price-cell')?.classList.toggle('is-disabled',!billable);$('#empPriceOrientation').classList.toggle('hidden',!billable);$('#empRecommendedPrice').textContent=euro(recommended)+' / Std. netto';$('#empApplyRecommendedPrice').disabled=!billable||recommended<=0;$('#empWageRange').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;$('#empScheduleHint').textContent=scheduleText(formKey);$('#rvExemptWrap').classList.toggle('hidden',formKey!=='mini');const hint=$('#empHoursHint'),schedule=scheduleOrientation(formKey);$('#empHours').placeholder=String(schedule.hours);if(formKey==='mini'){hint.textContent=t(`Bei ${euro(wage)}: max. ca. ${maxMiniWeek.toFixed(2)} Std./Woche für die 603-€-Grenze.`,`При ${euro(wage)}: максимум около ${maxMiniWeek.toFixed(2)} ч/неделю для лимита 603 €.`);hint.classList.remove('hidden')}else if(formKey==='student'){hint.textContent=t('Werkstudent: grundsätzlich max. 20 Std./Woche während der Vorlesungszeit.','Werkstudent: обычно максимум 20 ч/неделю во время учебного периода.');hint.classList.remove('hidden')}else{hint.textContent='';hint.classList.add('hidden')}
   const external=emp.form.type==='external';$('#empRuleInfo').textContent=external?t('Externer Verrechnungssatz ohne normale Arbeitgeber-Sozialabgaben.','Внешняя ставка без обычных социальных взносов работодателя.'):t('Arbeitgeberanteile zur Sozialversicherung sowie Umlagen und Unfallversicherung werden je Beschäftigungsform automatisch als Orientierung geschätzt.','Доля работодателя в социальном страховании, Umlagen и страховании от несчастных случаев автоматически оценивается по форме занятости.');let warning='';if(wage<MIN_WAGE&&!external&&wage>0)warning=t(`Der gesetzliche Mindestlohn 2026 beträgt ${MIN_WAGE.toFixed(2)} € / Std.`,`Минимальная зарплата в 2026 году — ${MIN_WAGE.toFixed(2)} € / ч.`);else if(formKey==='mini'&&emp.gross>MINIJOB_LIMIT)warning=t(`Monatsbrutto ${euro(emp.gross)} liegt über der Minijob-Grenze.`,`Месячное брутто ${euro(emp.gross)} превышает лимит Minijob.`);$('#empWarning').textContent=warning;$('#empWarning').classList.toggle('hidden',!warning);
   const miniInvalid=formKey==='mini'&&emp.gross>MINIJOB_LIMIT;$('#empHours').classList.toggle('input-error',miniInvalid);$('#empWage').classList.toggle('input-error',wage>0&&wage<MIN_WAGE&&!external);
   const contributionCard=$('#empContributionCard'),contributionLabel=$('#empContributionLabel');
   $('#empResultTitle').textContent=`${label(roles[role])} · ${label(emp.form)}`;$('#empGross').textContent=euro(emp.gross);$('#empAddons').textContent=euro(emp.addons);$('#empTotal').textContent=euro(emp.total);$('#empWorkHour').textContent=euro(emp.workHour);$('#empRevenueCard').classList.toggle('hidden',!billable);contributionCard.classList.toggle('hidden',!billable);contributionCard.classList.toggle('highlight',billable);contributionCard.classList.toggle('negative-result',billable&&emp.contribution<0);
-  if(billable){$('#empRevenue').textContent=euro(emp.revenue);$('#empContribution').textContent=euro(Math.abs(emp.contribution));contributionLabel.textContent=emp.contribution<0?t('Ungedeckte Mitarbeiterkosten','Непокрытые расходы на сотрудника'):t('Deckungsbeitrag zum Betrieb','Вклад в покрытие расходов бизнеса');$('#empContributionNote').textContent=t(`${euro(customerPrice)} × ${emp.workHours.toFixed(1)} produktive Mitarbeiterstunden = ${euro(emp.revenue)} Kundenumsatz. Kostenorientierte Empfehlung: mindestens ${euro(recommended)} / Std. netto.`,`${euro(customerPrice)} × ${emp.workHours.toFixed(1)} продуктивных часов сотрудника = ${euro(emp.revenue)} клиентской выручки. Рекомендация по себестоимости: минимум ${euro(recommended)} / ч без НДС.`)}else{$('#empContributionNote').textContent=t(`Interne Rolle: kein eigener Kundenumsatz. Die Personalkosten von ${euro(emp.total)} erscheinen deshalb nur einmal.`,`Внутренняя роль: собственной клиентской выручки нет. Поэтому расходы на сотрудника ${euro(emp.total)} показаны только один раз.`)}
+  if(billable){$('#empRevenue').textContent=euro(emp.revenue);$('#empContribution').textContent=euro(Math.abs(emp.contribution));contributionLabel.textContent=emp.contribution<0?t('Ungedeckte Mitarbeiterkosten','Непокрытые расходы на сотрудника'):t('Deckungsbeitrag zum Betrieb','Вклад в покрытие расходов бизнеса');$('#empContributionNote').textContent=t(`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} tatsächlich abrechenbare Kundenstunden = ${euro(emp.revenue)} Kundenumsatz. Kostenorientierter Satz: ${euro(recommended)} / Std. netto.`,`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} фактически оплачиваемых клиентом часов = ${euro(emp.revenue)} клиентской выручки. Ставка покрытия затрат: ${euro(recommended)} / ч без НДС.`)}else{$('#empContributionNote').textContent=t(`Interne Rolle: kein eigener Kundenumsatz. Die Personalkosten von ${euro(emp.total)} erscheinen deshalb nur einmal.`,`Внутренняя роль: собственной клиентской выручки нет. Поэтому расходы на сотрудника ${euro(emp.total)} показаны только один раз.`)}
   updateCompany(emp,owner);
 }
 function updateCompany(emp,owner){
-  const billable=$('#empBillable').checked,ownerRevenue=owner.price*owner.workMonth,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimate(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended*1.10:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
+  const billable=$('#empBillable').checked,ownerRevenue=owner.price*owner.workMonth,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimate(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxText(tax);updateAnnualTurnover('#companyAnnualTurnover',totalRevenue*12);
   $('#companyAnnualOperatingResult').textContent=euro((totalRevenue-totalCosts)*12);
   $('#companyAnnualTaxes').textContent=euro(taxMonth*12);
@@ -2618,10 +2706,10 @@ function updateEmployeeScenario(emp,owner){const price=num('#empScenarioPrice'),
 
 function addTeamMember(preset={}){
   const node=$('#teamRowTemplate').content.firstElementChild.cloneNode(true),days=node.querySelector('.team-days'),vacation=node.querySelector('.team-vacation'),form=node.querySelector('.team-form'),hours=node.querySelector('.team-hours');
-  $('#teamRows').append(node);node.querySelectorAll('[data-de]').forEach(el=>{const value=el.dataset[lang];if(value!==undefined)el.textContent=value});populateSelect(node.querySelector('.team-role'),roles);populateSelect(form,forms);node.querySelector('.team-role').value=preset.role||'office';form.value=preset.form||'part';node.querySelector('.team-wage').value=preset.wage??'';hours.value=preset.hours??'';const schedule=scheduleOrientation(form.value);days.value=preset.days??schedule.days;vacation.value=preset.vacation??schedule.companyVacation;vacation.dataset.autoVacation='true';days.dataset.autoDays='true';node.querySelector('.team-price').value=preset.price??'';node.querySelector('.team-billable').checked=preset.billable!==false;
-  const applySchedule=()=>{const next=scheduleOrientation(form.value);hours.placeholder=String(next.hours);if(days.dataset.autoDays==='true'){const enteredHours=parseDecimal(hours.value);days.value=enteredHours?minimumRecommendedDays(enteredHours):next.days}if(vacation.dataset.autoVacation==='true')vacation.value=(parseDecimal(days.value)||next.days)*6};
+  $('#teamRows').append(node);node.querySelectorAll('[data-de]').forEach(el=>{const value=el.dataset[lang];if(value!==undefined)el.textContent=value});populateSelect(node.querySelector('.team-role'),roles);populateSelect(form,forms);node.querySelector('.team-role').value=preset.role||'office';form.value=preset.form||'part';node.querySelector('.team-wage').value=preset.wage??'';const schedule=scheduleOrientation(form.value);hours.value=preset.hours??schedule.hours;hours.dataset.autoHours=preset.hours==null?'true':'false';days.value=preset.days??schedule.days;vacation.value=preset.vacation??schedule.companyVacation;vacation.dataset.autoVacation='true';days.dataset.autoDays='true';node.querySelector('.team-price').value=preset.price??'';node.querySelector('.team-billable').checked=preset.billable!==false;node.querySelector('.team-billable-hours').value=preset.billableHours??'';
+  const applySchedule=()=>{const next=scheduleOrientation(form.value);hours.placeholder=String(next.hours);if(hours.dataset.autoHours==='true')hours.value=String(next.hours);if(days.dataset.autoDays==='true'){const enteredHours=parseDecimal(hours.value);days.value=enteredHours?minimumRecommendedDays(enteredHours):next.days}if(vacation.dataset.autoVacation==='true')vacation.value=(parseDecimal(days.value)||next.days)*6};
   form.addEventListener('change',applySchedule);
-  hours.addEventListener('input',()=>{applyAutomaticDaysFromHours(hours,days,vacation);refreshScheduleAdvice()});
+  hours.addEventListener('input',event=>{if(event.isTrusted)hours.dataset.autoHours='false';applyAutomaticDaysFromHours(hours,days,vacation);refreshScheduleAdvice()});
   const applyTeamVacation=()=>{days.dataset.autoDays='false';const d=Math.max(1,Math.min(5,Math.round(parseDecimal(days.value)||5)));if(vacation.dataset.autoVacation==='true')vacation.value=d*6};days.addEventListener('input',applyTeamVacation);days.addEventListener('change',applyTeamVacation);vacation.addEventListener('input',()=>{vacation.dataset.autoVacation='false'});node.querySelectorAll('input,select').forEach(el=>{el.autocomplete='off';el.addEventListener('input',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()});el.addEventListener('change',()=>{refreshTeamOrientationRows();refreshScheduleAdvice();calculateTeam()})});node.querySelector('.apply-team-wage').addEventListener('click',()=>{const role=node.querySelector('.team-role').value,wageOrientation=orientation(role,form.value);node.querySelector('.team-wage').value=wageOrientation.mid.toFixed(2);calculateTeam()});node.querySelector('.apply-team-price').addEventListener('click',()=>{const recommendation=Number(node.dataset.recommendedPrice)||0;if(recommendation>0){node.querySelector('.team-price').value=recommendation.toFixed(2);calculateTeam()}});node.querySelector('.remove-team').addEventListener('click',()=>{node.remove();calculateTeam()});applySchedule();refreshTeamOrientationRows();configureValidation();refreshScheduleAdvice();calculateTeam()
 }
 function calculateTeam(){
@@ -2630,14 +2718,14 @@ function calculateTeam(){
   const owner=modeOwner('team'),members=[];
   let gross=0,addons=0,billableHours=0,employeeRevenue=0,recommendedRevenue=0,hasBillable=false,teamStarted=hasInput('#teamOwnerPrice')||hasInput('#teamOwnerHours')||hasInput('#teamOwnerDays')||modeCosts('team')>0;
   $$('#teamRows .team-row').forEach(row=>{
-    const role=row.querySelector('.team-role').value,form=row.querySelector('.team-form').value,wage=parseDecimal(row.querySelector('.team-wage').value),hours=parseDecimal(row.querySelector('.team-hours').value),days=parseDecimal(row.querySelector('.team-days').value)||5,vacation=parseDecimal(row.querySelector('.team-vacation').value),billable=row.querySelector('.team-billable').checked,price=billable?parseDecimal(row.querySelector('.team-price').value):0,a=employmentData(form,wage,hours,0,price,days,vacation,0),o=orientation(role,form),rawRecommended=rolePriceRecommendation(role,form,wage,hours,days,vacation),priceInput=row.querySelector('.team-price');
-    priceInput.disabled=!billable;row.querySelector('.team-price-cell').classList.toggle('is-disabled',!billable);gross+=a.gross;addons+=a.addons;if(billable){billableHours+=a.workHours;employeeRevenue+=a.revenue;hasBillable=true}teamStarted=teamStarted||wage>0||hours>0||(billable&&price>0);members.push({row,role,billable,a,o,rawRecommended,recommended:rawRecommended});
+    const role=row.querySelector('.team-role').value,form=row.querySelector('.team-form').value,wage=parseDecimal(row.querySelector('.team-wage').value),hours=parseDecimal(row.querySelector('.team-hours').value),days=parseDecimal(row.querySelector('.team-days').value)||5,vacation=parseDecimal(row.querySelector('.team-vacation').value),billable=row.querySelector('.team-billable').checked,price=billable?parseDecimal(row.querySelector('.team-price').value):0,actualBillable=billable?Math.max(0,parseDecimal(row.querySelector('.team-billable-hours').value)):0,a=employmentData(form,wage,hours,0,0,days,vacation,0),o=orientation(role,form),rawRecommended=rolePriceRecommendation(role,form,wage,hours,days,vacation),priceInput=row.querySelector('.team-price');a.billableHours=actualBillable;a.revenue=price*actualBillable;a.contribution=a.revenue-a.total;
+    priceInput.disabled=!billable;row.querySelector('.team-price-cell').classList.toggle('is-disabled',!billable);gross+=a.gross;addons+=a.addons;if(billable){billableHours+=a.billableHours;employeeRevenue+=a.revenue;hasBillable=true}teamStarted=teamStarted||wage>0||hours>0||(billable&&price>0);members.push({row,role,billable,a,o,rawRecommended,recommended:rawRecommended});
   });
   let lowerRankMaximum=0,currentRank=0,currentRankMaximum=0;
   members.filter(member=>member.billable).sort((a,b)=>(ROLE_RANK[a.role]||3)-(ROLE_RANK[b.role]||3)).forEach(member=>{const rank=ROLE_RANK[member.role]||3;if(rank>currentRank){lowerRankMaximum=currentRankMaximum;currentRank=rank;currentRankMaximum=0}member.recommended=Math.max(member.rawRecommended,lowerRankMaximum?lowerRankMaximum*1.05:0);currentRankMaximum=Math.max(currentRankMaximum,member.recommended)});
-  members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.workHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
+  members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
   row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
-  const maxMemberRecommended=Math.max(0,...members.filter(member=>member.billable).map(member=>member.recommended)),ownerRevenue=owner.price*owner.workMonth,totalRevenue=ownerRevenue+employeeRevenue,business=owner.business+gross+addons,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('team',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimate(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,monthlyGoal=num('#teamOwnerNeed'),goalEntered=hasInput('#teamOwnerNeed')&&monthlyGoal>0,required=solveModeRevenue('team',business,owner.insurance,monthlyGoal),ownerBaseRate=hasBillable?maxMemberRecommended*1.10:(owner.workMonth?required.revenue/owner.workMonth:0),baseRecommendedRevenue=ownerBaseRate*owner.workMonth+members.filter(member=>member.billable).reduce((sum,member)=>sum+member.recommended*member.a.workHours,0),targetFactor=proportionalTargetFactor(required.revenue,baseRecommendedRevenue,goalEntered),ownerRecommended=hasBillable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
+  const maxMemberRecommended=Math.max(0,...members.filter(member=>member.billable).map(member=>member.recommended)),ownerRevenue=owner.price*owner.workMonth,totalRevenue=ownerRevenue+employeeRevenue,business=owner.business+gross+addons,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('team',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimate(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,monthlyGoal=num('#teamOwnerNeed'),goalEntered=hasInput('#teamOwnerNeed')&&monthlyGoal>0,required=solveModeRevenue('team',business,owner.insurance,monthlyGoal),ownerBaseRate=hasBillable?maxMemberRecommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseRecommendedRevenue=ownerBaseRate*owner.workMonth+members.filter(member=>member.billable).reduce((sum,member)=>sum+member.recommended*member.a.billableHours,0),targetFactor=proportionalTargetFactor(required.revenue,baseRecommendedRevenue,goalEntered),ownerRecommended=hasBillable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   members.forEach(member=>{member.finalRecommended=member.billable?member.recommended*targetFactor:member.recommended});
   $('#teamHolidayInfo').textContent=t(`Urlaub und Feiertage 2026 werden je Rolle anhand der gewählten Arbeitstage berücksichtigt. Löhne basieren weiterhin auf Vertragsstunden.`,`Отпуск и праздники 2026 года учитываются для каждой роли по выбранным рабочим дням. Зарплата по-прежнему рассчитывается по договорным часам.`);$('#teamOwnerRevenue').textContent=euro(totalRevenue);$('#teamActualCosts').textContent=euro(totalRevenue-totalCosts);$('#teamActualTaxes').textContent=euro(taxMonth);$('#teamActualRemain').textContent=euro(remain);$('#teamGross').textContent=euro(gross);$('#teamAddons').textContent=euro(addons);$('#teamOwnerBusiness').textContent=euro(owner.business);$('#teamOwnerBreakdown').textContent='';$('#teamProtectionCurrent').textContent=euro(protection);$('#teamEmployeeRevenue').textContent=euro(employeeRevenue);$('#teamEmployeeRevenueRow').classList.toggle('hidden',!hasBillable);$('#teamBurden').textContent=euro(business+protection);$('#teamTaxes').textContent=euro(required.taxMonth);$('#teamRevenue').textContent=euro(required.revenue);$('#teamRequiredNet').textContent=euro(monthlyGoal);updateAnnualTurnover('#teamAnnualTurnover',totalRevenue*12);$('#teamAnnualOperatingResult').textContent=euro((totalRevenue-totalCosts)*12);$('#teamAnnualTaxes').textContent=euro(taxMonth*12);$('#teamAnnualNet').textContent=euro(remain*12);updatePriceEquation(ownerRecommended,{net:'#teamOwnerRequiredRate',vat:'#teamOwnerVat',gross:'#teamOwnerGross',label:'#teamOwnerVatLabel'},goalEntered);
   $('#teamPriceHeading').textContent=goalEntered?t('Empfohlene Kundenpreise brutto / Std.','Рекомендуемые цены клиенту брутто / ч'):t('Kostenorientierte Kundenpreise brutto / Std.','Цены по затратам брутто / ч');
@@ -2658,11 +2746,11 @@ document.addEventListener('input',event=>{if(event.target.closest('#teamRows'))r
 $('#empApplyWage').addEventListener('click',()=>{$('#empWage').value=orientation($('#empRole').value,$('#empForm').value).mid.toFixed(2);calculateAll()});
 const applyEmpVacationRecommendation=()=>{const days=Math.max(1,Math.min(5,Math.round(num('#empDays')||5))),vacation=$('#empVacation');if(vacation.dataset.autoVacation==='true')vacation.value=days*6;refreshOwnerVacationRecommendations()};$('#empDays').addEventListener('input',applyEmpVacationRecommendation);$('#empDays').addEventListener('change',applyEmpVacationRecommendation);
 $('#empVacation').addEventListener('input',()=>{$('#empVacation').dataset.autoVacation='false';refreshOwnerVacationRecommendations()});
-$('#empHours').addEventListener('input',()=>{applyAutomaticDaysFromHours($('#empHours'),$('#empDays'),$('#empVacation'));refreshScheduleAdvice()});
-$('#empForm').addEventListener('change',()=>{const schedule=scheduleOrientation($('#empForm').value),days=$('#empDays'),vacation=$('#empVacation'),hours=$('#empHours');if(days.dataset.autoDays==='true'){const enteredHours=parseDecimal(hours.value);days.value=enteredHours?minimumRecommendedDays(enteredHours):schedule.days}if(vacation.dataset.autoVacation==='true')vacation.value=(parseDecimal(days.value)||schedule.days)*6;hours.placeholder=String(schedule.hours);calculateAll()});
+$('#empHours').addEventListener('input',event=>{if(event.isTrusted)$('#empHours').dataset.autoHours='false';applyAutomaticDaysFromHours($('#empHours'),$('#empDays'),$('#empVacation'));refreshScheduleAdvice()});
+$('#empForm').addEventListener('change',()=>{const schedule=scheduleOrientation($('#empForm').value),days=$('#empDays'),vacation=$('#empVacation'),hours=$('#empHours');if(!hours.value||hours.dataset.autoHours==='true'){hours.value=String(schedule.hours);hours.dataset.autoHours='true'}if(days.dataset.autoDays==='true'){days.value=String(minimumRecommendedDays(parseDecimal(hours.value)||schedule.hours))}if(vacation.dataset.autoVacation==='true')vacation.value=(parseDecimal(days.value)||schedule.days)*6;hours.placeholder=String(schedule.hours);calculateAll()});
 $('#empDays').addEventListener('input',()=>{$('#empDays').dataset.autoDays='false'});
 $('#empApplyRecommendedPrice').addEventListener('click',()=>{$('#empCustomerPrice').value=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')).toFixed(2);calculateAll()});
-$('#addTeamMember').addEventListener('click',()=>addTeamMember({role:'helper',form:'mini',wage:'',hours:''}));
+$('#addTeamMember').addEventListener('click',()=>addTeamMember({role:'helper',form:'mini',wage:''}));
 
 document.addEventListener('input',event=>{
   const input=event.target;
@@ -2692,7 +2780,8 @@ document.addEventListener('keydown',event=>{
 });
 
 populateAllSelects();$('#region').value='he';configureValidation();refreshScheduleAdvice();
-addTeamMember({role:'office',form:'part',wage:'',hours:'',price:''});
+{const schedule=scheduleOrientation($('#empForm').value),hours=$('#empHours'),days=$('#empDays'),vacation=$('#empVacation');if(!hours.value){hours.value=String(schedule.hours);hours.dataset.autoHours='true'}if(days.dataset.autoDays==='true')days.value=String(schedule.days);if(vacation.dataset.autoVacation==='true')vacation.value=String(schedule.companyVacation)}
+addTeamMember({role:'office',form:'part',wage:'',price:''});
 calculateAll();
 
 </script>
@@ -2758,9 +2847,15 @@ calculateAll();
       const val=el.type==='checkbox'?(el.checked?'1':'0'):el.value;
       parts.push(key+'='+val);
     });
-    const raw=new TextEncoder().encode(parts.join('|'));
-    const digest=await crypto.subtle.digest('SHA-256',raw);
-    return [...new Uint8Array(digest)].slice(0,12).map(b=>b.toString(16).padStart(2,'0')).join('');
+    const joined=parts.join('|');
+    const raw=new TextEncoder().encode(joined);
+    if(globalThis.crypto?.subtle?.digest){
+      const digest=await crypto.subtle.digest('SHA-256',raw);
+      return [...new Uint8Array(digest)].slice(0,12).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+    // Local/file preview fallback only. Production HTTPS uses SHA-256 above.
+    let h=2166136261;for(let i=0;i<joined.length;i++){h^=joined.charCodeAt(i);h=Math.imul(h,16777619)}
+    return 'local-'+(h>>>0).toString(16).padStart(8,'0');
   }
   function markScenario(mode,paid){
     const root=document.getElementById(mode); if(!root)return;
@@ -2823,5 +2918,150 @@ calculateAll();
 })();
 </script>
 
+
+<script id="fbc-v74-r-production-merge">
+(function(){
+'use strict';
+const $=id=>document.getElementById(id), RU=()=>document.documentElement.lang==='ru', T=(de,ru)=>RU()?ru:de;
+const num=id=>{const e=$(id);if(!e)return 0;const x=Number(String(e.value??'').trim().replace(/\s/g,'').replace(',','.'));return Number.isFinite(x)?x:0};
+const money=v=>Number.isFinite(Number(v))?new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(Number(v)):'—';
+const pct=v=>Number.isFinite(Number(v))?new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1}).format(Number(v)*100)+' %':'—';
+const get=(o,path)=>path.split('.').reduce((a,k)=>a&&a[k]!==undefined?a[k]:null,o);
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function statMeta(key){
+  return {
+    energy:{title:'Energie',y:'Index',x:T('Monat / Jahr','Месяц / год')},
+    fuel:{title:'Kraftstoff',y:'Index',x:T('Monat / Jahr','Месяц / год')},
+    labor:{title:'Arbeitskosten',y:'Index',x:T('Quartal / Jahr','Квартал / год')},
+    interest:{title:'Kreditzins',y:'% p.a.',x:T('Monat / Jahr','Месяц / год')}
+  }[key]||{title:key,y:'',x:''};
+}
+function jumpToStat(key){
+  const layer=$('fbcRLayer'); if(!layer)return;
+  const chart=$('fbcChart_'+key); layer.scrollIntoView({behavior:'smooth',block:'start'});
+  if(chart){chart.style.outline='2px solid #7e9ab0';setTimeout(()=>chart.style.outline='',1200)}
+}
+function methodsUsed(p){
+  const m=get(p||{},'production_meta.methods_used')||get(p||{},'methods_used')||get(p||{},'audit.methods_used')||[];
+  return Array.isArray(m)?m:[];
+}
+function renderPdfReport(){
+  let host=$('fbcPdfReport');
+  if(!host){host=document.createElement('section');host.id='fbcPdfReport';document.body.appendChild(host)}
+  const p=window.FBC_R_ANALYSIS_PAYLOAD||{};
+  const current=get(p,'current.expected_net')??get(p,'current.net_available');
+  const target=get(p,'current.monthly_target')??num('empOwnerGoal');
+  const gap=(Number.isFinite(Number(current))&&Number.isFinite(Number(target)))?Math.max(0,Number(target)-Number(current)):null;
+  const eCost=employeeCost(),o=ownerState();
+  const bill=num('empBillableHoursMonth'),price=num('empCustomerPrice');
+  const biz=Object.values(snapshot().operating_costs||{}).reduce((a,b)=>a+Number(b||0),0);
+  const prob=get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability');
+  const p10=get(p,'robustness.p10')??get(p,'post_decision.p10');
+  const p90=get(p,'robustness.p90')??get(p,'post_decision.p90');
+  const be=get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue');
+  const ebe=get(p,'break_even.employee.billable_hours')??get(p,'break_even.employee.break_even_hours');
+  const dscr=get(p,'post_decision.capital_service_ratio')??get(p,'financing.dscr');
+  const rec=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation')??T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.');
+  const methods=methodsUsed(p);
+  host.innerHTML=`<div class="pdf-title">FUTURE Business Cockpit</div><div class="pdf-sub">${T('R-Backend-Report · Werte aus dem aktuellen Cockpit; R-Werte nur wenn Payload vorliegt.','R-отчёт · текущие данные Cockpit; R-значения только при наличии payload.')}</div>
+  <div class="pdf-top"><div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(current)}</strong></div><div><small>${T('Monatsziel','Месячная цель')}</small><strong>${money(target)}</strong></div><div><small>${T('Ziellücke','Разрыв до цели')}</small><strong>${money(gap)}</strong></div></div>
+  <h2>${T('AKTUELLER STAND','ТЕКУЩЕЕ СОСТОЯНИЕ')}</h2>
+  <div class="pdf-row"><span>${T('Inhaberpreis / abrechenbare Stunden','Цена владельца / оплачиваемые часы')}</span><b>${money(o.price)} / ${Number(o.billable_hours_month||0).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h/Monat</b></div>
+  <div class="pdf-row"><span>${T('Mitarbeiter','Сотрудник')}</span><b>${esc($('empForm')?.selectedOptions?.[0]?.textContent||'—')} · ${money(num('empWage'))}/h · ${bill.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h fakturiert</b></div>
+  <div class="pdf-row"><span>${T('Personalkosten','Расходы на персонал')}</span><b>${money(eCost.total)}</b></div>
+  <div class="pdf-row"><span>${T('Betriebskosten','Расходы бизнеса')}</span><b>${money(biz)}</b></div>
+  <h2>${T('R-ANALYSE & ROBUSTHEIT','R-АНАЛИЗ И УСТОЙЧИВОСТЬ')}</h2>
+  <div class="pdf-row"><span>Expected net</span><b>${money(current)}</b></div>
+  <div class="pdf-row"><span>P10 – P90</span><b>${money(p10)} – ${money(p90)}</b></div>
+  <div class="pdf-row"><span>P(Ziel erreicht)</span><b>${pct(prob)}</b></div>
+  <div class="pdf-row"><span>Business Break-even</span><b>${money(be)}</b></div>
+  <div class="pdf-row"><span>Mitarbeiter Break-even</span><b>${ebe==null?'—':Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h/Monat'}</b></div>
+  <div class="pdf-row"><span>Kapitaldienst / DSCR</span><b>${dscr==null?'—':Number(dscr).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})}</b></div>
+  <h2>${T('EMPFEHLUNG','РЕКОМЕНДАЦИЯ')}</h2><div class="pdf-rec">${esc(typeof rec==='string'?rec:JSON.stringify(rec))}</div>
+  <h2>${T('METHODEN · nur tatsächlich ausgeführt','МЕТОДЫ · только реально выполненные')}</h2><div class="pdf-methods">${methods.length?methods.map(esc).join(' · '):'—'}</div>`;
+}
+
+function ensureRUI(){
+  const emp=$('employee'); if(!emp||$('fbcRLayer'))return;
+  const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
+  layer.innerHTML=`<div class="section-kicker">R · DECISION SUPPORT</div><h2>${T('Analyse, Robustheit und Entscheidung','Анализ, устойчивость и решение')}</h2>
+  <div class="fbc-r-status" id="fbcRStatus">${T('Noch kein R-Payload','R-payload ещё не получен')}</div>
+  <div class="fbc-r-grid" style="margin-top:12px"><div class="fbc-r-metric"><span>${T('Aktuell verfügbar','Сейчас доступно')}</span><strong id="fbcRCurrent">—</strong></div><div class="fbc-r-metric"><span>${T('Monatsziel','Месячная цель')}</span><strong id="fbcRTarget">—</strong></div><div class="fbc-r-metric"><span>${T('P(Ziel)','P(цель)')}</span><strong id="fbcRProb">—</strong></div></div>
+  <div class="fbc-r-note" id="fbcRRecommendation">${T('Empfehlungen werden ausschließlich aus dem validierten R-Payload angezeigt.','Рекомендации показываются только из валидированного R-payload.')}</div>
+  <h3 style="margin-top:18px">Break-even</h3><div class="fbc-r-grid"><div class="fbc-r-metric"><span>${T('Business Break-even','Безубыточность бизнеса')}</span><strong id="fbcRBusinessBE">—</strong></div><div class="fbc-r-metric"><span>${T('Mitarbeiter Break-even','Безубыточность сотрудника')}</span><strong id="fbcREmployeeBE">—</strong></div><div class="fbc-r-metric"><span>DSCR / Kapitaldienst</span><strong id="fbcRDSCR">—</strong></div></div>
+  <h3 style="margin-top:18px">${T('Statistik & Prognose','Статистика и прогноз')}</h3><div class="fbc-stat-grid">${['energy','fuel','labor','interest'].map(k=>`<div><b>${({energy:'Energie',fuel:'Kraftstoff',labor:'Arbeitskosten',interest:'Kreditzins'})[k]}</b><div class="fbc-r-chart" id="fbcChart_${k}"><small>${T('Wird aus R-Payload gerendert.','Будет построено из R-payload.')}</small></div></div>`).join('')}</div>
+  <div class="fbc-r-actions"><button class="fbc-r-primary" type="button" id="fbcRunAnalysis">${T('R-Analyse starten','Запустить R-анализ')}</button></div>`;
+  emp.appendChild(layer);
+
+  const fin=document.createElement('details');fin.id='fbcFinanceCard';fin.className='fbc-fin-details';
+  fin.innerHTML=`<summary>${T('Finanzierung & Kapitaldienst (optional)','Финансирование и обслуживание долга (необязательно)')}</summary><div class="fbc-fin-body"><label><input id="fbcFinActive" type="checkbox"> ${T('Finanzierung vorhanden','Есть финансирование')}</label><div class="fbc-fin-grid" style="margin-top:12px"><label class="field"><span>${T('Art','Тип')}</span><select id="fbcFinType"><option value="annuity">Annuität</option><option value="tilgung">Tilgungsdarlehen</option><option value="bullet">Endfällig</option><option value="line">Kreditlinie</option><option value="zero">Zinsfrei</option></select></label><label class="field"><span>${T('Restschuld / Nutzung','Остаток долга / использование')}</span><div class="unit"><input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field"><span>${T('Zinssatz p.a.','Ставка годовых')}</span><div class="unit"><input id="fbcFinRate" type="text" inputmode="decimal" placeholder="0"><b>%</b></div></label><label class="field"><span>${T('Restlaufzeit','Оставшийся срок')}</span><div class="unit"><input id="fbcFinMonths" type="number" min="1" placeholder="0"><b>Mon.</b></div></label><label class="field"><span>${T('Weitere Kosten / Monat','Прочие расходы / месяц')}</span><div class="unit"><input id="fbcFinFees" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field"><span>${T('Zinsbindung','Фиксация ставки')}</span><select id="fbcFinBinding"><option value="fixed">${T('Fest','Фиксированная')}</option><option value="variable">${T('Variabel','Переменная')}</option></select></label></div></div>`;
+  layer.insertAdjacentElement('beforebegin',fin);
+  $('fbcFinActive').addEventListener('change',()=>{if($('fbcFinActive').checked)fin.open=true});
+
+  const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
+  $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
+  $('fbcRunAnalysis').addEventListener('click',async()=>{try{await window.FBC_R_BACKEND_ADAPTER.analyze(window.FBC_ANALYSIS_CONFIG||{});}catch(e){$('fbcRStatus').textContent=T('R-Analyse nicht verfügbar: ','R-анализ недоступен: ')+String(e.message||e)}});
+}
+
+function employeeCost(){
+  try{const form=$('empForm')?.value||'part',w=num('empWage'),h=num('empHours'),d=num('empDays')||5,v=num('empVacation');const e=typeof employmentData==='function'?employmentData(form,w,h,0,0,d,v,0):null;return e||{total:0,workHours:0,rate:0,holidays:0}}catch(e){return{total:0,workHours:0,rate:0,holidays:0}}
+}
+function ownerState(){
+  let workMonth=0,holidays=0,insurance=num('empOwnerInsurance');try{const o=typeof modeOwner==='function'?modeOwner('emp'):null;if(o){workMonth=o.workMonth||0;holidays=o.time?.holidays||0;insurance=o.insurance||insurance}}catch(e){}
+  return{price:num('empOwnerPrice'),hours_week:num('empOwnerHours'),days_week:num('empOwnerDays')||5,vacation_days:num('empOwnerVacation'),available_hours_month:workMonth,billable_hours_month:num('empOwnerBillableHours'),monthly_target:num('empOwnerGoal'),insurance_month:insurance,pension_mode:$('empPensionMode')?.value||'none',pension_fixed_month:num('empPensionFixed'),holidays};
+}
+function financing(){const active=!!$('fbcFinActive')?.checked;return{active,type:$('fbcFinType')?.value||'annuity',amount:active?num('fbcFinAmount'):0,rate_pa:active?num('fbcFinRate'):0,months:active?Math.max(1,Math.round(num('fbcFinMonths')||1)):1,fees_month:active?num('fbcFinFees'):0,binding:$('fbcFinBinding')?.value||'fixed'}}
+function snapshot(){
+  const o=ownerState(),e=employeeCost(),direct=!!$('empBillable')?.checked,bill=direct?num('empBillableHoursMonth'):0,price=direct?num('empCustomerPrice'):0;
+  const costs={office:num('empCostOffice'),vehicle:num('empCostVehicle'),fuel:num('empCostFuel'),energy:num('empCostEnergy'),software:num('empCostSoftware'),accounting:num('empCostAccounting'),insurance:num('empCostInsurance'),material:num('empCostMaterial'),marketing:num('empCostMarketing'),other:num('empCostOther')};
+  const errors=[];if(o.billable_hours_month>o.available_hours_month+1e-9)errors.push('owner_billable_exceeds_available');if(direct&&bill>e.workHours+1e-9)errors.push('employee_billable_exceeds_available');
+  const ownerRevenue=o.price*o.billable_hours_month, employeeRevenue=price*bill, operating=Object.values(costs).reduce((a,b)=>a+b,0), fin=financing();
+  return{schema_version:'FBC_P0_FACTUAL_1.0',errors,owner:o,employee:{form:$('empForm')?.value||'part',wage_hour:num('empWage'),hours_week:num('empHours'),days_week:num('empDays')||5,vacation_days:num('empVacation'),direct_billing:direct,customer_price:price,paid_available_hours_month:e.workHours||0,billable_hours_month:bill,personnel_cost_month:e.total||0,employer_addon_rate:e.rate||0,holidays:e.holidays||0},operating_costs:costs,financing:fin,current:{owner_revenue:ownerRevenue,employee_revenue:employeeRevenue,revenue:ownerRevenue+employeeRevenue,operating_costs:operating,personnel_cost:e.total||0},legal_form:$('legalForm')?.value||'freelance',trade_tax_rate:num('tradeTaxRate')};
+}
+function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
+window.FBC_P0_PRODUCTION_BRIDGE={snapshot,financing,buildConfig,status:()=>{const s=snapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}};
+window.FBC_P1_PRODUCTION_BRIDGE={buildConfig,renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
+window.FBC_P2_ASSURANCE_BRIDGE={apply:p=>{window.FBC_P2_ASSURANCE_PAYLOAD=p?.assurance||p?.audit||null;return window.FBC_P2_ASSURANCE_PAYLOAD}};
+window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=get(p||{},'post_decision.capital_service_ratio')??get(p||{},'financing.dscr');if($('fbcRDSCR'))$('fbcRDSCR').textContent=v==null?'—':Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2});return v}};
+
+function chart(host,data,key){
+  if(!host)return;
+  const meta=statMeta(key);
+  if(!Array.isArray(data)||data.length<2){
+    host.innerHTML=`<small>${T('Noch keine R-Zeitreihe im Payload.','В R-payload пока нет временного ряда.')}</small><div class="fbc-axis-note"><span>Y: ${esc(meta.y)}</span><span>X: ${esc(meta.x)}</span></div>`;
+    return;
+  }
+  const pts=data.map((q,i)=>({i,v:Number(q.value??q.result??q.y),label:String(q.label??q.date??q.period??q.month??i+1)})).filter(q=>Number.isFinite(q.v));
+  if(pts.length<2)return;
+  const W=560,H=220,l=54,r=18,t=16,b=42;
+  const min0=Math.min(...pts.map(q=>q.v)),max0=Math.max(...pts.map(q=>q.v)),pad=(max0-min0||Math.max(Math.abs(max0),1))*.08,min=min0-pad,max=max0+pad,span=max-min||1;
+  const x=i=>l+(W-l-r)*(i/(pts.length-1)),y=v=>t+(H-t-b)*(1-(v-min)/span);
+  const ticks=[0,.25,.5,.75,1].map(f=>({v:min+span*f,y:y(min+span*f)}));
+  const pick=[0,Math.floor((pts.length-1)/2),pts.length-1].filter((v,i,a)=>a.indexOf(v)===i);
+  const fmt=v=>new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{maximumFractionDigits:key==='interest'?2:1}).format(v);
+  host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(meta.title)}">
+    ${ticks.map(q=>`<line x1="${l}" x2="${W-r}" y1="${q.y}" y2="${q.y}" stroke="#e3e9ee" stroke-width="1"/><text x="${l-8}" y="${q.y+4}" text-anchor="end" fill="#687684" font-size="10">${fmt(q.v)}</text>`).join('')}
+    <line x1="${l}" x2="${l}" y1="${t}" y2="${H-b}" stroke="#aebbc5" stroke-width="1"/>
+    <line x1="${l}" x2="${W-r}" y1="${H-b}" y2="${H-b}" stroke="#aebbc5" stroke-width="1"/>
+    <polyline fill="none" stroke="#284e6d" stroke-width="2.3" points="${pts.map(q=>`${x(q.i)},${y(q.v)}`).join(' ')}"/>
+    ${pick.map(i=>`<text x="${x(i)}" y="${H-18}" text-anchor="${i===0?'start':i===pts.length-1?'end':'middle'}" fill="#687684" font-size="10">${esc(pts[i].label)}</text>`).join('')}
+    <text x="12" y="${(t+H-b)/2}" transform="rotate(-90 12 ${(t+H-b)/2})" text-anchor="middle" fill="#4f6372" font-size="10">${esc(meta.y)}</text>
+    <text x="${(l+W-r)/2}" y="${H-4}" text-anchor="middle" fill="#4f6372" font-size="10">${esc(meta.x)}</text>
+  </svg><small class="fbc-chart-source">${T('Datenreihe aus validiertem R-Payload','Ряд данных из валидированного R-payload')}</small>`;
+}
+function applyPayload(p){window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');$('fbcRCurrent').textContent=money(get(p,'current.expected_net')??get(p,'current.net_available'));$('fbcRTarget').textContent=money(get(p,'current.monthly_target'));$('fbcRProb').textContent=pct(get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability'));const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');$('fbcRRecommendation').textContent=exp||T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');$('fbcRBusinessBE').textContent=money(get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue')??get(p,'post_decision.business_break_even_margin_eur'));const ebe=get(p,'break_even.employee.billable_hours')??get(p,'break_even.employee.break_even_hours');$('fbcREmployeeBE').textContent=ebe==null?'—':Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h';window.FBC_P2_ASSURANCE_BRIDGE.apply(p);window.FBC_CAPITAL_SERVICE_BRIDGE.apply(p);const fs=get(p,'factor_forecasts')||get(p,'forecasts')||{};for(const k of ['energy','fuel','labor','interest'])chart($('fbcChart_'+k),get(fs,k+'.path')||get(fs,k+'.series')||fs[k],k);document.dispatchEvent(new CustomEvent('fbc:r-payload',{detail:p}));return p}
+async function analyze(analysis={}){const url=window.FBC_R_API_URL||'/api/analyze';const req=buildConfig(analysis);const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(req)});if(!r.ok)throw new Error('HTTP '+r.status);return applyPayload(await r.json())}
+window.FBC_R_BACKEND_ADAPTER={buildRequest:buildConfig,applyPayload,analyze};
+
+function installStatLinks(){
+  document.querySelectorAll('.fbc-stat-link').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',()=>jumpToStat(b.dataset.statTarget||'labor'))});
+  [['empCostEnergy','energy'],['empCostFuel','fuel'],['teamCostEnergy','energy'],['teamCostFuel','fuel']].forEach(([id,key])=>{const input=$(id);if(!input)return;const row=input.closest('label');if(!row||row.querySelector('.fbc-cost-stat-link'))return;const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.dataset.statTarget=key;b.textContent=T('Statistik & Prognose','Статистика и прогноз');b.addEventListener('click',()=>jumpToStat(key));row.appendChild(b)});
+  const rate=$('fbcFinRate');if(rate){const row=rate.closest('label');if(row&&!row.querySelector('.fbc-cost-stat-link')){const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.textContent=T('Zins · Statistik & Prognose','Ставка · статистика и прогноз');b.addEventListener('click',()=>jumpToStat('interest'));row.appendChild(b)}}
+}
+function boot(){ensureRUI();installStatLinks();const fin=$('fbcFinanceCard');if(fin&&$('fbcFinActive')?.checked)fin.open=true;}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,0),{once:true});else boot();
+})();
+</script>
 </body>
 </html>
