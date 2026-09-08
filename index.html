@@ -3752,9 +3752,13 @@ layer.innerHTML=`
 }
   
 document.addEventListener('click',e=>{
-  const btn=e.target.closest('#fbcRunAnalysis,#fbcRunEvidenceAnalysis');
+  const btn=e.target.closest(
+    '#fbcRunAnalysis,#fbcRunEvidenceAnalysis'
+  );
+
   if(!btn)return;
-  runRAnalysis();
+
+  runRAnalysis(btn.id);
 });
 }
 
