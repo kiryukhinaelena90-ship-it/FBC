@@ -3910,9 +3910,16 @@ function renderDecisionDetails(p){
     get(p,'recommendation.expected_net_after')
   );
 
-  const payloadStatus=String(p?.status||'');
+const payloadStatus=String(p?.status||'');
 
-  let targetReached=
+const isP1 =
+  payloadStatus==='recommendation_selected' ||
+  payloadStatus==='target_not_reachable';
+
+let targetReached=null;
+
+if(isP1){
+  targetReached=
     get(p,'recommendation.target_reached');
 
   if(typeof targetReached!=='boolean'){
@@ -3930,65 +3937,11 @@ function renderDecisionDetails(p){
   if(payloadStatus==='target_not_reachable'){
     targetReached=false;
   }
+}
 
-  const timeToTarget=Number(
-    get(p,'target_path.time_to_target_months')
-  );
-
-  const fmtNum=(v,d=2)=>{
-    const n=Number(v);
-    return Number.isFinite(n)
-      ? n.toLocaleString(
-          RU()?'ru-RU':'de-DE',
-          {
-            minimumFractionDigits:d,
-            maximumFractionDigits:d
-          }
-        )
-      : '—';
-  };
-
-  const changeValue=(v,unit)=>{
-    const n=Number(v);
-    if(!Number.isFinite(n))return '—';
-
-    if(String(unit||'').includes('EUR')){
-      return fmtNum(n,2);
-    }
-
-    if(String(unit||'').includes('h')){
-      return fmtNum(n,1);
-    }
-
-    return fmtNum(n,2);
-  };
-
-
-  /* =========================================
-     1. FBC ERGEBNIS + KONKRETE ÄNDERUNGEN
-     ========================================= */
-
-  if(box){
-
-    const validChanges=
-      Array.isArray(changes)
-        ? changes
-        : [];
-
-    const targetText=
-      targetReached
-        ? (
-            Number.isFinite(timeToTarget)
-              ? T(
-                  `Ja · in ${fmtNum(timeToTarget,0)} Mon.`,
-                  `Да · через ${fmtNum(timeToTarget,0)} мес.`
-                )
-              : T('Ja','Да')
-          )
-        : T(
-            'Mit den bestätigten Grenzen nicht erreichbar',
-            'Недостижима при подтверждённых границах'
-          );
+const timeToTarget=Number(
+  get(p,'target_path.time_to_target_months')
+);
 
     const resultTitle=
       targetReached
