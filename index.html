@@ -3896,25 +3896,537 @@ function chart(host,data,key){
   </svg><small class="fbc-chart-source">${T('Datenreihe aus validiertem R-Payload','Ряд данных из валидированного R-payload')}</small>`;
 }
 function renderDecisionDetails(p){
-  const box=$('fbcRChanges'), shbox=$('fbcRShapley');
+  const box=$('fbcRChanges');
+  const shbox=$('fbcRShapley');
+
   const changes=get(p,'recommendation.changes');
-  const projected=get(p,'recommendation.projected_net')??get(p,'recommendation.expected_net_after');
-  if(box){
-    if(Array.isArray(changes)&&changes.length){
-      box.hidden=false;
-      box.innerHTML=`<div class="fbc-r-detail-title">${T('Konkrete Änderung','Конкретное изменение')}</div>`+
-        changes.map(c=>`<div class="fbc-r-change-row"><span>${esc(c.label||c.lever||'')}</span><b>${esc(String(c.current??'—'))} → ${esc(String(c.proposed??'—'))} ${esc(c.unit||'')}</b></div>`).join('')+
-        (Number.isFinite(Number(projected))?`<div class="fbc-r-change-row"><span>${T('Netto nach Empfehlung','Нетто после рекомендации')}</span><b>${money(projected)}</b></div>`:'');
-    }else{box.hidden=true;box.innerHTML=''}
+  const currentNet=Number(
+    get(p,'current.expected_net') ??
+    get(p,'current.net_available')
+  );
+  const target=Number(get(p,'current.monthly_target'));
+  const projected=Number(
+    get(p,'recommendation.projected_net') ??
+    get(p,'recommendation.expected_net_after')
+  );
+
+  const payloadStatus=String(p?.status||'');
+
+  let targetReached=
+    get(p,'recommendation.target_reached');
+
+  if(typeof targetReached!=='boolean'){
+    targetReached=
+      get(p,'target_path.target_reached_within_horizon');
   }
+
+  if(typeof targetReached!=='boolean'){
+    targetReached=
+      Number.isFinite(projected) &&
+      Number.isFinite(target) &&
+      projected>=target-0.01;
+  }
+
+  if(payloadStatus==='target_not_reachable'){
+    targetReached=false;
+  }
+
+  const timeToTarget=Number(
+    get(p,'target_path.time_to_target_months')
+  );
+
+  const fmtNum=(v,d=2)=>{
+    const n=Number(v);
+    return Number.isFinite(n)
+      ? n.toLocaleString(
+          RU()?'ru-RU':'de-DE',
+          {
+            minimumFractionDigits:d,
+            maximumFractionDigits:d
+          }
+        )
+      : '—';
+  };
+
+  const changeValue=(v,unit)=>{
+    const n=Number(v);
+    if(!Number.isFinite(n))return '—';
+
+    if(String(unit||'').includes('EUR')){
+      return fmtNum(n,2);
+    }
+
+    if(String(unit||'').includes('h')){
+      return fmtNum(n,1);
+    }
+
+    return fmtNum(n,2);
+  };
+
+
+  /* =========================================
+     1. FBC ERGEBNIS + KONKRETE ÄNDERUNGEN
+     ========================================= */
+
+  if(box){
+
+    const validChanges=
+      Array.isArray(changes)
+        ? changes
+        : [];
+
+    const targetText=
+      targetReached
+        ? (
+            Number.isFinite(timeToTarget)
+              ? T(
+                  `Ja · in ${fmtNum(timeToTarget,0)} Mon.`,
+                  `Да · через ${fmtNum(timeToTarget,0)} мес.`
+                )
+              : T('Ja','Да')
+          )
+        : T(
+            'Mit den bestätigten Grenzen nicht erreichbar',
+            'Недостижима при подтверждённых границах'
+          );
+
+    const resultTitle=
+      targetReached
+        ? T('FBC Ergebnis','Результат FBC')
+        : T(
+            'FBC Ergebnis · Ziel nicht erreichbar',
+            'Результат FBC · цель недостижима'
+          );
+
+    const changesHtml=
+      validChanges.length
+        ? `
+          <div
+            class="fbc-r-detail-title"
+            style="margin-top:16px"
+          >
+            ${T(
+              'Empfohlene Änderung',
+              'Рекомендуемое изменение'
+            )}
+          </div>
+
+          ${validChanges.map(c=>`
+            <div class="fbc-r-change-row">
+              <span>${esc(c.label||c.lever||'')}</span>
+
+              <b>
+                ${changeValue(c.current,c.unit)}
+                →
+                ${changeValue(c.proposed,c.unit)}
+                ${esc(c.unit||'')}
+              </b>
+            </div>
+          `).join('')}
+        `
+        : `
+          <div
+            style="
+              margin-top:14px;
+              font-size:13px;
+              color:#687684;
+            "
+          >
+            ${T(
+              'Keine zusätzliche operative Änderung ausgewählt.',
+              'Дополнительное операционное изменение не выбрано.'
+            )}
+          </div>
+        `;
+
+    box.hidden=false;
+
+    box.innerHTML=`
+      <div class="fbc-r-detail-title">
+        ${resultTitle}
+      </div>
+
+      <div class="fbc-r-change-row">
+        <span>${T('Aktuell','Сейчас')}</span>
+        <b>${money(currentNet)}</b>
+      </div>
+
+      <div class="fbc-r-change-row">
+        <span>${T('Monatsziel','Месячная цель')}</span>
+        <b>${money(target)}</b>
+      </div>
+
+      ${
+        Number.isFinite(projected)
+          ? `
+            <div class="fbc-r-change-row">
+              <span>
+                ${T(
+                  'Erwartetes Netto nach Umsetzung',
+                  'Ожидаемое нетто после реализации'
+                )}
+              </span>
+              <b>${money(projected)}</b>
+            </div>
+          `
+          : ''
+      }
+
+      <div class="fbc-r-change-row">
+        <span>${T('Ziel erreichbar','Цель достижима')}</span>
+        <b>${targetText}</b>
+      </div>
+
+      ${changesHtml}
+    `;
+  }
+
+
+  /* =========================================
+     2. ERKLÄRUNG + BREAK-EVEN
+     ========================================= */
+
   const sh=get(p,'recommendation.explanation');
-  const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
+  const contrib=
+    sh && Array.isArray(sh.contributions)
+      ? sh.contributions
+      : [];
+
+  const empApplicable=
+    get(p,'break_even.employee.applicable');
+
+  const empOk=
+    get(p,'break_even.employee.ok') ??
+    get(p,'post_decision.employee_break_even_ok');
+
+  const empHours=Number(
+    get(p,'break_even.employee.billable_hours')
+  );
+
+  const empBE=Number(
+    get(p,'break_even.employee.break_even_hours')
+  );
+
+  const empMissing=
+    Number.isFinite(empHours) &&
+    Number.isFinite(empBE)
+      ? Math.max(0,empBE-empHours)
+      : NaN;
+
+  const businessBE=Number(
+    get(p,'break_even.business.break_even_revenue')
+  );
+
+  const businessRevenue=Number(
+    get(p,'break_even.business.projected_revenue')
+  );
+
+  const businessMargin=Number(
+    get(p,'break_even.business.safety_margin') ??
+    get(p,'post_decision.business_break_even_margin_eur')
+  );
+
+  const businessOk=
+    get(p,'break_even.business.reachable') &&
+    (
+      get(p,'break_even.ok') ??
+      get(p,'post_decision.business_break_even_ok')
+    );
+
   if(shbox){
-    if(sh?.available&&contrib.length){
-      shbox.hidden=false;
-      shbox.innerHTML=`<div class="fbc-r-detail-title">${T('Warum diese Kombination? · Shapley','Почему эта комбинация? · Shapley')}</div>`+
-        contrib.map(c=>`<div class="fbc-r-shapley-row"><span>${esc(c.label||c.lever||'')}</span><b>${money(c.contribution_eur??c.contribution)}</b></div>`).join('');
-    }else{shbox.hidden=true;shbox.innerHTML=''}
+
+    let html='';
+
+
+    /* Erklärung */
+
+    if(sh?.available && contrib.length){
+
+      html+=`
+        <div class="fbc-r-detail-title">
+          ${T(
+            'Warum verbessert sich das Ergebnis?',
+            'Почему улучшается результат?'
+          )}
+        </div>
+
+        ${contrib.map(c=>`
+          <div class="fbc-r-shapley-row">
+            <span>
+              ${esc(c.label||c.lever||'')}
+            </span>
+
+            <b>
+              ${T(
+                'Beitrag zum monatlichen Netto:',
+                'Вклад в месячное нетто:'
+              )}
+              ${money(
+                c.contribution_eur ??
+                c.contribution
+              )}
+            </b>
+          </div>
+        `).join('')}
+
+        <small
+          style="
+            display:block;
+            margin-top:7px;
+            color:#7b8994;
+          "
+        >
+          ${T(
+            'Beitragsanalyse nach Shapley',
+            'Анализ вклада по Shapley'
+          )}
+        </small>
+      `;
+    }
+
+
+    /* Mitarbeiter Break-even */
+
+    if(
+      empApplicable!==false &&
+      Number.isFinite(empHours) &&
+      Number.isFinite(empBE)
+    ){
+
+      const maxH=Math.max(empHours,empBE,1);
+      const currentPct=Math.min(
+        100,
+        Math.max(2,empHours/maxH*100)
+      );
+
+      const bePct=Math.min(
+        100,
+        Math.max(2,empBE/maxH*100)
+      );
+
+      html+=`
+        <div
+          class="fbc-r-detail-title"
+          style="margin-top:20px"
+        >
+          ${T(
+            'Mitarbeiter · Kostendeckung',
+            'Сотрудник · окупаемость'
+          )}
+        </div>
+
+        <div
+          style="
+            margin-top:9px;
+            font-weight:700;
+          "
+        >
+          ${
+            empOk===true
+              ? T(
+                  'Mitarbeiter ist kostendeckend.',
+                  'Сотрудник окупается.'
+                )
+              : T(
+                  'Mitarbeiter derzeit nicht kostendeckend.',
+                  'Сотрудник пока не окупается.'
+                )
+          }
+        </div>
+
+        <div
+          style="
+            position:relative;
+            height:10px;
+            margin:15px 0 8px;
+            background:#e6ebef;
+            border-radius:999px;
+            overflow:visible;
+          "
+        >
+          <div
+            style="
+              width:${currentPct}%;
+              height:10px;
+              border-radius:999px;
+              background:#496779;
+            "
+          ></div>
+
+          <div
+            title="Break-even"
+            style="
+              position:absolute;
+              top:-5px;
+              left:${bePct}%;
+              width:2px;
+              height:20px;
+              background:#172f43;
+            "
+          ></div>
+        </div>
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            font-size:12px;
+            color:#687684;
+          "
+        >
+          <span>
+            ${T('Aktuell','Сейчас')}:
+            ${fmtNum(empHours,1)} h
+          </span>
+
+          <span>
+            Break-even:
+            ${fmtNum(empBE,1)} h
+          </span>
+        </div>
+
+        ${
+          empOk===false &&
+          Number.isFinite(empMissing)
+            ? `
+              <div
+                style="
+                  margin-top:9px;
+                  font-weight:700;
+                "
+              >
+                ${T('Fehlen','Не хватает')}:
+                ${fmtNum(empMissing,1)} h /
+                ${T('Monat','месяц')}
+              </div>
+            `
+            : ''
+        }
+      `;
+    }
+
+
+    /* Business Break-even */
+
+    if(
+      Number.isFinite(businessBE) &&
+      Number.isFinite(businessRevenue)
+    ){
+
+      const maxR=Math.max(
+        businessBE,
+        businessRevenue,
+        1
+      );
+
+      const bePct=Math.min(
+        100,
+        businessBE/maxR*100
+      );
+
+      const revenuePct=Math.min(
+        100,
+        businessRevenue/maxR*100
+      );
+
+      html+=`
+        <div
+          class="fbc-r-detail-title"
+          style="margin-top:20px"
+        >
+          ${T(
+            'Business · Break-even',
+            'Бизнес · точка безубыточности'
+          )}
+        </div>
+
+        <div
+          style="
+            position:relative;
+            height:10px;
+            margin:15px 0 8px;
+            background:#e6ebef;
+            border-radius:999px;
+            overflow:visible;
+          "
+        >
+          <div
+            style="
+              width:${revenuePct}%;
+              height:10px;
+              border-radius:999px;
+              background:#496779;
+            "
+          ></div>
+
+          <div
+            title="Break-even"
+            style="
+              position:absolute;
+              top:-5px;
+              left:${bePct}%;
+              width:2px;
+              height:20px;
+              background:#172f43;
+            "
+          ></div>
+        </div>
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            font-size:12px;
+            color:#687684;
+          "
+        >
+          <span>
+            Break-even:
+            ${money(businessBE)}
+          </span>
+
+          <span>
+            ${T(
+              'Umsatz nach Empfehlung',
+              'Выручка после рекомендации'
+            )}:
+            ${money(businessRevenue)}
+          </span>
+        </div>
+
+        ${
+          Number.isFinite(businessMargin)
+            ? `
+              <div
+                style="
+                  margin-top:9px;
+                  font-weight:700;
+                "
+              >
+                ${
+                  businessMargin>=0
+                    ? T(
+                        'Sicherheitsmarge',
+                        'Запас прочности'
+                      )
+                    : T(
+                        'Fehlbetrag bis Break-even',
+                        'Недостаток до безубыточности'
+                      )
+                }:
+                ${money(businessMargin)}
+              </div>
+            `
+            : ''
+        }
+      `;
+    }
+
+    shbox.hidden=!html;
+
+    shbox.innerHTML=html;
   }
 }
 
