@@ -3292,13 +3292,23 @@ function readDecisionEvidence(){
     mode:'linear',
     source_type:'user_confirmed'
   });
-  const requireAbove=(onId,valId,current,label,maxValue=null)=>{
-    if(!$(onId)?.checked)return null;
-    const v=num(valId);
-    if(!Number.isFinite(v)||v<=current)throw new Error(label+': '+T('Obergrenze muss über dem aktuellen Wert liegen.','верхняя граница должна быть выше текущего значения.'));
-    if(Number.isFinite(Number(maxValue))&&v>Number(maxValue)+1e-9)throw new Error(label+': '+T('Obergrenze überschreitet die aktuell verfügbare Kapazität.','верхняя граница превышает текущую доступную мощность.'));
-    return v;
-  };
+  const requireAbove=(onId,valId,current,label)=>{
+  if(!$(onId)?.checked)return null;
+
+  const v=num(valId);
+
+  if(!Number.isFinite(v)||v<=current){
+    throw new Error(
+      label+': '+
+      T(
+        'Obergrenze muss über dem aktuellen Wert liegen.',
+        'верхняя граница должна быть выше текущего значения.'
+      )
+    );
+  }
+
+  return v;
+};
 
  const op=requireAbove(
   'fbcBoundOwnerPriceOn',
