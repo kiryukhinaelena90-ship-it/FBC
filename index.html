@@ -3916,40 +3916,41 @@ const isP1 =
   payloadStatus==='recommendation_selected' ||
   payloadStatus==='target_not_reachable';
 
-let targetReached=null;
+const targetText=
+  !isP1
+    ? T(
+        'Für eine konkrete Lösung reale Grenzen bestätigen',
+        'Для конкретного решения подтвердите реальные границы'
+      )
+    : targetReached
+      ? (
+          Number.isFinite(timeToTarget)
+            ? T(
+                `Ja · in ${fmtNum(timeToTarget,0)} Mon.`,
+                `Да · через ${fmtNum(timeToTarget,0)} мес.`
+              )
+            : T('Ja','Да')
+        )
+      : T(
+          'Mit den bestätigten Grenzen nicht erreichbar',
+          'Недостижима при подтверждённых границах'
+        );
 
-if(isP1){
-  targetReached=
-    get(p,'recommendation.target_reached');
-
-  if(typeof targetReached!=='boolean'){
-    targetReached=
-      get(p,'target_path.target_reached_within_horizon');
-  }
-
-  if(typeof targetReached!=='boolean'){
-    targetReached=
-      Number.isFinite(projected) &&
-      Number.isFinite(target) &&
-      projected>=target-0.01;
-  }
-
-  if(payloadStatus==='target_not_reachable'){
-    targetReached=false;
-  }
-}
-
-const timeToTarget=Number(
-  get(p,'target_path.time_to_target_months')
-);
-
-    const resultTitle=
-      targetReached
-        ? T('FBC Ergebnis','Результат FBC')
-        : T(
-            'FBC Ergebnis · Ziel nicht erreichbar',
-            'Результат FBC · цель недостижима'
-          );
+const resultTitle=
+  !isP1
+    ? T(
+        'Aktueller Stand',
+        'Текущее состояние'
+      )
+    : targetReached
+      ? T(
+          'FBC Ergebnis',
+          'Результат FBC'
+        )
+      : T(
+          'FBC Ergebnis · Ziel nicht erreichbar',
+          'Результат FBC · цель недостижима'
+        );
 
     const changesHtml=
       validChanges.length
