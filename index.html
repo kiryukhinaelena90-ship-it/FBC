@@ -3532,18 +3532,24 @@ layer.innerHTML=`
 
 
       <div class="fbc-evidence-action">
-        <button
-          class="fbc-r-primary"
-          type="button"
-          id="fbcRunEvidenceAnalysis"
-        >
-          ${T(
-            'Mit diesen Grenzen neu berechnen',
-            'Считать заново с этими границами'
-          )}
-        </button>
-      </div>
+        <div class="fbc-evidence-action">
+  <button
+    class="fbc-r-primary"
+    type="button"
+    id="fbcRunEvidenceAnalysis"
+  >
+    ${T(
+      'Mit diesen Grenzen neu berechnen',
+      'Считать заново с этими границами'
+    )}
+  </button>
+</div>
 
+<div
+  class="fbc-analysis-progress"
+  id="fbcEvidenceProgress"
+  aria-live="polite"
+>
   <div class="fbc-analysis-progress-track">
     <div class="fbc-analysis-progress-fill"></div>
   </div>
