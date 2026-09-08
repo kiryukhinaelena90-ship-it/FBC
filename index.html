@@ -3169,69 +3169,461 @@ function renderPdfReport(){
 function ensureRUI(){
   const emp=$('employee'); if(!emp||$('fbcRLayer'))return;
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
-  layer.innerHTML=`<div class="section-kicker">${T('R · DECISION SUPPORT','R · АНАЛИТИКА И РЕШЕНИЯ')}</div><div class="fbc-r-title-row"><h2>${T('Analyse, Robustheit und Entscheidung','Анализ, устойчивость и решение')}</h2><button class="fbc-r-primary" type="button" id="fbcRunAnalysis">${T('R-Analyse starten','Запустить R-анализ')}</button></div>
-  <div class="fbc-r-status" id="fbcRStatus" style="margin-top:10px">${T('Noch kein R-Payload','R-payload ещё не получен')}</div>
-  <div class="fbc-analysis-progress" id="fbcAnalysisProgress" aria-live="polite"><div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div><small class="fbc-analysis-progress-text">${T('Analyse wird berechnet …','Выполняется расчёт …')}</small></div>
-  <div class="fbc-r-grid" style="margin-top:12px"><div class="fbc-r-metric"><span>${T('Aktuell verfügbar','Сейчас доступно')}</span><strong id="fbcRCurrent">—</strong></div><div class="fbc-r-metric"><span>${T('Monatsziel','Месячная цель')}</span><strong id="fbcRTarget">—</strong></div><div class="fbc-r-metric"><span>${T('P(Ziel)','P(цель)')}</span><strong id="fbcRProb">—</strong></div></div>
-  <div class="fbc-r-note" id="fbcRRecommendation">${T('Empfehlungen werden ausschließlich aus dem validierten R-Payload angezeigt.','Рекомендации показываются только из валидированного R-payload.')}</div>
-  <div class="fbc-r-detailbox" id="fbcRChanges" hidden></div>
-  <div class="fbc-r-detailbox" id="fbcRShapley" hidden></div>
+layer.innerHTML=`
+  <div class="section-kicker">
+    ${T('R · DECISION SUPPORT','R · АНАЛИТИКА И РЕШЕНИЯ')}
+  </div>
 
-  <div class="fbc-decision-intro" id="fbcDecisionIntro"><b>${T('Welche Wege soll FBC prüfen?','Какие варианты FBC стоит проверить?')}</b><small>${T('FBC nennt mögliche Stellschrauben. Sie bestätigen nur, was in Ihrem Geschäft tatsächlich machbar ist; die Auswahl der besten Kombination bleibt beim Optimizer.','FBC показывает возможные рычаги. Вы подтверждаете только то, что реально возможно в вашем бизнесе; лучшую комбинацию выбирает Optimizer.')}</small></div>
-  <details class="fbc-decision-evidence" id="fbcDecisionEvidence">
-    <summary>${T('Reale Grenzen bestätigen','Подтвердить реальные границы')}</summary>
+  <div class="fbc-r-title-row">
+    <h2>${T(
+      'Analyse, Robustheit und Entscheidung',
+      'Анализ, устойчивость и решение'
+    )}</h2>
+
+    <button
+      class="fbc-r-primary"
+      type="button"
+      id="fbcRunAnalysis"
+    >
+      ${T('R-Analyse starten','Запустить R-анализ')}
+    </button>
+  </div>
+
+  <div
+    class="fbc-analysis-progress"
+    id="fbcAnalysisProgress"
+    aria-live="polite"
+  >
+    <div class="fbc-analysis-progress-track">
+      <div class="fbc-analysis-progress-fill"></div>
+    </div>
+    <small class="fbc-analysis-progress-text">
+      ${T('Analyse wird berechnet …','Выполняется расчёт …')}
+    </small>
+  </div>
+
+
+  <!-- 1. AKTUELLER STAND -->
+
+  <div class="fbc-r-grid" style="margin-top:14px">
+    <div class="fbc-r-metric">
+      <span>${T('Aktuell verfügbar','Сейчас доступно')}</span>
+      <strong id="fbcRCurrent">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>${T('Monatsziel','Месячная цель')}</span>
+      <strong id="fbcRTarget">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>${T('P(Ziel)','P(цель)')}</span>
+      <strong id="fbcRProb">—</strong>
+    </div>
+  </div>
+
+
+  <!-- 2. KONTROLLKENNZAHLEN -->
+
+  <h3 style="margin-top:20px">
+    ${T('Break-even & Kapitaldienst','Безубыточность и обслуживание долга')}
+  </h3>
+
+  <div class="fbc-r-grid">
+    <div class="fbc-r-metric">
+      <span>${T('Business Break-even','Безубыточность бизнеса')}</span>
+      <strong id="fbcRBusinessBE">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>${T('Mitarbeiter Break-even','Безубыточность сотрудника')}</span>
+      <strong id="fbcREmployeeBE">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>DSCR / Kapitaldienst</span>
+      <strong id="fbcRDSCR">—</strong>
+    </div>
+  </div>
+
+
+  <!-- 3. REALE GRENZEN -->
+
+  <div class="fbc-decision-intro" id="fbcDecisionIntro">
+    <b>
+      ${T(
+        'Welche Wege soll FBC prüfen?',
+        'Какие варианты FBC стоит проверить?'
+      )}
+    </b>
+
+    <small>
+      ${T(
+        'FBC nennt mögliche Stellschrauben. Sie bestätigen nur, was in Ihrem Geschäft tatsächlich machbar ist; die Auswahl der besten Kombination bleibt beim Optimizer.',
+        'FBC показывает возможные рычаги. Вы подтверждаете только то, что реально возможно в вашем бизнесе; лучшую комбинацию выбирает Optimizer.'
+      )}
+    </small>
+  </div>
+
+  <details
+    class="fbc-decision-evidence"
+    id="fbcDecisionEvidence"
+  >
+    <summary>
+      ${T(
+        'Reale Grenzen bestätigen',
+        'Подтвердить реальные границы'
+      )}
+    </summary>
+
     <div class="fbc-decision-body">
-      <p class="fbc-decision-help">${T('Nur Grenzen bestätigen, die Sie wirklich vertreten können: maximaler Preis, tatsächlich verkäufliche Kundenstunden oder eine konkret mögliche Kostensenkung. Ohne Bestätigung bleibt P0 aktiv.','Подтверждайте только то, что действительно можете обосновать: максимальную цену, реально продаваемые клиентские часы или конкретно возможное снижение расходов. Без подтверждений остаётся P0.')}</p>
+
+      <p class="fbc-decision-help">
+        ${T(
+          'Nur Grenzen bestätigen, die Sie wirklich vertreten können: maximaler Preis, tatsächlich verkäufliche Kundenstunden oder eine konkret mögliche Kostensenkung. Ohne Bestätigung bleibt P0 aktiv.',
+          'Подтверждайте только то, что действительно можете обосновать: максимальную цену, реально продаваемые клиентские часы или конкретно возможное снижение расходов. Без подтверждений остаётся P0.'
+        )}
+      </p>
+
 
       <div class="fbc-bound-row">
-        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundOwnerPriceOn"> ${T('Inhaberpreis erhöhen bis','Цена владельца до')}</label>
-        <div class="unit"><input id="fbcBoundOwnerPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
-        <label class="fbc-bound-months"><input id="fbcBoundOwnerPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-      </div>
 
-      <div class="fbc-bound-row">
-        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundOwnerHoursOn"> ${T('Mehr abrechenbare Inhaberstunden bis','Оплачиваемые часы владельца до')}</label>
-        <div class="unit"><input id="fbcBoundOwnerHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
-        <label class="fbc-bound-months"><input id="fbcBoundOwnerHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-      </div>
+        <label class="fbc-bound-toggle">
+          <input
+            type="checkbox"
+            id="fbcBoundOwnerPriceOn"
+          >
+          ${T(
+            'Inhaberpreis erhöhen bis',
+            'Цена владельца до'
+          )}
+        </label>
 
-      <div class="fbc-bound-row">
-        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundEmpPriceOn"> ${T('Mitarbeiter-Kundenpreis bis','Цена сотрудника клиенту до')}</label>
-        <div class="unit"><input id="fbcBoundEmpPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
-        <label class="fbc-bound-months"><input id="fbcBoundEmpPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-      </div>
-
-      <div class="fbc-bound-row">
-        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundEmpHoursOn"> ${T('Mehr abrechenbare Mitarbeiterstunden bis','Оплачиваемые часы сотрудника до')}</label>
-        <div class="unit"><input id="fbcBoundEmpHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
-        <label class="fbc-bound-months"><input id="fbcBoundEmpHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-      </div>
-
-      <div class="fbc-bound-row">
-        <label class="fbc-bound-toggle"><input type="checkbox" id="fbcBoundCostOn"> ${T('Konkrete Kosten senken','Конкретно снизить расходы')}</label>
-        <div class="fbc-cost-extra">
-          <select id="fbcBoundCostKey">
-            <option value="office">${T('Raum / Büro','Помещение / офис')}</option>
-            <option value="energy">${T('Energie / Strom','Энергия / электричество')}</option>
-            <option value="vehicle">${T('Fahrzeug','Автомобиль')}</option>
-            <option value="fuel">${T('Kraftstoff','Топливо')}</option>
-            <option value="software">${T('Programme / Software','Программы / ПО')}</option>
-            <option value="accounting">${T('Steuerberater / Buchhaltung','Бухгалтерия / налоговый консультант')}</option>
-            <option value="insurance">${T('Betriebsversicherung','Страхование бизнеса')}</option>
-            <option value="material">${T('Material','Материалы')}</option>
-            <option value="marketing">${T('Werbung / Akquise','Реклама / привлечение')}</option>
-            <option value="other">${T('Sonstiges','Прочее')}</option>
-          </select>
-          <div class="unit"><input id="fbcBoundCostMin" type="text" inputmode="decimal" placeholder="${T('neuer Betrag','новая сумма')}"><b>€</b></div>
+        <div class="unit">
+          <input
+            id="fbcBoundOwnerPrice"
+            type="text"
+            inputmode="decimal"
+            placeholder="€ / h"
+          >
+          <b>€</b>
         </div>
-        <label class="fbc-bound-months"><input id="fbcBoundCostMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+
+        <label class="fbc-bound-months">
+          <input
+            id="fbcBoundOwnerPriceMonths"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+          >
+          <small>${T('Mon.','мес.')}</small>
+        </label>
+
       </div>
-      <div class="fbc-evidence-action"><button class="fbc-r-primary" type="button" id="fbcRunEvidenceAnalysis">${T('Mit diesen Grenzen neu berechnen','Считать заново с этими границами')}</button></div>
+
+
+      <div class="fbc-bound-row">
+
+        <label class="fbc-bound-toggle">
+          <input
+            type="checkbox"
+            id="fbcBoundOwnerHoursOn"
+          >
+          ${T(
+            'Mehr abrechenbare Inhaberstunden bis',
+            'Оплачиваемые часы владельца до'
+          )}
+        </label>
+
+        <div class="unit">
+          <input
+            id="fbcBoundOwnerHours"
+            type="text"
+            inputmode="decimal"
+            placeholder="h / Monat"
+          >
+          <b>h</b>
+        </div>
+
+        <label class="fbc-bound-months">
+          <input
+            id="fbcBoundOwnerHoursMonths"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+          >
+          <small>${T('Mon.','мес.')}</small>
+        </label>
+
+      </div>
+
+
+      <div class="fbc-bound-row">
+
+        <label class="fbc-bound-toggle">
+          <input
+            type="checkbox"
+            id="fbcBoundEmpPriceOn"
+          >
+          ${T(
+            'Mitarbeiter-Kundenpreis bis',
+            'Цена сотрудника клиенту до'
+          )}
+        </label>
+
+        <div class="unit">
+          <input
+            id="fbcBoundEmpPrice"
+            type="text"
+            inputmode="decimal"
+            placeholder="€ / h"
+          >
+          <b>€</b>
+        </div>
+
+        <label class="fbc-bound-months">
+          <input
+            id="fbcBoundEmpPriceMonths"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+          >
+          <small>${T('Mon.','мес.')}</small>
+        </label>
+
+      </div>
+
+
+      <div class="fbc-bound-row">
+
+        <label class="fbc-bound-toggle">
+          <input
+            type="checkbox"
+            id="fbcBoundEmpHoursOn"
+          >
+          ${T(
+            'Mehr abrechenbare Mitarbeiterstunden bis',
+            'Оплачиваемые часы сотрудника до'
+          )}
+        </label>
+
+        <div class="unit">
+          <input
+            id="fbcBoundEmpHours"
+            type="text"
+            inputmode="decimal"
+            placeholder="h / Monat"
+          >
+          <b>h</b>
+        </div>
+
+        <label class="fbc-bound-months">
+          <input
+            id="fbcBoundEmpHoursMonths"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+          >
+          <small>${T('Mon.','мес.')}</small>
+        </label>
+
+      </div>
+
+
+      <div class="fbc-bound-row">
+
+        <label class="fbc-bound-toggle">
+          <input
+            type="checkbox"
+            id="fbcBoundCostOn"
+          >
+          ${T(
+            'Konkrete Kosten senken',
+            'Конкретно снизить расходы'
+          )}
+        </label>
+
+        <div class="fbc-cost-extra">
+
+          <select id="fbcBoundCostKey">
+
+            <option value="office">
+              ${T('Raum / Büro','Помещение / офис')}
+            </option>
+
+            <option value="energy">
+              ${T('Energie / Strom','Энергия / электричество')}
+            </option>
+
+            <option value="vehicle">
+              ${T('Fahrzeug','Автомобиль')}
+            </option>
+
+            <option value="fuel">
+              ${T('Kraftstoff','Топливо')}
+            </option>
+
+            <option value="software">
+              ${T('Programme / Software','Программы / ПО')}
+            </option>
+
+            <option value="accounting">
+              ${T(
+                'Steuerberater / Buchhaltung',
+                'Бухгалтерия / налоговый консультант'
+              )}
+            </option>
+
+            <option value="insurance">
+              ${T(
+                'Betriebsversicherung',
+                'Страхование бизнеса'
+              )}
+            </option>
+
+            <option value="material">
+              ${T('Material','Материалы')}
+            </option>
+
+            <option value="marketing">
+              ${T(
+                'Werbung / Akquise',
+                'Реклама / привлечение'
+              )}
+            </option>
+
+            <option value="other">
+              ${T('Sonstiges','Прочее')}
+            </option>
+
+          </select>
+
+          <div class="unit">
+            <input
+              id="fbcBoundCostMin"
+              type="text"
+              inputmode="decimal"
+              placeholder="${T(
+                'neuer Betrag',
+                'новая сумма'
+              )}"
+            >
+            <b>€</b>
+          </div>
+
+        </div>
+
+        <label class="fbc-bound-months">
+          <input
+            id="fbcBoundCostMonths"
+            type="number"
+            min="0"
+            step="1"
+            value="1"
+          >
+          <small>${T('Mon.','мес.')}</small>
+        </label>
+
+      </div>
+
+
+      <div class="fbc-evidence-action">
+        <button
+          class="fbc-r-primary"
+          type="button"
+          id="fbcRunEvidenceAnalysis"
+        >
+          ${T(
+            'Mit diesen Grenzen neu berechnen',
+            'Считать заново с этими границами'
+          )}
+        </button>
+      </div>
+
     </div>
   </details>
 
-  <h3 style="margin-top:18px">Break-even</h3><div class="fbc-r-grid"><div class="fbc-r-metric"><span>${T('Business Break-even','Безубыточность бизнеса')}</span><strong id="fbcRBusinessBE">—</strong></div><div class="fbc-r-metric"><span>${T('Mitarbeiter Break-even','Безубыточность сотрудника')}</span><strong id="fbcREmployeeBE">—</strong></div><div class="fbc-r-metric"><span>DSCR / Kapitaldienst</span><strong id="fbcRDSCR">—</strong></div></div>
-  <div id="fbcRStatsInline" aria-hidden="true"><h3 style="margin-top:18px">${T('Statistik & Prognose','Статистика и прогноз')}</h3><div class="fbc-stat-grid">${['energy','fuel','labor','interest'].map(k=>`<div><b>${({energy:'Energie',fuel:'Kraftstoff',labor:'Arbeitskosten',interest:'Kreditzins'})[k]}</b><div class="fbc-r-chart" id="fbcChart_${k}"></div></div>`).join('')}</div></div>
+
+  <!-- 4. EMPFOHLENE ENTSCHEIDUNG -->
+
+  <h3 style="margin-top:22px">
+    ${T(
+      'Empfohlene Entscheidung',
+      'Рекомендуемое решение'
+    )}
+  </h3>
+
+  <div
+    class="fbc-r-note"
+    id="fbcRRecommendation"
+  >
+    ${T(
+      'Nach bestätigten realen Grenzen wählt R die beste zulässige Kombination.',
+      'После подтверждения реальных границ R выберет лучшую допустимую комбинацию.'
+    )}
+  </div>
+
+  <div
+    class="fbc-r-detailbox"
+    id="fbcRChanges"
+    hidden
+  ></div>
+
+  <div
+    class="fbc-r-detailbox"
+    id="fbcRShapley"
+    hidden
+  ></div>
+
+
+  <!-- TECHNISCHER STATUS -->
+
+  <div
+    class="fbc-r-status"
+    id="fbcRStatus"
+    style="margin-top:18px"
+  >
+    ${T(
+      'Noch kein R-Payload',
+      'R-payload ещё не получен'
+    )}
+  </div>
+
+
+  <div
+    id="fbcRStatsInline"
+    aria-hidden="true"
+  >
+    <h3 style="margin-top:18px">
+      ${T(
+        'Statistik & Prognose',
+        'Статистика и прогноз'
+      )}
+    </h3>
+
+    <div class="fbc-stat-grid">
+      ${['energy','fuel','labor','interest'].map(k=>`
+        <div>
+          <b>${
+            ({
+              energy:'Energie',
+              fuel:'Kraftstoff',
+              labor:'Arbeitskosten',
+              interest:'Kreditzins'
+            })[k]
+          }</b>
+          <div
+            class="fbc-r-chart"
+            id="fbcChart_${k}"
+          ></div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
 `;
   emp.appendChild(layer);
 
