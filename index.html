@@ -2942,7 +2942,7 @@ document.addEventListener('keydown',event=>{
 });
 
 populateAllSelects();$('#region').value='he';configureValidation();refreshScheduleAdvice();
-{const schedule=scheduleOrientation($('#empForm').value),hours=$('#empHours'),days=$('#empDays'),vacation=$('#empVacation');if(!hours.value){hours.value=String(schedule.hours);hours.dataset.autoHours='true'}if(days.dataset.autoDays==='true')days.value=String(schedule.days);if(vacation.dataset.autoVacation==='true')vacation.value=String(schedule.companyVacation)}
+{   const schedule=scheduleOrientation($('#empForm').value),         hours=$('#empHours'),         days=$('#empDays'),         vacation=$('#empVacation');    hours.value='';   days.value='';   vacation.value='';    hours.placeholder=String(schedule.hours);   days.placeholder=String(schedule.days);   vacation.placeholder=String(schedule.companyVacation);    hours.dataset.autoHours='true';   days.dataset.autoDays='true';   vacation.dataset.autoVacation='true'; }
 addTeamMember({role:'office',form:'part',wage:'',price:''});
 calculateAll();
 
