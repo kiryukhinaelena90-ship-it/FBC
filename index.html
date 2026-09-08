@@ -3663,7 +3663,23 @@ layer.innerHTML=`
       ? 'fbcEvidenceProgress'
       : 'fbcAnalysisProgress'
   );
+  window.FBC_R_ANALYSIS_PAYLOAD = null;
+  window.FBC_P1_DECISION_PAYLOAD = null;
 
+  if($('fbcRRecommendation')){
+    $('fbcRRecommendation').textContent =
+      T('Neue Berechnung läuft…','Выполняется новый расчёт…');
+  }
+
+  if($('fbcRChanges')){
+    $('fbcRChanges').hidden = true;
+    $('fbcRChanges').innerHTML = '';
+  }
+
+  if($('fbcRShapley')){
+    $('fbcRShapley').hidden = true;
+    $('fbcRShapley').innerHTML = '';
+  }
   try{
     if(progress){
       progress.classList.add('is-active');
