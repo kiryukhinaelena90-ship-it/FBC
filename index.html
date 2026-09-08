@@ -1543,8 +1543,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 <style id="fbc-r-merge-style">
 /* V7.4 remains the UI shell; decision outputs come only from R. */
-#employee .price-result-section,
-#employee .scenario-panel.dual-scenario{display:none!important}
+#employee .scenario-panel.dual-scenario{
+  display:none!important
+}
 #employee .customer-price-orientation{display:flex!important}
 .fbc-input-note{display:block;margin-top:5px;font-size:10px;line-height:1.35;color:#687684}
 #fbcRLayer{margin-top:18px}
@@ -3910,9 +3911,22 @@ function renderDecisionDetails(p){
     get(p,'recommendation.expected_net_after')
   );
 
+<<<<<<< HEAD
   const payloadStatus=String(p?.status||'');
 
   let targetReached=
+=======
+const payloadStatus=String(p?.status||'');
+
+const isP1 =
+  payloadStatus==='recommendation_selected' ||
+  payloadStatus==='target_not_reachable';
+
+let targetReached=null;
+
+if(isP1){
+  targetReached=
+>>>>>>> f1eefa6e96ee1f5d53ce0d731b4d05b7dabc6f1f
     get(p,'recommendation.target_reached');
 
   if(typeof targetReached!=='boolean'){
@@ -3930,6 +3944,7 @@ function renderDecisionDetails(p){
   if(payloadStatus==='target_not_reachable'){
     targetReached=false;
   }
+<<<<<<< HEAD
 
   const timeToTarget=Number(
     get(p,'target_path.time_to_target_months')
@@ -3997,6 +4012,81 @@ function renderDecisionDetails(p){
             'FBC Ergebnis · Ziel nicht erreichbar',
             'Результат FBC · цель недостижима'
           );
+=======
+}
+
+const timeToTarget=Number(
+  get(p,'target_path.time_to_target_months')
+);
+
+const fmtNum=(v,d=2)=>{
+  const n=Number(v);
+
+  return Number.isFinite(n)
+    ? n.toLocaleString(
+        RU()?'ru-RU':'de-DE',
+        {
+          minimumFractionDigits:d,
+          maximumFractionDigits:d
+        }
+      )
+    : '—';
+};
+
+const changeValue=(v,unit)=>{
+  const n=Number(v);
+
+  if(!Number.isFinite(n)){
+    return '—';
+  }
+
+  if(String(unit||'').includes('EUR')){
+    return fmtNum(n,2);
+  }
+
+  if(String(unit||'').includes('h')){
+    return fmtNum(n,1);
+  }
+
+  return fmtNum(n,2);
+};
+
+const targetText=
+  !isP1
+    ? T(
+        'Für eine konkrete Lösung reale Grenzen bestätigen',
+        'Для конкретного решения подтвердите реальные границы'
+      )
+    : targetReached
+      ? (
+          Number.isFinite(timeToTarget)
+            ? T(
+                `Ja · in ${fmtNum(timeToTarget,0)} Mon.`,
+                `Да · через ${fmtNum(timeToTarget,0)} мес.`
+              )
+            : T('Ja','Да')
+        )
+      : T(
+          'Mit den bestätigten Grenzen nicht erreichbar',
+          'Недостижима при подтверждённых границах'
+        );
+
+const resultTitle=
+  !isP1
+    ? T(
+        'Aktueller Stand',
+        'Текущее состояние'
+      )
+    : targetReached
+      ? T(
+          'FBC Ergebnis',
+          'Результат FBC'
+        )
+      : T(
+          'FBC Ergebnis · Ziel nicht erreichbar',
+          'Результат FBC · цель недостижима'
+        );
+>>>>>>> f1eefa6e96ee1f5d53ce0d731b4d05b7dabc6f1f
 
     const changesHtml=
       validChanges.length
@@ -4072,10 +4162,32 @@ function renderDecisionDetails(p){
           : ''
       }
 
+<<<<<<< HEAD
+=======
+      ${
+  isP1
+    ? `
+>>>>>>> f1eefa6e96ee1f5d53ce0d731b4d05b7dabc6f1f
       <div class="fbc-r-change-row">
         <span>${T('Ziel erreichbar','Цель достижима')}</span>
         <b>${targetText}</b>
       </div>
+<<<<<<< HEAD
+=======
+    `
+    : `
+      <div
+        style="
+          margin-top:12px;
+          font-size:13px;
+          color:#687684;
+        "
+      >
+        ${targetText}
+      </div>
+    `
+}
+>>>>>>> f1eefa6e96ee1f5d53ce0d731b4d05b7dabc6f1f
 
       ${changesHtml}
     `;
