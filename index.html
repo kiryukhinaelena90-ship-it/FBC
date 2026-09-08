@@ -3651,25 +3651,106 @@ layer.innerHTML=`
 
   const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
-  async function runRAnalysis(){
-    const btn=$('fbcRunAnalysis'), evidenceBtn=$('fbcRunEvidenceAnalysis'), progress=$('fbcAnalysisProgress');
-    try{
-      if(progress)progress.classList.add('is-active');
-      await new Promise(requestAnimationFrame);
-      if(btn){btn.disabled=true;btn.classList.add('fbc-run-busy');btn.textContent=T('Analyse läuft…','Анализ выполняется…')}
-      if(evidenceBtn){evidenceBtn.disabled=true;evidenceBtn.classList.add('fbc-run-busy');evidenceBtn.textContent=T('Analyse läuft…','Анализ выполняется…')}
-      $('fbcRStatus').textContent=T('R berechnet die Entscheidung…','R рассчитывает решение…');
-      const evidence=readDecisionEvidence();
-      const base=window.FBC_ANALYSIS_CONFIG||{};
-      await window.FBC_R_BACKEND_ADAPTER.analyze({...base,...evidence});
-    }catch(e){
-      $('fbcRStatus').textContent=T('R-Analyse nicht verfügbar: ','R-анализ недоступен: ')+String(e.message||e)
-    }finally{
-      if(progress)progress.classList.remove('is-active');
-      if(btn){btn.disabled=false;btn.classList.remove('fbc-run-busy');btn.textContent=window.FBC_R_ANALYSIS_PAYLOAD?T('Analyse aktualisieren','Обновить анализ'):T('R-Analyse starten','Запустить R-анализ')}
-      if(evidenceBtn){evidenceBtn.disabled=false;evidenceBtn.classList.remove('fbc-run-busy');evidenceBtn.textContent=T('Mit diesen Grenzen neu berechnen','Считать заново с этими границами')}
+  async function runRAnalysis(sourceId='fbcRunAnalysis'){
+  const btn=$('fbcRunAnalysis');
+  const evidenceBtn=$('fbcRunEvidenceAnalysis');
+
+  const isEvidence =
+    sourceId === 'fbcRunEvidenceAnalysis';
+
+  const progress = $(
+    isEvidence
+      ? 'fbcEvidenceProgress'
+      : 'fbcAnalysisProgress'
+  );
+
+  try{
+    if(progress){
+      progress.classList.add('is-active');
+    }
+
+    await new Promise(requestAnimationFrame);
+
+    if(btn){
+      btn.disabled=true;
+      btn.classList.add('fbc-run-busy');
+      btn.textContent=T(
+        'Analyse läuft…',
+        'Анализ выполняется…'
+      );
+    }
+
+    if(evidenceBtn){
+      evidenceBtn.disabled=true;
+      evidenceBtn.classList.add('fbc-run-busy');
+      evidenceBtn.textContent=T(
+        'Analyse läuft…',
+        'Анализ выполняется…'
+      );
+    }
+
+    $('fbcRStatus').textContent =
+      isEvidence
+        ? T(
+            'R prüft die bestätigten Grenzen…',
+            'R проверяет подтверждённые границы…'
+          )
+        : T(
+            'R berechnet die Entscheidung…',
+            'R рассчитывает решение…'
+          );
+
+    const evidence=readDecisionEvidence();
+    const base=window.FBC_ANALYSIS_CONFIG||{};
+
+    await window.FBC_R_BACKEND_ADAPTER.analyze({
+      ...base,
+      ...evidence
+    });
+
+  }catch(e){
+
+    $('fbcRStatus').textContent=
+      T(
+        'R-Analyse nicht verfügbar: ',
+        'R-анализ недоступен: '
+      )+
+      String(e.message||e);
+
+  }finally{
+
+    if(progress){
+      progress.classList.remove('is-active');
+    }
+
+    if(btn){
+      btn.disabled=false;
+      btn.classList.remove('fbc-run-busy');
+
+      btn.textContent=
+        window.FBC_R_ANALYSIS_PAYLOAD
+          ? T(
+              'Analyse aktualisieren',
+              'Обновить анализ'
+            )
+          : T(
+              'R-Analyse starten',
+              'Запустить R-анализ'
+            );
+    }
+
+    if(evidenceBtn){
+      evidenceBtn.disabled=false;
+      evidenceBtn.classList.remove('fbc-run-busy');
+
+      evidenceBtn.textContent=T(
+        'Mit diesen Grenzen neu berechnen',
+        'Считать заново с этими границами'
+      );
     }
   }
+}
+  
 document.addEventListener('click',e=>{
   const btn=e.target.closest('#fbcRunAnalysis,#fbcRunEvidenceAnalysis');
   if(!btn)return;
