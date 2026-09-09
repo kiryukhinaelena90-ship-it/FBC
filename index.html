@@ -4109,21 +4109,6 @@ function renderDecisionDetails(p){
         <b>${money(target)}</b>
       </div>
 
-      ${
-        Number.isFinite(projected)
-          ? `
-            <div class="fbc-r-change-row">
-              <span>
-                ${T(
-                  'Erwartetes Netto nach Umsetzung',
-                  'Ожидаемое нетто после реализации'
-                )}
-              </span>
-              <b>${money(projected)}</b>
-            </div>
-          `
-          : ''
-      }
 
       <div class="fbc-r-change-row">
         <span>${T('Ziel erreichbar','Цель достижима')}</span>
