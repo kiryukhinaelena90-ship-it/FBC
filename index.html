@@ -4493,6 +4493,21 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
+  const fazit =
+  RU()
+    ? get(p,'fazit.ru')
+    : get(p,'fazit.de');
+
+if($('fbcRFazit') && $('fbcRFazitText')){
+  const fazitText =
+    fazit?.available === true &&
+    typeof fazit?.sentence === 'string'
+      ? fazit.sentence.trim()
+      : '';
+
+  $('fbcRFazit').hidden = !fazitText;
+  $('fbcRFazitText').textContent = fazitText;
+}
  $('fbcRBusinessBE').textContent=money(
   get(p,'break_even.business.revenue') ??
   get(p,'break_even.business.break_even_revenue')
