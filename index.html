@@ -4541,6 +4541,31 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
+  const robustness = get(p,'robustness') || {};
+const mcAvailable = robustness?.available === true;
+
+if($('fbcRMonteCarlo')){
+  $('fbcRMonteCarlo').hidden = !mcAvailable;
+
+  if(mcAvailable){
+    const p10 = robustness.p10;
+    const p50 = robustness.p50;
+    const p90 = robustness.p90;
+    const probability = robustness.target_probability;
+
+    $('fbcMCProbability').textContent =
+      probability == null ? '—' : pct(probability);
+
+    $('fbcMCP10').textContent =
+      p10 == null ? '—' : money(p10);
+
+    $('fbcMCP50').textContent =
+      p50 == null ? '—' : money(p50);
+
+    $('fbcMCP90').textContent =
+      p90 == null ? '—' : money(p90);
+  }
+}
   const fazit =
   RU()
     ? get(p,'fazit.ru')
