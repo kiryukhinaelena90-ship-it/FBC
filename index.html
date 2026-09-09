@@ -3589,7 +3589,68 @@ layer.innerHTML=`
     id="fbcRChanges"
     hidden
   ></div>
+<div
+  class="fbc-r-detailbox"
+  id="fbcRMonteCarlo"
+  hidden
+>
+  <div class="fbc-r-detail-title">
+    ${T(
+      'Monte-Carlo-Robustheit',
+      'Устойчивость Monte Carlo'
+    )}
+  </div>
 
+  <div class="fbc-r-note">
+    ${T(
+      'Wie stabil ist die bereits ausgewählte Entscheidung unter möglichen Schwankungen?',
+      'Насколько устойчиво выбранное решение при возможных колебаниях?'
+    )}
+  </div>
+
+  <div
+    style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:12px;
+      margin-top:12px;
+    "
+  >
+    <div class="fbc-r-metric">
+      <span>${T('Zielwahrscheinlichkeit','Вероятность достижения цели')}</span>
+      <strong id="fbcMCProbability">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>P10</span>
+      <strong id="fbcMCP10">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>P50 · Median</span>
+      <strong id="fbcMCP50">—</strong>
+    </div>
+
+    <div class="fbc-r-metric">
+      <span>P90</span>
+      <strong id="fbcMCP90">—</strong>
+    </div>
+  </div>
+
+  <small
+    style="
+      display:block;
+      margin-top:10px;
+      color:#7b8994;
+      line-height:1.45;
+    "
+  >
+    ${T(
+      'P10–P90 zeigt den Bereich, in dem das monatliche Ergebnis in 80 % der simulierten Fälle liegt. P50 ist der Median.',
+      'P10–P90 показывает диапазон, в котором находится месячный результат в 80 % симуляций. P50 — медиана.'
+    )}
+  </small>
+</div>
 <div
   class="fbc-r-detailbox"
   id="fbcRFazit"
