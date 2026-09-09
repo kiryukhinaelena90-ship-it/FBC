@@ -3698,6 +3698,14 @@ layer.innerHTML=`
     $('fbcRShapley').hidden = true;
     $('fbcRShapley').innerHTML = '';
   }
+    
+    if($('fbcRFazit')){
+  $('fbcRFazit').hidden = true;
+}
+
+if($('fbcRFazitText')){
+  $('fbcRFazitText').textContent = '';
+}
   try{
     if(progress){
       progress.classList.add('is-active');
