@@ -3139,7 +3139,7 @@ function renderPdfReport(){
   const prob=get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability');
   const p10=get(p,'robustness.p10')??get(p,'post_decision.p10');
   const p90=get(p,'robustness.p90')??get(p,'post_decision.p90');
-  const be=get(p,'break_even.business.revenue')??get(p,'break_even.business.break_even_revenue');
+  const be=get(p,'break_even.business.break_even_revenue');
   const ebe=get(p,'break_even.employee.break_even_hours');
   const dscr=get(p,'post_decision.capital_service_ratio')??get(p,'financing.dscr');
   const rec=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation')??T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.');
