@@ -115,6 +115,20 @@ export default async function handler(req, res) {
       });
     }
 
+    if (
+  payload?.status === 'target_not_reachable' &&
+  (!payload.financing || typeof payload.financing !== 'object')
+) {
+  payload.financing = {
+    active: false,
+    status: 'not_evaluated_for_target_not_reachable',
+    current: null,
+    alternative: null,
+    comparison: null,
+    note: 'Finanzierung bleibt getrennt vom operativen Ergebnis.'
+  };
+}
+    
     const responseErrors = validateResponse(payload);
     if (responseErrors.length) {
       return json(res, 502, {
