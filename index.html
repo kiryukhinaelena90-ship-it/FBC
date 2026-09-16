@@ -3560,7 +3560,15 @@ $$('.mode-tab').forEach(button=>button.addEventListener('click',()=>{
   calculateAll();
 }));
 $$('.card').forEach(card=>['click','focusin'].forEach(event=>card.addEventListener(event,()=>{const flow=card.closest('.flow');if(flow)flow.querySelectorAll('.card').forEach(c=>c.classList.toggle('active-step',c===card))})));
-document.addEventListener('input',event=>{if(event.target.closest('#teamRows'))return;calculateAll()});document.addEventListener('change',event=>{if(event.target.matches('.vat-mode-select'))syncVatMode(event.target.value);if(event.target.closest('#teamRows'))return;calculateAll()});
+document.addEventListener('change',event=>{
+  if(event.target.matches('.vat-mode-select')){
+    syncVatMode(event.target.value);
+  }
+
+  if(event.target.closest('#teamRows'))return;
+
+  calculateAll();
+});
 $('#empApplyWage').addEventListener('click',()=>{$('#empWage').value=orientation($('#empRole').value,$('#empForm').value).mid.toFixed(2);calculateAll()});
 const applyEmpVacationRecommendation=()=>{const days=Math.max(1,Math.min(5,Math.round(num('#empDays')||5))),vacation=$('#empVacation');if(vacation.dataset.autoVacation==='true')vacation.value=days*6;refreshOwnerVacationRecommendations()};$('#empDays').addEventListener('input',applyEmpVacationRecommendation);$('#empDays').addEventListener('change',applyEmpVacationRecommendation);
 $('#empVacation').addEventListener('input',()=>{$('#empVacation').dataset.autoVacation='false';refreshOwnerVacationRecommendations()});
