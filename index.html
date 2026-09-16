@@ -3267,12 +3267,19 @@ const hours=num(`#${p}OwnerHours`);
 const days=num(`#${p}OwnerDays`);
 
 if(timeInfo){
-  timeInfo.textContent=(!hours || !days)
-    ? '—'
-    : t(
-        `ca. ${owner.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(owner.time.days)}`,
-        `примерно ${owner.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(owner.time.days)}`
-      );
+  const box=timeInfo.closest('.owner-time-summary');
+
+  if(!hours || !days){
+    if(box) box.classList.add('hidden');
+  }else{
+    if(box) box.classList.remove('hidden');
+
+    timeInfo.textContent=t(
+      `ca. ${owner.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(owner.time.days)}`,
+      `примерно ${owner.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(owner.time.days)}`
+    );
+  }
+
 }$(`.${p}-pension-fixed`).classList.toggle('hidden',pension.mode!=='fixed');$(`#${p}PensionInfo`).textContent=pension.mode==='statutory'?t(`${euro(pension.monthly)} / Monat als Orientierung aus der aktuellen Gewinnschätzung.`,`${euro(pension.monthly)} / месяц как ориентир от текущей расчётной прибыли.`):pension.mode==='standard'?t(`${euro(pension.monthly)} / Monat als Regelbeitrag.`,`${euro(pension.monthly)} / месяц как стандартный взнос.`):pension.mode==='fixed'?t(`${euro(pension.monthly)} / Monat nach Ihrer Eingabe.`,`${euro(pension.monthly)} / месяц по вашему вводу.`):t('Nicht berücksichtigt.','Не учитывается.');return pension}
 
 function proportionalTargetFactor(requiredRevenue,baseRevenue,goalEntered){
