@@ -3061,7 +3061,7 @@ function renderOwnerModes(){
 });
   $$('input').forEach((el,i)=>{el.autocomplete='off';el.spellcheck=false;el.name='fbc_'+(el.id||'input_'+i);el.dataset.lpignore='true'});
 }
-function vacationRecommendationText(workdays){const d=Math.max(0,Math.min(5,Math.round(Number(workdays)||0)));return d?t(`Empfehlung bei ${d} Arbeitstagen: ${d*6} Urlaubstage / Jahr.`,`Рекомендация при ${d} рабочих днях: ${d*6} дней отпуска в год.`):t('Empfehlung: erst Arbeitstage eingeben.','Рекомендация: сначала укажите рабочие дни.')}
+function vacationRecommendationText(workdays){const d=Math.max(0,Math.min(5,Math.round(Number(workdays)||0)));return d?t(`Empfehlung bei ${d} Arbeitstagen: ${d*6} Urlaubstage / Jahr.`,`Рекомендация при ${d} рабочих днях: ${d*6} дней отпуска в год.`):''('Empfehlung: erst Arbeitstage eingeben.','Рекомендация: сначала укажите рабочие дни.')}
 function refreshOwnerVacationRecommendations(){[['#soloDays','#soloVacationRecommendation'],['#empOwnerDays','#empOwnerVacationRecommendation'],['#teamOwnerDays','#teamOwnerVacationRecommendation'],['#empDays','#empVacationRecommendation']].forEach(([daysSelector,outputSelector])=>{const output=$(outputSelector);if(output)output.textContent=vacationRecommendationText(parseDecimal($(daysSelector)?.value))})}
 function setupOwnerVacation(daysSelector,vacationSelector){
   const days=$(daysSelector),vacation=$(vacationSelector);
