@@ -553,6 +553,25 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
   width:260px;
   max-width:100%;
 }
+    @media(max-width:900px){
+  .owner-profile-card .field-grid.four{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .owner-profile-card .owner-billable-row{
+    width:calc((100% - 14px) / 2);
+  }
+}
+
+@media(max-width:600px){
+  .owner-profile-card .field-grid.four{
+    grid-template-columns:1fr;
+  }
+
+  .owner-profile-card .owner-billable-row{
+    width:100%;
+  }
+}
 .employee-profile-card label.team-price-cell{
   padding:0!important;
   border:0!important;
