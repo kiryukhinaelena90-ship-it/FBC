@@ -3663,6 +3663,12 @@ regionInput.addEventListener('change',()=>{
   applyTradeTaxReference();
 });
 
+tradeTaxInput.addEventListener('focus',()=>{
+  if(tradeTaxInput.classList.contains('is-suggestion')){
+    tradeTaxInput.select();
+  }
+});
+
 tradeTaxInput.addEventListener('input',event=>{
   if(event.isTrusted){
     tradeTaxInput.classList.remove('is-suggestion');
