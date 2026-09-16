@@ -5341,13 +5341,23 @@ const META={
 };
 function histSvg(key){const a=HIST[key]||[];if(a.length<2)return'';const vals=a.map(q=>Number(q.value)).filter(Number.isFinite);let mn=Math.min(...vals),mx=Math.max(...vals),pad=(mx-mn)*.08||1;mn-=pad;mx+=pad;const W=900,H=360,l=76,r=28,t=28,b=58,w=W-l-r,h=H-t-b;const x=i=>l+w*i/(a.length-1),y=v=>t+h-(v-mn)/(mx-mn||1)*h;const unit=key==='interest'?'% p.a.':'Index';const xTitle=key==='labor'?TT('Quartal / Jahr','Квартал / год'):TT('Monat / Jahr','Месяц / год');let grid='',yt='';for(let i=0;i<=4;i++){const yy=t+h*i/4,val=mx-(mx-mn)*i/4;grid+=`<line x1="${l}" y1="${yy}" x2="${l+w}" y2="${yy}" stroke="#e8eef2"/>`;yt+=`<text x="${l-10}" y="${yy+4}" text-anchor="end" font-size="12" fill="#687b88">${Number(val).toLocaleString(isRU()?'ru-RU':'de-DE',{maximumFractionDigits:1})}</text>`;}let labels='';
 const step=Math.max(1,Math.floor(a.length/7));
+const lastIndex=a.length-1;
 
 a.forEach((q,i)=>{
-  const isLast=i===a.length-1;
-  const isRegular=i===0||i%step===0;
+  const isLast=i===lastIndex;
+  const isTooCloseToLast=(lastIndex-i)<step;
 
-  if(isRegular && !isLast){
-    labels+=`<text x="${x(i)}" y="${H-27}" text-anchor="middle" font-size="11" fill="#687b88">${q.label}</text>`;
+  if(
+    isLast ||
+    (i%step===0 && !isTooCloseToLast)
+  ){
+    labels+=`<text
+      x="${x(i)}"
+      y="${H-27}"
+      text-anchor="${isLast?'end':'middle'}"
+      font-size="11"
+      fill="#687b88"
+    >${q.label}</text>`;
   }
 });
 
