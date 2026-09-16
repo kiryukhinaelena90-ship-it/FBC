@@ -2254,15 +2254,28 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
           <input id="empBillable" type="checkbox" checked>
           <b data-de="An Kunden abrechnen" data-ru="Выставляется клиенту">An Kunden abrechnen</b>
         </span>
-        <small data-de="Aktueller Rechnungspreis ohne USt · €/Std." data-ru="Текущая цена клиенту без НДС · €/ч">Aktueller Rechnungspreis ohne USt · €/Std.</small>
-        <input id="empCustomerPrice" class="decimal-input" type="text" inputmode="decimal" placeholder="0" aria-label="Aktueller Rechnungspreis ohne Umsatzsteuer pro Stunde">
-      </label>
+       <label class="team-price-cell">
 
-      <label class="team-field fbc-emp-billable-hours">
-        <small data-de="Tatsächlich abrechenbare Kundenstunden / Monat" data-ru="Фактически оплачиваемые клиентом часы / месяц">Tatsächlich abrechenbare Kundenstunden / Monat</small>
-        <input id="empBillableHoursMonth" type="number" min="0" step="0.1" placeholder="0">
-        <span class="fbc-input-note" data-de="Nicht aus Vertrags- oder verfügbaren Stunden ableiten." data-ru="Не выводится автоматически из договорных или доступных часов.">Nicht aus Vertrags- oder verfügbaren Stunden ableiten.</span>
-      </label>
+  <small data-de="Aktueller Rechnungspreis ohne USt · €/Std."
+         data-ru="Текущая цена клиенту без НДС · €/ч">
+    Aktueller Rechnungspreis ohne USt · €/Std.
+  </small>
+
+  <span class="team-billable-line">
+    <input id="empBillable" type="checkbox" checked>
+    <b data-de="An Kunden abrechnen"
+       data-ru="Выставляется клиенту">
+      An Kunden abrechnen
+    </b>
+  </span>
+
+  <input id="empCustomerPrice"
+         class="decimal-input"
+         type="text"
+         inputmode="decimal"
+         placeholder="0"
+         aria-label="Aktueller Rechnungspreis ohne Umsatzsteuer pro Stunde">
+</label>
     </div>
 
     <div class="orientation-box">
