@@ -4747,7 +4747,14 @@ window.FBC_R_BACKEND_ADAPTER={buildRequest:buildConfig,applyPayload,analyze};
 
 function installStatLinks(){
   document.querySelectorAll('.fbc-stat-link').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',()=>jumpToStat(b.dataset.statTarget||'labor'))});
-  [['empCostEnergy','energy'],['empCostFuel','fuel'],['teamCostEnergy','energy'],['teamCostFuel','fuel']].forEach(([id,key])=>{const input=$(id);if(!input)return;const row=input.closest('label');if(!row||row.querySelector('.fbc-cost-stat-link'))return;const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.dataset.statTarget=key;b.textContent=T('Statistik & Prognose','Статистика и прогноз');b.addEventListener('click',()=>jumpToStat(key));row.appendChild(b)});
+  [
+  ['costEnergy','energy'],
+  ['costFuel','fuel'],
+  ['empCostEnergy','energy'],
+  ['empCostFuel','fuel'],
+  ['teamCostEnergy','energy'],
+  ['teamCostFuel','fuel']
+].forEach(([id,key])=>{const input=$(id);if(!input)return;const row=input.closest('label');if(!row||row.querySelector('.fbc-cost-stat-link'))return;const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.dataset.statTarget=key;b.textContent=T('Statistik & Prognose','Статистика и прогноз');b.addEventListener('click',()=>jumpToStat(key));row.appendChild(b)});
   const rate=$('fbcFinRate');if(rate){const row=rate.closest('label');if(row&&!row.querySelector('.fbc-cost-stat-link')){const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.textContent=T('Zins · Statistik & Prognose','Ставка · статистика и прогноз');b.addEventListener('click',()=>jumpToStat('interest'));row.appendChild(b)}}
 }
 function boot(){ensureRUI();installStatLinks();const fin=$('fbcFinanceCard');if(fin&&$('fbcFinActive')?.checked)fin.open=true;}
