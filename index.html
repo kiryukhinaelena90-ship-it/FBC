@@ -1881,8 +1881,32 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-ref-note{margin-top:12px;padding:10px 12px;background:#f4f7f9;border-left:2px solid #9babb9;color:#596875;font-size:12px;line-height:1.45}
 .fbc-stat-info-pill{display:inline-flex;align-items:center;border:1px solid #dbe4ea;border-radius:999px;padding:4px 8px;margin-top:10px;font-size:10px;color:#5f7180}
 #fbcRStatsInline{display:none!important}
-.fbc-decision-intro{margin:12px 0 8px;padding:12px 14px;border:1px solid #dce5eb;border-radius:12px;background:#f8fafb}
-.fbc-decision-intro b{display:block;margin-bottom:4px}.fbc-decision-intro small{display:block;color:#647582;line-height:1.45}
+.fbc-decision-intro{
+  margin:32px 0 22px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.fbc-decision-intro b{
+  display:block;
+  margin:0 0 10px;
+  font-size:clamp(23px,3vw,31px);
+  line-height:1.15;
+  letter-spacing:-.025em;
+  font-weight:500!important;
+  color:var(--ink);
+}
+
+.fbc-decision-intro small{
+  display:block;
+  max-width:900px;
+  margin:0;
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  color:var(--muted);
+}
 .fbc-run-busy{opacity:.7;pointer-events:none}
 .fbc-analysis-progress{margin-top:10px;display:none}.fbc-analysis-progress.is-active{display:block}.fbc-analysis-progress-track{height:8px;border-radius:999px;background:rgba(30,52,80,.10);overflow:hidden}.fbc-analysis-progress-fill{height:100%;width:16%;border-radius:inherit;background:linear-gradient(90deg,#b9d9f3,#6fa7d5,#1e3450);animation:fbcProgressRun 1.8s ease-in-out infinite alternate}.fbc-analysis-progress-text{display:block;margin-top:6px;font-size:12px;color:#5d6b78}.fbc-evidence-action{display:flex;justify-content:flex-end;margin-top:14px}.fbc-evidence-action .fbc-r-primary{border:0;border-radius:8px;padding:10px 14px;font-weight:750;cursor:pointer;background:#1e3450;color:#fff}@keyframes fbcProgressRun{0%{width:16%}55%{width:62%}100%{width:88%}}@media(max-width:700px){.fbc-evidence-action .fbc-r-primary{width:100%}}
 @media(max-width:650px){.fbc-ref-modal{padding:10px}.fbc-ref-dialog{padding:18px 14px}}
