@@ -2840,7 +2840,72 @@ function teamMemberEconomics(members){
 }
 function incomeTax2026(annualProfit){const x=Math.floor(Math.max(0,annualProfit));let tax=0;if(x<=12348)tax=0;else if(x<=17799){const y=(x-12348)/10000;tax=(914.51*y+1400)*y}else if(x<=69878){const z=(x-17799)/10000;tax=(173.10*z+2397)*z+1034.87}else if(x<=277825)tax=.42*x-11135.63;else tax=.45*x-19470.38;return Math.max(0,Math.floor(tax))}
 function taxEstimate(annualProfit){const profit=Math.max(0,annualProfit),incomeBefore=incomeTax2026(profit),isTrade=$('#legalForm').value==='sole_trade';let trade=0,credit=0,measure=0;if(isTrade){const rounded=Math.floor(profit/100)*100,taxable=Math.max(0,rounded-24500);measure=taxable*.035;trade=measure*(num('#tradeTaxRate')/100);credit=Math.min(incomeBefore,trade,measure*4)}const income=Math.max(0,incomeBefore-credit);return{profit,incomeBefore,income,trade,credit,total:income+trade}}
-function solveMonthlyRevenue(businessCosts,desiredAfterTax){let low=Math.max(0,businessCosts+desiredAfterTax),high=Math.max(10000,low*2+1000);const available=revenue=>{const profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12).total/12;return revenue-businessCosts-tax};while(available(high)<desiredAfterTax&&high<1e7)high*=2;for(let i=0;i<70;i++){const mid=(low+high)/2;if(available(mid)>=desiredAfterTax)high=mid;else low=mid}const revenue=high,profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12);return{revenue,profit,tax,taxMonth:tax.total/12}}
+function taxEstimateEmployee(annualProfit){
+  const profit=Math.max(0,annualProfit);
+  const incomeBefore=incomeTax2026(profit);
+  const isTrade=$('#legalForm').value==='sole_trade';
+
+  if(!isTrade){
+    return{
+      profit,
+      incomeBefore,
+      income:incomeBefore,
+      trade:0,
+      credit:0,
+      measure:0,
+      creditPotential:0,
+      isTrade:false,
+      hasHebesatz:false,
+      partial:false,
+      total:incomeBefore
+    };
+  }
+
+  const rounded=Math.floor(profit/100)*100;
+  const taxable=Math.max(0,rounded-24500);
+  const measure=taxable*.035;
+  const creditPotential=Math.min(incomeBefore,measure*4);
+  const hasHebesatz=hasInput('#tradeTaxRate');
+
+  if(!hasHebesatz){
+    return{
+      profit,
+      incomeBefore,
+      income:incomeBefore,
+      trade:null,
+      credit:null,
+      measure,
+      creditPotential,
+      isTrade:true,
+      hasHebesatz:false,
+      partial:true,
+
+      // Nur Einkommensteuer vor §35.
+      // Gewerbesteuer und endgültige §35-Anrechnung
+      // sind ohne Hebesatz noch unbekannt.
+      total:incomeBefore
+    };
+  }
+
+  const trade=measure*(num('#tradeTaxRate')/100);
+  const credit=Math.min(incomeBefore,trade,measure*4);
+  const income=Math.max(0,incomeBefore-credit);
+
+  return{
+    profit,
+    incomeBefore,
+    income,
+    trade,
+    credit,
+    measure,
+    creditPotential,
+    isTrade:true,
+    hasHebesatz:true,
+    partial:false,
+    total:income+trade
+  };
+}
+  function solveMonthlyRevenue(businessCosts,desiredAfterTax){let low=Math.max(0,businessCosts+desiredAfterTax),high=Math.max(10000,low*2+1000);const available=revenue=>{const profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12).total/12;return revenue-businessCosts-tax};while(available(high)<desiredAfterTax&&high<1e7)high*=2;for(let i=0;i<70;i++){const mid=(low+high)/2;if(available(mid)>=desiredAfterTax)high=mid;else low=mid}const revenue=high,profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12);return{revenue,profit,tax,taxMonth:tax.total/12}}
 function taxText(tax){return t('Einkommensteuer '+euro(tax.income/12)+' + Gewerbesteuer '+euro(tax.trade/12)+' / Monat (§35-Anrechnung: '+euro(tax.credit/12)+').','Einkommensteuer '+euro(tax.income/12)+' + Gewerbesteuer '+euro(tax.trade/12)+' / месяц (зачёт §35: '+euro(tax.credit/12)+').')}
 function holidayDays2026(daysPerWeek=5){const days=Math.max(0,Math.min(7,daysPerWeek)),region=$('#region').value;return HOLIDAYS_2026.reduce((sum,[weekday,states])=>{if(states!=='*'&&!states.split(' ').includes(region))return sum;if(days>=5)return sum+((weekday>=1&&weekday<=5)||(weekday===6&&days>=6)||(weekday===0&&days>=7)?1:0);return sum+(weekday>=1&&weekday<=5?days/5:0)},0)}
 function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),name=regions[$('#region').value]?.[0]||'';return t(`${count.toLocaleString('de-DE',{maximumFractionDigits:1})} gesetzliche Feiertage 2026 in ${name} berücksichtigt${daysPerWeek<5?' (anteilig geschätzt)':''}.`,`${count.toLocaleString('ru-RU',{maximumFractionDigits:1})} официальных праздничных дней 2026 года в земле ${name} учтено${daysPerWeek<5?' (пропорциональная оценка)':''}.`)}
