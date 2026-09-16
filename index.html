@@ -1391,7 +1391,60 @@ input::placeholder{color:#aab4bd!important}
   --font-ui:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --font-num:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 }
+/* ---------- Unified Solo geometry · Employee is the UI master ---------- */
 
+#solo .card{
+  padding:26px 28px;
+  margin:16px 0;
+  border-radius:14px;
+}
+
+#solo .field input,
+#solo .field select{
+  height:43px;
+  font-size:14px;
+}
+
+#solo .field-grid{
+  gap:14px;
+}
+
+#solo .result-goal-row{
+  margin:16px 0;
+  padding:16px;
+  border-radius:14px;
+}
+
+#solo .annual-result-card{
+  margin-top:16px;
+}
+
+#solo .annual-result-row{
+  min-height:44px;
+}
+
+#solo .result-ledger{
+  margin-top:12px;
+}
+
+#solo .ledger-row{
+  padding:10px 4px;
+}
+
+#solo .price-result-section{
+  margin-top:16px;
+  padding:16px;
+}
+
+#solo .scenario-panel{
+  margin-top:18px;
+}
+  @media(max-width:600px){
+  #solo .card{
+    padding:18px 15px;
+    border-radius:12px;
+  }
+}
 /* One typography system: no serif islands. */
 html,body,button,input,select,textarea{font-family:var(--font-ui)!important}
 body{color:var(--ui-text)}
