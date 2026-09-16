@@ -3069,7 +3069,20 @@ function renderOwnerModes(){
   const compact=prefix=>ownerModeMarkup(prefix).replace('<div class="step">04</div><h2 data-de="Absicherung','<div class="step">03</div><h2 data-de="Absicherung');
   $('#employeeOwnerInputs').innerHTML=compact('emp');
   $('#teamOwnerInputs').innerHTML=compact('team');
-  ['emp','team'].forEach(p=>{const hours=$(`#${p}OwnerHours`),days=$(`#${p}OwnerDays`),vacation=$(`#${p}OwnerVacation`);hours.placeholder='40';days.placeholder='5';vacation.placeholder='30';vacation.closest('.field').insertAdjacentHTML('beforeend',`<small id="${p}OwnerVacationRecommendation">—</small>`);hours.closest('.field-grid').insertAdjacentHTML('afterend','<small class="schedule-hint" data-de="Orientierung: 40 Std., 5 Tage und 30 Urlaubstage. Bei Änderung der Arbeitstage passt sich der Urlaub automatisch an: 4 Tage = 24 Urlaubstage." data-ru="Ориентир: 40 ч., 5 дней и 30 дней отпуска. При изменении рабочих дней отпуск меняется автоматически: 4 дня = 24 дня отпуска.">Orientierung: 40 Std., 5 Tage und 30 Urlaubstage. Bei Änderung der Arbeitstage passt sich der Urlaub automatisch an: 4 Tage = 24 Urlaubstage.</small>')});
+ ['emp','team'].forEach(p=>{
+  const hours=$(`#${p}OwnerHours`);
+  const days=$(`#${p}OwnerDays`);
+  const vacation=$(`#${p}OwnerVacation`);
+
+  hours.placeholder='40';
+  days.placeholder='5';
+  vacation.placeholder='30';
+
+  vacation.closest('.field').insertAdjacentHTML(
+    'beforeend',
+    `<small id="${p}OwnerVacationRecommendation">—</small>`
+  );
+});
   $$('input').forEach((el,i)=>{el.autocomplete='off';el.spellcheck=false;el.name='fbc_'+(el.id||'input_'+i);el.dataset.lpignore='true'});
 }
 function vacationRecommendationText(workdays){const d=Math.max(0,Math.min(5,Math.round(Number(workdays)||0)));return d?t(`Empfehlung bei ${d} Arbeitstagen: ${d*6} Urlaubstage / Jahr.`,`Рекомендация при ${d} рабочих днях: ${d*6} дней отпуска в год.`):t('Empfehlung: erst Arbeitstage eingeben.','Рекомендация: сначала укажите рабочие дни.')}
