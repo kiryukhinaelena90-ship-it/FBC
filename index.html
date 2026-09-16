@@ -3038,8 +3038,81 @@ function employmentData(formKey,wage,hours,extraCost=0,customerPrice=0,days=5,va
 
 function ownerModeMarkup(p){
   const who=p==='emp'?['INHABER/IN + MITARBEITER','ВЛАДЕЛЕЦ + СОТРУДНИК']:['TEAMCHECK · INHABER/IN UND BETRIEB','TEAMCHECK · ВЛАДЕЛЕЦ И БИЗНЕС'];
-  return `<article class="card" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2><div class="field-grid four"><label class="field"><span data-de="Kundenpreis netto / Std." data-ru="Цена клиенту без НДС / ч">Kundenpreis netto / Std.</span><div class="unit"><input id="${p}OwnerPrice" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field"><span data-de="Arbeitsstunden / Woche" data-ru="Рабочих часов / неделю">Arbeitsstunden / Woche</span><input id="${p}OwnerHours" type="number" min="0" max="80" step="0.1" placeholder="0"></label><label class="field fbc-owner-billable"><span data-de="Tatsächlich abrechenbare Stunden / Monat" data-ru="Фактически оплачиваемые клиентом часы / месяц">Tatsächlich abrechenbare Stunden / Monat</span><input id="${p}OwnerBillableHours" type="number" min="0" step="0.1" placeholder="0"><small data-de="Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage." data-ru="Только фактически проданные клиентам часы; свободная мощность не означает спрос.">Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage.</small></label><label class="field"><span data-de="Arbeitstage / Woche" data-ru="Рабочих дней / неделю">Arbeitstage / Woche</span><input id="${p}OwnerDays" type="number" min="1" max="5" step="1" placeholder="0"></label><label class="field"><span data-de="Urlaubstage / Jahr" data-ru="Отпуск / дней в год">Urlaubstage / Jahr</span><input id="${p}OwnerVacation" type="number" min="0" max="60" placeholder="0"></label></div>
-<div class="owner-time-summary">
+  return `<article class="card" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2>
+ <div class="field-grid four">
+
+  <label class="field">
+    <span data-de="Kundenpreis netto / Std."
+          data-ru="Цена клиенту без НДС / ч">
+      Kundenpreis netto / Std.
+    </span>
+    <div class="unit">
+      <input id="${p}OwnerPrice"
+             class="decimal-input"
+             type="text"
+             inputmode="decimal"
+             placeholder="0">
+      <b>€</b>
+    </div>
+  </label>
+
+  <label class="field">
+    <span data-de="Arbeitsstunden / Woche"
+          data-ru="Рабочих часов / неделю">
+      Arbeitsstunden / Woche
+    </span>
+    <input id="${p}OwnerHours"
+           type="number"
+           min="0"
+           max="80"
+           step="0.1"
+           placeholder="0">
+  </label>
+
+  <label class="field">
+    <span data-de="Arbeitstage / Woche"
+          data-ru="Рабочих дней / неделю">
+      Arbeitstage / Woche
+    </span>
+    <input id="${p}OwnerDays"
+           type="number"
+           min="1"
+           max="5"
+           step="1"
+           placeholder="0">
+  </label>
+
+  <label class="field">
+    <span data-de="Urlaubstage / Jahr"
+          data-ru="Отпуск / дней в год">
+      Urlaubstage / Jahr
+    </span>
+    <input id="${p}OwnerVacation"
+           type="number"
+           min="0"
+           max="60"
+           placeholder="0">
+  </label>
+
+</div>
+
+<label class="field fbc-owner-billable owner-billable-row">
+  <span data-de="Tatsächlich abrechenbare Stunden / Monat"
+        data-ru="Фактически оплачиваемые клиентом часы / месяц">
+    Tatsächlich abrechenbare Stunden / Monat
+  </span>
+
+  <input id="${p}OwnerBillableHours"
+         type="number"
+         min="0"
+         step="0.1"
+         placeholder="0">
+
+  <small data-de="Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage."
+         data-ru="Только фактически проданные клиентам часы; свободная мощность не означает спрос.">
+    Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage.
+  </small>
+</label>
   <strong data-de="Zeit-Orientierung"
           data-ru="Ориентир по рабочему времени">
     Zeit-Orientierung
