@@ -3017,10 +3017,25 @@ function updateEmployee(){
 }
 function updateCompany(emp,owner){
   const billable=$('#empBillable').checked,ownerBillableHours=Math.max(0,num('#empOwnerBillableHours')),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimate(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
-  $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxText(tax);updateAnnualTurnover('#companyAnnualTurnover',totalRevenue*12);
-  $('#companyAnnualOperatingResult').textContent=euro((totalRevenue-totalCosts)*12);
-  $('#companyAnnualTaxes').textContent=euro(taxMonth*12);
-  $('#companyAnnualNet').textContent=euro(remain*12);
+  $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxText(tax);updateAnnualTurnover('#companyAnnualTurnover', totalRevenue * 12);
+
+$('#companyAnnualBusinessCosts').textContent =
+  euro(owner.business * 12);
+
+$('#companyAnnualEmployeeCosts').textContent =
+  euro(emp.total * 12);
+
+$('#companyAnnualTotalExpenses').textContent =
+  euro((owner.business + emp.total + protection) * 12);
+
+$('#companyAnnualBeforeTaxes').textContent =
+  euro((totalRevenue - owner.business - emp.total - protection) * 12);
+
+$('#companyAnnualTaxes').textContent =
+  euro(taxMonth * 12);
+
+$('#companyAnnualNet').textContent =
+  euro(remain * 12);
   updatePriceEquation(ownerRecommended,{net:'#companyRequiredRate',vat:'#companyOwnerVat',gross:'#companyOwnerGross',label:'#companyOwnerVatLabel'},goalEntered);
   $('#companyPriceHeading').textContent=goalEntered?t('Zielorientierte Kundenpreise · gemeinsam kalkuliert','Целевые цены для клиента · рассчитаны совместно'):t('Kostenorientierte Kundenpreise · ohne persönliches Monatsziel','Цены по затратам · без личной месячной цели');
   $('#companyOwnerNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Kostenorientierter Preis netto / Std.','Цена по затратам нетто / ч');
