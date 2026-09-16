@@ -3083,8 +3083,43 @@ function proportionalTargetFactor(requiredRevenue,baseRevenue,goalEntered){
   if(!goalEntered||baseRevenue<=0)return 1;
   return Math.max(1,requiredRevenue/baseRevenue);
 }
-function solveModeRevenue(p,business,insurance,goal){let low=0,high=Math.max(10000,(business+insurance+goal)*2+1000);const available=revenue=>{const profit=Math.max(0,revenue-business),tax=taxEstimate(profit*12).total/12,pension=modePension(p,profit).monthly;return revenue-business-insurance-pension-tax};while(available(high)<goal&&high<1e7)high*=2;for(let i=0;i<70;i++){const mid=(low+high)/2;if(available(mid)>=goal)high=mid;else low=mid}const profit=Math.max(0,high-business),tax=taxEstimate(profit*12),pension=modePension(p,profit);return{revenue:high,profit,tax,pension,taxMonth:tax.total/12}}
+function solveModeRevenue(p,business,insurance,goal){
+  const estimateTax=annualProfit=>
+    p==='emp'
+      ? taxEstimateEmployee(annualProfit)
+      : taxEstimate(annualProfit);
 
+  let low=0;
+  let high=Math.max(10000,(business+insurance+goal)*2+1000);
+
+  const available=revenue=>{
+    const profit=Math.max(0,revenue-business);
+    const tax=estimateTax(profit*12).total/12;
+    const pension=modePension(p,profit).monthly;
+
+    return revenue-business-insurance-pension-tax;
+  };
+
+  while(available(high)<goal&&high<1e7)high*=2;
+
+  for(let i=0;i<70;i++){
+    const mid=(low+high)/2;
+    if(available(mid)>=goal)high=mid;
+    else low=mid;
+  }
+
+  const profit=Math.max(0,high-business);
+  const tax=estimateTax(profit*12);
+  const pension=modePension(p,profit);
+
+  return{
+    revenue:high,
+    profit,
+    tax,
+    pension,
+    taxMonth:tax.total/12
+  };
+}
 function employeeReady(){return hasInput('#empOwnerPrice')&&hasInput('#empOwnerHours')&&hasInput('#empOwnerDays')&&hasInput('#empWage')&&hasInput('#empHours')&&(!$('#empBillable').checked||hasInput('#empCustomerPrice'))}
 function employeeStarted(){return ['#empOwnerPrice','#empOwnerHours','#empOwnerDays','#empWage','#empHours','#empOwnerGoal'].some(hasInput)||modeCosts('emp')>0}
 function updateEmployee(){
