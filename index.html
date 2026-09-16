@@ -2279,12 +2279,19 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
         <input id="empVacation" type="number" min="0" max="60" step="1" value="30" data-auto-vacation="true">
       </label>
 
-      <label class="team-price-cell">
+     <label class="team-price-cell">
 
   <small data-de="Aktueller Rechnungspreis ohne USt · €/Std."
          data-ru="Текущая цена клиенту без НДС · €/ч">
     Aktueller Rechnungspreis ohne USt · €/Std.
   </small>
+
+  <input id="empCustomerPrice"
+         class="decimal-input"
+         type="text"
+         inputmode="decimal"
+         placeholder="0"
+         aria-label="Aktueller Rechnungspreis ohne Umsatzsteuer pro Stunde">
 
   <span class="team-billable-line">
     <input id="empBillable" type="checkbox" checked>
@@ -2293,13 +2300,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
       An Kunden abrechnen
     </b>
   </span>
-
-  <input id="empCustomerPrice"
-         class="decimal-input"
-         type="text"
-         inputmode="decimal"
-         placeholder="0"
-         aria-label="Aktueller Rechnungspreis ohne Umsatzsteuer pro Stunde">
 
 </label>
     </div>
