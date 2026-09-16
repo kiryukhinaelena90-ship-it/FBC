@@ -140,7 +140,36 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 .vat-invoice-turnover strong{margin:0;font-size:19px;white-space:nowrap}
 .result-goal-row{margin-top:12px}
 @media(max-width:700px){.vat-result-panel{grid-template-columns:1fr;grid-template-areas:"net" "choice" "gross"}.vat-result-panel>.vat-turnover:not(.vat-invoice-turnover){min-height:92px}.vat-invoice-turnover{grid-template-columns:1fr}.vat-invoice-turnover strong{margin-top:4px}}
+/* STRUCTURE TEST v2.1 · billable roles and always-live results */
+.result-goal-row{display:grid;grid-template-columns:minmax(280px,520px);gap:18px;align-items:end;margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#f3eee9}
+.result-goal-row .field{max-width:520px}
+.result-goal-row small{display:block;color:var(--muted);font-size:11px;line-height:1.35}
+.result-goal-row .goal-explainer{margin-top:2px}
+.result-goal-row #soloCompleteness{margin-top:1px;color:var(--brown)}
+@media(max-width:700px){.result-goal-row{grid-template-columns:1fr;align-items:stretch}.result-goal-row small{padding-bottom:0}}
 
+/* Employee goal block */
+#employee .result-goal-row{
+  grid-template-columns:1fr;
+  padding:18px 20px;
+}
+
+#employee .result-goal-row .field{
+  max-width:none;
+  width:100%;
+}
+
+#employee .result-goal-row .field > span{
+  white-space:nowrap;
+}
+
+#employee .result-goal-row .unit{
+  max-width:520px;
+}
+
+#employee .result-goal-row small{
+  max-width:none;
+}
 /* v3.1 · compact annual context and explicit net + VAT = invoice price. */
 .annual-summary{display:grid;grid-template-columns:auto auto 1fr;gap:8px 14px;align-items:baseline;margin:16px 0 12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#f7f4f1}
 .annual-summary>span{font-size:12px;font-weight:800;color:var(--brown-dark)}
