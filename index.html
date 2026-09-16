@@ -3221,17 +3221,40 @@ function modePension(p,profit){const mode=$(`#${p}PensionMode`).value;let monthl
 function modeOwner(p){const time=modeTime(p);return{price:num(`#${p}OwnerPrice`),time,workMonth:time.workMonth,business:modeCosts(p),insurance:num(`#${p}OwnerInsurance`)}}
 function refreshOwnerTimeInfos(){
   const solo=$('#soloTimeInfo');
+
   if(solo){
-    const tSolo=workTime();
-    solo.textContent=t(`ca. ${tSolo.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(tSolo.days)}`,
-                       `примерно ${tSolo.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(tSolo.days)}`);
+    const hours=num('#soloHours');
+    const days=num('#soloDays');
+
+    if(!hours || !days){
+      solo.textContent='—';
+    }else{
+      const tSolo=workTime();
+      solo.textContent=t(
+        `ca. ${tSolo.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(tSolo.days)}`,
+        `примерно ${tSolo.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(tSolo.days)}`
+      );
+    }
   }
+
   ['emp','team'].forEach(p=>{
     const target=$(`#${p}OwnerTimeInfo`);
     if(!target)return;
+
+    const hours=num(`#${p}OwnerHours`);
+    const days=num(`#${p}OwnerDays`);
+
+    if(!hours || !days){
+      target.textContent='—';
+      return;
+    }
+
     const time=modeTime(p);
-    target.textContent=t(`ca. ${time.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(time.days)}`,
-                         `примерно ${time.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(time.days)}`);
+
+    target.textContent=t(
+      `ca. ${time.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(time.days)}`,
+      `примерно ${time.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(time.days)}`
+    );
   });
 }
 
