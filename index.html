@@ -3343,7 +3343,23 @@ document.addEventListener('keydown',event=>{
   }
 });
 
-populateAllSelects();$('#region').value='bw';configureValidation();refreshScheduleAdvice();
+populateAllSelects();
+
+$('#region').value='bw';
+
+const tradeTaxInput=$('#tradeTaxRate');
+
+tradeTaxInput.value='430';
+tradeTaxInput.classList.add('is-suggestion');
+
+tradeTaxInput.addEventListener('input',event=>{
+  if(event.isTrusted){
+    tradeTaxInput.classList.remove('is-suggestion');
+  }
+});
+
+configureValidation();
+refreshScheduleAdvice();
 {   const schedule=scheduleOrientation($('#empForm').value),         hours=$('#empHours'),         days=$('#empDays'),         vacation=$('#empVacation');    hours.value='';   days.value='';   vacation.value='';    hours.placeholder=String(schedule.hours);   days.placeholder=String(schedule.days);   vacation.placeholder=String(schedule.companyVacation);    hours.dataset.autoHours='true';   days.dataset.autoDays='true';   vacation.dataset.autoVacation='true'; }
 addTeamMember({role:'office',form:'part',wage:'',price:''});
 calculateAll();
