@@ -61,34 +61,36 @@ input::placeholder{color:#b8b0a8;opacity:1}
 
 /* User input: warm and editable. Native number steppers are intentionally hidden. */
 .field input,.team-row input,.cost-lines input{background:#fff9f3;border-color:#d8c7b8}
-#employee .result-goal-row{
-  grid-template-columns:1fr;
-  width:min(760px,100%);
-  max-width:760px;
-  padding:14px 16px;
-  margin:14px 0;
+    /* Employee owner monthly target */
+#employeeOwnerGoalBlock{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  width:min(980px,100%)!important;
+  max-width:980px!important;
+  padding:16px 18px!important;
+  margin:18px 0!important;
+  box-sizing:border-box!important;
 }
 
-#employee .result-goal-row .field{
-  width:100%;
-  max-width:none;
+#employeeOwnerGoalBlock > .field{
+  width:100%!important;
+  max-width:none!important;
 }
 
-#employee .result-goal-row .field > span{
-  white-space:nowrap;
+#employeeOwnerGoalBlock > .field > span{
+  white-space:normal!important;
 }
 
-#employee .result-goal-row .unit{
-  width:max-content!important;
+#employeeOwnerGoalBlock .unit{
+  width:520px!important;
   max-width:100%!important;
 }
 
-#employee #empOwnerGoal{
-  width:420px!important;
-  max-width:420px!important;
-  flex:0 0 420px!important;
+#employeeOwnerGoalBlock #empOwnerGoal{
+  width:100%!important;
+  max-width:none!important;
+  flex:1 1 auto!important;
 }
-
 .team-labels,.team-row{grid-template-columns:1.3fr 1.2fr .72fr .65fr .82fr 36px}
 .result-goal-row.team-goals{grid-template-columns:repeat(2,minmax(240px,1fr));max-width:none}
 @media(max-width:900px){.team-labels{display:none}.team-row{grid-template-columns:1fr 1fr}.team-orientation{grid-column:1/-1}}
@@ -2528,7 +2530,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
     FBC zeigt Ihnen, welche Kombination aus Preis, Auslastung und Kosten zu Ihrem Einkommensziel passt – inklusive Mitarbeiterproduktivität, Break-even und erforderlichen Kunden-Stundensätzen für Mitarbeiter und Inhaber.
   </p>
 </section>
-      <div class="result-goal-row">
+      <div id="employeeOwnerGoalBlock" class="result-goal-row">
 <label class="field">
 <span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
       data-ru="Сколько вы хотите реально оставлять себе каждый месяц?">
