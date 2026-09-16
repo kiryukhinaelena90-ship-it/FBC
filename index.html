@@ -987,17 +987,67 @@ b,strong{font-weight:600}
 .free-badge,.plus-badge,.scenario-gesture,.scenario-panel .free-badge{color:#cbb383!important}
 .scenario-answer strong{font-size:20px!important}
 
-/* ---------- TeamCheck: tighter than Solo / Employee ---------- */
-#team .card,.team-builder{padding:22px 22px}
-.team-labels{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#8b95a2;padding:6px 2px}
-.team-row{padding:7px 0;border-top:1px solid var(--line-soft)}
-.team-row input,.team-row select{height:36px;font-size:13.5px}
-.team-base-grid{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:14px;gap:12px;margin:16px 0 20px}
-.team-final>div,.team-gross>div{padding:12px 13px}
-.team-final strong,.team-gross strong{font-size:17px!important}
-.member-metrics,.team-member-economics{font-size:12px}
-.remove-team{background:#f1f4f7;color:var(--muted);font-size:18px;border-radius:8px}
-.remove-team:hover{background:#f5e6e4;color:var(--red)}
+/* ---------- Unified mode geometry · Employee is the UI master ---------- */
+
+#team .card,
+.team-builder{
+  padding:26px 28px;
+}
+
+.team-labels{
+  font-size:11px;
+  letter-spacing:.075em;
+  text-transform:none;
+  color:var(--muted);
+  padding:8px 4px;
+}
+
+.team-row{
+  padding:16px 0 20px;
+  border-top:1px solid var(--line);
+}
+
+.team-row input,
+.team-row select{
+  height:43px;
+  font-size:14px;
+}
+
+.team-base-grid{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:16px;
+  gap:14px;
+  margin:18px 0 24px;
+}
+
+.team-final>div,
+.team-gross>div{
+  padding:15px;
+}
+
+.team-final strong,
+.team-gross strong{
+  font-size:21px!important;
+}
+
+.member-metrics,
+.team-member-economics{
+  font-size:13px;
+}
+
+.remove-team{
+  background:#f1f4f7;
+  color:var(--muted);
+  font-size:18px;
+  border-radius:8px;
+}
+
+.remove-team:hover{
+  background:#f5e6e4;
+  color:var(--red);
+}
 
 /* ---------- Reference / footer ---------- */
 .reference-strip>div,.future-tool-card,.info-dock[open]{background:#fff;border:1px solid var(--line);border-radius:12px}
