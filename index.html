@@ -5382,4 +5382,19 @@ window.FBC_STATISTICS_LAYER={open:openStat,close:closeStat,history:HIST,meta:MET
 })();
 </script>
 </body>
+<script>
+document.getElementById('region')?.addEventListener('click', () => {
+  console.log('REGION CLICK');
+});
+
+document.getElementById('legalForm')?.addEventListener('click', () => {
+  console.log('LEGALFORM CLICK');
+});
+
+document.querySelectorAll('.mode-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    console.log('MODE CLICK', btn.dataset.mode);
+  });
+});
+</script>
 </html>
