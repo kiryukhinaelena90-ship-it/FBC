@@ -3238,25 +3238,28 @@ function refreshOwnerTimeInfos(){
     }
   }
 
-  ['emp','team'].forEach(p=>{
-    const target=$(`#${p}OwnerTimeInfo`);
-    if(!target)return;
+['emp','team'].forEach(p=>{
+  const target=$(`#${p}OwnerTimeInfo`);
+  if(!target)return;
 
-    const hours=num(`#${p}OwnerHours`);
-    const days=num(`#${p}OwnerDays`);
+  const box=target.closest('.owner-time-summary');
+  const hours=num(`#${p}OwnerHours`);
+  const days=num(`#${p}OwnerDays`);
 
-    if(!hours || !days){
-      target.textContent='—';
-      return;
-    }
+  if(!hours || !days){
+    if(box) box.classList.add('hidden');
+    return;
+  }
 
-    const time=modeTime(p);
+  if(box) box.classList.remove('hidden');
 
-    target.textContent=t(
-      `ca. ${time.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(time.days)}`,
-      `примерно ${time.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(time.days)}`
-    );
-  });
+  const time=modeTime(p);
+
+  target.textContent=t(
+    `ca. ${time.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(time.days)}`,
+    `примерно ${time.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(time.days)}`
+  );
+});
 }
 
 function updateModePanels(p,owner,profit){const pension=modePension(p,profit);const timeInfo=$(`#${p}OwnerTimeInfo`);
