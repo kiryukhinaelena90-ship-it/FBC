@@ -3349,7 +3349,36 @@ $('#region').value='bw';
 
 const tradeTaxInput=$('#tradeTaxRate');
 
-tradeTaxInput.value='430';
+const tradeTaxInput=$('#tradeTaxRate');
+const regionInput=$('#region');
+
+function applyTradeTaxReference(){
+  const ref=TRADE_TAX_REFERENCE[regionInput.value];
+
+  if(!ref)return;
+
+  tradeTaxInput.value=String(ref.rate);
+  tradeTaxInput.dataset.referenceCity=ref.city;
+  tradeTaxInput.classList.add('is-suggestion');
+
+  const note=$('#tradeTaxReferenceNote');
+  if(note){
+    note.textContent=t(
+      `Orientierungswert: ${ref.city}, Stand 2026. Bitte anpassen, wenn Ihr Unternehmenssitz in einer anderen Gemeinde liegt.`,
+      `Ориентир: ${ref.city}, данные на 2026 год. Если предприятие зарегистрировано в другом муниципалитете, укажите фактический Hebesatz.`
+    );
+  }
+}
+
+regionInput.addEventListener('change',()=>{
+  applyTradeTaxReference();
+});
+
+tradeTaxInput.addEventListener('input',event=>{
+  if(event.isTrusted){
+    tradeTaxInput.classList.remove('is-suggestion');
+  }
+});
 tradeTaxInput.classList.add('is-suggestion');
 
 tradeTaxInput.addEventListener('input',event=>{
