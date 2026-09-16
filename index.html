@@ -3350,8 +3350,6 @@ populateAllSelects();
 
 $('#region').value='bw';
 
-
-
 const tradeTaxInput=$('#tradeTaxRate');
 const regionInput=$('#region');
 
@@ -3373,6 +3371,8 @@ const TRADE_TAX_REFERENCE = {
   sh:{city:'Kiel',rate:450},
   th:{city:'Erfurt',rate:470}
 };
+
+function applyTradeTaxReference(){
   const ref=TRADE_TAX_REFERENCE[regionInput.value];
 
   if(!ref)return;
@@ -3399,14 +3399,8 @@ tradeTaxInput.addEventListener('input',event=>{
     tradeTaxInput.classList.remove('is-suggestion');
   }
 });
-tradeTaxInput.classList.add('is-suggestion');
 
-tradeTaxInput.addEventListener('input',event=>{
-  if(event.isTrusted){
-    tradeTaxInput.classList.remove('is-suggestion');
-  }
-});
-
+applyTradeTaxReference();
 configureValidation();
 refreshScheduleAdvice();
 {   const schedule=scheduleOrientation($('#empForm').value),         hours=$('#empHours'),         days=$('#empDays'),         vacation=$('#empVacation');    hours.value='';   days.value='';   vacation.value='';    hours.placeholder=String(schedule.hours);   days.placeholder=String(schedule.days);   vacation.placeholder=String(schedule.companyVacation);    hours.dataset.autoHours='true';   days.dataset.autoDays='true';   vacation.dataset.autoVacation='true'; }
