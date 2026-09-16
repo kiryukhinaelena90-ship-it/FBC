@@ -3355,7 +3355,24 @@ $('#region').value='bw';
 const tradeTaxInput=$('#tradeTaxRate');
 const regionInput=$('#region');
 
-function applyTradeTaxReference(){
+const TRADE_TAX_REFERENCE = {
+  bw:{city:'Stuttgart',rate:430},
+  by:{city:'München',rate:490},
+  be:{city:'Berlin',rate:410},
+  bb:{city:'Potsdam',rate:470},
+  hb:{city:'Bremen',rate:460},
+  hh:{city:'Hamburg',rate:470},
+  he:{city:'Frankfurt am Main',rate:460},
+  mv:{city:'Schwerin',rate:458},
+  ni:{city:'Hannover',rate:480},
+  nw:{city:'Düsseldorf',rate:440},
+  rp:{city:'Mainz',rate:460},
+  sl:{city:'Saarbrücken',rate:490},
+  sn:{city:'Dresden',rate:450},
+  st:{city:'Magdeburg',rate:450},
+  sh:{city:'Kiel',rate:450},
+  th:{city:'Erfurt',rate:470}
+};
   const ref=TRADE_TAX_REFERENCE[regionInput.value];
 
   if(!ref)return;
