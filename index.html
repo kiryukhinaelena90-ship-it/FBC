@@ -2951,7 +2951,12 @@ function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness',
 function populateSelect(select,data){const current=select.value;select.innerHTML='';Object.entries(data).forEach(([value,item])=>{const option=document.createElement('option');option.value=value;option.textContent=label(item);select.append(option)});if([...select.options].some(o=>o.value===current))select.value=current}
 function populateAllSelects(){populateSelect($('#region'),Object.fromEntries(Object.entries(regions).map(([k,v])=>[k,{de:v[0],ru:v[0]}])));$$('.role-select').forEach(s=>populateSelect(s,roles));$$('.form-select').forEach(s=>populateSelect(s,forms))}
 
-function translate(next){lang=next;document.documentElement.lang=next;$$('[data-de]').forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});$$('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));populateAllSelects();calculateAll();validateAllVisible()}
+function translate(next){lang=next;document.documentElement.lang=next;$$('[data-de]').forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});$$('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));populateAllSelects();
+$('#region').value='bw';
+applyTradeTaxReference();
+
+configureValidation();
+refreshScheduleAdvice();calculateAll();validateAllVisible()}
 
 function monthlyCostSum(){return $$('.monthly-cost').reduce((sum,input)=>sum+(Number(input.value)||0),0)}
 function workTime(){const weekly=num('#soloHours'),days=Math.max(1,num('#soloDays')),vac=num('#soloVacation'),holidays=holidayDays2026(days),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/days));return{workMonth:annualHours/12,holidays,days}}
