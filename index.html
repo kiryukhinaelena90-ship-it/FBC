@@ -488,32 +488,6 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
 #team .team-row select{
   height:43px;
 }
-.owner-billable-row{
-  width:calc((100% - 42px) / 4);
-  margin-top:18px;
-}
-
-.owner-billable-row input{
-  width:100%;
-}
-
-.owner-billable-row small{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.35;
-}
- @media(max-width:900px){
-  .owner-billable-row{
-    width:calc((100% - 14px) / 2);
-  }
-}
-
-@media(max-width:600px){
-  .owner-billable-row{
-    width:100%;
-  }
-} 
  .owner-time-summary{
   margin-top:14px;
   padding:0;
@@ -534,33 +508,33 @@ input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-in
   color:var(--muted);
 }   
 
-.owner-profile-card .field-grid.five{
+.owner-profile-card .owner-top-grid{
   grid-template-columns:
+    180px
     190px
-    190px
-    190px
-    190px;
-  190px;
+    180px
+    180px
+    230px;
+  gap:14px;
   justify-content:start;
+  align-items:start;
 }
 
-    @media(max-width:900px){
-  .owner-profile-card .field-grid.four{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+@media(max-width:1100px){
+  .owner-profile-card .owner-top-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
+}
 
-  .owner-profile-card .owner-billable-row{
-    width:calc((100% - 14px) / 2);
+@media(max-width:750px){
+  .owner-profile-card .owner-top-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
 
 @media(max-width:600px){
-  .owner-profile-card .field-grid.four{
+  .owner-profile-card .owner-top-grid{
     grid-template-columns:1fr;
-  }
-
-  .owner-profile-card .owner-billable-row{
-    width:100%;
   }
 }
 .employee-profile-card label.team-price-cell{
