@@ -3073,7 +3073,7 @@ function employmentData(formKey,wage,hours,extraCost=0,customerPrice=0,days=5,va
 
 function ownerModeMarkup(p){
   const who=p==='emp'?['INHABER/IN + MITARBEITER','ВЛАДЕЛЕЦ + СОТРУДНИК']:['TEAMCHECK · INHABER/IN UND BETRIEB','TEAMCHECK · ВЛАДЕЛЕЦ И БИЗНЕС'];
-  return `<article class="card" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2>
+  return `<article class="card ${p==='emp'?'owner-profile-card':''}" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2>
  <div class="field-grid four">
 
   <label class="field">
