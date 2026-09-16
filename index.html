@@ -3347,7 +3347,21 @@ renderOwnerModes();
 setupOwnerVacation('#soloDays','#soloVacation');setupOwnerVacation('#empOwnerDays','#empOwnerVacation');setupOwnerVacation('#teamOwnerDays','#teamOwnerVacation');
 setupOwnerAutoDays('#soloHours','#soloDays','#soloVacation');setupOwnerAutoDays('#empOwnerHours','#empOwnerDays','#empOwnerVacation');setupOwnerAutoDays('#teamOwnerHours','#teamOwnerDays','#teamOwnerVacation');
 $$('.lang button').forEach(b=>b.addEventListener('click',()=>translate(b.dataset.lang)));
-$$('.mode-tab').forEach(button=>button.addEventListener('click',()=>{$$('.mode-tab').forEach(b=>b.classList.remove('active'));button.classList.add('active');$$('.flow').forEach(flow=>flow.classList.toggle('hidden',flow.id!==button.dataset.mode));calculateAll()}));
+$$('.mode-tab').forEach(button=>button.addEventListener('click',()=>{
+  const mode=button.dataset.mode;
+
+  $$('.mode-tab').forEach(b=>b.classList.remove('active'));
+  button.classList.add('active');
+
+  $$('.flow').forEach(flow=>{
+    flow.classList.toggle('hidden',flow.id!==mode);
+  });
+
+  $('#employeeSeoIntro')?.classList.toggle('hidden',mode!=='employee');
+  $('#teamSeoIntro')?.classList.toggle('hidden',mode!=='team');
+
+  calculateAll();
+}));
 $$('.card').forEach(card=>['click','focusin'].forEach(event=>card.addEventListener(event,()=>{const flow=card.closest('.flow');if(flow)flow.querySelectorAll('.card').forEach(c=>c.classList.toggle('active-step',c===card))})));
 document.addEventListener('input',event=>{if(event.target.closest('#teamRows'))return;calculateAll()});document.addEventListener('change',event=>{if(event.target.matches('.vat-mode-select'))syncVatMode(event.target.value);if(event.target.closest('#teamRows'))return;calculateAll()});
 $('#empApplyWage').addEventListener('click',()=>{$('#empWage').value=orientation($('#empRole').value,$('#empForm').value).mid.toFixed(2);calculateAll()});
