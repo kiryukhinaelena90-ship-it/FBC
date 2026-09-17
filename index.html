@@ -3593,6 +3593,15 @@ function updateTeamScenario(owner,members,gross,addons){const price=num('#teamSc
 function calculateAll(){refreshOwnerVacationRecommendations();refreshOwnerTimeInfos();refreshTeamOrientationRows();refreshScheduleAdvice();updateProfile();updateSolo();updateEmployee();calculateTeam()}
 
 renderOwnerModes();
+  ['emp','team'].forEach(p=>{
+  const pensionMode = $(`#${p}PensionMode`);
+  const pensionFixed = $(`#${p}PensionFixed`);
+  const ownerInsurance = $(`#${p}OwnerInsurance`);
+
+  pensionMode?.addEventListener('change', calculateAll);
+  pensionFixed?.addEventListener('input', calculateAll);
+  ownerInsurance?.addEventListener('input', calculateAll);
+});
 [['#soloHours','40'],['#soloDays','5'],['#soloVacation','30']].forEach(([id,value])=>{const input=$(id);if(input&&!input.value)input.placeholder=value});
 setupOwnerVacation('#soloDays','#soloVacation');setupOwnerVacation('#empOwnerDays','#empOwnerVacation');setupOwnerVacation('#teamOwnerDays','#teamOwnerVacation');
 setupOwnerAutoDays('#soloHours','#soloDays','#soloVacation');setupOwnerAutoDays('#empOwnerHours','#empOwnerDays','#empOwnerVacation');setupOwnerAutoDays('#teamOwnerHours','#teamOwnerDays','#teamOwnerVacation');
