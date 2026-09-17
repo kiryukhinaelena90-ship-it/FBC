@@ -1635,7 +1635,24 @@ h3{font-weight:600!important;line-height:1.22!important}
 .ledger-subtotal strong{font-size:18px!important;font-weight:520!important}
 .ledger-final strong{font-size:25px!important;font-weight:540!important}
 .ledger-final span,.ledger-subtotal span{font-weight:620!important}
+/* Ergebnis · Hauptbeträge ruhiger */
+.result-ledger .ledger-primary strong,
+.result-ledger .ledger-final strong{
+  font-size:21px!important;
+  font-weight:400!important;
+}
 
+/* Number inputs · Browser-Pfeile ausblenden */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+  -webkit-appearance:none!important;
+  margin:0;
+}
+
+input[type="number"]{
+  -moz-appearance:textfield!important;
+  appearance:textfield!important;
+}
 /* Jahresübersicht: simple ledger, no font clash. */
 .annual-result-card{
   background:var(--ui-surface)!important;
