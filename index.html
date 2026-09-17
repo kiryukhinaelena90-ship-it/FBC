@@ -3639,20 +3639,23 @@ $('#empForm').addEventListener('change',()=>{
         vacation=$('#empVacation'),
         hours=$('#empHours');
 
-  if(hours.dataset.autoHours==='true'){
-    hours.value='';
-    hours.placeholder=String(schedule.hours);
-  }
+if(hours.dataset.autoHours==='true'){
+  hours.value=String(schedule.hours);
+  hours.placeholder=String(schedule.hours);
+  hours.classList.add('is-suggestion');
+}
 
-  if(days.dataset.autoDays==='true'){
-    days.value='';
-    days.placeholder=String(schedule.days);
-  }
+if(days.dataset.autoDays==='true'){
+  days.value=String(schedule.days);
+  days.placeholder=String(schedule.days);
+  days.classList.add('is-suggestion');
+}
 
-  if(vacation.dataset.autoVacation==='true'){
-    vacation.value='';
-    vacation.placeholder=String(schedule.companyVacation);
-  }
+if(vacation.dataset.autoVacation==='true'){
+  vacation.value=String(schedule.companyVacation);
+  vacation.placeholder=String(schedule.companyVacation);
+  vacation.classList.add('is-suggestion');
+}
 
   calculateAll();
 });
