@@ -97,7 +97,16 @@ input::placeholder{color:#b8b0a8;opacity:1}
 .is-disabled{opacity:.72}
 .customer-price-orientation button:disabled{opacity:.45;cursor:not-allowed}
 .billable-toggle{min-height:70px}
-.team-price-cell{display:flex;flex-direction:column;gap:4px;min-width:0;padding:4px 6px;border:1px solid #d8c7b8;border-radius:10px;background:#fff9f3}
+.team-price-cell{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
+  padding:4px 0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
 .team-price-cell>span{display:flex;align-items:center;gap:5px;font-size:10px;line-height:1.1}
 .team-price-cell>span b{font-weight:800}
 .team-price-cell input[type="checkbox"]{width:14px;height:14px;min-width:14px;margin:0;accent-color:var(--brown)}
