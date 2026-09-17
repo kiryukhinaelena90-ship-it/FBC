@@ -3753,7 +3753,28 @@ tradeTaxInput.addEventListener('input',event=>{
 applyTradeTaxReference();
 configureValidation();
 refreshScheduleAdvice();
-{   const schedule=scheduleOrientation($('#empForm').value),         hours=$('#empHours'),         days=$('#empDays'),         vacation=$('#empVacation');    hours.value='';   days.value='';   vacation.value='';    hours.placeholder=String(schedule.hours);   days.placeholder=String(schedule.days);   vacation.placeholder=String(schedule.companyVacation);    hours.dataset.autoHours='true';   days.dataset.autoDays='true';   vacation.dataset.autoVacation='true'; }
+{
+  const schedule=scheduleOrientation($('#empForm').value),
+        hours=$('#empHours'),
+        days=$('#empDays'),
+        vacation=$('#empVacation');
+
+  hours.value=String(schedule.hours);
+  days.value=String(schedule.days);
+  vacation.value=String(schedule.companyVacation);
+
+  hours.placeholder=String(schedule.hours);
+  days.placeholder=String(schedule.days);
+  vacation.placeholder=String(schedule.companyVacation);
+
+  hours.dataset.autoHours='true';
+  days.dataset.autoDays='true';
+  vacation.dataset.autoVacation='true';
+
+  hours.classList.add('is-suggestion');
+  days.classList.add('is-suggestion');
+  vacation.classList.add('is-suggestion');
+}}
 addTeamMember({role:'office',form:'part',wage:'',price:''});
 calculateAll();
 
