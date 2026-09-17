@@ -95,6 +95,17 @@ input::placeholder{color:#b8b0a8;opacity:1}
 
 .field input:disabled,.team-row input:disabled,.is-disabled input{background:#ece9e5!important;border-color:#d8d3ce!important;color:#9b948e;cursor:not-allowed}
 .is-disabled{opacity:.1}
+    .team-price-cell.is-disabled > input:not([type="checkbox"]){
+  background:#f6f7f8!important;
+  border:1px solid #d8d3ce!important;
+  color:#9b948e!important;
+}
+
+.team-price-cell.is-disabled{
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
 .customer-price-orientation button:disabled{opacity:.45;cursor:not-allowed}
 .billable-toggle{min-height:70px}
 .team-price-cell{
