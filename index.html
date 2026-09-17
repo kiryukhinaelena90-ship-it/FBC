@@ -1668,15 +1668,22 @@ h3{font-weight:600!important;line-height:1.22!important}
   font-weight:500!important;
 }
 /* Number inputs · Browser-Pfeile ausblenden */
+/* Number inputs · Browser-Pfeile vollständig ausblenden */
+input[type="number"]{
+  -webkit-appearance:textfield!important;
+  -moz-appearance:textfield!important;
+  appearance:textfield!important;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button{
   -webkit-appearance:none!important;
-  margin:0;
-}
-
-input[type="number"]{
-  -moz-appearance:textfield!important;
-  appearance:textfield!important;
+  appearance:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  margin:0!important;
+  padding:0!important;
 }
 /* Jahresübersicht: simple ledger, no font clash. */
 .annual-result-card{
