@@ -3784,12 +3784,16 @@ refreshScheduleAdvice();
   days.classList.add('is-suggestion');
   vacation.classList.add('is-suggestion');
 }
-  ['#empHours','#empDays','#empVacation'].forEach(selector=>{
+['#empHours','#empDays','#empVacation'].forEach(selector=>{
   const input=$(selector);
 
-  input.addEventListener('focus',()=>{
-    if(input.classList.contains('is-suggestion')){
-      input.select();
+  input.addEventListener('beforeinput',event=>{
+    if(
+      input.classList.contains('is-suggestion') &&
+      event.inputType.startsWith('insert')
+    ){
+      input.value='';
+      input.classList.remove('is-suggestion');
     }
   });
 
