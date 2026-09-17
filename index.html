@@ -309,6 +309,15 @@ input::placeholder{color:#b8b0a8;opacity:1}
 .result-breakdown{margin-top:18px;border-top:0}.result-breakdown>div{padding:8px 4px;border-bottom:0}.result-breakdown>div:not(.breakdown-total){color:var(--muted)}.result-breakdown .breakdown-total{margin-top:3px;padding-top:11px;border-top:1px solid var(--line);font-weight:900}.result-breakdown .breakdown-total strong{font-size:17px}
 .telegram-footer-link{display:inline-flex!important;align-items:center;gap:8px;width:max-content;padding:7px 10px!important;border:1px solid #544b45;border-radius:9px;color:#f7f2ec!important;margin-top:3px}.telegram-footer-link svg{width:18px;height:18px;flex:0 0 18px}.telegram-footer-link[aria-disabled="true"]{opacity:.62;cursor:default}
 @media(max-width:600px){.ledger-row{gap:12px}.ledger-primary strong{font-size:23px}.ledger-final strong{font-size:25px}}
+    /* Ergebnis · Beträge leichter */
+.result-ledger .ledger-row strong{
+  font-weight:600!important;
+}
+
+.result-ledger .ledger-primary strong,
+.result-ledger .ledger-final strong{
+  font-weight:650!important;
+}
 
 /* v3.4.1 · unified ledger results */
 .result-ledger{margin-top:12px;border-top:1px solid var(--line)}
