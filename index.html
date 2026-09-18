@@ -5056,9 +5056,14 @@ fin.innerHTML = `
 `;
 
 const financingSection = document.getElementById('fbcFinancingSection');
+const financingResult = document.getElementById('fbcRFinancingCheck');
 
 if (financingSection) {
-  financingSection.insertAdjacentElement('beforeend', fin);
+  if (financingResult) {
+    financingSection.insertBefore(fin, financingResult);
+  } else {
+    financingSection.appendChild(fin);
+  }
 }
 
 $('fbcFinActive').addEventListener('change', () => {
@@ -5066,6 +5071,18 @@ $('fbcFinActive').addEventListener('change', () => {
     fin.open = true;
   }
 });
+
+const openFinancingOption = () => {
+  fin.classList.remove('hidden');
+  fin.open = true;
+
+  if (financingSection) {
+    financingSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
   const openFinancingOption=()=>{
     fin.classList.remove('hidden');
     fin.open=true;
