@@ -5674,7 +5674,15 @@ if (Array.isArray(timePath) && timePath.length) {
   }, 0);
 }
   const finSection=$('fbcFinancingSection');
+if ($('fbcFinAmountDisplay')) {
+  $('fbcFinAmountDisplay').textContent =
+    financingNeed > 0 ? money(financingNeed) : '—';
+}
 
+if ($('fbcFinAmount')) {
+  $('fbcFinAmount').value =
+    financingNeed > 0 ? financingNeed.toFixed(2) : '0';
+}
   if(finSection){
     const financingRelevant=
       finActive ||
