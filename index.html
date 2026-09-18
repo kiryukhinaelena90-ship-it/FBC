@@ -4937,70 +4937,96 @@ fin.className = 'fbc-fin-details hidden';
 
 fin.innerHTML = `
   <summary>
-    ${T(
-      'Finanzierung prüfen',
-      'Проверить финансирование'
-    )}
+    ${T('Finanzierung prüfen','Проверить финансирование')}
   </summary>
 
   <div class="fbc-fin-body">
 
-    <p class="fbc-r-note" style="margin-bottom:14px">
+    <p class="fbc-r-note" style="margin-bottom:16px">
       ${T(
-        'Hier prüft FBC, welche monatliche Belastung durch eine Finanzierung entsteht und ob Ihr Unternehmen diese tragen kann.',
-        'Здесь FBC проверяет, какая ежемесячная нагрузка возникает из-за финансирования и может ли бизнес её выдержать.'
+        'FBC berechnet die monatliche Belastung der Finanzierung und prüft, ob sie aus der laufenden Liquidität getragen werden kann.',
+        'FBC рассчитывает ежемесячную нагрузку по финансированию и проверяет, может ли бизнес покрывать её из текущей ликвидности.'
       )}
     </p>
 
-    <div class="fbc-fin-grid">
+    <div class="fbc-r-metric" style="margin-bottom:16px">
+      <span>${T(
+        'Voraussichtlicher Finanzierungsbedarf',
+        'Предполагаемая потребность в финансировании'
+      )}</span>
 
-      <label class="field">
+      <strong>
+        <span id="fbcFinAmountDisplay">—</span>
+      </strong>
+
+      <small>
+        ${T(
+          'Orientierung für die vorübergehende Liquiditätsbrücke.',
+          'Ориентир для временного покрытия нехватки ликвидности.'
+        )}
+      </small>
+
+      <input
+        id="fbcFinAmount"
+        type="hidden"
+        value="0"
+      >
+    </div>
+
+    <div
+      class="fbc-fin-grid"
+      style="
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:12px;
+      "
+    >
+
+      <label class="fbc-r-metric">
         <span>${T('Finanzierungsart','Тип финансирования')}</span>
+
         <select id="fbcFinType">
           <option value="annuity">
             ${T('Annuitätendarlehen','Аннуитетный кредит')}
           </option>
+
           <option value="tilgung">
-            ${T('Tilgungsdarlehen','Кредит с погашением основного долга')}
+            ${T('Tilgungsdarlehen','Кредит с равномерным погашением')}
           </option>
+
           <option value="bullet">
-            ${T('Endfälliges Darlehen','Кредит с погашением в конце срока')}
+            ${T('Endfälliges Darlehen','Погашение в конце срока')}
           </option>
+
           <option value="line">
             ${T('Kreditlinie','Кредитная линия')}
           </option>
+
           <option value="zero">
             ${T('Zinsfreie Finanzierung','Беспроцентное финансирование')}
           </option>
         </select>
       </label>
 
-      <label class="field">
-        <span>${T(
-          'Finanzierungsbetrag',
-          'Сумма финансирования'
-        )}</span>
-        <div class="unit">
-          <input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0">
-          <b>€</b>
-        </div>
-      </label>
 
-      <label class="field">
-        <span>
-          ${T('Zinssatz p.a.','Годовая процентная ставка')}
-        </span>
+      <label class="fbc-r-metric">
+        <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
 
         <div class="unit">
-          <input id="fbcFinRate" type="text" inputmode="decimal" placeholder="0">
+          <input
+            id="fbcFinRate"
+            type="text"
+            inputmode="decimal"
+            placeholder="0"
+          >
           <b>%</b>
         </div>
 
         <button
           type="button"
-          class="fbc-stat-link"
-          data-stat-target="interest"
-          style="margin-top:6px"
+          class="fbc-cost-stat-link"
+          id="fbcFinInterestStat"
+          style="margin-top:8px"
         >
           ${T(
             'Zinsentwicklung ansehen',
@@ -5009,33 +5035,48 @@ fin.innerHTML = `
         </button>
       </label>
 
-      <label class="field">
+
+      <label class="fbc-r-metric">
         <span>${T('Laufzeit','Срок')}</span>
+
         <div class="unit">
-          <input id="fbcFinMonths" type="number" min="1" placeholder="0">
+          <input
+            id="fbcFinMonths"
+            type="number"
+            min="1"
+            placeholder="0"
+          >
           <b>${T('Mon.','мес.')}</b>
         </div>
       </label>
 
-      <label class="field">
-        <span>
-          ${T(
-            'Weitere Finanzierungskosten / Monat',
-            'Дополнительные расходы по финансированию / месяц'
-          )}
-        </span>
+
+      <label class="fbc-r-metric">
+        <span>${T(
+          'Weitere Finanzierungskosten',
+          'Дополнительные расходы'
+        )}</span>
+
         <div class="unit">
-          <input id="fbcFinFees" type="text" inputmode="decimal" placeholder="0">
-          <b>€</b>
+          <input
+            id="fbcFinFees"
+            type="text"
+            inputmode="decimal"
+            placeholder="0"
+          >
+          <b>€ / ${T('Monat','мес.')}</b>
         </div>
       </label>
 
-      <label class="field">
-        <span>${T('Zinsbindung','Тип процентной ставки')}</span>
+
+      <label class="fbc-r-metric">
+        <span>${T('Zinsbindung','Процентная ставка')}</span>
+
         <select id="fbcFinBinding">
           <option value="fixed">
             ${T('Fest','Фиксированная')}
           </option>
+
           <option value="variable">
             ${T('Variabel','Переменная')}
           </option>
