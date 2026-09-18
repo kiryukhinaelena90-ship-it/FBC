@@ -3836,7 +3836,28 @@ function updateEmployee(){
 function updateCompany(emp,owner){
   const billable=$('#empBillable').checked,ownerBillableHours=Math.max(0,num('#empOwnerBillableHours')),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimateEmployee(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxTextEmployee(tax);updateAnnualTurnover('#companyAnnualTurnover', totalRevenue * 12);
+const targetGapMessage=$('#empTargetGapMessage');
+const targetGapHeadline=$('#empTargetGapHeadline');
 
+if(targetGapMessage&&targetGapHeadline){
+  if(goalEntered){
+    const targetGap=goal-remain;
+
+    targetGapMessage.classList.remove('hidden');
+
+    targetGapHeadline.textContent=targetGap>0
+      ? t(
+          `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
+          `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
+        )
+      : t(
+          `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
+          `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
+        );
+  }else{
+    targetGapMessage.classList.add('hidden');
+  }
+}
 $('#companyAnnualBusinessCosts').textContent =
   euro(owner.business * 12);
 
