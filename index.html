@@ -1671,6 +1671,61 @@ h3{font-weight:600!important;line-height:1.22!important}
   font-size:17px!important;
   font-weight:500!important;
 }
+  /* Mitarbeiter-Ergebnis · gleiche Ledger-Logik wie Betriebsergebnis */
+.cost-equation{
+  display:block!important;
+  margin-top:12px!important;
+  border-top:1px solid var(--ui-line)!important;
+}
+
+.cost-equation > div{
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  gap:4px 16px!important;
+  align-items:center!important;
+  padding:12px 16px!important;
+  border-bottom:1px solid var(--ui-line)!important;
+  background:#fff!important;
+}
+
+.cost-equation > div > span{
+  font-family:var(--font-ui)!important;
+  font-size:14px!important;
+  font-weight:560!important;
+  color:var(--ui-text)!important;
+}
+
+.cost-equation > div > strong{
+  font-family:var(--font-ui)!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  color:var(--ui-text)!important;
+  white-space:nowrap!important;
+}
+
+.cost-equation > div > small{
+  grid-column:1 / -1!important;
+  margin-top:2px!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  color:var(--ui-muted)!important;
+}
+
+.cost-equation > div.total{
+  background:var(--ui-soft-2)!important;
+  border-top:1px solid var(--ui-line)!important;
+}
+
+.cost-equation > div.total > span{
+  font-weight:590!important;
+}
+
+.cost-equation > div.total > strong{
+  font-size:17px!important;
+  font-weight:500!important;
+}
 /* Number inputs · Browser-Pfeile ausblenden */
 /* Number inputs · Browser-Pfeile vollständig ausblenden */
 input[type="number"]{
