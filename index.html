@@ -5863,6 +5863,7 @@ if ($('fbcFinAmount')) {
   if(finSection){
     const financingRelevant=
       finActive ||
+      financingNeed > 0.01 ||
       (!targetReached && Number.isFinite(remainingGap) && remainingGap>0.01) ||
       (Number.isFinite(implementationMonths) && implementationMonths>0);
 
