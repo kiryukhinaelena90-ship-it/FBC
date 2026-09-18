@@ -57,7 +57,32 @@ input::placeholder{color:#b8b0a8;opacity:1}
 
 /* STRUCTURE TEST v2.1 · billable roles and always-live results */
 .result-goal-row{display:grid;grid-template-columns:minmax(280px,520px);gap:18px;align-items:end;margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#f3eee9}
-.result-goal-row .field{max-width:520px}
+.target-gap-message{
+  margin:14px 0 22px;
+  padding:16px 18px;
+  border-left:4px solid var(--fbc-navy);
+  border-radius:0 11px 11px 0;
+  background:#eef3f7;
+}
+
+.target-gap-message strong,
+.target-gap-message small{
+  display:block;
+}
+
+.target-gap-message strong{
+  color:var(--fbc-navy);
+  font-size:18px;
+  font-weight:650;
+}
+
+.target-gap-message small{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+    .result-goal-row .field{max-width:520px}
 .result-goal-row small{display:block;color:var(--muted);font-size:11px;line-height:1.35}
 .result-goal-row .goal-explainer{margin-top:2px}
 .result-goal-row #soloCompleteness{margin-top:1px;color:var(--brown)}
@@ -823,7 +848,9 @@ input::placeholder{color:#b8b0a8;opacity:1}
   line-height:1.3;
 }
 
-.validation-message:empty{display:none}
+.validation-message:empty{
+  display:none!important;
+}
 .schedule-advice{display:block;margin-top:6px;color:var(--warning,#8a6238);font-size:.78rem;font-weight:700;line-height:1.35}
 .schedule-advice:empty{display:none}
 
@@ -2234,7 +2261,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-stat-info-pill{display:inline-flex;align-items:center;border:1px solid #dbe4ea;border-radius:999px;padding:4px 8px;margin-top:10px;font-size:10px;color:#5f7180}
 #fbcRStatsInline{display:none!important}
 .fbc-decision-intro{
-.fbc-decision-intro{
+
   margin:32px 0 22px;
   padding:0;
   border:0;
@@ -2260,7 +2287,48 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 .fbc-run-busy{opacity:.7;pointer-events:none}
 .fbc-analysis-progress{margin-top:10px;display:none}.fbc-analysis-progress.is-active{display:block}.fbc-analysis-progress-track{height:8px;border-radius:999px;background:rgba(30,52,80,.10);overflow:hidden}.fbc-analysis-progress-fill{height:100%;width:16%;border-radius:inherit;background:linear-gradient(90deg,#b9d9f3,#6fa7d5,#1e3450);animation:fbcProgressRun 1.8s ease-in-out infinite alternate}.fbc-analysis-progress-text{display:block;margin-top:6px;font-size:12px;color:#5d6b78}.fbc-evidence-action{display:flex;justify-content:flex-end;margin-top:14px}.fbc-evidence-action .fbc-r-primary{border:0;border-radius:8px;padding:10px 14px;font-weight:750;cursor:pointer;background:#1e3450;color:#fff}@keyframes fbcProgressRun{0%{width:16%}55%{width:62%}100%{width:88%}}@media(max-width:700px){.fbc-evidence-action .fbc-r-primary{width:100%}}
+
 @media(max-width:650px){.fbc-ref-modal{padding:10px}.fbc-ref-dialog{padding:18px 14px}}
+
+/* Decision Support redesign · sensitivity -> boundaries -> recommendation -> robustness */
+.fbc-analysis-section{margin-top:26px;padding-top:22px;border-top:1px solid #e3e9ee}
+.fbc-analysis-section:first-of-type{margin-top:18px}
+.fbc-analysis-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:12px}
+.fbc-analysis-heading h3{margin:0;font-size:20px;font-weight:650;color:#23313d}
+.fbc-analysis-heading p{margin:5px 0 0;max-width:900px;color:#687684;font-size:13px;line-height:1.55}
+.fbc-step-badge{flex:0 0 auto;display:grid;place-items:center;width:28px;height:28px;border-radius:999px;background:#eef3f6;color:#284e6d;font-size:12px;font-weight:850}
+.fbc-sensitivity-card{border:1px solid #dfe6eb;border-radius:14px;background:#fbfcfd;padding:16px}
+.fbc-sensitivity-caption{font-size:11px;color:#748392;margin-bottom:12px}
+.fbc-sensitivity-list{display:grid;gap:11px}
+.fbc-sens-row{display:grid;grid-template-columns:minmax(190px,1.2fr) minmax(200px,2fr) minmax(130px,.8fr);gap:14px;align-items:center}
+.fbc-sens-label strong,.fbc-sens-label small{display:block}.fbc-sens-label strong{font-size:13px}.fbc-sens-label small{margin-top:2px;font-size:10px;color:#7b8994}
+.fbc-sens-track{position:relative;height:10px;border-radius:999px;background:#edf1f4;overflow:hidden}
+.fbc-sens-fill{height:100%;width:8%;min-width:8px;border-radius:999px;background:#284e6d;opacity:.28}
+.fbc-sens-value{text-align:right}.fbc-sens-value strong,.fbc-sens-value small{display:block}.fbc-sens-value strong{font-size:13px}.fbc-sens-value small{font-size:10px;color:#7b8994}
+.fbc-sensitivity-fazit{margin-top:14px;padding:13px 15px;border-left:3px solid #284e6d;border-radius:0 10px 10px 0;background:#f1f5f8}
+.fbc-sensitivity-fazit strong{display:block;color:#243b50;font-size:13px}.fbc-sensitivity-fazit small{display:block;margin-top:4px;color:#687684;font-size:11px;line-height:1.5}
+.fbc-method-note{display:block;margin-top:9px;color:#82909c;font-size:10px;line-height:1.45}
+.fbc-strategy-note{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:#f6f8f9;color:#667684;font-size:11px;line-height:1.45}
+.fbc-decision-evidence{margin-top:12px}
+.fbc-decision-evidence>summary{font-size:14px}
+.fbc-current-hint{display:inline-block;margin-left:6px;color:#8a97a2;font-weight:500;font-size:10px}
+.fbc-output-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fbc-output-grid>.fbc-r-detailbox{margin-top:0}
+.fbc-structural-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fbc-structural-item{padding:14px;border:1px solid #e1e7eb;border-radius:12px;background:#fff}
+.fbc-structural-item small,.fbc-structural-item strong,.fbc-structural-item p{display:block}.fbc-structural-item small{color:#71808d;font-size:10px}.fbc-structural-item strong{margin-top:4px;font-size:19px}.fbc-structural-item p{margin:7px 0 0;color:#5f6f7c;font-size:11px;line-height:1.45}
+.fbc-financing-check{margin-top:12px;padding:13px 14px;border:1px solid #e1e7eb;border-radius:12px;background:#fff}
+.fbc-financing-check[hidden]{display:none}
+.fbc-financing-check header{display:flex;justify-content:space-between;gap:14px;align-items:baseline}.fbc-financing-check header strong{font-size:13px}.fbc-financing-check header b{font-size:18px}
+.fbc-financing-check p{margin:6px 0 0;color:#657582;font-size:11px}
+.fbc-r-change-row .fbc-change-meta,.fbc-r-shapley-row .fbc-change-meta{display:block;margin-top:2px;color:#84919c;font-size:10px;font-weight:500}
+.fbc-r-change-row b,.fbc-r-shapley-row b{text-align:right}
+.fbc-r-section-title{font-size:13px;font-weight:800;color:#2d4354;margin:0 0 8px}
+@media(max-width:820px){
+  .fbc-sens-row{grid-template-columns:1fr}
+  .fbc-sens-value{text-align:left}
+  .fbc-output-grid,.fbc-structural-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -2321,6 +2389,20 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
     FBC zeigt Ihnen, welche Personalkosten Ihr Team verursacht, welchen Umsatz die einzelnen Rollen beitragen und ob die aktuellen Kundenpreise und Auslastungen für den Betrieb ausreichen.
   </p>
 </section>
+   <nav class="mode-tabs">
+    <button class="mode-tab active" data-mode="solo" type="button">
+<b data-de="Solo · nur Inhaber/in" data-ru="Solo · только владелец">Solo · nur Inhaber/in</b>
+<small data-de="Ohne Mitarbeiter" data-ru="Без сотрудников">Ohne Mitarbeiter</small>
+</button>
+    <button class="mode-tab" data-mode="employee" type="button">
+<b data-de="Inhaber/in + Mitarbeiter" data-ru="Владелец + сотрудник">Inhaber/in + Mitarbeiter</b>
+<small data-de="Eigenständige Kalkulation" data-ru="Самостоятельный расчёт">Eigenständige Kalkulation</small>
+</button>
+    <button class="mode-tab" data-mode="team" type="button">
+<b>TeamCheck</b>
+<small data-de="Team-Umsatz" data-ru="Выручка команды">Team-Umsatz</small>
+</button>
+  </nav>
   <section class="profile card active-step" tabindex="0">
     <div class="section-kicker" data-de="UNTERNEHMENSPROFIL · EINMAL FESTLEGEN" data-ru="ПРОФИЛЬ БИЗНЕСА · ВЫБИРАЕТСЯ ОДИН РАЗ">UNTERNEHMENSPROFIL · EINMAL FESTLEGEN</div>
     <div class="profile-grid">
@@ -2366,20 +2448,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
   </details>
 
-  <nav class="mode-tabs">
-    <button class="mode-tab active" data-mode="solo" type="button">
-<b data-de="Solo · nur Inhaber/in" data-ru="Solo · только владелец">Solo · nur Inhaber/in</b>
-<small data-de="Ohne Mitarbeiter" data-ru="Без сотрудников">Ohne Mitarbeiter</small>
-</button>
-    <button class="mode-tab" data-mode="employee" type="button">
-<b data-de="Inhaber/in + Mitarbeiter" data-ru="Владелец + сотрудник">Inhaber/in + Mitarbeiter</b>
-<small data-de="Eigenständige Kalkulation" data-ru="Самостоятельный расчёт">Eigenständige Kalkulation</small>
-</button>
-    <button class="mode-tab" data-mode="team" type="button">
-<b>TeamCheck</b>
-<small data-de="Team-Umsatz" data-ru="Выручка команды">Team-Umsatz</small>
-</button>
-  </nav>
+
 
   <section id="solo" class="flow">
      <article class="card" tabindex="0">
@@ -2893,9 +2962,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </section>
      <div id="employeeOwnerGoalBlock" class="result-goal-row">
 <label class="field">
-<span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
-      data-ru="Сколько вы хотите реально оставлять себе каждый месяц?">
-  Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?
+<span data-de="Wie viel möchten Sie wirklich jeden Monat netto für sich übrig haben?"
+      data-ru="Сколько вы хотите реально оставлять себе Netto каждый месяц?">
+  Wie viel möchten Sie wirklich jeden Monat netto für sich übrig haben?
 </span>
   <div class="unit">
 <input id="empOwnerGoal"
@@ -2916,7 +2985,17 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   Von diesem Ziel startet die weitere Berechnung.
 </small>
 </label>
+ </div>      
+<div id="empTargetGapMessage"
+     class="target-gap-message hidden"
+     aria-live="polite">
+  <strong id="empTargetGapHeadline">—</strong>
+  <small data-de="R prüft, welche Kombination aus Preis, Auslastung und Kosten diese Lücke realistisch schließen kann."
+         data-ru="R проверит, какая комбинация цены, загрузки и расходов позволит реалистично закрыть эту разницу.">
+    R prüft, welche Kombination aus Preis, Auslastung und Kosten diese Lücke realistisch schließen kann.
+  </small>
 </div>
+    
 <div class="price-result-section">
 <label class="field vat-choice compact-vat-choice"><span data-de="USt-Satz für diese Kalkulation" data-ru="Ставка НДС для этого расчёта">USt-Satz für diese Kalkulation</span><select id="empVatMode" class="vat-mode-select"><option value="standard" data-de="Regelsteuersatz · 19 %" data-ru="Обычная ставка · 19 %">Regelsteuersatz · 19 %</option><option value="reduced" data-de="Ermäßigter Steuersatz · 7 %" data-ru="Льготная ставка · 7 %">Ermäßigter Steuersatz · 7 %</option></select></label>
 <div id="companyPriceHeading" class="alternative-heading" data-de="Zielorientierte Kundenpreise · gemeinsam kalkuliert" data-ru="Целевые цены для клиента · рассчитаны совместно">Zielorientierte Kundenpreise · gemeinsam kalkuliert</div>
@@ -3510,7 +3589,7 @@ function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#team
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
 function pendingCard(id,pending=true){const card=$(id)?.closest('.result-card');if(card)card.classList.toggle('pending-result',pending)}
 function setSoloPending(){zero(['#soloResPrice','#soloTotalCosts','#soloResCost','#soloResRemainHour','#soloResRemainMonth','#soloProfitBeforeTax','#soloIncomeTax','#soloTradeTax','#soloTaxesTotal','#scenarioRemain']);updatePriceEquation(0,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},false);['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.add('hidden'));$('#soloVatResult').textContent=t('Bitte zuerst die markierten Felder ausfüllen.','Сначала заполните отмеченные поля.');$('#soloStatus').textContent=t('Eingaben fehlen','Нужны данные');$('#soloStatus').className='status-chip';$('#scenarioPrice').value=0;$('#scenarioPrice').disabled=true;$('#scenarioPriceOut').textContent='0';pendingCard('#soloResPrice',true)}
-function setEmployeePending(){zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining','#companyRequiredRate','#empScenarioRemain']);$('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');$('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#companyRequiredRate').textContent=euro(0)+' / '+t('eigene Arbeitsstunde','рабочий час владельца');$('#companyVat').textContent=t('Bitte zuerst die erforderlichen Felder ausfüllen.','Сначала заполните необходимые поля.');$('#empScenarioPrice').disabled=true;$('#empScenarioPrice').value=0;$('#empScenarioPriceOut').textContent='0';$('#empWarning').classList.add('hidden');pendingCard('#empGross',true);pendingCard('#companyOwnerNeed',true)}
+function setEmployeePending(){zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining','#companyRequiredRate','#empScenarioRemain']);$('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');$('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#companyRequiredRate').textContent=euro(0)+' / '+t('eigene Arbeitsstunde','рабочий час владельца');$('#companyVat').textContent=t('Bitte zuerst die erforderlichen Felder ausfüllen.','Сначала заполните необходимые поля.');$('#empScenarioPrice').disabled=true;$('#empScenarioPrice').value=0;$('#empScenarioPriceOut').textContent='0';$('#empWarning').classList.add('hidden');$('#empTargetGapMessage')?.classList.add('hidden');pendingCard('#empGross',true);pendingCard('#companyOwnerNeed',true)}
 function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness','#teamBurden','#teamTaxes','#teamRevenue','#teamRate','#teamScenarioRemain']);$('#teamOwnerBreakdown').textContent=euro(0);$('#teamTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#teamVat').textContent=t('Bitte zuerst mindestens eine Rolle ausfüllen.','Сначала заполните хотя бы одну роль.');$('#teamScenarioPrice').disabled=true;$('#teamScenarioPrice').value=0;$('#teamScenarioPriceOut').textContent='0';pendingCard('#teamGross',true)}
 
 
@@ -3554,7 +3633,7 @@ function employeeOwnerData(){const weekly=num('#empOwnerHours'),vac=num('#empOwn
 function orientation(roleKey,formKey){const role=roles[roleKey]||roles.helper,factor=regions[$('#region').value]?.[1]||1;let low=Math.max(MIN_WAGE,role.range[0]*factor),high=Math.max(low,role.range[1]*factor);if(formKey==='mini')high=Math.max(low,Math.min(high,19.5));if(formKey==='student'){low=Math.max(MIN_WAGE,low*.9);high=Math.max(low,high*.88)}if(formKey==='intern'){low=MIN_WAGE;high=Math.max(low,Math.min(high,18))}return{low,high,mid:(low+high)/2}}
 function rolePriceRecommendation(roleKey,formKey,wage,hours,days,vacation){
   const o=orientation(roleKey,formKey),schedule=scheduleOrientation(formKey);
-  const referenceWage=Math.max(Number(wage)||0,o.mid);
+  const referenceWage=Number(wage)>0?Number(wage):o.mid;
   const referenceHours=Number(hours)>0?Number(hours):schedule.hours;
   const referenceDays=Number(days)>0?Number(days):schedule.days;
   const referenceVacation=Number(vacation)>=0&&String(vacation)!==''?Number(vacation):schedule.companyVacation;
@@ -3824,7 +3903,28 @@ function updateEmployee(){
 function updateCompany(emp,owner){
   const billable=$('#empBillable').checked,ownerBillableHours=Math.max(0,num('#empOwnerBillableHours')),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimateEmployee(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxTextEmployee(tax);updateAnnualTurnover('#companyAnnualTurnover', totalRevenue * 12);
+const targetGapMessage=$('#empTargetGapMessage');
+const targetGapHeadline=$('#empTargetGapHeadline');
 
+if(targetGapMessage&&targetGapHeadline){
+  if(goalEntered){
+    const targetGap=goal-remain;
+
+    targetGapMessage.classList.remove('hidden');
+
+    targetGapHeadline.textContent=targetGap>0
+      ? t(
+          `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
+          `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
+        )
+      : t(
+          `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
+          `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
+        );
+  }else{
+    targetGapMessage.classList.add('hidden');
+  }
+}
 $('#companyAnnualBusinessCosts').textContent =
   euro(owner.business * 12);
 
@@ -4415,477 +4515,330 @@ layer.innerHTML=`
   </div>
 
 
-  <!-- 1. AKTUELLER STAND -->
 
-  <div class="fbc-r-grid" style="margin-top:14px">
-    <div class="fbc-r-metric">
-      <span>${T('Aktuell verfügbar','Сейчас доступно')}</span>
-      <strong id="fbcRCurrent">—</strong>
+
+
+  <!-- 1. RELEVANTE STELLSCHRAUBEN -->
+
+  <section class="fbc-analysis-section" id="fbcSensitivitySection">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Welche Stellschrauben sollten zuerst geprüft werden?','Какие рычаги стоит проверить в первую очередь?')}</h3>
+        <p>
+          ${T(
+            'FBC prüft im Hintergrund, wie empfindlich Ihr Monatsnetto auf Veränderungen einzelner Faktoren reagiert. Im Vordergrund sehen Sie nur die Stellschrauben, die für Ihre aktuelle Situation besonders relevant sind.',
+            'FBC в фоновом режиме проверяет, насколько чувствительно месячное нетто к изменению отдельных факторов. В интерфейсе показываются только те рычаги, которые особенно важны для вашей текущей ситуации.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">1</span>
     </div>
 
-    <div class="fbc-r-metric">
-      <span>${T('Monatsziel','Месячная цель')}</span>
-      <strong id="fbcRTarget">—</strong>
-    </div>
-
-    <div class="fbc-r-metric">
-      <span>${T('P(Ziel)','P(цель)')}</span>
-      <strong id="fbcRProb">—</strong>
-    </div>
-  </div>
-
-
-  <!-- 2. KONTROLLKENNZAHLEN -->
-
-  <h3 style="margin-top:20px">
-    ${T('Break-even & Kapitaldienst','Безубыточность и обслуживание долга')}
-  </h3>
-
-  <div class="fbc-r-grid">
-    <div class="fbc-r-metric">
-      <span>${T('Business Break-even','Безубыточность бизнеса')}</span>
-      <strong id="fbcRBusinessBE">—</strong>
-    </div>
-
-    <div class="fbc-r-metric">
-      <span>${T('Mitarbeiter Break-even','Безубыточность сотрудника')}</span>
-      <strong id="fbcREmployeeBE">—</strong>
-    </div>
-
-    <div class="fbc-r-metric">
-      <span>DSCR / Kapitaldienst</span>
-      <strong id="fbcRDSCR">—</strong>
-    </div>
-  </div>
-
-
-  <!-- 3. REALE GRENZEN -->
-
-  <div class="fbc-decision-intro" id="fbcDecisionIntro">
-    <b>
-      ${T(
-        'Welche Wege soll FBC prüfen?',
-        'Какие варианты FBC стоит проверить?'
-      )}
-    </b>
-
-    <small>
-      ${T(
-        'FBC nennt mögliche Stellschrauben. Sie bestätigen nur, was in Ihrem Geschäft tatsächlich machbar ist; die Auswahl der besten Kombination bleibt beim Optimizer.',
-        'FBC показывает возможные рычаги. Вы подтверждаете только то, что реально возможно в вашем бизнесе; лучшую комбинацию выбирает Optimizer.'
-      )}
-    </small>
-  </div>
-
-  <details
-    class="fbc-decision-evidence"
-    id="fbcDecisionEvidence"
-  >
-    <summary>
-      ${T(
-        'Reale Grenzen bestätigen',
-        'Подтвердить реальные границы'
-      )}
-    </summary>
-
-    <div class="fbc-decision-body">
-
-      <p class="fbc-decision-help">
+    <div class="fbc-sensitivity-card">
+      <div class="fbc-sensitivity-caption">
         ${T(
-          'Nur Grenzen bestätigen, die Sie wirklich vertreten können: maximaler Preis, tatsächlich verkäufliche Kundenstunden oder eine konkret mögliche Kostensenkung. Ohne Bestätigung bleibt P0 aktiv.',
-          'Подтверждайте только то, что действительно можете обосновать: максимальную цену, реально продаваемые клиентские часы или конкретно возможное снижение расходов. Без подтверждений остаётся P0.'
+          'Einfluss auf das Monatsnetto bei einer vergleichbaren Veränderung des jeweiligen Faktors',
+          'Влияние на месячное нетто при сопоставимом изменении соответствующего фактора'
         )}
-      </p>
-
-
-      <div class="fbc-bound-row">
-
-        <label class="fbc-bound-toggle">
-          <input
-            type="checkbox"
-            id="fbcBoundOwnerPriceOn"
-          >
-          ${T(
-            'Inhaberpreis erhöhen bis',
-            'Цена владельца до'
-          )}
-        </label>
-
-        <div class="unit">
-          <input
-            id="fbcBoundOwnerPrice"
-            type="text"
-            inputmode="decimal"
-            placeholder="€ / h"
-          >
-          <b>€</b>
-        </div>
-
-        <label class="fbc-bound-months">
-          <input
-            id="fbcBoundOwnerPriceMonths"
-            type="number"
-            min="0"
-            step="1"
-            value="1"
-          >
-          <small>${T('Mon.','мес.')}</small>
-        </label>
-
       </div>
 
-
-      <div class="fbc-bound-row">
-
-        <label class="fbc-bound-toggle">
-          <input
-            type="checkbox"
-            id="fbcBoundOwnerHoursOn"
-          >
-          ${T(
-            'Mehr abrechenbare Inhaberstunden bis',
-            'Оплачиваемые часы владельца до'
-          )}
-        </label>
-
-        <div class="unit">
-          <input
-            id="fbcBoundOwnerHours"
-            type="text"
-            inputmode="decimal"
-            placeholder="h / Monat"
-          >
-          <b>h</b>
+      <div class="fbc-sensitivity-list" id="fbcSensitivityList">
+        <div class="fbc-sens-row" data-sens-key="owner_price">
+          <div class="fbc-sens-label"><strong>${T('Inhaberpreis','Цена владельца')}</strong><small>+1 %</small></div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
         </div>
-
-        <label class="fbc-bound-months">
-          <input
-            id="fbcBoundOwnerHoursMonths"
-            type="number"
-            min="0"
-            step="1"
-            value="1"
-          >
-          <small>${T('Mon.','мес.')}</small>
-        </label>
-
+        <div class="fbc-sens-row" data-sens-key="owner_hours">
+          <div class="fbc-sens-label"><strong>${T('Abrechenbare Inhaberstunden','Оплачиваемые часы владельца')}</strong><small>+1 %</small></div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
+        </div>
+        <div class="fbc-sens-row" data-sens-key="employee_customer_price">
+          <div class="fbc-sens-label"><strong>${T('Mitarbeiter-Kundenpreis','Цена сотрудника для клиента')}</strong><small>+1 %</small></div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
+        </div>
+        <div class="fbc-sens-row" data-sens-key="employee_billable_hours">
+          <div class="fbc-sens-label"><strong>${T('Abrechenbare Mitarbeiterstunden','Оплачиваемые часы сотрудника')}</strong><small>+1 %</small></div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
+        </div>
+        <div class="fbc-sens-row" data-sens-key="operating_costs">
+          <div class="fbc-sens-label"><strong>${T('Betriebskosten gesamt','Операционные расходы')}</strong><small>−1 %</small></div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
+        </div>
       </div>
 
-
-      <div class="fbc-bound-row">
-
-        <label class="fbc-bound-toggle">
-          <input
-            type="checkbox"
-            id="fbcBoundEmpPriceOn"
-          >
+      <div class="fbc-sensitivity-fazit">
+        <strong>${T('Einordnung für den nächsten Schritt','Ориентир для следующего шага')}</strong>
+        <small id="fbcSensitivityFazitText">
           ${T(
-            'Mitarbeiter-Kundenpreis bis',
-            'Цена сотрудника клиенту до'
+            'Sobald die R-Werte vorliegen, hebt FBC die wichtigsten Stellschrauben hervor. Im nächsten Schritt prüfen Sie nur, welche davon in Ihrem Unternehmen tatsächlich veränderbar sind.',
+            'После получения значений R FBC выделит наиболее важные рычаги. На следующем шаге вы проверяете только то, какие из них действительно можно менять в вашем бизнесе.'
           )}
-        </label>
-
-        <div class="unit">
-          <input
-            id="fbcBoundEmpPrice"
-            type="text"
-            inputmode="decimal"
-            placeholder="€ / h"
-          >
-          <b>€</b>
-        </div>
-
-        <label class="fbc-bound-months">
-          <input
-            id="fbcBoundEmpPriceMonths"
-            type="number"
-            min="0"
-            step="1"
-            value="1"
-          >
-          <small>${T('Mon.','мес.')}</small>
-        </label>
-
+        </small>
       </div>
 
+      <small class="fbc-method-note">
+        ${T(
+          'Methodik im Hintergrund: lokale Sensitivitätsanalyse. Die Auswertung dient der Priorisierung der zu prüfenden Stellschrauben, nicht als automatische Empfehlung.',
+          'Методика в фоне: локальный анализ чувствительности. Результат используется для приоритизации рычагов, а не как автоматическая рекомендация.'
+        )}
+      </small>
+    </div>
+  </section>
 
-      <div class="fbc-bound-row">
 
-        <label class="fbc-bound-toggle">
-          <input
-            type="checkbox"
-            id="fbcBoundEmpHoursOn"
-          >
+  <!-- 2. REALISTISCHE HANDLUNGSSPIELRÄUME -->
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Welche Veränderungen sind für Ihr Unternehmen realistisch?','Какие изменения реально возможны для вашего бизнеса?')}</h3>
+        <p>
           ${T(
-            'Mehr abrechenbare Mitarbeiterstunden bis',
-            'Оплачиваемые часы сотрудника до'
+            'Die Analyse zeigt, welche Stellschrauben besonders wirksam sind. Sie legen nun ausschließlich die realistischen Grenzen fest. FBC entscheidet anschließend innerhalb dieser Grenzen über die geeignete Kombination.',
+            'Анализ показывает, какие рычаги особенно действенны. Теперь вы задаёте только реалистичные границы. Затем FBC выбирает подходящую комбинацию внутри этих ограничений.'
           )}
-        </label>
+        </p>
+      </div>
+      <span class="fbc-step-badge">2</span>
+    </div>
 
-        <div class="unit">
-          <input
-            id="fbcBoundEmpHours"
-            type="text"
-            inputmode="decimal"
-            placeholder="h / Monat"
-          >
-          <b>h</b>
+    <details class="fbc-decision-evidence" id="fbcDecisionEvidence" open>
+      <summary>${T('Handlungsspielräume festlegen','Задать реальные рамки изменений')}</summary>
+
+      <div class="fbc-decision-body">
+        <p class="fbc-decision-help">
+          ${T(
+            'Sie müssen nicht schätzen, was optimal wäre. Bestätigen Sie nur, was Sie tatsächlich vertreten können. Nicht bestätigte Hebel bleiben unverändert.',
+            'Вам не нужно угадывать, что будет оптимально. Подтвердите только то, что реально допустимо. Неподтверждённые рычаги остаются без изменений.'
+          )}
+        </p>
+
+        <div class="fbc-bound-row">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox" id="fbcBoundOwnerPriceOn">
+            ${T('Inhaberpreis erhöhen bis','Повысить цену владельца до')}
+          </label>
+          <div class="unit"><input id="fbcBoundOwnerPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
+          <label class="fbc-bound-months"><input id="fbcBoundOwnerPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
         </div>
 
-        <label class="fbc-bound-months">
-          <input
-            id="fbcBoundEmpHoursMonths"
-            type="number"
-            min="0"
-            step="1"
-            value="1"
-          >
-          <small>${T('Mon.','мес.')}</small>
-        </label>
+        <div class="fbc-bound-row">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox" id="fbcBoundOwnerHoursOn">
+            ${T('Mehr abrechenbare Inhaberstunden bis','Увеличить оплачиваемые часы владельца до')}
+          </label>
+          <div class="unit"><input id="fbcBoundOwnerHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
+          <label class="fbc-bound-months"><input id="fbcBoundOwnerHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+        </div>
 
-      </div>
+        <div class="fbc-bound-row">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox" id="fbcBoundEmpPriceOn">
+            ${T('Mitarbeiter-Kundenpreis erhöhen bis','Повысить клиентскую цену сотрудника до')}
+          </label>
+          <div class="unit"><input id="fbcBoundEmpPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
+          <label class="fbc-bound-months"><input id="fbcBoundEmpPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+        </div>
 
+        <div class="fbc-bound-row">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox" id="fbcBoundEmpHoursOn">
+            ${T('Mehr abrechenbare Mitarbeiterstunden bis','Увеличить оплачиваемые часы сотрудника до')}
+          </label>
+          <div class="unit"><input id="fbcBoundEmpHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
+          <label class="fbc-bound-months"><input id="fbcBoundEmpHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
+        </div>
 
-      <div class="fbc-bound-row">
+        <div class="fbc-bound-row">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox" id="fbcBoundCostOn">
+            ${T('Kostenposition reduzieren bis','Статью расходов снизить до')}
+          </label>
 
-        <label class="fbc-bound-toggle">
-          <input
-            type="checkbox"
-            id="fbcBoundCostOn"
-          >
-          ${T(
-            'Konkrete Kosten senken',
-            'Конкретно снизить расходы'
-          )}
-        </label>
-
-        <div class="fbc-cost-extra">
-
-          <select id="fbcBoundCostKey">
-
-            <option value="office">
-              ${T('Raum / Büro','Помещение / офис')}
-            </option>
-
-            <option value="energy">
-              ${T('Energie / Strom','Энергия / электричество')}
-            </option>
-
-            <option value="vehicle">
-              ${T('Fahrzeug','Автомобиль')}
-            </option>
-
-            <option value="fuel">
-              ${T('Kraftstoff','Топливо')}
-            </option>
-
-            <option value="software">
-              ${T('Programme / Software','Программы / ПО')}
-            </option>
-
-            <option value="accounting">
-              ${T(
-                'Steuerberater / Buchhaltung',
-                'Бухгалтерия / налоговый консультант'
-              )}
-            </option>
-
-            <option value="insurance">
-              ${T(
-                'Betriebsversicherung',
-                'Страхование бизнеса'
-              )}
-            </option>
-
-            <option value="material">
-              ${T('Material','Материалы')}
-            </option>
-
-            <option value="marketing">
-              ${T(
-                'Werbung / Akquise',
-                'Реклама / привлечение'
-              )}
-            </option>
-
-            <option value="other">
-              ${T('Sonstiges','Прочее')}
-            </option>
-
-          </select>
-
-          <div class="unit">
-            <input
-              id="fbcBoundCostMin"
-              type="text"
-              inputmode="decimal"
-              placeholder="${T(
-                'neuer Betrag',
-                'новая сумма'
-              )}"
-            >
-            <b>€</b>
+          <div class="fbc-cost-extra">
+            <select id="fbcBoundCostKey">
+              <option value="office">${T('Raum / Büro','Помещение / офис')}</option>
+              <option value="energy">${T('Energie / Strom','Энергия / электричество')}</option>
+              <option value="vehicle">${T('Fahrzeug','Автомобиль')}</option>
+              <option value="fuel">${T('Kraftstoff','Топливо')}</option>
+              <option value="software">${T('Programme / Software','Программы / ПО')}</option>
+              <option value="accounting">${T('Steuerberater / Buchhaltung','Бухгалтерия / налоговый консультант')}</option>
+              <option value="insurance">${T('Betriebsversicherung','Страхование бизнеса')}</option>
+              <option value="material">${T('Material','Материалы')}</option>
+              <option value="marketing">${T('Werbung / Akquise','Реклама / привлечение')}</option>
+              <option value="other">${T('Sonstiges','Прочее')}</option>
+            </select>
+            <div class="unit"><input id="fbcBoundCostMin" type="text" inputmode="decimal" placeholder="${T('neuer Betrag','новая сумма')}"><b>€</b></div>
           </div>
 
+          <label class="fbc-bound-months"><input id="fbcBoundCostMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
         </div>
 
-        <label class="fbc-bound-months">
-          <input
-            id="fbcBoundCostMonths"
-            type="number"
-            min="0"
-            step="1"
-            value="1"
-          >
-          <small>${T('Mon.','мес.')}</small>
-        </label>
+        <div class="fbc-strategy-note">
+          ${T(
+            'Strategische Ausgaben wie Werbung oder zusätzliche Büroflächen werden nicht automatisch als Einsparpotenzial behandelt. Ohne bestätigte Reduktion bleiben sie unverändert.',
+            'Стратегические расходы, например реклама или дополнительный офис, не считаются автоматически потенциалом для экономии. Без подтверждённого снижения они остаются неизменными.'
+          )}
+        </div>
 
-      </div>
-
-
-      
         <div class="fbc-evidence-action">
-  <button
-    class="fbc-r-primary"
-    type="button"
-    id="fbcRunEvidenceAnalysis"
-  >
-    ${T(
-      'Mit diesen Grenzen neu berechnen',
-      'Считать заново с этими границами'
-    )}
-  </button>
-</div>
+          <button class="fbc-r-primary" type="button" id="fbcRunEvidenceAnalysis">
+            ${T('Handlungsspielräume auswerten','Оценить реальные рамки изменений')}
+          </button>
+        </div>
 
-<div
-  class="fbc-analysis-progress"
-  id="fbcEvidenceProgress"
-  aria-live="polite"
->
-  <div class="fbc-analysis-progress-track">
-    <div class="fbc-analysis-progress-fill"></div>
-  </div>
-
-  <small class="fbc-analysis-progress-text">
-    ${T(
-      'R berechnet die beste zulässige Kombination …',
-      'R рассчитывает лучшую допустимую комбинацию …'
-    )}
-  </small>
-</div>
-    </div>
-  </details>
+        <div class="fbc-analysis-progress" id="fbcEvidenceProgress" aria-live="polite">
+          <div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div>
+          <small class="fbc-analysis-progress-text">
+            ${T('R berechnet die beste zulässige Kombination …','R рассчитывает лучшую допустимую комбинацию …')}
+          </small>
+        </div>
+      </div>
+    </details>
+  </section>
 
 
-  <!-- 4. EMPFOHLENE ENTSCHEIDUNG -->
+  <!-- 3. EMPFOHLENE KOMBINATION -->
 
-  <h3 style="margin-top:22px">
-    ${T(
-      'Empfohlene Entscheidung',
-      'Рекомендуемое решение'
-    )}
-  </h3>
-
-  <div
-    class="fbc-r-note"
-    id="fbcRRecommendation"
-  >
-    ${T(
-      'Nach bestätigten realen Grenzen wählt R die beste zulässige Kombination.',
-      'После подтверждения реальных границ R выберет лучшую допустимую комбинацию.'
-    )}
-  </div>
-
-  <div
-    class="fbc-r-detailbox"
-    id="fbcRChanges"
-    hidden
-  ></div>
-<div
-  class="fbc-r-detailbox"
-  id="fbcRMonteCarlo"
-  hidden
->
-  <div class="fbc-r-detail-title">
-    ${T(
-      'Monte-Carlo-Robustheit',
-      'Устойчивость Monte Carlo'
-    )}
-  </div>
-
-  <div class="fbc-r-note">
-    ${T(
-      'Wie stabil ist die bereits ausgewählte Entscheidung unter möglichen Schwankungen?',
-      'Насколько устойчиво выбранное решение при возможных колебаниях?'
-    )}
-  </div>
-
-  <div
-    style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-      gap:12px;
-      margin-top:12px;
-    "
-  >
-    <div class="fbc-r-metric">
-      <span>${T('Zielwahrscheinlichkeit','Вероятность достижения цели')}</span>
-      <strong id="fbcMCProbability">—</strong>
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Empfohlene Kombination','Рекомендуемая комбинация')}</h3>
+        <p>
+          ${T(
+            'FBC nutzt nur die von Ihnen bestätigten Handlungsspielräume und berechnet daraus die geeignete Kombination zur Annäherung an Ihr Nettoziel.',
+            'FBC использует только подтверждённые вами диапазоны и рассчитывает подходящую комбинацию для приближения к цели по нетто.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">3</span>
     </div>
 
-    <div class="fbc-r-metric">
-      <span>P10</span>
-      <strong id="fbcMCP10">—</strong>
+    <div class="fbc-r-note" id="fbcRRecommendation">
+      ${T('Noch keine optimierte Kombination berechnet.','Оптимизированная комбинация ещё не рассчитана.')}
     </div>
 
-    <div class="fbc-r-metric">
-      <span>P50 · Median</span>
-      <strong id="fbcMCP50">—</strong>
+    <div class="fbc-r-detailbox" id="fbcRChanges" hidden></div>
+  </section>
+
+
+  <!-- 4. SHAPLEY -->
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Was trägt zur Verbesserung bei?','Что именно даёт улучшение?')}</h3>
+        <p>
+          ${T(
+            'Nach Auswahl der Kombination zeigt die Shapley-Analyse, welchen tatsächlichen Beitrag die verwendeten Hebel zur Ergebnisverbesserung leisten.',
+            'После выбора комбинации анализ Shapley показывает, какой фактический вклад использованные рычаги вносят в улучшение результата.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">4</span>
+    </div>
+    <div class="fbc-r-detailbox" id="fbcRShapley" hidden></div>
+  </section>
+
+
+  <!-- 5. ROBUSTHEIT -->
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Robustheit der Entscheidung','Устойчивость решения')}</h3>
+        <p>
+          ${T(
+            'Monte Carlo prüft die bereits ausgewählte Entscheidung unter möglichen Schwankungen. Die Entscheidung wird dabei nicht neu optimiert.',
+            'Monte Carlo проверяет уже выбранное решение при возможных колебаниях. Само решение при этом заново не оптимизируется.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">5</span>
     </div>
 
-    <div class="fbc-r-metric">
-      <span>P90</span>
-      <strong id="fbcMCP90">—</strong>
+    <div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
+      <div class="fbc-r-detail-title">${T('Monte-Carlo-Robustheit','Устойчивость Monte Carlo')}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px">
+        <div class="fbc-r-metric"><span>${T('Zielwahrscheinlichkeit','Вероятность достижения цели')}</span><strong id="fbcMCProbability">—</strong></div>
+        <div class="fbc-r-metric"><span>P10</span><strong id="fbcMCP10">—</strong></div>
+        <div class="fbc-r-metric"><span>P50 · Median</span><strong id="fbcMCP50">—</strong></div>
+        <div class="fbc-r-metric"><span>P90</span><strong id="fbcMCP90">—</strong></div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <small
-    style="
-      display:block;
-      margin-top:10px;
-      color:#7b8994;
-      line-height:1.45;
-    "
-  >
-    ${T(
-      'P10–P90 zeigt den Bereich, in dem das monatliche Ergebnis in 80 % der simulierten Fälle liegt. P50 ist der Median.',
-      'P10–P90 показывает диапазон, в котором находится месячный результат в 80 % симуляций. P50 — медиана.'
-    )}
-  </small>
-</div>
-<div
-  class="fbc-r-detailbox"
-  id="fbcRFazit"
-  hidden
->
-  <div class="fbc-r-detail-title">
-    ${T(
-      'FBC Fazit',
-      'Вывод FBC'
-    )}
-  </div>
 
-  <div
-    class="fbc-r-note"
-    id="fbcRFazitText"
-  ></div>
-</div>
+  <!-- 6. PERSONALWIRTSCHAFTLICHE EINORDNUNG -->
 
-  <div
-    class="fbc-r-detailbox"
-    id="fbcRShapley"
-    hidden
-  ></div>
+  <section class="fbc-analysis-section" id="fbcEmployeeEconomicsSection" hidden>
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Personalwirtschaftliche Einordnung','Экономика сотрудника')}</h3>
+        <p>
+          ${T(
+            'Bei direkt abrechenbaren Mitarbeiterinnen und Mitarbeitern prüft FBC separat, ob die eigene Kostenbasis durch die aktuelle Kundenleistung gedeckt wird.',
+            'Для сотрудников, чья работа напрямую выставляется клиентам, FBC отдельно проверяет, покрываются ли их собственные расходы текущей клиентской выручкой.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">6</span>
+    </div>
+
+    <div class="fbc-r-detailbox" id="fbcEmployeeEconomicsBox">
+      <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b id="fbcEmployeeHoursCurrent">—</b></div>
+      <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Окупаемость с')}</span><b id="fbcEmployeeHoursBE">—</b></div>
+      <div class="fbc-r-change-row"><span>${T('Differenz','Разница')}</span><b id="fbcEmployeeHoursGap">—</b></div>
+      <div class="fbc-r-note" id="fbcEmployeeEconomicsText"></div>
+    </div>
+  </section>
+
+
+  <!-- 7. KAPITALDIENST -->
+
+  <section class="fbc-analysis-section" id="fbcFinancingSection" hidden>
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Kapitaldienstfähigkeit','Способность обслуживать долг')}</h3>
+        <p>
+          ${T(
+            'Dieser Abschnitt erscheint nur bei aktiver Finanzierung und prüft die Liquidität für Zins und Tilgung getrennt vom operativen Ergebnis.',
+            'Этот раздел появляется только при активном финансировании и отдельно проверяет ликвидность для процентов и погашения долга.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">7</span>
+    </div>
+
+    <div class="fbc-financing-check" id="fbcRFinancingCheck">
+      <header>
+        <strong>DSCR</strong>
+        <b id="fbcRDSCR">—</b>
+      </header>
+      <p id="fbcRDSCRText">${T('Nur bei aktiver Finanzierung relevant.','Актуально только при наличии финансирования.')}</p>
+    </div>
+  </section>
+
+
+  <!-- 8. GESAMTFAZIT -->
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('FBC Fazit','Вывод FBC')}</h3>
+        <p>${T('Zusammenfassung der Analyse, Entscheidung und Robustheitsprüfung.','Итог анализа, решения и проверки устойчивости.')}</p>
+      </div>
+      <span class="fbc-step-badge">8</span>
+    </div>
+
+    <div class="fbc-r-detailbox" id="fbcRFazit" hidden>
+      <div class="fbc-r-note" id="fbcRFazitText"></div>
+    </div>
+  </section>
 
 
   <!-- TECHNISCHER STATUS -->
@@ -5223,523 +5176,269 @@ function chart(host,data,key){
     <text x="${(l+W-r)/2}" y="${H-4}" text-anchor="middle" fill="#4f6372" font-size="10">${esc(meta.x)}</text>
   </svg><small class="fbc-chart-source">${T('Datenreihe aus validiertem R-Payload','Ряд данных из валидированного R-payload')}</small>`;
 }
+
+function renderSensitivity(p){
+  const rows=[...document.querySelectorAll('#fbcSensitivityList .fbc-sens-row')];
+  if(!rows.length)return;
+
+  const candidates=
+    get(p,'sensitivity.local') ??
+    get(p,'sensitivity.normalized') ??
+    get(p,'influence.normalized') ??
+    get(p,'differential_influence.normalized');
+
+  let data=[];
+  if(Array.isArray(candidates)) data=candidates;
+
+  const byKey={};
+  data.forEach(x=>{
+    const k=String(x.lever??x.variable??x.key??'');
+    if(k)byKey[k]=x;
+  });
+
+  const values=[];
+  rows.forEach(row=>{
+    const key=row.dataset.sensKey;
+    const item=byKey[key];
+    const valueBox=row.querySelector('.fbc-sens-value');
+    const fill=row.querySelector('.fbc-sens-fill');
+
+    if(!item){
+      if(valueBox){
+        valueBox.querySelector('strong').textContent='—';
+        valueBox.querySelector('small').textContent=T('noch nicht im R-Payload','ещё нет в R-payload');
+      }
+      if(fill)fill.style.width='8px';
+      return;
+    }
+
+    const netPct=Number(
+      item.net_change_pct ??
+      item.relative_net_change_pct ??
+      item.elasticity_pct ??
+      item.effect_pct
+    );
+
+    const netEur=Number(
+      item.net_change_eur ??
+      item.effect_eur ??
+      item.delta_net_eur
+    );
+
+    if(Number.isFinite(netPct)){
+      values.push({key,netPct,netEur,row,item});
+    }
+  });
+
+  const maxAbs=Math.max(0,...values.map(v=>Math.abs(v.netPct)));
+
+  values.forEach(v=>{
+    const valueBox=v.row.querySelector('.fbc-sens-value');
+    const fill=v.row.querySelector('.fbc-sens-fill');
+    if(fill){
+      const width=maxAbs>0?Math.max(8,Math.min(100,Math.abs(v.netPct)/maxAbs*100)):8;
+      fill.style.width=width+'%';
+      fill.style.opacity='1';
+    }
+    if(valueBox){
+      const sign=v.netPct>0?'+':'';
+      valueBox.querySelector('strong').textContent=
+        `${sign}${v.netPct.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})} %`;
+      valueBox.querySelector('small').textContent=
+        Number.isFinite(v.netEur)
+          ? `${money(v.netEur)} / ${T('Monat','месяц')}`
+          : T('relative Netto-Wirkung','относительное влияние на нетто');
+    }
+  });
+
+  const ft=$('fbcSensitivityFazitText');
+  if(!ft)return;
+
+  if(!values.length){
+    ft.textContent=T(
+      'Die konkreten Sensitivitätswerte werden angezeigt, sobald sie vom R-Backend geliefert werden. Der stärkste Faktor wird anschließend automatisch hervorgehoben.',
+      'Конкретные значения чувствительности появятся после передачи их R-бэкендом. Самый сильный фактор затем будет автоматически выделен.'
+    );
+    return;
+  }
+
+  values.sort((a,b)=>Math.abs(b.netPct)-Math.abs(a.netPct));
+  const top=values[0];
+  const label=top.item.label || top.row.querySelector('.fbc-sens-label strong')?.textContent || top.key;
+  ft.textContent=T(
+    `Ihr Monatsnetto reagiert aktuell am stärksten auf Veränderungen von „${label}“. Dieser Faktor sollte im nächsten Schritt besonders geprüft werden; daraus folgt noch keine automatische Handlungsempfehlung.`,
+    `Сейчас месячное нетто сильнее всего реагирует на изменение фактора «${label}». На него стоит обратить особое внимание на следующем шаге, но это ещё не автоматическая рекомендация.`
+  );
+}
+
+
 function renderDecisionDetails(p){
   const box=$('fbcRChanges');
   const shbox=$('fbcRShapley');
 
-  const changes=get(p,'recommendation.changes');
-  const currentNet=Number(
-    get(p,'current.expected_net') ??
-    get(p,'current.net_available')
-  );
-  const target=Number(get(p,'current.monthly_target'));
-  const projected=Number(
-    get(p,'recommendation.projected_net') ??
-    get(p,'recommendation.expected_net_after')
-  );
+  renderSensitivity(p);
 
+  const changes=get(p,'recommendation.changes');
+  const currentNet=Number(get(p,'current.expected_net') ?? get(p,'current.net_available'));
+  const target=Number(get(p,'current.monthly_target'));
+  const projected=Number(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
   const payloadStatus=String(p?.status||'');
 
-  let targetReached=
-    get(p,'recommendation.target_reached');
-
+  let targetReached=get(p,'recommendation.target_reached');
+  if(typeof targetReached!=='boolean') targetReached=get(p,'target_path.target_reached_within_horizon');
   if(typeof targetReached!=='boolean'){
-    targetReached=
-      get(p,'target_path.target_reached_within_horizon');
+    targetReached=Number.isFinite(projected)&&Number.isFinite(target)&&projected>=target-0.01;
   }
+  if(payloadStatus==='target_not_reachable')targetReached=false;
 
-  if(typeof targetReached!=='boolean'){
-    targetReached=
-      Number.isFinite(projected) &&
-      Number.isFinite(target) &&
-      projected>=target-0.01;
-  }
-
-  if(payloadStatus==='target_not_reachable'){
-    targetReached=false;
-  }
-
-  const timeToTarget=Number(
-    get(p,'target_path.time_to_target_months')
-  );
+  const timeToTarget=Number(get(p,'target_path.time_to_target_months'));
 
   const fmtNum=(v,d=2)=>{
     const n=Number(v);
     return Number.isFinite(n)
-      ? n.toLocaleString(
-          RU()?'ru-RU':'de-DE',
-          {
-            minimumFractionDigits:d,
-            maximumFractionDigits:d
-          }
-        )
+      ? n.toLocaleString(RU()?'ru-RU':'de-DE',{minimumFractionDigits:d,maximumFractionDigits:d})
       : '—';
   };
 
   const changeValue=(v,unit)=>{
     const n=Number(v);
     if(!Number.isFinite(n))return '—';
-
-    if(String(unit||'').includes('EUR')){
-      return fmtNum(n,2);
-    }
-
-    if(String(unit||'').includes('h')){
-      return fmtNum(n,1);
-    }
-
+    if(String(unit||'').includes('EUR'))return fmtNum(n,2);
+    if(String(unit||'').includes('h'))return fmtNum(n,1);
     return fmtNum(n,2);
   };
 
-
-  /* =========================================
-     1. FBC ERGEBNIS + KONKRETE ÄNDERUNGEN
-     ========================================= */
-
   if(box){
+    const validChanges=Array.isArray(changes)?changes:[];
+    const targetText=targetReached
+      ? (Number.isFinite(timeToTarget)
+          ? T(`Ja · in ${fmtNum(timeToTarget,0)} Mon.`,`Да · через ${fmtNum(timeToTarget,0)} мес.`)
+          : T('Ja','Да'))
+      : T('Mit den bestätigten Grenzen nicht erreichbar','Недостижима при подтверждённых границах');
 
-    const validChanges=
-      Array.isArray(changes)
-        ? changes
-        : [];
-
-    const targetText=
-      targetReached
-        ? (
-            Number.isFinite(timeToTarget)
-              ? T(
-                  `Ja · in ${fmtNum(timeToTarget,0)} Mon.`,
-                  `Да · через ${fmtNum(timeToTarget,0)} мес.`
-                )
-              : T('Ja','Да')
-          )
-        : T(
-            'Mit den bestätigten Grenzen nicht erreichbar',
-            'Недостижима при подтверждённых границах'
-          );
-
-    const resultTitle=
-      targetReached
-        ? T('FBC Ergebnis','Результат FBC')
-        : T(
-            'FBC Ergebnis · Ziel nicht erreichbar',
-            'Результат FBC · цель недостижима'
-          );
-
-    const changesHtml=
-      validChanges.length
-        ? `
-          <div
-            class="fbc-r-detail-title"
-            style="margin-top:16px"
-          >
-            ${T(
-              'Empfohlene Änderung',
-              'Рекомендуемое изменение'
-            )}
-          </div>
-
-          ${validChanges.map(c=>`
+    const changesHtml=validChanges.length
+      ? `
+        <div class="fbc-r-detail-title" style="margin-top:16px">${T('Empfohlene Änderungen','Рекомендуемые изменения')}</div>
+        ${validChanges.map(c=>{
+          const cur=Number(c.current), prop=Number(c.proposed);
+          const rel=Number.isFinite(cur)&&cur!==0&&Number.isFinite(prop)?((prop-cur)/Math.abs(cur))*100:NaN;
+          return `
             <div class="fbc-r-change-row">
-              <span>${esc(c.label||c.lever||'')}</span>
-
-              <b>
-                ${changeValue(c.current,c.unit)}
-                →
-                ${changeValue(c.proposed,c.unit)}
-                ${esc(c.unit||'')}
-              </b>
-            </div>
-          `).join('')}
-        `
-        : `
-          <div
-            style="
-              margin-top:14px;
-              font-size:13px;
-              color:#687684;
-            "
-          >
-            ${T(
-              'Keine zusätzliche operative Änderung ausgewählt.',
-              'Дополнительное операционное изменение не выбрано.'
-            )}
-          </div>
-        `;
+              <span>
+                ${esc(c.label||c.lever||'')}
+                ${Number.isFinite(rel)?`<span class="fbc-change-meta">${rel>=0?'+':''}${rel.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} %</span>`:''}
+              </span>
+              <b>${changeValue(c.current,c.unit)} → ${changeValue(c.proposed,c.unit)} ${esc(c.unit||'')}</b>
+            </div>`;
+        }).join('')}
+      `
+      : `<div style="margin-top:14px;font-size:13px;color:#687684">${T('Keine zusätzliche operative Änderung ausgewählt.','Дополнительное операционное изменение не выбрано.')}</div>`;
 
     box.hidden=false;
-
     box.innerHTML=`
-      <div class="fbc-r-detail-title">
-        ${resultTitle}
-      </div>
-
-      <div class="fbc-r-change-row">
-        <span>${T('Aktuell','Сейчас')}</span>
-        <b>${money(currentNet)}</b>
-      </div>
-
-      <div class="fbc-r-change-row">
-        <span>${T('Monatsziel','Месячная цель')}</span>
-        <b>${money(target)}</b>
-      </div>
-
-
-      <div class="fbc-r-change-row">
-        <span>${T('Ziel erreichbar','Цель достижима')}</span>
-        <b>${targetText}</b>
-      </div>
-
+      <div class="fbc-r-detail-title">${T('Ergebnis der Optimierung','Результат оптимизации')}</div>
+      <div class="fbc-r-change-row"><span>${T('Aktuelles Monatsnetto','Текущее месячное нетто')}</span><b>${money(currentNet)}</b></div>
+      <div class="fbc-r-change-row"><span>${T('Nettoziel','Цель по нетто')}</span><b>${money(target)}</b></div>
+      ${Number.isFinite(projected)?`<div class="fbc-r-change-row"><span>${T('Erwartetes Netto nach Anpassung','Ожидаемое нетто после изменений')}</span><b>${money(projected)}</b></div>`:''}
+      <div class="fbc-r-change-row"><span>${T('Ziel erreichbar','Цель достижима')}</span><b>${targetText}</b></div>
       ${changesHtml}
     `;
   }
 
-
-  /* =========================================
-     2. ERKLÄRUNG + BREAK-EVEN
-     ========================================= */
-
   const sh=get(p,'recommendation.explanation');
-  const contrib=
-    sh && Array.isArray(sh.contributions)
-      ? sh.contributions
-      : [];
-
-  const empApplicable=
-    get(p,'break_even.employee.applicable');
-
-  const empOk=
-    get(p,'break_even.employee.ok') ??
-    get(p,'post_decision.employee_break_even_ok');
-
-  const empHours=Number(
-    get(p,'break_even.employee.billable_hours')
-  );
-
-  const empBE=Number(
-    get(p,'break_even.employee.break_even_hours')
-  );
-
-  const empMissing=
-    Number.isFinite(empHours) &&
-    Number.isFinite(empBE)
-      ? Math.max(0,empBE-empHours)
-      : NaN;
-
-  const businessBE=Number(
-    get(p,'break_even.business.break_even_revenue')
-  );
-
-  const businessRevenue=Number(
-    get(p,'break_even.business.projected_revenue')
-  );
-
-  const businessMargin=Number(
-    get(p,'break_even.business.safety_margin') ??
-    get(p,'post_decision.business_break_even_margin_eur')
-  );
-
-  const businessOk=
-    get(p,'break_even.business.reachable') &&
-    (
-      get(p,'break_even.ok') ??
-      get(p,'post_decision.business_break_even_ok')
-    );
-
+  const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
   if(shbox){
-
-    let html='';
-
-
-    /* Erklärung */
-
     if(sh?.available && contrib.length){
-
-      html+=`
-        <div class="fbc-r-detail-title">
-          ${T(
-            'Warum verbessert sich das Ergebnis?',
-            'Почему улучшается результат?'
-          )}
-        </div>
-
-        ${contrib.map(c=>`
-          <div class="fbc-r-shapley-row">
-            <span>
-              ${esc(c.label||c.lever||'')}
-            </span>
-
-            <b>
-              ${T(
-                'Beitrag zum monatlichen Netto:',
-                'Вклад в месячное нетто:'
-              )}
-              ${money(
-                c.contribution_eur ??
-                c.contribution
-              )}
-            </b>
-          </div>
-        `).join('')}
-
-        <small
-          style="
-            display:block;
-            margin-top:7px;
-            color:#7b8994;
-          "
-        >
-          ${T(
-            'Beitragsanalyse nach Shapley',
-            'Анализ вклада по Shapley'
-          )}
-        </small>
+      const total=Number(sh.total_improvement_eur);
+      shbox.hidden=false;
+      shbox.innerHTML=`
+        <div class="fbc-r-detail-title">${T('Shapley · Beitrag zur Ergebnisverbesserung','Shapley · вклад в улучшение результата')}</div>
+        ${contrib.map(c=>{
+          const eur=Number(c.contribution_eur??c.contribution);
+          const share=Number.isFinite(total)&&Math.abs(total)>1e-9&&Number.isFinite(eur)?eur/total*100:NaN;
+          return `
+            <div class="fbc-r-shapley-row">
+              <span>
+                ${esc(c.label||c.lever||'')}
+                ${Number.isFinite(share)?`<span class="fbc-change-meta">${share.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} % ${T('der Verbesserung','улучшения')}</span>`:''}
+              </span>
+              <b>${money(eur)}</b>
+            </div>`;
+        }).join('')}
+        ${typeof sh.sentence==='string'&&sh.sentence?`<div class="fbc-r-note">${esc(sh.sentence)}</div>`:''}
       `;
+    }else{
+      shbox.hidden=true;
+      shbox.innerHTML='';
     }
+  }
 
+  /* Employee economics is user-facing only when separately applicable. */
+  const empApplicable=get(p,'break_even.employee.applicable');
+  const empOk=get(p,'break_even.employee.ok') ?? get(p,'post_decision.employee_break_even_ok');
+  const empHours=Number(get(p,'break_even.employee.billable_hours'));
+  const empBE=Number(get(p,'break_even.employee.break_even_hours'));
+  const empSection=$('fbcEmployeeEconomicsSection');
 
-    /* Mitarbeiter Break-even */
+  if(empSection){
+    const showEmployee=(empApplicable!==false) && Number.isFinite(empHours) && Number.isFinite(empBE);
+    empSection.hidden=!showEmployee;
 
-    if(
-      empApplicable!==false &&
-      Number.isFinite(empHours) &&
-      Number.isFinite(empBE)
-    ){
+    if(showEmployee){
+      const missing=Math.max(0,empBE-empHours);
+      if($('fbcEmployeeHoursCurrent'))$('fbcEmployeeHoursCurrent').textContent=`${fmtNum(empHours,1)} h`;
+      if($('fbcEmployeeHoursBE'))$('fbcEmployeeHoursBE').textContent=`${fmtNum(empBE,1)} h`;
+      if($('fbcEmployeeHoursGap'))$('fbcEmployeeHoursGap').textContent=
+        empOk===true ? T('0 h · gedeckt','0 ч · покрыто') : `${fmtNum(missing,1)} h`;
 
-      const maxH=Math.max(empHours,empBE,1);
-      const currentPct=Math.min(
-        100,
-        Math.max(2,empHours/maxH*100)
-      );
-
-      const bePct=Math.min(
-        100,
-        Math.max(2,empBE/maxH*100)
-      );
-
-      html+=`
-        <div
-          class="fbc-r-detail-title"
-          style="margin-top:20px"
-        >
-          ${T(
-            'Mitarbeiter · Kostendeckung',
-            'Сотрудник · окупаемость'
-          )}
-        </div>
-
-        <div
-          style="
-            margin-top:9px;
-            font-weight:700;
-          "
-        >
-          ${
-            empOk===true
-              ? T(
-                  'Mitarbeiter ist kostendeckend.',
-                  'Сотрудник окупается.'
-                )
-              : T(
-                  'Mitarbeiter derzeit nicht kostendeckend.',
-                  'Сотрудник пока не окупается.'
-                )
-          }
-        </div>
-
-        <div
-          style="
-            position:relative;
-            height:10px;
-            margin:15px 0 8px;
-            background:#e6ebef;
-            border-radius:999px;
-            overflow:visible;
-          "
-        >
-          <div
-            style="
-              width:${currentPct}%;
-              height:10px;
-              border-radius:999px;
-              background:#496779;
-            "
-          ></div>
-
-          <div
-            title="Break-even"
-            style="
-              position:absolute;
-              top:-5px;
-              left:${bePct}%;
-              width:2px;
-              height:20px;
-              background:#172f43;
-            "
-          ></div>
-        </div>
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            gap:12px;
-            font-size:12px;
-            color:#687684;
-          "
-        >
-          <span>
-            ${T('Aktuell','Сейчас')}:
-            ${fmtNum(empHours,1)} h
-          </span>
-
-          <span>
-            Break-even:
-            ${fmtNum(empBE,1)} h
-          </span>
-        </div>
-
-        ${
-          empOk===false &&
-          Number.isFinite(empMissing)
-            ? `
-              <div
-                style="
-                  margin-top:9px;
-                  font-weight:700;
-                "
-              >
-                ${T('Fehlen','Не хватает')}:
-                ${fmtNum(empMissing,1)} h /
-                ${T('Monat','месяц')}
-              </div>
-            `
-            : ''
-        }
-      `;
+      if($('fbcEmployeeEconomicsText')){
+        $('fbcEmployeeEconomicsText').textContent=
+          empOk===true
+            ? T(
+                'Der Mitarbeiter deckt seine eigenen Kosten bei der aktuellen Auslastung vollständig und trägt positiv zum Betriebsergebnis bei.',
+                'Сотрудник при текущей загрузке полностью покрывает собственные расходы и вносит положительный вклад в результат бизнеса.'
+              )
+            : T(
+                `Der Mitarbeiter deckt seine eigenen Kosten bei der aktuellen Auslastung noch nicht vollständig. Für die Kostendeckung sind ${fmtNum(empBE,1)} abrechenbare Stunden pro Monat erforderlich; aktuell fehlen ${fmtNum(missing,1)} Stunden.`,
+                `Сотрудник при текущей загрузке ещё не полностью покрывает собственные расходы. Для окупаемости требуется ${fmtNum(empBE,1)} оплачиваемых часов в месяц; сейчас не хватает ${fmtNum(missing,1)} ч.`
+              );
+      }
     }
+  }
 
+  /* Business break-even stays internal unless structurally critical. */
+  const businessOk=get(p,'post_decision.business_break_even_ok') ?? get(p,'break_even.ok');
+  const businessMargin=Number(get(p,'break_even.business.safety_margin') ?? get(p,'post_decision.business_break_even_margin_eur'));
+  const businessCritical=(businessOk===false)||(Number.isFinite(businessMargin)&&businessMargin<0);
 
-    /* Business Break-even */
+  const fazitText=$('fbcRFazitText');
+  if(fazitText && businessCritical){
+    const existing=fazitText.textContent||'';
+    const extra=T(
+      ' Hinweis: Die aktuelle Kostenstruktur liegt unter dem Business Break-even und sollte vor einer weiteren Optimierung geprüft werden.',
+      ' Внимание: текущая структура расходов находится ниже точки безубыточности бизнеса и должна быть проверена до дальнейшей оптимизации.'
+    );
+    if(!existing.includes(extra.trim()))fazitText.textContent=(existing+' '+extra).trim();
+  }
 
-    if(
-      Number.isFinite(businessBE) &&
-      Number.isFinite(businessRevenue)
-    ){
-
-      const maxR=Math.max(
-        businessBE,
-        businessRevenue,
-        1
-      );
-
-      const bePct=Math.min(
-        100,
-        businessBE/maxR*100
-      );
-
-      const revenuePct=Math.min(
-        100,
-        businessRevenue/maxR*100
-      );
-
-      html+=`
-        <div
-          class="fbc-r-detail-title"
-          style="margin-top:20px"
-        >
-          ${T(
-            'Business · Break-even',
-            'Бизнес · точка безубыточности'
-          )}
-        </div>
-
-        <div
-          style="
-            position:relative;
-            height:10px;
-            margin:15px 0 8px;
-            background:#e6ebef;
-            border-radius:999px;
-            overflow:visible;
-          "
-        >
-          <div
-            style="
-              width:${revenuePct}%;
-              height:10px;
-              border-radius:999px;
-              background:#496779;
-            "
-          ></div>
-
-          <div
-            title="Break-even"
-            style="
-              position:absolute;
-              top:-5px;
-              left:${bePct}%;
-              width:2px;
-              height:20px;
-              background:#172f43;
-            "
-          ></div>
-        </div>
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            gap:12px;
-            font-size:12px;
-            color:#687684;
-          "
-        >
-          <span>
-            Break-even:
-            ${money(businessBE)}
-          </span>
-
-          <span>
-            ${T(
-              'Umsatz nach Empfehlung',
-              'Выручка после рекомендации'
-            )}:
-            ${money(businessRevenue)}
-          </span>
-        </div>
-
-        ${
-          Number.isFinite(businessMargin)
-            ? `
-              <div
-                style="
-                  margin-top:9px;
-                  font-weight:700;
-                "
-              >
-                ${
-                  businessMargin>=0
-                    ? T(
-                        'Sicherheitsmarge',
-                        'Запас прочности'
-                      )
-                    : T(
-                        'Fehlbetrag bis Break-even',
-                        'Недостаток до безубыточности'
-                      )
-                }:
-                ${money(businessMargin)}
-              </div>
-            `
-            : ''
-        }
-      `;
+  /* Financing section appears only when financing is active and DSCR is available. */
+  const dscr=Number(get(p,'post_decision.capital_service_ratio') ?? get(p,'financing.current.min_capital_service_ratio') ?? get(p,'financing.dscr'));
+  const finActive=get(p,'financing.active') ?? snapshot()?.financing?.active;
+  const finSection=$('fbcFinancingSection');
+  if(finSection){
+    const show=Boolean(finActive)&&Number.isFinite(dscr);
+    finSection.hidden=!show;
+    if(show){
+      if($('fbcRDSCR'))$('fbcRDSCR').textContent=fmtNum(dscr,2);
+      if($('fbcRDSCRText')){
+        $('fbcRDSCRText').textContent=
+          dscr<1
+            ? T('Der laufende Kapitaldienst ist mit der aktuellen Liquidität nicht vollständig gedeckt.','Текущий долговой платёж не полностью покрывается текущей ликвидностью.')
+            : dscr<1.2
+              ? T('Der Kapitaldienst ist gedeckt, der Liquiditätspuffer ist jedoch gering.','Обслуживание долга покрывается, но запас ликвидности небольшой.')
+              : T('Der Kapitaldienst ist gedeckt und es besteht ein zusätzlicher Liquiditätspuffer.','Обслуживание долга покрывается, и имеется дополнительный запас ликвидности.');
+      }
     }
-
-    shbox.hidden=!html;
-
-    shbox.innerHTML=html;
   }
 }
 
@@ -5747,9 +5446,7 @@ function applyPayload(p){
   window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;
   if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');
   if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');
-  $('fbcRCurrent').textContent=money(get(p,'current.expected_net')??get(p,'current.net_available'));
-  $('fbcRTarget').textContent=money(get(p,'current.monthly_target'));
-  $('fbcRProb').textContent=pct(get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability'));
+  
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
