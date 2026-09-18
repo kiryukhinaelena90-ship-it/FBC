@@ -5810,8 +5810,20 @@ function installStatLinks(){
   const rate=$('fbcFinRate');if(rate){const row=rate.closest('label');if(row&&!row.querySelector('.fbc-cost-stat-link')){const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.textContent=T('Zins · Statistik & Prognose','Ставка · статистика и прогноз');b.addEventListener('click',()=>jumpToStat('interest'));row.appendChild(b)}}
 }
 function boot(){
-  ensureRUI();
-  installStatLinks();
+  console.log('FBC R boot start');
+
+  try {
+    ensureRUI();
+    console.log('FBC R UI created', !!document.getElementById('fbcRLayer'));
+  } catch (e) {
+    console.error('FBC ensureRUI ERROR:', e);
+  }
+
+  try {
+    installStatLinks();
+  } catch (e) {
+    console.error('FBC installStatLinks ERROR:', e);
+  }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,0),{once:true});else boot();
 })();
