@@ -3285,9 +3285,8 @@ function taxTextEmployee(tax){
   }
 
   return t(
-    `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / Monat (§35-Anrechnung: ${euro(tax.credit/12)}).`,
-    `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / месяц (зачёт §35: ${euro(tax.credit/12)}).`
-  );
+   `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / Monat (§35-Anrechnung: ${euro(tax.credit/12)}). Diese Beträge sind bereits in „Steuern · Orientierung“ enthalten.`
+    `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / месяц (зачёт §35: ${euro(tax.credit/12)}). Эти суммы уже учтены в строке «Налоги · ориентир».`
 }
   function holidayDays2026(daysPerWeek=5){const days=Math.max(0,Math.min(7,daysPerWeek)),region=$('#region').value;return HOLIDAYS_2026.reduce((sum,[weekday,states])=>{if(states!=='*'&&!states.split(' ').includes(region))return sum;if(days>=5)return sum+((weekday>=1&&weekday<=5)||(weekday===6&&days>=6)||(weekday===0&&days>=7)?1:0);return sum+(weekday>=1&&weekday<=5?days/5:0)},0)}
 function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),name=regions[$('#region').value]?.[0]||'';return t(`${count.toLocaleString('de-DE',{maximumFractionDigits:1})} gesetzliche Feiertage 2026 in ${name} berücksichtigt${daysPerWeek<5?' (anteilig geschätzt)':''}.`,`${count.toLocaleString('ru-RU',{maximumFractionDigits:1})} официальных праздничных дней 2026 года в земле ${name} учтено${daysPerWeek<5?' (пропорциональная оценка)':''}.`)}
