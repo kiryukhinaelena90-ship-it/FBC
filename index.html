@@ -3788,7 +3788,9 @@ document.addEventListener('keydown',event=>{
 populateAllSelects();
 
 $('#region').value='bw';
-
+$('#region').classList.add('is-suggestion');
+$('#legalForm').classList.add('is-suggestion');
+  
 const tradeTaxInput=$('#tradeTaxRate');
 const regionInput=$('#region');
 
@@ -3830,7 +3832,12 @@ function applyTradeTaxReference(){
 }
 
 regionInput.addEventListener('change',()=>{
+  regionInput.classList.remove('is-suggestion');
   applyTradeTaxReference();
+});
+
+$('#legalForm').addEventListener('change',()=>{
+  $('#legalForm').classList.remove('is-suggestion');
 });
 
 tradeTaxInput.addEventListener('focus',()=>{
