@@ -57,7 +57,32 @@ input::placeholder{color:#b8b0a8;opacity:1}
 
 /* STRUCTURE TEST v2.1 · billable roles and always-live results */
 .result-goal-row{display:grid;grid-template-columns:minmax(280px,520px);gap:18px;align-items:end;margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#f3eee9}
-.result-goal-row .field{max-width:520px}
+.target-gap-message{
+  margin:14px 0 22px;
+  padding:16px 18px;
+  border-left:4px solid var(--fbc-navy);
+  border-radius:0 11px 11px 0;
+  background:#eef3f7;
+}
+
+.target-gap-message strong,
+.target-gap-message small{
+  display:block;
+}
+
+.target-gap-message strong{
+  color:var(--fbc-navy);
+  font-size:18px;
+  font-weight:650;
+}
+
+.target-gap-message small{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+    .result-goal-row .field{max-width:520px}
 .result-goal-row small{display:block;color:var(--muted);font-size:11px;line-height:1.35}
 .result-goal-row .goal-explainer{margin-top:2px}
 .result-goal-row #soloCompleteness{margin-top:1px;color:var(--brown)}
