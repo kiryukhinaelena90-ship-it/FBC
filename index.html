@@ -4714,56 +4714,8 @@ layer.innerHTML=`
             'Вам не нужно угадывать оптимум. Разрешите только то, что вы действительно хотите или можете менять. Неподтверждённые рычаги останутся без изменений — даже если в предварительном анализе они выглядят сильными.'
           )}
         </p>
-<div class="fbc-bound-row fbc-bound-row-cost">
-  <label class="fbc-bound-toggle">
-    <input type="checkbox" id="fbcBoundCostOn">
-    ${T('Kostenposition reduzieren bis','Статью расходов снизить до')}
-  </label>
 
-  <div class="fbc-cost-extra">
-    <select id="fbcBoundCostKey">
-      ...
-    </select>
-
-    <div class="unit">
-      <input id="fbcBoundCostMin" type="text" inputmode="decimal"
-             placeholder="${T('neuer Betrag','новая сумма')}">
-      <b>€</b>
-    </div>
-  </div>
-
-  <label class="fbc-bound-months">
-    <input id="fbcBoundCostMonths" type="number" min="0" step="1" value="1">
-    <small>${T('Mon.','мес.')}</small>
-  </label>
-</div>
-
-        <div class="fbc-bound-row">
-          <label class="fbc-bound-toggle">
-            <input type="checkbox" id="fbcBoundOwnerHoursOn">
-            ${T('Mehr abrechenbare Inhaberstunden bis','Увеличить оплачиваемые часы владельца до')}
-          </label>
-          <div class="unit"><input id="fbcBoundOwnerHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
-          <label class="fbc-bound-months"><input id="fbcBoundOwnerHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-        </div>
-
-        <div class="fbc-bound-row">
-          <label class="fbc-bound-toggle">
-            <input type="checkbox" id="fbcBoundEmpPriceOn">
-            ${T('Mitarbeiter-Kundenpreis erhöhen bis','Повысить клиентскую цену сотрудника до')}
-          </label>
-          <div class="unit"><input id="fbcBoundEmpPrice" type="text" inputmode="decimal" placeholder="€ / h"><b>€</b></div>
-          <label class="fbc-bound-months"><input id="fbcBoundEmpPriceMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-        </div>
-
-        <div class="fbc-bound-row">
-          <label class="fbc-bound-toggle">
-            <input type="checkbox" id="fbcBoundEmpHoursOn">
-            ${T('Mehr abrechenbare Mitarbeiterstunden bis','Увеличить оплачиваемые часы сотрудника до')}
-          </label>
-          <div class="unit"><input id="fbcBoundEmpHours" type="text" inputmode="decimal" placeholder="h / Monat"><b>h</b></div>
-          <label class="fbc-bound-months"><input id="fbcBoundEmpHoursMonths" type="number" min="0" step="1" value="1"><small>${T('Mon.','мес.')}</small></label>
-        </div>
+  
 
         <div class="fbc-bound-row fbc-bound-row-cost">
           <label class="fbc-bound-toggle">
