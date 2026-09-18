@@ -2270,7 +2270,30 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-bound-months{display:flex;align-items:center;gap:5px}
 .fbc-bound-months input{width:58px}
 .fbc-cost-extra{display:grid;grid-template-columns:minmax(145px,1fr) minmax(95px,.7fr);gap:8px}
-.fbc-r-detailbox{margin-top:10px;border:1px solid #dfe5e9;border-radius:10px;padding:11px 12px;background:#fff}
+.fbc-bound-row-cost{
+  grid-template-columns:minmax(260px,1.25fr) minmax(420px,1fr) 110px;
+}
+
+.fbc-bound-row-cost .fbc-cost-extra{
+  grid-template-columns:minmax(210px,1fr) minmax(170px,.8fr);
+  gap:10px;
+}
+
+.fbc-bound-row-cost .fbc-bound-months{
+  justify-content:flex-start;
+  white-space:nowrap;
+}
+
+@media(max-width:900px){
+  .fbc-bound-row-cost{
+    grid-template-columns:1fr;
+  }
+
+  .fbc-bound-row-cost .fbc-cost-extra{
+    grid-template-columns:1fr 1fr;
+  }
+}
+  .fbc-r-detailbox{margin-top:10px;border:1px solid #dfe5e9;border-radius:10px;padding:11px 12px;background:#fff}
 .fbc-r-detailbox[hidden]{display:none}
 .fbc-r-detail-title{font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#687684;margin-bottom:7px}
 .fbc-r-change-row,.fbc-r-shapley-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-top:1px solid #eef2f4;font-size:12px}
