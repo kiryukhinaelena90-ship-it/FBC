@@ -4714,7 +4714,29 @@ layer.innerHTML=`
             'Вам не нужно угадывать оптимум. Разрешите только то, что вы действительно хотите или можете менять. Неподтверждённые рычаги останутся без изменений — даже если в предварительном анализе они выглядят сильными.'
           )}
         </p>
+<div class="fbc-bound-row">
+  <label class="fbc-bound-toggle">
+    <input type="checkbox" id="fbcBoundOwnerPriceOn">
+    ${T('Inhaberpreis erhöhen bis','Повысить цену владельца до')}
+  </label>
 
+  <div class="unit">
+    <input id="fbcBoundOwnerPrice"
+           type="text"
+           inputmode="decimal"
+           placeholder="€ / h">
+    <b>€</b>
+  </div>
+
+  <label class="fbc-bound-months">
+    <input id="fbcBoundOwnerPriceMonths"
+           type="number"
+           min="0"
+           step="1"
+           value="1">
+    <small>${T('Mon.','мес.')}</small>
+  </label>
+</div>
   
 
         <div class="fbc-bound-row fbc-bound-row-cost">
