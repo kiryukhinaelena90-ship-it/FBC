@@ -5788,9 +5788,7 @@ function applyPayload(p){
   window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;
   if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');
   if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');
-  $('fbcRCurrent').textContent=money(get(p,'current.expected_net')??get(p,'current.net_available'));
-  $('fbcRTarget').textContent=money(get(p,'current.monthly_target'));
-  $('fbcRProb').textContent=pct(get(p,'robustness.target_probability')??get(p,'post_decision.mc_target_probability'));
+  
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
