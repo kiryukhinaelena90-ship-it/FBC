@@ -3835,9 +3835,18 @@ function applyTradeTaxReference(){
   }
 }
 
-regionInput.addEventListener('change',()=>{
+regionInput.addEventListener('pointerdown',()=>{
   regionInput.classList.remove('is-suggestion');
+});
+
+regionInput.addEventListener('change',()=>{
   applyTradeTaxReference();
+});
+
+const legalFormInput=$('#legalForm');
+
+legalFormInput.addEventListener('pointerdown',()=>{
+  legalFormInput.classList.remove('is-suggestion');
 });
 
 $('#legalForm').addEventListener('change',()=>{
