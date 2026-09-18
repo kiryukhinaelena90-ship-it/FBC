@@ -2363,6 +2363,47 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   .fbc-sens-value{text-align:left}
   .fbc-output-grid,.fbc-structural-grid{grid-template-columns:1fr}
 }
+  .fbc-mc-result-list{
+  margin-top:16px;
+  border-top:1px solid #dfe5e9;
+}
+
+.fbc-mc-result-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:24px;
+  align-items:center;
+  padding:16px 2px;
+  border-bottom:1px solid #e3e9ee;
+}
+
+.fbc-mc-result-row strong{
+  display:block;
+  font-size:14px;
+  color:#23313d;
+}
+
+.fbc-mc-result-row small{
+  display:block;
+  margin-top:4px;
+  font-size:11px;
+  line-height:1.45;
+  color:#687684;
+}
+
+.fbc-mc-result-row b{
+  font-size:22px;
+  font-weight:500;
+  white-space:nowrap;
+  color:#1f2f3d;
+}
+
+@media(max-width:650px){
+  .fbc-mc-result-row{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+}
 </style>
 </head>
 <body>
