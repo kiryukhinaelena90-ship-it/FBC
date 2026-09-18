@@ -5799,7 +5799,10 @@ function installStatLinks(){
 ].forEach(([id,key])=>{const input=$(id);if(!input)return;const row=input.closest('label');if(!row||row.querySelector('.fbc-cost-stat-link'))return;const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.dataset.statTarget=key;b.textContent=T('Statistik & Prognose','Статистика и прогноз');b.addEventListener('click',()=>jumpToStat(key));row.appendChild(b)});
   const rate=$('fbcFinRate');if(rate){const row=rate.closest('label');if(row&&!row.querySelector('.fbc-cost-stat-link')){const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.textContent=T('Zins · Statistik & Prognose','Ставка · статистика и прогноз');b.addEventListener('click',()=>jumpToStat('interest'));row.appendChild(b)}}
 }
-function boot(){ensureRUI();installStatLinks();const fin=$('fbcFinanceCard');if(fin&&$('fbcFinActive')?.checked){fin.classList.remove('hidden');fin.open=true;}}
+function boot(){
+  ensureRUI();
+  installStatLinks();
+}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,0),{once:true});else boot();
 })();
 </script>
