@@ -5055,7 +5055,11 @@ fin.innerHTML = `
   </div>
 `;
 
-layer.insertAdjacentElement('beforebegin', fin);
+const financingSection = document.getElementById('fbcFinancingSection');
+
+if (financingSection) {
+  financingSection.insertAdjacentElement('beforeend', fin);
+}
 
 $('fbcFinActive').addEventListener('change', () => {
   if ($('fbcFinActive').checked) {
