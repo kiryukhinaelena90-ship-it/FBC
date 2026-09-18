@@ -1772,7 +1772,11 @@ h3{font-weight:600!important;line-height:1.22!important}
 
 .cost-equation > div > span{
   font-family:var(--font-ui)!important;
+<<<<<<< HEAD
   font-size:13px!important;
+=======
+  font-size:14px!important;
+>>>>>>> c8f15eb820fb68f4e7e2638f3f8f487260891716
   font-weight:560!important;
   color:var(--ui-text)!important;
 }
@@ -1787,12 +1791,15 @@ h3{font-weight:600!important;line-height:1.22!important}
   white-space:nowrap!important;
 }
 
+<<<<<<< HEAD
 /* Primary employee amount follows the same hierarchy as primary revenue. */
 .cost-equation > div:first-child > strong{
   font-size:17px!important;
   font-weight:500!important;
 }
 
+=======
+>>>>>>> c8f15eb820fb68f4e7e2638f3f8f487260891716
 .cost-equation > div > small{
   grid-column:1 / -1!important;
   margin-top:2px!important;
@@ -1814,6 +1821,7 @@ h3{font-weight:600!important;line-height:1.22!important}
   font-size:17px!important;
   font-weight:500!important;
 }
+<<<<<<< HEAD
 
 /* Employee billable hours: commercial input kept separate from capacity. */
 .employee-billable-hours-box{
@@ -1849,6 +1857,8 @@ h3{font-weight:600!important;line-height:1.22!important}
 .employee-billable-hours-input input{height:43px}
 .employee-billable-hours-box.is-disabled{background:var(--ui-soft-2)}
 @media(max-width:600px){.employee-billable-hours-box{grid-template-columns:1fr}}
+=======
+>>>>>>> c8f15eb820fb68f4e7e2638f3f8f487260891716
 /* Number inputs · Browser-Pfeile ausblenden */
 /* Number inputs · Browser-Pfeile vollständig ausblenden */
 input[type="number"]{
@@ -2732,6 +2742,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   </span>
 
 </label>
+<<<<<<< HEAD
     </div>
 
     <div id="empBillableHoursBox" class="employee-billable-hours-box">
@@ -2750,6 +2761,8 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
           <b>h</b>
         </div>
       </label>
+=======
+>>>>>>> c8f15eb820fb68f4e7e2638f3f8f487260891716
     </div>
 
     <div class="orientation-box">
@@ -3495,9 +3508,14 @@ function taxTextEmployee(tax){
   }
 
   return t(
+<<<<<<< HEAD
    `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / Monat (§35-Anrechnung: ${euro(tax.credit/12)}). Diese Beträge sind bereits in „Steuern · Orientierung“ enthalten.`,
     `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / месяц (зачёт §35: ${euro(tax.credit/12)}). Эти суммы уже учтены в строке «Налоги · ориентир».`
   );
+=======
+   `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / Monat (§35-Anrechnung: ${euro(tax.credit/12)}). Diese Beträge sind bereits in „Steuern · Orientierung“ enthalten.`
+    `Einkommensteuer ${euro(tax.income/12)} + Gewerbesteuer ${euro(tax.trade/12)} / месяц (зачёт §35: ${euro(tax.credit/12)}). Эти суммы уже учтены в строке «Налоги · ориентир».`
+>>>>>>> c8f15eb820fb68f4e7e2638f3f8f487260891716
 }
   function holidayDays2026(daysPerWeek=5){const days=Math.max(0,Math.min(7,daysPerWeek)),region=$('#region').value;return HOLIDAYS_2026.reduce((sum,[weekday,states])=>{if(states!=='*'&&!states.split(' ').includes(region))return sum;if(days>=5)return sum+((weekday>=1&&weekday<=5)||(weekday===6&&days>=6)||(weekday===0&&days>=7)?1:0);return sum+(weekday>=1&&weekday<=5?days/5:0)},0)}
 function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),name=regions[$('#region').value]?.[0]||'';return t(`${count.toLocaleString('de-DE',{maximumFractionDigits:1})} gesetzliche Feiertage 2026 in ${name} berücksichtigt${daysPerWeek<5?' (anteilig geschätzt)':''}.`,`${count.toLocaleString('ru-RU',{maximumFractionDigits:1})} официальных праздничных дней 2026 года в земле ${name} учтено${daysPerWeek<5?' (пропорциональная оценка)':''}.`)}
