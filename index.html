@@ -4794,15 +4794,83 @@ layer.innerHTML=`
       <span class="fbc-step-badge">5</span>
     </div>
 
-    <div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
-      <div class="fbc-r-detail-title">${T('Monte-Carlo-Robustheit','Устойчивость Monte Carlo')}</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px">
-        <div class="fbc-r-metric"><span>${T('Zielwahrscheinlichkeit','Вероятность достижения цели')}</span><strong id="fbcMCProbability">—</strong></div>
-        <div class="fbc-r-metric"><span>P10</span><strong id="fbcMCP10">—</strong></div>
-        <div class="fbc-r-metric"><span>P50 · Median</span><strong id="fbcMCP50">—</strong></div>
-        <div class="fbc-r-metric"><span>P90</span><strong id="fbcMCP90">—</strong></div>
+<div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
+
+  <div class="fbc-r-detail-title">
+    ${T(
+      'Wie stabil ist das erwartete Monatsnetto?',
+      'Насколько устойчив ожидаемый месячный результат?'
+    )}
+  </div>
+
+  <p class="fbc-r-note">
+    ${T(
+      'FBC prüft Ihre gewählte Entscheidung unter vielen möglichen Entwicklungen von Energie-, Kraftstoff- und Personalkosten. Bei variabler Finanzierung wird zusätzlich die mögliche Zinsentwicklung berücksichtigt.',
+      'FBC проверяет выбранное решение при множестве возможных изменений затрат на энергию, топливо и персонал. При переменной ставке дополнительно учитывается возможное изменение процентов.'
+    )}
+  </p>
+
+  <div class="fbc-mc-result-list">
+
+    <div class="fbc-mc-result-row">
+      <div>
+        <strong>${T(
+          'Chance, das Nettoziel zu erreichen',
+          'Шанс достичь цели по нетто'
+        )}</strong>
+        <small>${T(
+          'Anteil der geprüften Entwicklungen, in denen Ihr Ziel erreicht oder überschritten wird.',
+          'Доля проверенных сценариев, в которых цель достигается или превышается.'
+        )}</small>
       </div>
+      <b id="fbcMCProbability">—</b>
     </div>
+
+    <div class="fbc-mc-result-row">
+      <div>
+        <strong>${T(
+          'Unterer Prognosewert',
+          'Нижний прогнозный уровень'
+        )}</strong>
+        <small>${T(
+          'In etwa 10 % der geprüften Entwicklungen liegt das Monatsnetto unter diesem Wert.',
+          'Примерно в 10 % проверенных сценариев месячное нетто оказывается ниже этого значения.'
+        )}</small>
+      </div>
+      <b id="fbcMCP10">—</b>
+    </div>
+
+    <div class="fbc-mc-result-row">
+      <div>
+        <strong>${T(
+          'Zentraler Prognosewert',
+          'Центральный прогнозный уровень'
+        )}</strong>
+        <small>${T(
+          'Die Hälfte der geprüften Entwicklungen liegt darunter, die andere Hälfte darüber.',
+          'Половина проверенных сценариев находится ниже этого значения, половина — выше.'
+        )}</small>
+      </div>
+      <b id="fbcMCP50">—</b>
+    </div>
+
+    <div class="fbc-mc-result-row">
+      <div>
+        <strong>${T(
+          'Oberer Prognosewert',
+          'Верхний прогнозный уровень'
+        )}</strong>
+        <small>${T(
+          'Nur etwa 10 % der geprüften Entwicklungen liegen über diesem Wert.',
+          'Только примерно 10 % проверенных сценариев оказываются выше этого значения.'
+        )}</small>
+      </div>
+      <b id="fbcMCP90">—</b>
+    </div>
+
+  </div>
+
+</div>
   </section>
 
 
