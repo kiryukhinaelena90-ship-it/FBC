@@ -5083,11 +5083,7 @@ const openFinancingOption = () => {
     });
   }
 };
-  const openFinancingOption=()=>{
-    fin.classList.remove('hidden');
-    fin.open=true;
-    fin.scrollIntoView({behavior:'smooth',block:'center'});
-  };
+
   const financingOptionBtn=$('fbcOpenFinancingOption');
   if(financingOptionBtn) financingOptionBtn.addEventListener('click',openFinancingOption);
 
