@@ -5663,6 +5663,16 @@ function renderDecisionDetails(p){
   const remainingGap=
     Number(get(p,'recommendation.remaining_gap_eur')) ||
     (Number.isFinite(target)&&Number.isFinite(projected)?Math.max(0,target-projected):0);
+  const timePath = get(p, 'target_path.time_path');
+
+let financingNeed = 0;
+
+if (Array.isArray(timePath) && timePath.length) {
+  financingNeed = timePath.reduce((sum, row) => {
+    const gap = Number(row?.gap);
+    return sum + (Number.isFinite(gap) && gap > 0 ? gap : 0);
+  }, 0);
+}
   const finSection=$('fbcFinancingSection');
 
   if(finSection){
