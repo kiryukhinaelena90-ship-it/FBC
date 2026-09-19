@@ -5293,7 +5293,34 @@ fin.innerHTML = `
 
 const financingSection = document.getElementById('fbcFinancingSection');
 const financingResult = document.getElementById('fbcRFinancingCheck');
+const financingRunBtn = $('fbcRunFinancing');
 
+if(financingRunBtn){
+  financingRunBtn.addEventListener('click', async () => {
+    const amount = num('fbcFinAmount');
+    const months = Math.round(num('fbcFinMonths'));
+
+    if(amount <= 0){
+      alert(T(
+        'Es liegt derzeit kein Finanzierungsbedarf vor.',
+        'Сейчас рассчитанная потребность в финансировании отсутствует.'
+      ));
+      return;
+    }
+
+    if(months < 1){
+      alert(T(
+        'Bitte geben Sie eine Laufzeit von mindestens 1 Monat ein.',
+        'Укажите срок не менее 1 месяца.'
+      ));
+      return;
+    }
+
+    fbcFinancingSelected = true;
+
+    await runRAnalysis('fbcRunFinancing');
+  });
+}
 if (financingSection) {
   if (financingResult) {
     financingSection.insertBefore(fin, financingResult);
