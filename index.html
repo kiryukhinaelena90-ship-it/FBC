@@ -6064,20 +6064,92 @@ if ($('fbcFinAmount')) {
 
     if($('fbcFinancingAction')) $('fbcFinancingAction').hidden=finActive;
 
-    const debtBox=$('fbcRFinancingCheck');
-    if(debtBox){
-      debtBox.hidden=!(finActive&&Number.isFinite(dscr));
-      if(finActive&&Number.isFinite(dscr)){
-        if($('fbcRDSCR'))$('fbcRDSCR').textContent=fmtNum(dscr,2);
-        if($('fbcRDSCRText')){
-          $('fbcRDSCRText').textContent=
-            dscr<1
-              ? T('Der laufende Kapitaldienst ist mit der aktuellen Liquidität nicht vollständig gedeckt.','Текущий долговой платёж не полностью покрывается текущей ликвидностью.')
-              : dscr<1.2
-                ? T('Der Kapitaldienst ist gedeckt, der Liquiditätspuffer ist jedoch gering.','Обслуживание долга покрывается, но запас ликвидности небольшой.')
-                : T('Der Kapitaldienst ist gedeckt und es besteht ein zusätzlicher Liquiditätspuffer.','Обслуживание долга покрывается, и имеется дополнительный запас ликвидности.');
-        }
-      }
+const debtBox=$('fbcRFinancingCheck');
+const finCurrent=get(p,'financing.current');
+
+if(debtBox){
+
+  const hasFinancingResult=
+    finActive &&
+    finCurrent &&
+    typeof finCurrent === 'object';
+
+  debtBox.hidden=!hasFinancingResult;
+
+  if(hasFinancingResult){
+
+    const finAmount=Number(finCurrent.amount);
+    const finMonths=Number(finCurrent.months);
+    const firstPayment=Number(finCurrent.first_month_cash_service);
+    const maxPayment=Number(finCurrent.max_month_cash_service);
+    const totalInterest=Number(finCurrent.total_interest);
+    const totalExpense=Number(finCurrent.total_financing_expense);
+    const restDebt=Number(finCurrent.restschuld_end);
+
+    if($('fbcFinResultAmount')){
+      $('fbcFinResultAmount').textContent=
+        Number.isFinite(finAmount) ? money(finAmount) : '—';
+    }
+
+    if($('fbcFinResultMonths')){
+      $('fbcFinResultMonths').textContent=
+        Number.isFinite(finMonths)
+          ? `${fmtNum(finMonths,0)} ${T('Monate','мес.')}`
+          : '—';
+    }
+
+    if($('fbcFinResultFirstPayment')){
+      $('fbcFinResultFirstPayment').textContent=
+        Number.isFinite(firstPayment) ? money(firstPayment) : '—';
+    }
+
+    if($('fbcFinResultMaxPayment')){
+      $('fbcFinResultMaxPayment').textContent=
+        Number.isFinite(maxPayment) ? money(maxPayment) : '—';
+    }
+
+    if($('fbcFinResultInterest')){
+      $('fbcFinResultInterest').textContent=
+        Number.isFinite(totalInterest) ? money(totalInterest) : '—';
+    }
+
+    if($('fbcFinResultExpense')){
+      $('fbcFinResultExpense').textContent=
+        Number.isFinite(totalExpense) ? money(totalExpense) : '—';
+    }
+
+    if($('fbcFinResultRest')){
+      $('fbcFinResultRest').textContent=
+        Number.isFinite(restDebt) ? money(restDebt) : '—';
+    }
+
+    if($('fbcRDSCR')){
+      $('fbcRDSCR').textContent=
+        Number.isFinite(dscr) ? fmtNum(dscr,2) : '—';
+    }
+
+    if($('fbcRDSCRText')){
+
+      $('fbcRDSCRText').textContent=
+        !Number.isFinite(dscr)
+          ? T(
+              'Die Finanzierung wurde berechnet. Für eine belastbare Bewertung der Kapitaldienstfähigkeit liegt derzeit noch kein DSCR vor.',
+              'Финансирование рассчитано. Для надёжной оценки способности обслуживать долг показатель DSCR пока отсутствует.'
+            )
+          : dscr<1
+            ? T(
+                'Der laufende Kapitaldienst ist mit der aktuellen Liquidität nicht vollständig gedeckt.',
+                'Текущий долговой платёж не полностью покрывается текущей ликвидностью.'
+              )
+            : dscr<1.2
+              ? T(
+                  'Der Kapitaldienst ist gedeckt, der Liquiditätspuffer ist jedoch gering.',
+                  'Обслуживание долга покрывается, но запас ликвидности небольшой.'
+                )
+              : T(
+                  'Der Kapitaldienst ist gedeckt und es besteht ein zusätzlicher Liquiditätspuffer.',
+                  'Обслуживание долга покрывается, и имеется дополнительный запас ликвидности.'
+                );
     }
   }
 }
