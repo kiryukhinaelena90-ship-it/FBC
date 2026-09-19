@@ -5056,13 +5056,51 @@ layer.innerHTML=`
       </div>
     </div>
 
-    <div class="fbc-financing-check" id="fbcRFinancingCheck" hidden>
-      <header>
-        <strong>DSCR</strong>
-        <b id="fbcRDSCR">—</b>
-      </header>
-      <p id="fbcRDSCRText"></p>
-    </div>
+<div class="fbc-financing-check" id="fbcRFinancingCheck" hidden>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
+    <b id="fbcFinResultAmount">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Laufzeit','Срок')}</span>
+    <b id="fbcFinResultMonths">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Belastung im ersten Monat','Платёж в первый месяц')}</span>
+    <b id="fbcFinResultFirstPayment">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Maximale monatliche Belastung','Максимальный месячный платёж')}</span>
+    <b id="fbcFinResultMaxPayment">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Zinsen gesamt','Всего процентов')}</span>
+    <b id="fbcFinResultInterest">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Finanzierungskosten gesamt','Общие расходы на финансирование')}</span>
+    <b id="fbcFinResultExpense">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Restschuld am Ende des Vergleichszeitraums','Остаток долга в конце периода')}</span>
+    <b id="fbcFinResultRest">—</b>
+  </div>
+
+  <div class="fbc-r-change-row">
+    <span>${T('Kapitaldienstfähigkeit · DSCR','Покрытие долгового платежа · DSCR')}</span>
+    <b id="fbcRDSCR">—</b>
+  </div>
+
+  <div class="fbc-r-note" id="fbcRDSCRText"></div>
+
+</div>
   </section>
 
 
