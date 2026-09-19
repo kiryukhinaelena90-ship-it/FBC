@@ -6221,14 +6221,40 @@ if($('fbcRMonteCarlo')){
     : get(p,'fazit.de');
 
 if($('fbcRFazit') && $('fbcRFazitText')){
-  const fazitText =
+  const baseFazit =
     fazit?.available === true &&
     typeof fazit?.sentence === 'string'
       ? fazit.sentence.trim()
       : '';
 
-  $('fbcRFazit').hidden = !fazitText;
-  $('fbcRFazitText').textContent = fazitText;
+  const businessOk =
+    get(p,'post_decision.business_break_even_ok') ??
+    get(p,'break_even.ok');
+
+  const businessMargin = Number(
+    get(p,'break_even.business.safety_margin') ??
+    get(p,'post_decision.business_break_even_margin_eur')
+  );
+
+  const businessCritical =
+    businessOk === false ||
+    (Number.isFinite(businessMargin) && businessMargin < 0);
+
+  const breakEvenWarning = businessCritical
+    ? T(
+        'Hinweis: Die aktuelle Kostenstruktur liegt unter dem Business Break-even und sollte vor einer weiteren Optimierung geprüft werden.',
+        'Внимание: текущая структура расходов находится ниже точки безубыточности бизнеса и должна быть проверена до дальнейшей оптимизации.'
+      )
+    : '';
+
+  const finalFazit =
+    [baseFazit, breakEvenWarning]
+      .filter(Boolean)
+      .join(' ');
+
+  $('fbcRFazit').hidden = !finalFazit;
+  $('fbcRFazitText').textContent = finalFazit;
+}
 }
   const businessBEEl=$('fbcRBusinessBE');
   if(businessBEEl){
