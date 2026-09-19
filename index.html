@@ -6081,6 +6081,21 @@ if($('fbcRMonteCarlo')){
 
     $('fbcMCP90').textContent =
       p90 == null ? '—' : money(p90);
+    } else {
+
+    $('fbcMCProbability').textContent = '—';
+    $('fbcMCP10').textContent = '—';
+    $('fbcMCP50').textContent = '—';
+    $('fbcMCP90').textContent = '—';
+
+    const note = $('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
+
+    if(note && mcReason){
+      note.textContent = T(
+        `Monte-Carlo-Berechnung konnte nicht ausgeführt werden: ${mcReason}`,
+        `Расчёт Monte Carlo не выполнен: ${mcReason}`
+      );
+    }
   }
 }
   const fazit =
