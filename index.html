@@ -5928,7 +5928,10 @@ function renderDecisionDetails(p){
   const empSection=$('fbcEmployeeEconomicsSection');
 
   if(empSection){
-    const showEmployee=(empApplicable!==false) && Number.isFinite(empHours) && Number.isFinite(empBE);
+    const showEmployee=
+  empApplicable === true &&
+  Number.isFinite(empHours) &&
+  Number.isFinite(empBE);
     empSection.hidden=!showEmployee;
 
     if(showEmployee){
