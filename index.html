@@ -6174,7 +6174,6 @@ if($('fbcRMonteCarlo')){
 
   if(mcAvailable){
 
-  if(mcAvailable){
     const p10 = robustness.p10;
     const p50 = robustness.p50;
     const p90 = robustness.p90;
@@ -6191,20 +6190,27 @@ if($('fbcRMonteCarlo')){
 
     $('fbcMCP90').textContent =
       p90 == null ? '—' : money(p90);
-    } else {
+
+  } else {
 
     $('fbcMCProbability').textContent = '—';
     $('fbcMCP10').textContent = '—';
     $('fbcMCP50').textContent = '—';
     $('fbcMCP90').textContent = '—';
 
-    const note = $('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
+    const note =
+      $('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
 
-    if(note && mcReason){
-      note.textContent = T(
-        `Monte-Carlo-Berechnung konnte nicht ausgeführt werden: ${mcReason}`,
-        `Расчёт Monte Carlo не выполнен: ${mcReason}`
-      );
+    if(note){
+      note.textContent = mcReason
+        ? T(
+            `Monte-Carlo-Berechnung konnte nicht ausgeführt werden: ${mcReason}`,
+            `Расчёт Monte Carlo не выполнен: ${mcReason}`
+          )
+        : T(
+            'Für diesen Rechenschritt liegt keine Monte-Carlo-Auswertung vor.',
+            'Для этого расчёта результат Monte Carlo отсутствует.'
+          );
     }
   }
 }
