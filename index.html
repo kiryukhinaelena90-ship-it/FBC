@@ -6277,7 +6277,30 @@ if($('fbcRFazit') && $('fbcRFazitText')){
   document.dispatchEvent(new CustomEvent('fbc:r-payload',{detail:p}));
   return p
 }
-async function analyze(analysis={}){const url=window.FBC_R_API_URL||'/api/analyze';const req=buildConfig(analysis);const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(req)});if(!r.ok)throw new Error('HTTP '+r.status);return applyPayload(await r.json())}
+async function analyze(analysis={}){
+  const url=window.FBC_R_API_URL||'/api/analyze';
+  const req=buildConfig(analysis);
+
+  const r=await fetch(url,{
+    method:'POST',
+    headers:{'content-type':'application/json'},
+    body:JSON.stringify(req)
+  });
+
+  const data=await r.json().catch(()=>null);
+
+  if(!r.ok){
+    throw new Error(
+      data?.message ||
+      data?.upstream?.message ||
+      data?.upstream?.error ||
+      data?.error ||
+      ('HTTP '+r.status)
+    );
+  }
+
+  return applyPayload(data);
+}
 window.FBC_R_BACKEND_ADAPTER={buildRequest:buildConfig,applyPayload,analyze};
 
 function installStatLinks(){
