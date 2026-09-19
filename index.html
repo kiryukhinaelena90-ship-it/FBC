@@ -5212,110 +5212,117 @@ fin.innerHTML = `
       >
     </div>
 
-    <div
-      class="fbc-fin-grid"
-      style="
-        display:grid;
-        grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:12px;
-      "
-    >
+    <div class="fbc-fin-grid-simple">
 
-      <label class="fbc-r-metric">
-        <span>${T('Finanzierungsart','Тип финансирования')}</span>
+  <label class="fbc-fin-field">
+    <span>${T('Finanzierungsart','Тип финансирования')}</span>
 
-        <select id="fbcFinType">
-          <option value="annuity">
-            ${T('Annuitätendarlehen','Аннуитетный кредит')}
-          </option>
+    <select id="fbcFinType">
+      <option value="annuity">
+        ${T('Annuitätendarlehen','Аннуитетный кредит')}
+      </option>
 
-          <option value="tilgung">
-            ${T('Tilgungsdarlehen','Кредит с равномерным погашением')}
-          </option>
+      <option value="tilgung">
+        ${T('Tilgungsdarlehen','Кредит с равномерным погашением')}
+      </option>
 
-          <option value="bullet">
-            ${T('Endfälliges Darlehen','Погашение в конце срока')}
-          </option>
+      <option value="bullet">
+        ${T('Endfälliges Darlehen','Погашение в конце срока')}
+      </option>
 
-          <option value="line">
-            ${T('Kreditlinie','Кредитная линия')}
-          </option>
+      <option value="line">
+        ${T('Kreditlinie','Кредитная линия')}
+      </option>
 
-          <option value="zero">
-            ${T('Zinsfreie Finanzierung','Беспроцентное финансирование')}
-          </option>
-        </select>
-      </label>
+      <option value="zero">
+        ${T('Zinsfreie Finanzierung','Беспроцентное финансирование')}
+      </option>
+    </select>
+  </label>
 
 
-      <label class="fbc-r-metric">
-        <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
+  <label class="fbc-fin-field">
+    <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
 
-        <div class="unit">
-          <input
-            id="fbcFinRate"
-            type="text"
-            inputmode="decimal"
-            placeholder="0"
-          >
-          <b>%</b>
-        </div>
-<small class="fbc-fin-market-hint">
-  ${T(
-    'Marktorientierung: Unternehmenskredite bis 250.000 € · Bundesbank-Zinsstatistik. Ihre tatsächliche Bankkondition kann abweichen.',
-    'Ориентир по рынку: кредиты предприятиям до 250 000 € · статистика Bundesbank. Фактическая ставка банка может отличаться.'
-  )}
-</small>
-
-
-      <label class="fbc-r-metric">
-        <span>${T('Laufzeit','Срок')}</span>
-
-        <div class="unit">
-          <input
-            id="fbcFinMonths"
-            type="number"
-            min="1"
-            placeholder="0"
-          >
-          <b>${T('Mon.','мес.')}</b>
-        </div>
-      </label>
-
-
-      <label class="fbc-r-metric">
-        <span>${T(
-          'Weitere Finanzierungskosten',
-          'Дополнительные расходы'
-        )}</span>
-
-        <div class="unit">
-          <input
-            id="fbcFinFees"
-            type="text"
-            inputmode="decimal"
-            placeholder="0"
-          >
-          <b>€ / ${T('Monat','мес.')}</b>
-        </div>
-      </label>
-
-
-      <label class="fbc-r-metric">
-        <span>${T('Zinsbindung','Процентная ставка')}</span>
-
-        <select id="fbcFinBinding">
-          <option value="fixed">
-            ${T('Fest','Фиксированная')}
-          </option>
-
-          <option value="variable">
-            ${T('Variabel','Переменная')}
-          </option>
-        </select>
-      </label>
-
+    <div class="unit">
+      <input
+        id="fbcFinRate"
+        class="is-suggestion"
+        type="text"
+        inputmode="decimal"
+        value="4.36"
+      >
+      <b>%</b>
     </div>
+
+    <small class="fbc-fin-market-hint">
+      ${T(
+        'Orientierungswert aus der Bundesbank-Zinsstatistik. Bitte durch Ihre tatsächliche Bankkondition ersetzen.',
+        'Ориентир по статистике Bundesbank. Замените на фактическую ставку вашего банка.'
+      )}
+    </small>
+  </label>
+
+
+  <label class="fbc-fin-field">
+    <span>${T('Laufzeit','Срок')}</span>
+
+    <div class="unit">
+      <input
+        id="fbcFinMonths"
+        class="is-suggestion"
+        type="number"
+        min="1"
+        value="36"
+      >
+      <b>${T('Mon.','мес.')}</b>
+    </div>
+
+    <small>
+      ${T(
+        'Orientierung: 36 Monate · frei anpassbar.',
+        'Ориентир: 36 месяцев · можно изменить.'
+      )}
+    </small>
+  </label>
+
+
+  <label class="fbc-fin-field">
+    <span>
+      ${T(
+        'Weitere Finanzierungskosten',
+        'Дополнительные расходы'
+      )}
+    </span>
+
+    <div class="unit">
+      <input
+        id="fbcFinFees"
+        class="is-suggestion"
+        type="text"
+        inputmode="decimal"
+        value="0"
+      >
+      <b>€ / ${T('Monat','мес.')}</b>
+    </div>
+  </label>
+
+
+  <label class="fbc-fin-field">
+    <span>${T('Zinsbindung','Фиксация ставки')}</span>
+
+    <select id="fbcFinBinding">
+      <option value="fixed">
+        ${T('Fest','Фиксированная')}
+      </option>
+
+      <option value="variable">
+        ${T('Variabel','Переменная')}
+      </option>
+    </select>
+  </label>
+
+</div>
 <div class="fbc-evidence-action" style="margin-top:16px">
   <button
     class="fbc-r-primary"
