@@ -6052,11 +6052,17 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
-  const robustness = get(p,'robustness') || {};
+const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
+const mcReason =
+  robustness?.reason ??
+  get(p,'audit.mc_error') ??
+  null;
 
 if($('fbcRMonteCarlo')){
-  $('fbcRMonteCarlo').hidden = !mcAvailable;
+  $('fbcRMonteCarlo').hidden = false;
+
+  if(mcAvailable){
 
   if(mcAvailable){
     const p10 = robustness.p10;
