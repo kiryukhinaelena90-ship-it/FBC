@@ -5464,9 +5464,11 @@ function ownerState(){
   let workMonth=0,holidays=0,insurance=num('empOwnerInsurance');try{const o=typeof modeOwner==='function'?modeOwner('emp'):null;if(o){workMonth=o.workMonth||0;holidays=o.time?.holidays||0;insurance=o.insurance||insurance}}catch(e){}
   return{price:num('empOwnerPrice'),hours_week:num('empOwnerHours'),days_week:num('empOwnerDays')||5,vacation_days:num('empOwnerVacation'),available_hours_month:workMonth,billable_hours_month:num('empOwnerBillableHours'),monthly_target:num('empOwnerGoal'),insurance_month:insurance,pension_mode:$('empPensionMode')?.value||'none',pension_fixed_month:num('empPensionFixed'),holidays};
 }
+let fbcFinancingSelected = false;  
+function financing(){
 function financing(){
   const amount = num('fbcFinAmount');
-  const active = amount > 0;
+  const active = fbcFinancingSelected && amount > 0;
 
   return {
     active,
