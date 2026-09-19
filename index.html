@@ -4468,8 +4468,9 @@ let currentMode='solo', currentCalcId='';
     if(paid){panel?.querySelectorAll('input[type=range]').forEach(el=>{if(el.dataset.paymentLocked==='1'){el.disabled=false;delete el.dataset.paymentLocked}})}
     else{panel?.querySelectorAll('input[type=range]').forEach(el=>{if(!el.disabled){el.dataset.paymentLocked='1';el.disabled=true}})}
   }
-  async function status(mode,calcId){
-    const webapp=tg(); if(!webapp?.initData)return false;
+async function status(mode,calcId){
+  if(DEV_PAYMENT_BYPASS)return true;
+  const webapp=tg(); if(!webapp?.initData)return false;
     try{
       const r=await fetch('/api/telegram-payment-status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:webapp.initData,scope:mode,calcId})});
       if(!r.ok)return false; const d=await r.json(); return !!d.paid;
