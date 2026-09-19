@@ -4434,8 +4434,9 @@ calculateAll();
   const statusEl=document.getElementById('starsStatus');
   if(!checkout||!buy)return;
   const cfg=window.FUTURE_SITE||{};
-  const prices=(cfg.stars||{employee:50,team:150});
-  let currentMode='solo', currentCalcId='';
+const prices=(cfg.stars||{employee:50,team:150});
+const DEV_PAYMENT_BYPASS=true; // TEMP: без paywall во время настройки
+let currentMode='solo', currentCalcId='';
   const tg=()=>window.Telegram&&window.Telegram.WebApp;
   const setStatus=(text,type='')=>{statusEl.textContent=text;statusEl.className='stars-status'+(type?' '+type:'')};
   const modeLabel=m=>m==='employee'?'Mitarbeiter-Auswertung':'Team-Auswertung';
