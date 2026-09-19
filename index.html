@@ -5542,7 +5542,14 @@ function financing(){
   };
 
   const errors=[];
-
+if(direct && bill <= 0){
+  errors.push(
+    T(
+      'Bitte geben Sie die tatsächlich an Kunden abrechenbaren Mitarbeiterstunden pro Monat ein.',
+      'Укажите фактические часы сотрудника в месяц, которые выставляются клиенту.'
+    )
+  );
+}
   if(o.billable_hours_month > o.available_hours_month + 1e-9){
     errors.push('owner_billable_exceeds_available');
   }
