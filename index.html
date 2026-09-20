@@ -5535,13 +5535,19 @@ if($('fbcRFazitText')){
             'R рассчитывает решение…'
           );
 
-    const evidence=readDecisionEvidence();
-    const base=window.FBC_ANALYSIS_CONFIG||{};
+const base=window.FBC_ANALYSIS_CONFIG||{};
 
-    await window.FBC_R_BACKEND_ADAPTER.analyze({
-      ...base,
-      ...evidence
-    });
+const evidence = isEvidence
+  ? readDecisionEvidence()
+  : {
+      confirmed_bounds: {},
+      cost_evidence: {}
+    };
+
+await window.FBC_R_BACKEND_ADAPTER.analyze({
+  ...base,
+  ...evidence
+});
 
   }catch(e){
 
