@@ -4804,8 +4804,31 @@ layer.innerHTML=`
     </div>
   </section>
 
+  <!-- 2. MITARBEITER KOSTENDECKUNG -->
 
-  <!-- 2. REALISTISCHE HANDLUNGSSPIELRÄUME -->
+  <section class="fbc-analysis-section" id="fbcEmployeeEconomicsSection" hidden>
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3>${T('Personalwirtschaftliche Einordnung','Экономика сотрудника')}</h3>
+        <p>
+          ${T(
+            'Bei direkt abrechenbaren Mitarbeiterinnen und Mitarbeitern prüft FBC separat, ob die eigene Kostenbasis durch die aktuelle Kundenleistung gedeckt wird.',
+            'Для сотрудников, чья работа напрямую выставляется клиентам, FBC отдельно проверяет, покрываются ли их собственные расходы текущей клиентской выручкой.'
+          )}
+        </p>
+      </div>
+      <span class="fbc-step-badge">6</span>
+    </div>
+
+    <div class="fbc-r-detailbox" id="fbcEmployeeEconomicsBox">
+      <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b id="fbcEmployeeHoursCurrent">—</b></div>
+      <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Окупаемость с')}</span><b id="fbcEmployeeHoursBE">—</b></div>
+      <div class="fbc-r-change-row"><span>${T('Differenz','Разница')}</span><b id="fbcEmployeeHoursGap">—</b></div>
+      <div class="fbc-r-note" id="fbcEmployeeEconomicsText"></div>
+    </div>
+  </section>
+
+  <!-- 3. REALISTISCHE HANDLUNGSSPIELRÄUME -->
 
   <section class="fbc-analysis-section">
     <div class="fbc-analysis-heading">
@@ -4975,7 +4998,7 @@ layer.innerHTML=`
   </section>
 
 
-  <!-- 3. EMPFOHLENE KOMBINATION -->
+  <!-- 4. EMPFOHLENE KOMBINATION -->
 
   <section class="fbc-analysis-section">
     <div class="fbc-analysis-heading">
@@ -4998,7 +5021,7 @@ layer.innerHTML=`
     <div class="fbc-r-detailbox" id="fbcRChanges" hidden></div>
   </section>
 
-  <!-- 4. SHAPLEY -->
+  <!-- 5. SHAPLEY -->
 
   <section class="fbc-analysis-section" id="fbcShapleySection">
     <div class="fbc-analysis-heading">
@@ -5017,7 +5040,7 @@ layer.innerHTML=`
   </section>
 
 
-  <!-- 5. ROBUSTHEIT -->
+  <!-- 6. ROBUSTHEIT -->
 
   <section class="fbc-analysis-section">
     <div class="fbc-analysis-heading">
@@ -5110,31 +5133,6 @@ layer.innerHTML=`
   </div>
 
 </div>
-  </section>
-
-
-  <!-- 6. PERSONALWIRTSCHAFTLICHE EINORDNUNG -->
-
-  <section class="fbc-analysis-section" id="fbcEmployeeEconomicsSection" hidden>
-    <div class="fbc-analysis-heading">
-      <div>
-        <h3>${T('Personalwirtschaftliche Einordnung','Экономика сотрудника')}</h3>
-        <p>
-          ${T(
-            'Bei direkt abrechenbaren Mitarbeiterinnen und Mitarbeitern prüft FBC separat, ob die eigene Kostenbasis durch die aktuelle Kundenleistung gedeckt wird.',
-            'Для сотрудников, чья работа напрямую выставляется клиентам, FBC отдельно проверяет, покрываются ли их собственные расходы текущей клиентской выручкой.'
-          )}
-        </p>
-      </div>
-      <span class="fbc-step-badge">6</span>
-    </div>
-
-    <div class="fbc-r-detailbox" id="fbcEmployeeEconomicsBox">
-      <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b id="fbcEmployeeHoursCurrent">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Окупаемость с')}</span><b id="fbcEmployeeHoursBE">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Differenz','Разница')}</span><b id="fbcEmployeeHoursGap">—</b></div>
-      <div class="fbc-r-note" id="fbcEmployeeEconomicsText"></div>
-    </div>
   </section>
 
 
