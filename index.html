@@ -5308,39 +5308,64 @@ document.addEventListener('click',e=>{
 });
  const fin = document.createElement('div');
 fin.id = 'fbcFinanceCard';
-fin.className = 'fbc-fin-details hidden';
+fin.className = 'fbc-fin-details';
 
 fin.innerHTML = `
   <div class="fbc-fin-body" style="padding-top:16px">
 
     <p class="fbc-r-note" style="margin-bottom:16px">
       ${T(
-        'FBC berechnet die monatliche Belastung einer möglichen Finanzierung und prüft, ob sie aus der laufenden Liquidität getragen werden kann.',
-        'FBC рассчитывает ежемесячную нагрузку возможного финансирования и проверяет, может ли бизнес покрывать её из текущей ликвидности.'
+        'Finanzierung kann gezielt eingesetzt werden, um eine verbleibende Ziellücke oder einen vorübergehenden Liquiditätsbedarf zu überbrücken. Der Kredit bleibt getrennt vom operativen Ergebnis.',
+        'Финансирование можно использовать целенаправленно: чтобы перекрыть оставшийся разрыв до цели или временную потребность в ликвидности. Кредит остаётся отделённым от операционного результата.'
       )}
     </p>
 
     <div class="fbc-r-metric" style="margin-bottom:16px">
-      <span>${T(
-        'Geschätzter Liquiditätsbedarf',
-        'Расчётная потребность в ликвидности'
-      )}</span>
-
-      <strong>
-        <span id="fbcFinAmountDisplay">—</span>
-      </strong>
-
+      <span>${T('Verbleibende Ziellücke','Оставшийся разрыв до цели')}</span>
+      <strong><span id="fbcFinTargetGapDisplay">—</span></strong>
       <small>
         ${T(
-          'Dieser Betrag stammt aus dem bestätigten Umsetzungspfad und ist nicht mit der monatlichen Ziellücke gleichzusetzen.',
-          'Эта сумма рассчитана по подтверждённому пути внедрения и не равна месячному разрыву до цели.'
+          'Wenn das operative Ergebnis das Nettoziel noch nicht erreicht, kann dieser Betrag als Finanzierung zur Zielüberbrückung vorgeschlagen werden.',
+          'Если операционный результат ещё не достигает цели по нетто, эта сумма может быть предложена как финансирование для перекрытия разрыва до цели.'
         )}
       </small>
+    </div>
 
-      <input id="fbcFinAmount" type="hidden" value="0">
+    <div class="fbc-r-metric" style="margin-bottom:16px">
+      <span>${T('Liquiditätsbedarf während der Umsetzung','Потребность в ликвидности на этапе внедрения')}</span>
+      <strong><span id="fbcFinBridgeDisplay">—</span></strong>
+      <small>
+        ${T(
+          'Dieser Betrag entsteht nur aus einem zeitlich begrenzten Umsetzungspfad.',
+          'Эта сумма возникает только из временного периода внедрения.'
+        )}
+      </small>
     </div>
 
     <div class="fbc-fin-grid-simple">
+
+      <label class="fbc-fin-field">
+        <span>${T('Finanzierungsgrund','Цель финансирования')}</span>
+        <select id="fbcFinPurpose">
+          <option value="target_gap">${T('Ziellücke überbrücken','Перекрыть разрыв до цели')}</option>
+          <option value="liquidity_bridge">${T('Umsetzungsphase überbrücken','Перекрыть период внедрения')}</option>
+          <option value="custom">${T('Eigener Finanzierungsbetrag','Своя сумма финансирования')}</option>
+        </select>
+      </label>
+
+      <label class="fbc-fin-field">
+        <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
+        <div class="unit">
+          <input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0">
+          <b>€</b>
+        </div>
+        <small id="fbcFinAmountHint">
+          ${T(
+            'FBC schlägt den Betrag passend zum ausgewählten Finanzierungsgrund vor. Sie können ihn jederzeit ändern.',
+            'FBC предлагает сумму в соответствии с выбранной целью финансирования. Её можно изменить в любой момент.'
+          )}
+        </small>
+      </label>
 
       <label class="fbc-fin-field">
         <span>${T('Finanzierungsart','Тип финансирования')}</span>
@@ -5413,6 +5438,73 @@ if(interestStatBtn){
   interestStatBtn.addEventListener('click',()=>jumpToStat('interest'));
 }
 
+const financingAmountInput=$('fbcFinAmount');
+const financingPurposeInput=$('fbcFinPurpose');
+
+window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT = function(force=false){
+  const input=$('fbcFinAmount');
+  const purpose=$('fbcFinPurpose')?.value || 'custom';
+  if(!input) return;
+
+  const targetGap=Number(input.dataset.targetGap||0);
+  const bridgeNeed=Number(input.dataset.bridgeNeed||0);
+
+  if(!force && input.dataset.userEdited==='1') return;
+
+  let proposed=0;
+  if(purpose==='target_gap') proposed=targetGap;
+  if(purpose==='liquidity_bridge') proposed=bridgeNeed;
+
+  input.value=proposed>0 ? proposed.toFixed(2) : '';
+  input.dataset.userEdited='0';
+
+  const hint=$('fbcFinAmountHint');
+  if(hint){
+    if(purpose==='target_gap'){
+      hint.textContent=targetGap>0
+        ? T(
+            'Vorschlag: verbleibende Ziellücke überbrücken. Der Betrag kann angepasst werden.',
+            'Предложение: перекрыть оставшийся разрыв до цели. Сумму можно изменить.'
+          )
+        : T(
+            'Aktuell besteht keine verbleibende Ziellücke. Sie können einen eigenen Betrag eingeben.',
+            'Сейчас оставшегося разрыва до цели нет. Можно указать свою сумму.'
+          );
+    }else if(purpose==='liquidity_bridge'){
+      hint.textContent=bridgeNeed>0
+        ? T(
+            'Vorschlag: vorübergehenden Liquiditätsbedarf während der Umsetzung überbrücken.',
+            'Предложение: перекрыть временную потребность в ликвидности на этапе внедрения.'
+          )
+        : T(
+            'Aktuell wurde kein vorübergehender Liquiditätsbedarf berechnet.',
+            'Сейчас временная потребность в ликвидности не рассчитана.'
+          );
+    }else{
+      hint.textContent=T(
+        'Geben Sie den gewünschten Finanzierungsbetrag ein.',
+        'Введите желаемую сумму финансирования.'
+      );
+    }
+  }
+};
+
+if(financingAmountInput && !financingAmountInput.dataset.fbcBound){
+  financingAmountInput.dataset.fbcBound='1';
+  financingAmountInput.addEventListener('input',()=>{
+    financingAmountInput.dataset.userEdited='1';
+    if(financingPurposeInput) financingPurposeInput.value='custom';
+  });
+}
+
+if(financingPurposeInput && !financingPurposeInput.dataset.fbcBound){
+  financingPurposeInput.dataset.fbcBound='1';
+  financingPurposeInput.addEventListener('change',()=>{
+    if(financingAmountInput) financingAmountInput.dataset.userEdited='0';
+    window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT(true);
+  });
+}
+
 const financingRunBtn = $('fbcRunFinancing');
 if(financingRunBtn){
   financingRunBtn.addEventListener('click', async () => {
@@ -5422,9 +5514,10 @@ if(financingRunBtn){
 
     if(amount <= 0){
       alert(T(
-        'Es liegt derzeit kein berechneter Liquiditätsbedarf vor.',
-        'Сейчас расчётная потребность в ликвидности отсутствует.'
+        'Bitte geben Sie einen Finanzierungsbetrag größer als 0 € ein.',
+        'Введите сумму финансирования больше 0 €.'
       ));
+      $('fbcFinAmount')?.focus();
       return;
     }
 
@@ -6040,7 +6133,7 @@ const hasOptimizedDecision =
   const sh=get(p,'recommendation.explanation');
   const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
   const shapleySection=$('fbcShapleySection');
-  if(shapleySection) shapleySection.hidden = false;
+  if(shapleySection) shapleySection.hidden = !(sh?.available && contrib.length > 1);
   if(shbox){
     if(sh?.available && contrib.length > 1){
       const total=Number(sh.total_improvement_eur);
@@ -6130,42 +6223,82 @@ const hasOptimizedDecision =
     ? Math.max(0,remainingGapRaw)
     : (Number.isFinite(target)&&Number.isFinite(projected)?Math.max(0,target-projected):0);
   const bridgeNeedRaw=Number(get(p,'target_path.liquidity_bridge_need_eur'));
-  const financingNeed=Number.isFinite(bridgeNeedRaw) && bridgeNeedRaw>0
+  const liquidityBridgeNeed=Number.isFinite(bridgeNeedRaw) && bridgeNeedRaw>0
     ? bridgeNeedRaw
     : 0;
+
+  const targetGapFinancing=Number.isFinite(remainingGap) && remainingGap>0
+    ? remainingGap
+    : 0;
+
+  const financingNeed=
+    targetGapFinancing>0
+      ? targetGapFinancing
+      : liquidityBridgeNeed;
+
   const financingAllowedByDecision=payloadStatus!=='no_evidenced_lever';
   const finSection=$('fbcFinancingSection');
 
-  if($('fbcFinAmountDisplay')){
-    $('fbcFinAmountDisplay').textContent=financingNeed>0 ? money(financingNeed) : '—';
+  if($('fbcFinTargetGapDisplay')){
+    $('fbcFinTargetGapDisplay').textContent=money(targetGapFinancing);
+  }
+
+  if($('fbcFinBridgeDisplay')){
+    $('fbcFinBridgeDisplay').textContent=money(liquidityBridgeNeed);
   }
 
   if($('fbcFinAmount')){
-    $('fbcFinAmount').value=financingNeed>0 ? financingNeed.toFixed(2) : '0';
+    const amountInput=$('fbcFinAmount');
+    amountInput.dataset.targetGap=String(targetGapFinancing);
+    amountInput.dataset.bridgeNeed=String(liquidityBridgeNeed);
+
+    const purpose=$('fbcFinPurpose');
+    if(purpose && amountInput.dataset.userEdited!=='1'){
+      if(targetGapFinancing>0){
+        purpose.value='target_gap';
+      }else if(liquidityBridgeNeed>0){
+        purpose.value='liquidity_bridge';
+      }else{
+        purpose.value='custom';
+      }
+      window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT?.(true);
+    }
   }
 
   if(finSection){
-    const financingRelevant=finActive || (financingAllowedByDecision && financingNeed>0.01);
+    const financingRelevant=
+      finActive ||
+      (financingAllowedByDecision && (targetGapFinancing>0.01 || liquidityBridgeNeed>0.01));
     finSection.hidden=false;
 
     const financeCard=$('fbcFinanceCard');
     if(financeCard){
-      financeCard.classList.toggle('hidden',!financingRelevant);
+      financeCard.classList.remove('hidden');
     }
 
-    if(financingRelevant && $('fbcFinancingOpportunityText')){
+    if($('fbcFinancingOpportunityText')){
       if(finActive){
         $('fbcFinancingOpportunityText').textContent=T(
           'Die Finanzierung wurde separat vom operativen Ergebnis berechnet. Unten sehen Sie Belastung, Kosten und Kapitaldienstfähigkeit.',
           'Финансирование рассчитано отдельно от операционного результата. Ниже показаны нагрузка, расходы и способность обслуживать долг.'
         );
-      }else{
+      }else if(targetGapFinancing>0.01){
+        $('fbcFinancingOpportunityText').textContent=T(
+          `Nach den bestätigten operativen Änderungen verbleibt eine Ziellücke von ${money(targetGapFinancing)}. FBC schlägt diesen Betrag als Finanzierung zur Zielüberbrückung vor. Der Kredit wird separat vom operativen Ergebnis ausgewiesen und seine Rückzahlungsbelastung wird geprüft.`,
+          `После подтверждённых операционных изменений остаётся разрыв до цели ${money(targetGapFinancing)}. FBC предлагает эту сумму как финансирование для перекрытия разрыва до цели. Кредит показывается отдельно от операционного результата, а его платёжная нагрузка проверяется.`
+        );
+      }else if(liquidityBridgeNeed>0.01){
         const timing=Number.isFinite(implementationMonths)&&implementationMonths>0
           ? T(` Die bestätigte Umsetzung benötigt bis zu ${fmtNum(implementationMonths,0)} Monate.`,` Подтверждённое внедрение требует до ${fmtNum(implementationMonths,0)} мес.`)
           : '';
         $('fbcFinancingOpportunityText').textContent=T(
-          `Aus dem bestätigten Umsetzungspfad ergibt sich ein geschätzter Liquiditätsbedarf von ${money(financingNeed)}.${timing} Eine Finanzierung kann dafür separat berechnet werden.`,
-          `По подтверждённому пути внедрения расчётная потребность в ликвидности составляет ${money(financingNeed)}.${timing} Для этой суммы можно отдельно рассчитать финансирование.`
+          `Das Nettoziel wird operativ erreicht, aber bis zur vollständigen Umsetzung entsteht ein vorübergehender Liquiditätsbedarf von ${money(liquidityBridgeNeed)}.${timing} FBC schlägt diesen Betrag als Überbrückungsfinanzierung vor.`,
+          `Операционно цель по нетто достигается, но до полного внедрения возникает временная потребность в ликвидности ${money(liquidityBridgeNeed)}.${timing} FBC предлагает эту сумму как переходное финансирование.`
+        );
+      }else{
+        $('fbcFinancingOpportunityText').textContent=T(
+          'Aktuell besteht weder eine verbleibende Ziellücke noch ein berechneter vorübergehender Liquiditätsbedarf. Eine eigene Finanzierung kann trotzdem separat geprüft werden.',
+          'Сейчас нет ни оставшегося разрыва до цели, ни рассчитанной временной потребности в ликвидности. При необходимости можно отдельно проверить собственный вариант финансирования.'
         );
       }
     }
