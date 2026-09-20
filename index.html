@@ -6055,7 +6055,11 @@ function renderDecisionDetails(p){
   const target=Number(get(p,'current.monthly_target'));
   const projected=Number(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
   const payloadStatus=String(p?.status||'');
+const recommendationSection=$('fbcRecommendationSection');
 
+const hasOptimizedDecision =
+  payloadStatus !== 'no_evidenced_lever' &&
+  Array.isArray(changes);
   let targetReached=get(p,'recommendation.target_reached');
   if(typeof targetReached!=='boolean') targetReached=get(p,'target_path.target_reached_within_horizon');
   if(typeof targetReached!=='boolean'){
