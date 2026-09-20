@@ -4711,6 +4711,7 @@ layer.innerHTML=`
       class="fbc-r-primary"
       type="button"
       id="fbcRunAnalysis"
+      onclick="window.FBC_RUN_R_ANALYSIS && window.FBC_RUN_R_ANALYSIS('fbcRunAnalysis')"
     >
       ${T('R-Analyse starten','Запустить R-анализ')}
     </button>
@@ -5292,13 +5293,19 @@ layer.innerHTML=`
     });
   }
 
+const runAnalysisBtn=$('fbcRunAnalysis');
+if(runAnalysisBtn && !runAnalysisBtn.dataset.fbcBound){
+  runAnalysisBtn.dataset.fbcBound='1';
+  runAnalysisBtn.addEventListener('click',()=>{
+    console.log('FBC R click: main analysis');
+    runRAnalysis('fbcRunAnalysis');
+  });
+}
+
 document.addEventListener('click',e=>{
-  const btn=e.target.closest(
-    '#fbcRunAnalysis,#fbcRunEvidenceAnalysis'
-  );
-
+  const btn=e.target.closest('#fbcRunEvidenceAnalysis');
   if(!btn)return;
-
+  console.log('FBC R click: evidence analysis');
   runRAnalysis(btn.id);
 });
  const fin = document.createElement('div');
@@ -5447,6 +5454,7 @@ if(financingRunBtn){
   const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
 async function runRAnalysis(sourceId='fbcRunAnalysis'){
+  console.log('FBC runRAnalysis start', sourceId);
   const btn=$('fbcRunAnalysis');
   const evidenceBtn=$('fbcRunEvidenceAnalysis');
 
@@ -5547,6 +5555,7 @@ await window.FBC_R_BACKEND_ADAPTER.analyze({
 });
 
   }catch(e){
+    console.error('FBC R analysis ERROR:', e);
 
     $('fbcRStatus').textContent=
       T(
@@ -5592,6 +5601,8 @@ if(btn){
 }
 
 }
+
+window.FBC_RUN_R_ANALYSIS = runRAnalysis;
 
 function employeeCost(){
   try{const form=$('empForm')?.value||'part',w=num('empWage'),h=num('empHours'),d=num('empDays')||5,v=num('empVacation');const e=typeof employmentData==='function'?employmentData(form,w,h,0,0,d,v,0):null;return e||{total:0,workHours:0,rate:0,holidays:0}}catch(e){return{total:0,workHours:0,rate:0,holidays:0}}
@@ -6420,7 +6431,7 @@ if($('fbcRFazit') && $('fbcRFazitText')){
   return p
 }
 async function analyze(analysis={}){
-  const url=window.FBC_R_API_URL||'/api/analyze';
+  const url=window.FBC_R_API_URL||'http://127.0.0.1:8000/analyze';
   const req=buildConfig(analysis);
 
   const r=await fetch(url,{
