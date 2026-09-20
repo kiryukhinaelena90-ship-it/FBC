@@ -6084,7 +6084,7 @@ const hasOptimizedDecision =
     return fmtNum(n,2);
   };
 
-  if(box){
+  if(box && hasOptimizedDecision){
     const validChanges=Array.isArray(changes)?changes:[];
     const targetText=targetReached
       ? (Number.isFinite(timeToTarget)
