@@ -6244,7 +6244,9 @@ if(financeCard){
       }
     }
 
-    if($('fbcFinancingAction')) $('fbcFinancingAction').hidden=finActive;
+   if($('fbcFinancingAction')) {
+  $('fbcFinancingAction').hidden = true;
+}
 
 const debtBox=$('fbcRFinancingCheck');
 const finCurrent=get(p,'financing.current');
