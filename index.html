@@ -5656,6 +5656,31 @@ function invalidateRAnalysis(){
   }
 }
 function financing(){
+  document.getElementById('employee')?.addEventListener('input', event=>{
+  const el = event.target;
+
+  if(
+    el.closest('#fbcRLayer') ||
+    el.closest('#fbcFinanceCard')
+  ){
+    return;
+  }
+
+  invalidateRAnalysis();
+});
+
+document.getElementById('employee')?.addEventListener('change', event=>{
+  const el = event.target;
+
+  if(
+    el.closest('#fbcRLayer') ||
+    el.closest('#fbcFinanceCard')
+  ){
+    return;
+  }
+
+  invalidateRAnalysis();
+});
   const amount = num('fbcFinAmount');
   const active = fbcFinancingSelected && amount > 0;
 
