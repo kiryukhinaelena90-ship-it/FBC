@@ -5452,6 +5452,14 @@ ${T(
     input.classList.remove('is-suggestion');
   });
 });
+  const interestStatBtn=$('fbcFinInterestStat');
+
+if(interestStatBtn){
+  interestStatBtn.addEventListener(
+    'click',
+    ()=>jumpToStat('interest')
+  );
+}
 const financingSection = document.getElementById('fbcFinancingSection');
 const financingResult = document.getElementById('fbcRFinancingCheck');
 const financingRunBtn = $('fbcRunFinancing');
