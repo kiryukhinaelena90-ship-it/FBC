@@ -5519,8 +5519,8 @@ const openFinancingOption = () => {
   const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
   async function runRAnalysis(sourceId='fbcRunAnalysis'){
-  const btn=$('fbcRunAnalysis');
-  const evidenceBtn=$('fbcRunEvidenceAnalysis');
+const btn=$(sourceId);
+const evidenceBtn=$('fbcRunEvidenceAnalysis');
 
 const isEvidence =
   sourceId === 'fbcRunEvidenceAnalysis';
@@ -5636,21 +5636,33 @@ await window.FBC_R_BACKEND_ADAPTER.analyze({
       }
     }
 
-    if(btn){
-      btn.disabled=false;
-      btn.classList.remove('fbc-run-busy');
+if(btn){
+  btn.disabled=false;
+  btn.classList.remove('fbc-run-busy');
 
-      btn.textContent=
-        window.FBC_R_ANALYSIS_PAYLOAD
-          ? T(
-              'Analyse aktualisieren',
-              'Обновить анализ'
-            )
-          : T(
-              'R-Analyse starten',
-              'Запустить R-анализ'
-            );
-    }
+  if(isFinancing){
+    btn.textContent=T(
+      'Finanzierung berechnen',
+      'Рассчитать финансирование'
+    );
+  }else if(isEvidence){
+    btn.textContent=T(
+      'Mit diesen Grenzen neu berechnen',
+      'Считать заново с этими границами'
+    );
+  }else{
+    btn.textContent=
+      window.FBC_R_ANALYSIS_PAYLOAD
+        ? T(
+            'Analyse aktualisieren',
+            'Обновить анализ'
+          )
+        : T(
+            'R-Analyse starten',
+            'Запустить R-анализ'
+          );
+  }
+}
 
     if(evidenceBtn){
       evidenceBtn.disabled=false;
