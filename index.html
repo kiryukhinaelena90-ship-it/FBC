@@ -3757,7 +3757,26 @@ function setSoloPending(){zero(['#soloResPrice','#soloTotalCosts','#soloResCost'
 function setEmployeePending(){zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining','#companyRequiredRate','#empScenarioRemain']);$('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');$('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#companyRequiredRate').textContent=euro(0)+' / '+t('eigene Arbeitsstunde','рабочий час владельца');$('#companyVat').textContent=t('Bitte zuerst die erforderlichen Felder ausfüllen.','Сначала заполните необходимые поля.');$('#empScenarioPrice').disabled=true;$('#empScenarioPrice').value=0;$('#empScenarioPriceOut').textContent='0';$('#empWarning').classList.add('hidden');$('#empTargetGapMessage')?.classList.add('hidden');pendingCard('#empGross',true);pendingCard('#companyOwnerNeed',true)}
 function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness','#teamBurden','#teamTaxes','#teamRevenue','#teamRate','#teamScenarioRemain']);$('#teamOwnerBreakdown').textContent=euro(0);$('#teamTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#teamVat').textContent=t('Bitte zuerst mindestens eine Rolle ausfüllen.','Сначала заполните хотя бы одну роль.');$('#teamScenarioPrice').disabled=true;$('#teamScenarioPrice').value=0;$('#teamScenarioPriceOut').textContent='0';pendingCard('#teamGross',true)}
 
+function populateSelect(select,data){
+  if(!select)return;
 
+  const current=select.value;
+
+  select.innerHTML='';
+
+  Object.entries(data).forEach(([value,item])=>{
+    const option=document.createElement('option');
+    option.value=value;
+    option.textContent=label(item);
+    select.append(option);
+  });
+
+  if([...select.options].some(o=>o.value===current)){
+    select.value=current;
+  }else if(select.options.length){
+    select.selectedIndex=0;
+  }
+}
 function populateAllSelects(){
 
   populateSelect(
