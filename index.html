@@ -5522,8 +5522,11 @@ const openFinancingOption = () => {
   const btn=$('fbcRunAnalysis');
   const evidenceBtn=$('fbcRunEvidenceAnalysis');
 
-  const isEvidence =
-    sourceId === 'fbcRunEvidenceAnalysis';
+const isEvidence =
+  sourceId === 'fbcRunEvidenceAnalysis';
+
+const isFinancing =
+  sourceId === 'fbcRunFinancing';
 
   const progress = $(
     isEvidence
@@ -5603,7 +5606,7 @@ if($('fbcRFazitText')){
 
 const base=window.FBC_ANALYSIS_CONFIG||{};
 
-const evidence = isEvidence
+const evidence = (isEvidence || isFinancing)
   ? readDecisionEvidence()
   : {
       confirmed_bounds: {},
