@@ -5395,7 +5395,20 @@ fin.innerHTML = `
 </div>
   </div>
 `;
+['fbcFinRate','fbcFinMonths','fbcFinFees'].forEach(id=>{
+  const input=$(id);
+  if(!input)return;
 
+  input.addEventListener('focus',()=>{
+    if(input.classList.contains('is-suggestion')){
+      input.select();
+    }
+  });
+
+  input.addEventListener('input',()=>{
+    input.classList.remove('is-suggestion');
+  });
+});
 const financingSection = document.getElementById('fbcFinancingSection');
 const financingResult = document.getElementById('fbcRFinancingCheck');
 const financingRunBtn = $('fbcRunFinancing');
