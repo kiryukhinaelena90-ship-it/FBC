@@ -3758,8 +3758,37 @@ function setEmployeePending(){zero(['#empGross','#empAddons','#empWorkHour','#em
 function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness','#teamBurden','#teamTaxes','#teamRevenue','#teamRate','#teamScenarioRemain']);$('#teamOwnerBreakdown').textContent=euro(0);$('#teamTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#teamVat').textContent=t('Bitte zuerst mindestens eine Rolle ausfüllen.','Сначала заполните хотя бы одну роль.');$('#teamScenarioPrice').disabled=true;$('#teamScenarioPrice').value=0;$('#teamScenarioPriceOut').textContent='0';pendingCard('#teamGross',true)}
 
 
-function populateSelect(select,data){const current=select.value;select.innerHTML='';Object.entries(data).forEach(([value,item])=>{const option=document.createElement('option');option.value=value;option.textContent=label(item);select.append(option)});if([...select.options].some(o=>o.value===current))select.value=current}
-function populateAllSelects(){populateSelect($('#region'),Object.fromEntries(Object.entries(regions).map(([k,v])=>[k,{de:v[0],ru:v[0]}])));$$('.role-select').forEach(s=>populateSelect(s,roles));$$('.form-select').forEach(s=>populateSelect(s,forms))}
+function populateAllSelects(){
+
+  populateSelect(
+    $('#region'),
+    Object.fromEntries(
+      Object.entries(regions).map(([k,v])=>[
+        k,
+        {de:v[0],ru:v[0]}
+      ])
+    )
+  );
+
+  // Один сотрудник: без отдельной Leitung
+  const employeeRoles = Object.fromEntries(
+    Object.entries(roles).filter(([key])=>key!=='lead')
+  );
+
+  const empRole = $('#empRole');
+  if(empRole){
+    populateSelect(empRole,employeeRoles);
+  }
+
+  // Team: полный список, включая Leitung
+  $$('#teamRows .team-role').forEach(select=>{
+    populateSelect(select,roles);
+  });
+
+  $$('.form-select').forEach(select=>{
+    populateSelect(select,forms);
+  });
+}
 
 function translate(next){lang=next;document.documentElement.lang=next;$$('[data-de]').forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});$$('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));populateAllSelects();
   calculateAll();
