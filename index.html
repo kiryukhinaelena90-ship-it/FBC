@@ -5277,7 +5277,15 @@ layer.innerHTML=`
   </div>
 `;
   emp.appendChild(layer);
+document.addEventListener('click',e=>{
+  const btn=e.target.closest(
+    '#fbcRunAnalysis,#fbcRunEvidenceAnalysis'
+  );
 
+  if(!btn)return;
+
+  runRAnalysis(btn.id);
+});
  const fin = document.createElement('details');
 fin.id = 'fbcFinanceCard';
 fin.className = 'fbc-fin-details hidden';
@@ -5663,16 +5671,7 @@ if(btn){
   }
 }
   
-document.addEventListener('click',e=>{
-  const btn=e.target.closest(
-    '#fbcRunAnalysis,#fbcRunEvidenceAnalysis'
-  );
 
-  if(!btn)return;
-
-  runRAnalysis(btn.id);
-});
-}
 
 function employeeCost(){
   try{const form=$('empForm')?.value||'part',w=num('empWage'),h=num('empHours'),d=num('empDays')||5,v=num('empVacation');const e=typeof employmentData==='function'?employmentData(form,w,h,0,0,d,v,0):null;return e||{total:0,workHours:0,rate:0,holidays:0}}catch(e){return{total:0,workHours:0,rate:0,holidays:0}}
