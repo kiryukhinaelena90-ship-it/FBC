@@ -5446,15 +5446,6 @@ ${T(
 </div>
   </div>
 `;
-['fbcFinRate','fbcFinMonths','fbcFinFees'].forEach(id=>{
-  const input=$(id);
-  if(!input)return;
-
-  input.addEventListener('focus',()=>{
-    if(input.classList.contains('is-suggestion')){
-      input.select();
-    }
-  });
 
   input.addEventListener('input',()=>{
     input.classList.remove('is-suggestion');
