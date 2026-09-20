@@ -6192,7 +6192,9 @@ function renderDecisionDetails(p){
     Number(get(p,'recommendation.remaining_gap_eur')) ||
     (Number.isFinite(target)&&Number.isFinite(projected)?Math.max(0,target-projected):0);
 const financingNeed =
-  Number(get(p, 'target_path.liquidity_bridge_need_eur')) || 0;
+  Number.isFinite(remainingGap) && remainingGap > 0
+    ? remainingGap
+    : 0;
   const finSection=$('fbcFinancingSection');
 if ($('fbcFinAmountDisplay')) {
   $('fbcFinAmountDisplay').textContent =
