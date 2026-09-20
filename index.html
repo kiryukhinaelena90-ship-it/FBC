@@ -5640,30 +5640,17 @@ if(btn){
   btn.disabled=false;
   btn.classList.remove('fbc-run-busy');
 
-  if(isFinancing){
-    btn.textContent=T(
-      'Finanzierung berechnen',
-      'Рассчитать финансирование'
-    );
-  }else if(isEvidence){
-    btn.textContent=T(
-      'Mit diesen Grenzen neu berechnen',
-      'Считать заново с этими границами'
-    );
-  }else{
-    btn.textContent=
-      window.FBC_R_ANALYSIS_PAYLOAD
-        ? T(
-            'Analyse aktualisieren',
-            'Обновить анализ'
-          )
-        : T(
-            'R-Analyse starten',
-            'Запустить R-анализ'
-          );
-  }
+  btn.textContent=
+    window.FBC_R_ANALYSIS_PAYLOAD
+      ? T(
+          'Analyse aktualisieren',
+          'Обновить анализ'
+        )
+      : T(
+          'R-Analyse starten',
+          'Запустить R-анализ'
+        );
 }
-
     if(evidenceBtn){
       evidenceBtn.disabled=false;
       evidenceBtn.classList.remove('fbc-run-busy');
