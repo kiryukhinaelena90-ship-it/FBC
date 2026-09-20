@@ -5518,9 +5518,9 @@ const openFinancingOption = () => {
 
   const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
-  async function runRAnalysis(sourceId='fbcRunAnalysis'){
-const btn=$(sourceId);
-const evidenceBtn=$('fbcRunEvidenceAnalysis');
+async function runRAnalysis(sourceId='fbcRunAnalysis'){
+  const btn=$('fbcRunAnalysis');
+  const evidenceBtn=$('fbcRunEvidenceAnalysis');
 
 const isEvidence =
   sourceId === 'fbcRunEvidenceAnalysis';
