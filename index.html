@@ -5004,7 +5004,6 @@ layer.innerHTML=`
   <section
   class="fbc-analysis-section"
   id="fbcRecommendationSection"
-  hidden
 >
     <div class="fbc-analysis-heading">
       <div>
@@ -5976,6 +5975,7 @@ function renderDecisionDetails(p){
   const projected=Number(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
   const payloadStatus=String(p?.status||'');
 const recommendationSection=$('fbcRecommendationSection');
+if(recommendationSection) recommendationSection.hidden=false;
 
 const hasOptimizedDecision =
   payloadStatus !== 'no_evidenced_lever' &&
@@ -6003,6 +6003,14 @@ const hasOptimizedDecision =
     if(String(unit||'').includes('h'))return fmtNum(n,1);
     return fmtNum(n,2);
   };
+
+  if(box && !hasOptimizedDecision){
+    box.hidden=false;
+    box.innerHTML=`<div class="fbc-r-note">${T(
+      'Noch keine optimierte Kombination berechnet. Bestätigen Sie zuerst realistische Handlungsspielräume und berechnen Sie anschließend neu.',
+      'Оптимизированная комбинация ещё не рассчитана. Сначала подтвердите реалистичные диапазоны изменений, затем пересчитайте.'
+    )}</div>`;
+  }
 
   if(box && hasOptimizedDecision){
     const validChanges=Array.isArray(changes)?changes:[];
@@ -6044,9 +6052,15 @@ const hasOptimizedDecision =
   const sh=get(p,'recommendation.explanation');
   const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
   const shapleySection=$('fbcShapleySection');
-  if(shapleySection) shapleySection.hidden = !(sh?.available && contrib.length > 1);
+  if(shapleySection) shapleySection.hidden=false;
   if(shbox){
-    if(sh?.available && contrib.length > 1){
+    if(!(sh?.available && contrib.length > 1)){
+      shbox.hidden=false;
+      shbox.innerHTML=`<div class="fbc-r-note">${T(
+        'Shapley wird angezeigt, sobald die gewählte Empfehlung aus mehreren wirksamen Hebeln besteht.',
+        'Shapley появится, когда выбранная рекомендация будет состоять из нескольких реально влияющих факторов.'
+      )}</div>`;
+    } else {
       const total=Number(sh.total_improvement_eur);
       shbox.hidden=false;
       shbox.innerHTML=`
@@ -6065,9 +6079,6 @@ const hasOptimizedDecision =
         }).join('')}
         ${typeof sh.sentence==='string'&&sh.sentence?`<div class="fbc-r-note">${esc(sh.sentence)}</div>`:''}
       `;
-    }else{
-      shbox.hidden=true;
-      shbox.innerHTML='';
     }
   }
 
@@ -6150,26 +6161,31 @@ const hasOptimizedDecision =
 
   if(finSection){
     const financingRelevant=finActive || (financingAllowedByDecision && financingNeed>0.01);
-    finSection.hidden=!financingRelevant;
+    finSection.hidden=false;
 
     const financeCard=$('fbcFinanceCard');
     if(financeCard){
       financeCard.classList.toggle('hidden',!financingRelevant);
     }
 
-    if(financingRelevant && $('fbcFinancingOpportunityText')){
+    if($('fbcFinancingOpportunityText')){
       if(finActive){
         $('fbcFinancingOpportunityText').textContent=T(
           'Die Finanzierung wurde separat vom operativen Ergebnis berechnet. Unten sehen Sie Belastung, Kosten und Kapitaldienstfähigkeit.',
           'Финансирование рассчитано отдельно от операционного результата. Ниже показаны нагрузка, расходы и способность обслуживать долг.'
         );
-      }else{
+      }else if(financingNeed>0.01){
         const timing=Number.isFinite(implementationMonths)&&implementationMonths>0
           ? T(` Die bestätigte Umsetzung benötigt bis zu ${fmtNum(implementationMonths,0)} Monate.`,` Подтверждённое внедрение требует до ${fmtNum(implementationMonths,0)} мес.`)
           : '';
         $('fbcFinancingOpportunityText').textContent=T(
           `Aus dem bestätigten Umsetzungspfad ergibt sich ein geschätzter Liquiditätsbedarf von ${money(financingNeed)}.${timing} Eine Finanzierung kann dafür separat berechnet werden.`,
           `По подтверждённому пути внедрения расчётная потребность в ликвидности составляет ${money(financingNeed)}.${timing} Для этой суммы можно отдельно рассчитать финансирование.`
+        );
+      }else{
+        $('fbcFinancingOpportunityText').textContent=T(
+          'Aktuell besteht entlang des bestätigten Umsetzungspfads kein vorübergehender Liquiditätsbedarf. Deshalb ist derzeit keine Finanzierung erforderlich.',
+          'По подтверждённому пути внедрения сейчас нет временной потребности в ликвидности. Поэтому финансирование в данный момент не требуется.'
         );
       }
     }
