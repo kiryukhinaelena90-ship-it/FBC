@@ -6213,7 +6213,15 @@ if ($('fbcFinAmount')) {
       (Number.isFinite(implementationMonths) && implementationMonths>0);
 
     finSection.hidden=!financingRelevant;
+const financeCard=$('fbcFinanceCard');
 
+if(financeCard){
+  financeCard.classList.toggle('hidden', !financingRelevant);
+
+  if(financingRelevant){
+    financeCard.open = true;
+  }
+}
     if(financingRelevant && $('fbcFinancingOpportunityText')){
       if(finActive){
         $('fbcFinancingOpportunityText').textContent=T(
