@@ -2187,17 +2187,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-pdfbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;padding:12px 0;border-top:1px solid #e3e8ee;border-bottom:1px solid #e3e8ee}.fbc-pdfbar small{color:#687684}.fbc-pdfbar button{border:0;border-radius:8px;padding:10px 14px;background:#1e3450;color:#fff;font-weight:750}
 .fbc-r-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.fbc-r-title-row h2{margin-bottom:0}.fbc-r-title-row .fbc-r-primary{border:0;border-radius:8px;padding:10px 14px;font-weight:750;cursor:pointer;background:#1e3450;color:#fff;white-space:nowrap}@media(max-width:700px){.fbc-r-title-row{align-items:flex-start}.fbc-r-title-row .fbc-r-primary{width:100%}}
 @media(max-width:760px){.fbc-r-grid,.fbc-fin-grid,.fbc-stat-grid{grid-template-columns:1fr}.fbc-pdfbar{align-items:flex-start;flex-direction:column}.fbc-r-metric strong{font-size:18px}}
-
-/* FBC Fazit · decision summary */
-.fbc-fazit-summary{margin-top:14px;padding:20px 22px;border:1px solid #d8e2ea;border-left:4px solid #284e6d;border-radius:14px;background:#f7fafc}
-.fbc-fazit-status{font-size:24px;line-height:1.2;font-weight:650;letter-spacing:-.02em;color:#22384b;margin-bottom:14px}
-.fbc-fazit-list{display:grid}
-.fbc-fazit-row{display:grid;grid-template-columns:minmax(120px,170px) minmax(0,1fr);gap:18px;padding:13px 0;border-top:1px solid #dfe7ed}
-.fbc-fazit-row:first-child{border-top:0;padding-top:4px}
-.fbc-fazit-label{font-size:11px;line-height:1.35;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:#607486}
-.fbc-fazit-value{font-size:16px;line-height:1.58;color:#2c3d4b}
-.fbc-fazit-row.is-warning .fbc-fazit-label,.fbc-fazit-row.is-warning .fbc-fazit-value{color:#8a5148}
-@media(max-width:650px){.fbc-fazit-summary{padding:17px 16px}.fbc-fazit-status{font-size:21px}.fbc-fazit-row{grid-template-columns:1fr;gap:4px;padding:12px 0}.fbc-fazit-value{font-size:15px}}
 .fbc-fin-grid-simple{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -2981,15 +2970,15 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
     <div id="empBillableHoursBox" class="employee-billable-hours-box">
       <div class="employee-billable-hours-copy">
-        <span data-de="Abrechenbare Mitarbeiterstunden für Kunden / Monat" data-ru="Оплачиваемые клиентом/клиентами часы сотрудника / месяц">Abrechenbare Mitarbeiterstunden für Kunden / Monat</span>
-        <small data-de="Summe der Stunden, die einem oder mehreren Kunden berechnet werden." data-ru="Сумма часов сотрудника, которые выставляются одному или нескольким клиентам.">Summe der Stunden, die einem oder mehreren Kunden berechnet werden.</small>
+        <span data-de="Abrechenbare Kundenstunden / Monat" data-ru="Оплачиваемые клиентом часы / месяц">Abrechenbare Kundenstunden / Monat</span>
+        <small data-de="Abrechenbare Stunden sind ein kommerzieller Wert und können von der tatsächlichen Arbeitszeit abweichen." data-ru="Оплачиваемые клиентом часы — коммерческий показатель и могут отличаться от фактического рабочего времени.">Abrechenbare Stunden sind ein kommerzieller Wert und können von der tatsächlichen Arbeitszeit abweichen.</small>
         <small class="employee-capacity-reference">
           <span data-de="Arbeitskapazität Mitarbeiter:" data-ru="Рабочая мощность сотрудника:">Arbeitskapazität Mitarbeiter:</span>
           <strong id="empCapacityHours">—</strong>
         </small>
       </div>
       <label class="field employee-billable-hours-input">
-        <span data-de="Abrechenbare Stunden" data-ru="Оплачиваемые клиентом/клиентами часы">Abrechenbare Stunden</span>
+        <span data-de="An Kunden berechnete Stunden" data-ru="Часы, выставляемые клиенту">An Kunden berechnete Stunden</span>
         <div class="unit unit-inside">
           <input id="empBillableHoursMonth" type="number" min="0" step="0.1" placeholder="0">
           <b>h</b>
@@ -3897,13 +3886,13 @@ function ownerModeMarkup(p){
   </label>
 
   <label class="field fbc-owner-billable-inline">
-    <span data-de="Abrechenbare Stunden für Kunden / Monat" data-ru="Оплачиваемые клиентом/клиентами часы / месяц">
-      Abrechenbare Stunden für Kunden / Monat
+    <span data-de="Tatsächlich abrechenbare Stunden / Monat" data-ru="Фактически оплачиваемые клиентом часы / месяц">
+      Tatsächlich abrechenbare Stunden / Monat
     </span>
     <input id="${p}OwnerBillableHours" type="number" min="0" step="0.1" placeholder="0">
-    <small data-de="Summe der Stunden, die einem oder mehreren Kunden berechnet werden."
-           data-ru="Сумма часов, которые выставляются одному или нескольким клиентам.">
-      Summe der Stunden, die einem oder mehreren Kunden berechnet werden.
+    <small data-de="Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage."
+           data-ru="Только фактически проданные клиентам часы; свободная мощность не означает спрос.">
+      Nur tatsächlich an Kunden verkaufte Stunden; freie Kapazität ist keine Nachfrage.
     </small>
   </label>
 </div>
@@ -4122,7 +4111,7 @@ function updateEmployee(){
   const miniInvalid=formKey==='mini'&&emp.gross>MINIJOB_LIMIT;$('#empHours').classList.toggle('input-error',miniInvalid);$('#empWage').classList.toggle('input-error',wage>0&&wage<MIN_WAGE&&!external);
   const contributionCard=$('#empContributionCard'),contributionLabel=$('#empContributionLabel');
   $('#empResultTitle').textContent=`${label(roles[role])} · ${label(emp.form)}`;$('#empGross').textContent=euro(emp.gross);$('#empAddons').textContent=euro(emp.addons);$('#empTotal').textContent=euro(emp.total);$('#empWorkHour').textContent=euro(emp.workHour);$('#empRevenueCard').classList.toggle('hidden',!billable);contributionCard.classList.toggle('hidden',!billable);contributionCard.classList.toggle('highlight',billable);contributionCard.classList.toggle('negative-result',billable&&emp.contribution<0);
-  if(billable){$('#empRevenue').textContent=euro(emp.revenue);$('#empContribution').textContent=euro(Math.abs(emp.contribution));contributionLabel.textContent=emp.contribution<0?t('Ungedeckte Mitarbeiterkosten','Непокрытые расходы на сотрудника'):t('Deckungsbeitrag zum Betrieb','Вклад в покрытие расходов бизнеса');$('#empContributionNote').textContent=t(`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} abrechenbare Kundenstunden = ${euro(emp.revenue)} Kundenumsatz. Kostenorientierter Satz: ${euro(recommended)} / Std. netto.`,`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} оплачиваемых клиентом/клиентами часов = ${euro(emp.revenue)} клиентской выручки. Ставка покрытия затрат: ${euro(recommended)} / ч без НДС.`)}else{$('#empContributionNote').textContent=t(`Interne Rolle: kein eigener Kundenumsatz. Die Personalkosten von ${euro(emp.total)} erscheinen deshalb nur einmal.`,`Внутренняя роль: собственной клиентской выручки нет. Поэтому расходы на сотрудника ${euro(emp.total)} показаны только один раз.`)}
+  if(billable){$('#empRevenue').textContent=euro(emp.revenue);$('#empContribution').textContent=euro(Math.abs(emp.contribution));contributionLabel.textContent=emp.contribution<0?t('Ungedeckte Mitarbeiterkosten','Непокрытые расходы на сотрудника'):t('Deckungsbeitrag zum Betrieb','Вклад в покрытие расходов бизнеса');$('#empContributionNote').textContent=t(`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} tatsächlich abrechenbare Kundenstunden = ${euro(emp.revenue)} Kundenumsatz. Kostenorientierter Satz: ${euro(recommended)} / Std. netto.`,`${euro(customerPrice)} × ${emp.billableHours.toFixed(1)} фактически оплачиваемых клиентом часов = ${euro(emp.revenue)} клиентской выручки. Ставка покрытия затрат: ${euro(recommended)} / ч без НДС.`)}else{$('#empContributionNote').textContent=t(`Interne Rolle: kein eigener Kundenumsatz. Die Personalkosten von ${euro(emp.total)} erscheinen deshalb nur einmal.`,`Внутренняя роль: собственной клиентской выручки нет. Поэтому расходы на сотрудника ${euro(emp.total)} показаны только один раз.`)}
   updateCompany(emp,owner);
 }
 function updateCompany(emp,owner){
@@ -5057,21 +5046,24 @@ layer.innerHTML=`
 
   <!-- 6. FINANZIERUNG / LIQUIDITÄT -->
 
-  <section class="fbc-analysis-section" id="fbcFinancingSection" hidden>
+  <section class="fbc-analysis-section" id="fbcFinancingSection">
     <div class="fbc-analysis-heading">
       <div>
-<h3>${T('Finanzierung als zusätzliche Option','Финансирование как дополнительная возможность')}</h3>
-<p>
-  ${T(
-    'Wenn nach der operativen Optimierung noch eine Finanzierung sinnvoll ist, prüft FBC hier Betrag, monatliche Belastung und Tragfähigkeit. Der Kredit selbst ist kein operativer Gewinn.',
-    'Если после операционной оптимизации финансирование остаётся целесообразным, FBC проверяет здесь сумму, ежемесячную нагрузку и способность бизнеса обслуживать кредит. Сам кредит не является операционной прибылью.'
-  )}
-</p>
+        <h3>${T('Liquidität während der Umsetzung','Ликвидность на этапе внедрения')}</h3>
+        <p>
+          ${T(
+            'FBC zeigt hier nur einen tatsächlich aus dem bestätigten Umsetzungspfad berechneten Liquiditätsbedarf. Eine Finanzierung bleibt eine separate Option und kein operativer Gewinnhebel.',
+            'Здесь FBC показывает только фактическую потребность в ликвидности, рассчитанную по подтверждённому пути внедрения. Финансирование остаётся отдельной опцией и не является операционным источником прибыли.'
+          )}
+        </p>
       </div>
       <span class="fbc-step-badge">6</span>
     </div>
 
-
+    <div class="fbc-r-detailbox" id="fbcFinancingOpportunityBox">
+      <div class="fbc-r-detail-title">${T('Einordnung','Оценка')}</div>
+      <div class="fbc-r-note" id="fbcFinancingOpportunityText"></div>
+    </div>
 
 <div class="fbc-financing-check" id="fbcRFinancingCheck" hidden>
 
@@ -5161,18 +5153,13 @@ layer.innerHTML=`
     <div class="fbc-analysis-heading">
       <div>
         <h3>${T('FBC Fazit','Вывод FBC')}</h3>
-        <p>${T(
-  'Zusammenfassung der Entscheidung und Risikoprüfung.',
-  'Итог решения и проверки рисков.'
-)}</p>
+        <p>${T('Zusammenfassung von Entscheidung, Finanzierung und Risikoprüfung.','Итог решения, финансирования и проверки рисков.')}</p>
       </div>
       <span class="fbc-step-badge">8</span>
     </div>
 
-    <div class="fbc-fazit-summary" id="fbcRFazit" hidden>
-      <div class="fbc-fazit-status" id="fbcRFazitStatus">—</div>
-      <div class="fbc-fazit-list" id="fbcRFazitList"></div>
-      <div class="fbc-r-note" id="fbcRFazitText" hidden></div>
+    <div class="fbc-r-detailbox" id="fbcRFazit" hidden>
+      <div class="fbc-r-note" id="fbcRFazitText"></div>
     </div>
   </section>
 
@@ -5541,12 +5528,6 @@ if($('fbcRMonteCarlo')){
 if($('fbcRFazitText')){
   $('fbcRFazitText').textContent = '';
 }
-if($('fbcRFazitStatus')){
-  $('fbcRFazitStatus').textContent = '—';
-}
-if($('fbcRFazitList')){
-  $('fbcRFazitList').innerHTML = '';
-}
   try{
     if(progress){
       progress.classList.add('is-active');
@@ -5667,10 +5648,6 @@ function invalidateRAnalysis(){
 
   fbcFinancingSelected = false;
 
-  if($('fbcFinancingSection')){
-    $('fbcFinancingSection').hidden = true;
-  }
-
   if($('fbcRStatus')){
     $('fbcRStatus').textContent =
       T(
@@ -5751,6 +5728,10 @@ if(direct && bill <= 0){
     )
   );
 }
+  if(o.billable_hours_month > o.available_hours_month + 1e-9){
+    errors.push('owner_billable_exceeds_available');
+  }
+
   const ownerRevenue=
     o.price * o.billable_hours_month;
 
@@ -6397,19 +6378,6 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
-const remainingGapForFinancing = Number(
-  get(p,'recommendation.remaining_gap_eur')
-);
-
-const financingSection = $('fbcFinancingSection');
-
-if(financingSection){
-  const financingNeeded =
-    Number.isFinite(remainingGapForFinancing) &&
-    remainingGapForFinancing > 0;
-
-  financingSection.hidden = !financingNeeded;
-}
 const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
 const mcReason =
@@ -6609,67 +6577,8 @@ const finalFazit =
     .filter(Boolean)
     .join(' ');
 
-  const fazitBox=$('fbcRFazit');
-  const fazitStatus=$('fbcRFazitStatus');
-  const fazitList=$('fbcRFazitList');
-  const legacyFazit=$('fbcRFazitText');
-
-  if(legacyFazit){
-    legacyFazit.textContent=finalFazit;
-  }
-
-  if(fazitBox && fazitStatus && fazitList){
-    const remainingGap=Number(get(p,'recommendation.remaining_gap_eur'));
-    const targetReached=Number.isFinite(remainingGap) ? remainingGap<=0 : false;
-
-    fazitStatus.textContent = Number.isFinite(remainingGap)
-      ? (targetReached
-          ? T('Nettoziel erreicht','Цель по нетто достигнута')
-          : T(
-              `Zum Nettoziel fehlen noch ${money(remainingGap)}.`,
-              `До цели по нетто не хватает ${money(remainingGap)}.`
-            ))
-      : T('FBC Entscheidung im Überblick','Итоговое решение FBC');
-
-    const rows=[];
-    if(baseFazit){
-      rows.push({
-        label:T('Entscheidung','Решение'),
-        value:baseFazit,
-        warning:false
-      });
-    }
-    if(financingFazit){
-      rows.push({
-        label:T('Finanzierung','Финансирование'),
-        value:financingFazit,
-        warning:false
-      });
-    }
-    if(fbcRiskSummary){
-      rows.push({
-        label:T('Risikoprüfung','Проверка рисков'),
-        value:fbcRiskSummary,
-        warning:false
-      });
-    }
-    if(breakEvenWarning){
-      rows.push({
-        label:T('Hinweis','Внимание'),
-        value:breakEvenWarning,
-        warning:true
-      });
-    }
-
-    fazitList.innerHTML=rows.map(row=>`
-      <div class="fbc-fazit-row${row.warning?' is-warning':''}">
-        <div class="fbc-fazit-label">${esc(row.label)}</div>
-        <div class="fbc-fazit-value">${esc(row.value)}</div>
-      </div>
-    `).join('');
-
-    fazitBox.hidden = rows.length===0;
-  }
+  $('fbcRFazit').hidden = !finalFazit;
+  $('fbcRFazitText').textContent = finalFazit;
 }
 
   const businessBEEl=$('fbcRBusinessBE');
