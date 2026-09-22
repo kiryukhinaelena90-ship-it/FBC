@@ -6492,10 +6492,64 @@ if($('fbcRFazit') && $('fbcRFazitText')){
       )
     : '';
 
-  const finalFazit =
-    [baseFazit, breakEvenWarning]
-      .filter(Boolean)
-      .join(' ');
+const finActiveFazit=Boolean(get(p,'financing.active'));
+
+const finAmountFazit=Number(
+  get(p,'financing.current.amount') ??
+  get(p,'financing.amount')
+);
+
+const finPaymentFazit=Number(
+  get(p,'financing.current.max_month_cash_service') ??
+  get(p,'financing.current.first_month_cash_service')
+);
+
+const finDscrFazit=Number(
+  get(p,'post_decision.capital_service_ratio') ??
+  get(p,'financing.current.min_capital_service_ratio') ??
+  get(p,'financing.dscr')
+);
+
+let financingFazit='';
+
+if(finActiveFazit && Number.isFinite(finAmountFazit) && finAmountFazit>0){
+
+  const paymentPart=
+    Number.isFinite(finPaymentFazit)
+      ? T(
+          ` Die monatliche Kreditbelastung beträgt bis zu ${money(finPaymentFazit)}.`,
+          ` Ежемесячная кредитная нагрузка составляет до ${money(finPaymentFazit)}.`
+        )
+      : '';
+
+  const coveragePart=
+    !Number.isFinite(finDscrFazit)
+      ? ''
+      : finDscrFazit>=1.2
+        ? T(
+            ' Die Kreditrate ist gedeckt und es besteht ein zusätzlicher finanzieller Puffer.',
+            ' Кредитный платёж покрывается, и имеется дополнительный финансовый запас.'
+          )
+        : finDscrFazit>=1
+          ? T(
+              ' Die Kreditrate ist gedeckt, der finanzielle Puffer ist jedoch gering.',
+              ' Кредитный платёж покрывается, но финансовый запас небольшой.'
+            )
+          : T(
+              ' Die Kreditrate ist durch die aktuell verfügbaren Mittel nicht vollständig gedeckt.',
+              ' Кредитный платёж не полностью покрывается текущими доступными средствами.'
+            );
+
+  financingFazit=T(
+    `Zusätzlich wurde eine Finanzierung von ${money(finAmountFazit)} für den gewählten Finanzierungszweck geprüft.${paymentPart}${coveragePart}`,
+    `Дополнительно рассчитано финансирование в размере ${money(finAmountFazit)} для выбранной цели.${paymentPart}${coveragePart}`
+  );
+}
+
+const finalFazit =
+  [baseFazit, financingFazit, fbcRiskSummary, breakEvenWarning]
+    .filter(Boolean)
+    .join(' ');
 
   $('fbcRFazit').hidden = !finalFazit;
   $('fbcRFazitText').textContent = finalFazit;
