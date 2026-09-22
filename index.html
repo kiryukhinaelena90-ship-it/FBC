@@ -4436,10 +4436,15 @@ document.addEventListener('input',event=>{
   const input=event.target;
   if(!(input instanceof HTMLInputElement))return;
   if(input.type==='range'||input.type==='checkbox')return;
+
   configureValidation();
+
   if(!validateInput(input)){
     event.stopImmediatePropagation();
+    return;
   }
+
+  calculateAll();
 },true);
 document.addEventListener('change',event=>{
   const input=event.target;
@@ -4814,7 +4819,7 @@ layer.innerHTML=`
       <div class="fbc-analysis-progress-fill"></div>
     </div>
     <small class="fbc-analysis-progress-text">
-      ${T('Analyse wird berechnet …','Выполняется расчёт …')}
+      ${T('Aktueller Stand wird analysiert …','Анализируется текущее состояние …')}
     </small>
   </div>
 
@@ -5537,19 +5542,23 @@ if($('fbcRFazitList')){
     if(btn){
       btn.disabled=true;
       btn.classList.add('fbc-run-busy');
-      btn.textContent=T(
-        'Analyse läuft…',
-        'Анализ выполняется…'
-      );
+      if(!isEvidence && !isFinancing){
+        btn.textContent=T(
+          'Aktueller Stand wird analysiert…',
+          'Анализируется текущее состояние…'
+        );
+      }
     }
 
     if(evidenceBtn){
       evidenceBtn.disabled=true;
       evidenceBtn.classList.add('fbc-run-busy');
-      evidenceBtn.textContent=T(
-        'Analyse läuft…',
-        'Анализ выполняется…'
-      );
+      if(isEvidence){
+        evidenceBtn.textContent=T(
+          'Optimierung wird berechnet…',
+          'Рассчитывается оптимизация…'
+        );
+      }
     }
 
     const financingBtn=$('fbcRunFinancing');
@@ -5560,15 +5569,20 @@ if($('fbcRFazitList')){
     }
 
     $('fbcRStatus').textContent =
-      isEvidence
+      isFinancing
         ? T(
-            'R prüft die bestätigten Grenzen…',
-            'R проверяет подтверждённые границы…'
+            'R prüft die Finanzierung und Kapitaldienstfähigkeit…',
+            'R проверяет финансирование и способность обслуживать долг…'
           )
-        : T(
-            'R berechnet die Entscheidung…',
-            'R рассчитывает решение…'
-          );
+        : isEvidence
+          ? T(
+              'R berechnet die beste zulässige Kombination…',
+              'R рассчитывает лучшую допустимую комбинацию…'
+            )
+          : T(
+              'R analysiert den aktuellen Stand und die Einflussfaktoren…',
+              'R анализирует текущее состояние и факторы влияния…'
+            );
 
 const base=window.FBC_ANALYSIS_CONFIG||{};
 
@@ -5629,10 +5643,15 @@ if(btn){
       evidenceBtn.disabled=false;
       evidenceBtn.classList.remove('fbc-run-busy');
 
-      evidenceBtn.textContent=T(
-        'Mit diesen Grenzen neu berechnen',
-        'Считать заново с этими границами'
-      );
+      evidenceBtn.textContent = isEvidence
+        ? T(
+            'Mit diesen Grenzen neu berechnen',
+            'Пересчитать с этими границами'
+          )
+        : T(
+            'Handlungsspielräume auswerten',
+            'Оценить реальные рамки изменений'
+          );
     }
   }
 }
@@ -6634,16 +6653,20 @@ async function analyze(analysis={}){
     body:JSON.stringify(req)
   });
 
-  const data=await r.json().catch(()=>null);
+const raw=await r.text();
+let data=null;
+try{ data=raw ? JSON.parse(raw) : null; }catch(e){ data=null; }
 
-  if(!r.ok){
-    throw new Error(
-      data?.message ||
-      data?.upstream?.message ||
-      data?.upstream?.error ||
-      data?.error ||
-      ('HTTP '+r.status)
-    );
+if(!r.ok){
+  console.error('FBC R backend response:', raw);
+throw new Error(
+  data?.message ||
+  data?.upstream?.message ||
+  data?.upstream?.error ||
+  data?.error ||
+  raw ||
+  ('HTTP '+r.status)
+);
   }
 
   return applyPayload(data);
