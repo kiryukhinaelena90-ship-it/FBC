@@ -3812,6 +3812,7 @@ function populateAllSelects(){
 function translate(next){lang=next;document.documentElement.lang=next;$$('[data-de]').forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});$$('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));populateAllSelects();
   calculateAll();
   validateAllVisible();
+  document.dispatchEvent(new CustomEvent('fbc:language-changed',{detail:{lang:next}}));
 }
 
 function monthlyCostSum(){return $$('.monthly-cost').reduce((sum,input)=>sum+(Number(input.value)||0),0)}
@@ -5121,98 +5122,29 @@ layer.innerHTML=`
 
   <!-- 7. ROBUSTHEIT -->
 
-  <section class="fbc-analysis-section">
-    <div class="fbc-analysis-heading">
-      <div>
-        <h3>${T('Robustheit der Entscheidung','Устойчивость решения')}</h3>
-        <p>
-          ${T(
-            'Monte Carlo prüft die bereits ausgewählte Entscheidung unter möglichen Schwankungen. Die Entscheidung wird dabei nicht neu optimiert.',
-            'Monte Carlo проверяет уже выбранное решение при возможных колебаниях. Само решение при этом заново не оптимизируется.'
-          )}
-        </p>
-      </div>
-      <span class="fbc-step-badge">7</span>
+  <!-- 7. RISIKOPRÜFUNG -->
+
+<section class="fbc-analysis-section">
+  <div class="fbc-analysis-heading">
+    <div>
+      <h3>${T('Risikoprüfung','Проверка рисков')}</h3>
+      <p>
+        ${T(
+          'FBC nutzt eine Monte-Carlo-Simulation intern, um zu prüfen, wie empfindlich die gewählte Lösung auf mögliche Kostenentwicklungen reagiert.',
+          'FBC использует модель Монте-Карло внутри расчёта, чтобы проверить, насколько выбранное решение чувствительно к возможным изменениям затрат.'
+        )}
+      </p>
     </div>
-
-<div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
-
-  <div class="fbc-r-detail-title">
-    ${T(
-      'Wie stabil ist das erwartete Monatsnetto?',
-      'Насколько устойчив ожидаемый месячный результат?'
-    )}
+    <span class="fbc-step-badge">7</span>
   </div>
 
-  <p class="fbc-r-note">
-    ${T(
-      'FBC prüft Ihre gewählte Entscheidung unter vielen möglichen Entwicklungen von Energie-, Kraftstoff- und Personalkosten. Eine aktive Finanzierung wird mit den eingegebenen Konditionen im Ergebnis berücksichtigt.',
-      'FBC проверяет выбранное решение при множестве возможных изменений затрат на энергию, топливо и персонал. Активное финансирование учитывается в результате на введённых условиях.'
-    )}
-  </p>
-
-  <div class="fbc-mc-result-list">
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Chance, das Nettoziel zu erreichen',
-          'Шанс достичь цели по нетто'
-        )}</strong>
-        <small>${T(
-          'Anteil der geprüften Entwicklungen, in denen Ihr Ziel erreicht oder überschritten wird.',
-          'Доля проверенных сценариев, в которых цель достигается или превышается.'
-        )}</small>
-      </div>
-      <b id="fbcMCProbability">—</b>
+  <div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
+    <div class="fbc-r-detail-title">
+      ${T('Mathematische Risikoprüfung','Математическая проверка рисков')}
     </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Unterer Prognosewert',
-          'Нижний прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'In etwa 10 % der geprüften Entwicklungen liegt das Monatsnetto unter diesem Wert.',
-          'Примерно в 10 % проверенных сценариев месячное нетто оказывается ниже этого значения.'
-        )}</small>
-      </div>
-      <b id="fbcMCP10">—</b>
-    </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Zentraler Prognosewert',
-          'Центральный прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'Die Hälfte der geprüften Entwicklungen liegt darunter, die andere Hälfte darüber.',
-          'Половина проверенных сценариев находится ниже этого значения, половина — выше.'
-        )}</small>
-      </div>
-      <b id="fbcMCP50">—</b>
-    </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Oberer Prognosewert',
-          'Верхний прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'Nur etwa 10 % der geprüften Entwicklungen liegen über diesem Wert.',
-          'Только примерно 10 % проверенных сценариев оказываются выше этого значения.'
-        )}</small>
-      </div>
-      <b id="fbcMCP90">—</b>
-    </div>
-
+    <p class="fbc-r-note" id="fbcMCRiskText"></p>
   </div>
-
-</div>
-  </section>
+</section>
 
 
   <!-- 8. GESAMTFAZIT -->
@@ -5221,7 +5153,7 @@ layer.innerHTML=`
     <div class="fbc-analysis-heading">
       <div>
         <h3>${T('FBC Fazit','Вывод FBC')}</h3>
-        <p>${T('Zusammenfassung der Analyse, Entscheidung und Robustheitsprüfung.','Итог анализа, решения и проверки устойчивости.')}</p>
+        <p>${T('Zusammenfassung von Entscheidung, Finanzierung und Risikoprüfung.','Итог решения, финансирования и проверки рисков.')}</p>
       </div>
       <span class="fbc-step-badge">8</span>
     </div>
@@ -5300,12 +5232,15 @@ if(runAnalysisBtn && !runAnalysisBtn.dataset.fbcBound){
   });
 }
 
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('#fbcRunEvidenceAnalysis');
-  if(!btn)return;
-  console.log('FBC R click: evidence analysis');
-  runRAnalysis(btn.id);
-});
+if(!window.FBC_R_EVIDENCE_CLICK_BOUND){
+  window.FBC_R_EVIDENCE_CLICK_BOUND=true;
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('#fbcRunEvidenceAnalysis');
+    if(!btn)return;
+    console.log('FBC R click: evidence analysis');
+    runRAnalysis(btn.id);
+  });
+}
  const fin = document.createElement('div');
 fin.id = 'fbcFinanceCard';
 fin.className = 'fbc-fin-details';
@@ -5315,31 +5250,25 @@ fin.innerHTML = `
 
     <p class="fbc-r-note" style="margin-bottom:16px">
       ${T(
-        'Finanzierung kann gezielt eingesetzt werden, um eine verbleibende Ziellücke oder einen vorübergehenden Liquiditätsbedarf zu überbrücken. Der Kredit bleibt getrennt vom operativen Ergebnis.',
-        'Финансирование можно использовать целенаправленно: чтобы перекрыть оставшийся разрыв до цели или временную потребность в ликвидности. Кредит остаётся отделённым от операционного результата.'
+        'Finanzierung kann gezielt für Wachstum eingesetzt werden – zum Beispiel für Geschäftsausbau, Kundengewinnung, Marketing, Ausstattung oder als Liquiditätsreserve. FBC prüft die monatliche Belastung und ob der Kapitaldienst tragfähig ist.',
+        'Финансирование можно использовать для роста бизнеса — например, для расширения, привлечения клиентов, маркетинга, оборудования или как резерв ликвидности. FBC проверяет ежемесячную нагрузку и способность бизнеса обслуживать кредит.'
       )}
     </p>
 
     <div class="fbc-r-metric" style="margin-bottom:16px">
-      <span>${T('Verbleibende Ziellücke','Оставшийся разрыв до цели')}</span>
+      <span>${T('Orientierungsbetrag · aktuelle Ziellücke','Ориентировочная сумма · текущий разрыв до цели')}</span>
       <strong><span id="fbcFinTargetGapDisplay">—</span></strong>
       <small>
         ${T(
-          'Wenn das operative Ergebnis das Nettoziel noch nicht erreicht, kann dieser Betrag als Finanzierung zur Zielüberbrückung vorgeschlagen werden.',
-          'Если операционный результат ещё не достигает цели по нетто, эта сумма может быть предложена как финансирование для перекрытия разрыва до цели.'
+          'Die aktuelle Ziellücke dient nur als Orientierung für die mögliche Finanzierungshöhe. Der Kredit selbst ist kein operativer Gewinn.',
+          'Текущий разрыв до цели используется только как ориентир для возможной суммы финансирования. Сам кредит не является операционной прибылью.'
         )}
       </small>
     </div>
 
-    <div class="fbc-r-metric" style="margin-bottom:16px">
-      <span>${T('Liquiditätsbedarf während der Umsetzung','Потребность в ликвидности на этапе внедрения')}</span>
+    <div class="fbc-r-metric" id="fbcFinBridgeMetric" hidden>
+      <span>${T('Liquiditätsreserve','Резерв ликвидности')}</span>
       <strong><span id="fbcFinBridgeDisplay">—</span></strong>
-      <small>
-        ${T(
-          'Dieser Betrag entsteht nur aus einem zeitlich begrenzten Umsetzungspfad.',
-          'Эта сумма возникает только из временного периода внедрения.'
-        )}
-      </small>
     </div>
 
     <div class="fbc-fin-grid-simple">
@@ -5347,9 +5276,11 @@ fin.innerHTML = `
       <label class="fbc-fin-field">
         <span>${T('Finanzierungsgrund','Цель финансирования')}</span>
         <select id="fbcFinPurpose">
-          <option value="target_gap">${T('Ziellücke überbrücken','Перекрыть разрыв до цели')}</option>
-          <option value="liquidity_bridge">${T('Umsetzungsphase überbrücken','Перекрыть период внедрения')}</option>
-          <option value="custom">${T('Eigener Finanzierungsbetrag','Своя сумма финансирования')}</option>
+<option value="target_gap">${T('Geschäftsausbau / Wachstum','Расширение / рост бизнеса')}</option>
+<option value="marketing">${T('Kundengewinnung / Marketing','Привлечение клиентов / маркетинг')}</option>
+<option value="investment">${T('Investition / Ausstattung','Инвестиции / оборудование')}</option>
+<option value="liquidity_bridge">${T('Liquiditätsreserve','Резерв ликвидности')}</option>
+<option value="custom">${T('Eigener Finanzierungszweck','Своя цель финансирования')}</option>
         </select>
       </label>
 
@@ -5463,23 +5394,33 @@ window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT = function(force=false){
     if(purpose==='target_gap'){
       hint.textContent=targetGap>0
         ? T(
-            'Vorschlag: verbleibende Ziellücke überbrücken. Der Betrag kann angepasst werden.',
-            'Предложение: перекрыть оставшийся разрыв до цели. Сумму можно изменить.'
+            'Orientierung: aktuelle Ziellücke. Für Wachstum können Sie den Betrag frei anpassen.',
+            'Ориентир: текущий разрыв до цели. Для развития бизнеса сумму можно свободно изменить.'
           )
         : T(
-            'Aktuell besteht keine verbleibende Ziellücke. Sie können einen eigenen Betrag eingeben.',
-            'Сейчас оставшегося разрыва до цели нет. Можно указать свою сумму.'
+            'Aktuell besteht keine Ziellücke. Für Wachstum können Sie trotzdem einen eigenen Finanzierungsbetrag eingeben.',
+            'Сейчас разрыва до цели нет. Для развития бизнеса всё равно можно указать собственную сумму финансирования.'
           );
     }else if(purpose==='liquidity_bridge'){
       hint.textContent=bridgeNeed>0
         ? T(
-            'Vorschlag: vorübergehenden Liquiditätsbedarf während der Umsetzung überbrücken.',
-            'Предложение: перекрыть временную потребность в ликвидности на этапе внедрения.'
+            'Orientierung: berechneter Liquiditätsbedarf. Der Betrag kann angepasst werden.',
+            'Ориентир: рассчитанная потребность в ликвидности. Сумму можно изменить.'
           )
         : T(
-            'Aktuell wurde kein vorübergehender Liquiditätsbedarf berechnet.',
-            'Сейчас временная потребность в ликвидности не рассчитана.'
+            'Aktuell wurde kein zusätzlicher Liquiditätsbedarf berechnet. Sie können eine eigene Reserve eingeben.',
+            'Сейчас дополнительная потребность в ликвидности не рассчитана. Можно указать собственный резерв.'
           );
+    }else if(purpose==='marketing'){
+      hint.textContent=T(
+        'Geben Sie den geplanten Betrag für Kundengewinnung oder Marketing ein.',
+        'Введите планируемую сумму на привлечение клиентов или маркетинг.'
+      );
+    }else if(purpose==='investment'){
+      hint.textContent=T(
+        'Geben Sie den geplanten Betrag für Investitionen oder Ausstattung ein.',
+        'Введите планируемую сумму на инвестиции или оборудование.'
+      );
     }else{
       hint.textContent=T(
         'Geben Sie den gewünschten Finanzierungsbetrag ein.',
@@ -6444,55 +6385,103 @@ const mcReason =
   get(p,'audit.mc_error') ??
   null;
 
+let fbcRiskSummary='';
+
 if($('fbcRMonteCarlo')){
   $('fbcRMonteCarlo').hidden = !mcAvailable;
 
+  const riskText=$('fbcMCRiskText');
+
   if(mcAvailable){
+    const p10=Number(robustness.p10);
+    const p50=Number(robustness.p50);
+    const p90=Number(robustness.p90);
 
-    const p10 = robustness.p10;
-    const p50 = robustness.p50;
-    const p90 = robustness.p90;
-    const probability = robustness.target_probability;
+    const range=
+      Number.isFinite(p10) && Number.isFinite(p90)
+        ? Math.max(0,p90-p10)
+        : NaN;
 
-    $('fbcMCProbability').textContent =
-      probability == null ? '—' : pct(probability);
+    const rangeRatio=
+      Number.isFinite(range) && Number.isFinite(p50)
+        ? range/Math.max(Math.abs(p50),1)
+        : NaN;
 
-    $('fbcMCP10').textContent =
-      p10 == null ? '—' : money(p10);
+    const sensitivity=
+      !Number.isFinite(rangeRatio)
+        ? T(
+            'Die Schwankungsbreite konnte nicht eindeutig bewertet werden.',
+            'Размах колебаний не удалось однозначно оценить.'
+          )
+        : rangeRatio<=0.10
+          ? T(
+              'Die erwartete Ergebnisbreite ist relativ gering.',
+              'Ожидаемый диапазон результата относительно небольшой.'
+            )
+          : rangeRatio<=0.25
+            ? T(
+                'Die Kostenentwicklung kann das Ergebnis spürbar verändern.',
+                'Изменение затрат может заметно повлиять на результат.'
+              )
+            : T(
+                'Das Ergebnis reagiert deutlich auf ungünstige Kostenentwicklungen.',
+                'Результат заметно чувствителен к неблагоприятному изменению затрат.'
+              );
 
-    $('fbcMCP50').textContent =
-      p50 == null ? '—' : money(p50);
+    const finActiveRisk=Boolean(get(p,'financing.active'));
 
-    $('fbcMCP90').textContent =
-      p90 == null ? '—' : money(p90);
+    const dscrRisk=Number(
+      get(p,'post_decision.capital_service_ratio') ??
+      get(p,'financing.current.min_capital_service_ratio') ??
+      get(p,'financing.dscr')
+    );
 
-    const note=$('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
-    if(note){
-      note.textContent=T(
-        'FBC prüft Ihre gewählte Entscheidung unter vielen möglichen Entwicklungen von Energie-, Kraftstoff- und Personalkosten. Eine aktive Finanzierung wird mit den eingegebenen Konditionen im Ergebnis berücksichtigt.',
-        'FBC проверяет выбранное решение при множестве возможных изменений затрат на энергию, топливо и персонал. Активное финансирование учитывается в результате на введённых условиях.'
-      );
+    let financingRisk='';
+
+    if(finActiveRisk){
+      financingRisk=
+        Number.isFinite(dscrRisk)
+          ? (
+              dscrRisk>=1.2
+                ? T(
+                    ' Die laufende Kreditrate ist nach dem aktuellen Finanzierungstest gedeckt und verfügt über einen zusätzlichen Puffer.',
+                    ' По текущему финансовому тесту кредитный платёж покрывается и имеется дополнительный запас.'
+                  )
+                : dscrRisk>=1
+                  ? T(
+                      ' Die laufende Kreditrate ist gedeckt, der finanzielle Puffer ist jedoch gering.',
+                      ' Кредитный платёж покрывается, но финансовый запас небольшой.'
+                    )
+                  : T(
+                      ' Die laufende Kreditrate ist mit den aktuell verfügbaren Mitteln nicht vollständig gedeckt.',
+                      ' При текущих доступных средствах кредитный платёж покрывается не полностью.'
+                    )
+            )
+          : '';
     }
 
-  } else {
+    fbcRiskSummary =
+      T(
+        'Die Monte-Carlo-Simulation prüft intern viele mögliche Entwicklungen von Energie-, Kraftstoff- und Personalkosten. ',
+        'Модель Монте-Карло внутри FBC проверяет множество возможных изменений затрат на энергию, топливо и персонал. '
+      )
+      + sensitivity
+      + financingRisk;
 
-    $('fbcMCProbability').textContent = '—';
-    $('fbcMCP10').textContent = '—';
-    $('fbcMCP50').textContent = '—';
-    $('fbcMCP90').textContent = '—';
+    if(riskText){
+      riskText.textContent=fbcRiskSummary;
+    }
 
-    const note =
-      $('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
-
-    if(note){
-      note.textContent = mcReason
+  }else{
+    if(riskText){
+      riskText.textContent = mcReason
         ? T(
-            `Monte-Carlo-Berechnung konnte nicht ausgeführt werden: ${mcReason}`,
-            `Расчёт Monte Carlo не выполнен: ${mcReason}`
+            `Die mathematische Risikoprüfung konnte nicht ausgeführt werden: ${mcReason}`,
+            `Математическая проверка рисков не выполнена: ${mcReason}`
           )
         : T(
-            'Für diesen Rechenschritt liegt keine Monte-Carlo-Auswertung vor.',
-            'Для этого расчёта результат Monte Carlo отсутствует.'
+            'Für diesen Rechenschritt liegt keine mathematische Risikoprüfung vor.',
+            'Для этого расчёта математическая проверка рисков отсутствует.'
           );
     }
   }
@@ -6529,10 +6518,64 @@ if($('fbcRFazit') && $('fbcRFazitText')){
       )
     : '';
 
-  const finalFazit =
-    [baseFazit, breakEvenWarning]
-      .filter(Boolean)
-      .join(' ');
+const finActiveFazit=Boolean(get(p,'financing.active'));
+
+const finAmountFazit=Number(
+  get(p,'financing.current.amount') ??
+  get(p,'financing.amount')
+);
+
+const finPaymentFazit=Number(
+  get(p,'financing.current.max_month_cash_service') ??
+  get(p,'financing.current.first_month_cash_service')
+);
+
+const finDscrFazit=Number(
+  get(p,'post_decision.capital_service_ratio') ??
+  get(p,'financing.current.min_capital_service_ratio') ??
+  get(p,'financing.dscr')
+);
+
+let financingFazit='';
+
+if(finActiveFazit && Number.isFinite(finAmountFazit) && finAmountFazit>0){
+
+  const paymentPart=
+    Number.isFinite(finPaymentFazit)
+      ? T(
+          ` Die monatliche Kreditbelastung beträgt bis zu ${money(finPaymentFazit)}.`,
+          ` Ежемесячная кредитная нагрузка составляет до ${money(finPaymentFazit)}.`
+        )
+      : '';
+
+  const coveragePart=
+    !Number.isFinite(finDscrFazit)
+      ? ''
+      : finDscrFazit>=1.2
+        ? T(
+            ' Die Kreditrate ist gedeckt und es besteht ein zusätzlicher finanzieller Puffer.',
+            ' Кредитный платёж покрывается, и имеется дополнительный финансовый запас.'
+          )
+        : finDscrFazit>=1
+          ? T(
+              ' Die Kreditrate ist gedeckt, der finanzielle Puffer ist jedoch gering.',
+              ' Кредитный платёж покрывается, но финансовый запас небольшой.'
+            )
+          : T(
+              ' Die Kreditrate ist durch die aktuell verfügbaren Mittel nicht vollständig gedeckt.',
+              ' Кредитный платёж не полностью покрывается текущими доступными средствами.'
+            );
+
+  financingFazit=T(
+    `Zusätzlich wurde eine Finanzierung von ${money(finAmountFazit)} für den gewählten Finanzierungszweck geprüft.${paymentPart}${coveragePart}`,
+    `Дополнительно рассчитано финансирование в размере ${money(finAmountFazit)} для выбранной цели.${paymentPart}${coveragePart}`
+  );
+}
+
+const finalFazit =
+  [baseFazit, financingFazit, fbcRiskSummary, breakEvenWarning]
+    .filter(Boolean)
+    .join(' ');
 
   $('fbcRFazit').hidden = !finalFazit;
   $('fbcRFazitText').textContent = finalFazit;
@@ -6597,6 +6640,65 @@ function installStatLinks(){
 ].forEach(([id,key])=>{const input=$(id);if(!input)return;const row=input.closest('label');if(!row||row.querySelector('.fbc-cost-stat-link'))return;const b=document.createElement('button');b.type='button';b.className='fbc-cost-stat-link';b.dataset.statTarget=key;b.textContent=T('Statistik & Prognose','Статистика и прогноз');b.addEventListener('click',()=>jumpToStat(key));row.appendChild(b)});
   
 }
+
+function refreshRLanguageUI(){
+  const payload=window.FBC_R_ANALYSIS_PAYLOAD;
+
+  const saved={
+    purpose:$('fbcFinPurpose')?.value ?? '',
+    amount:$('fbcFinAmount')?.value ?? '',
+    amountUserEdited:$('fbcFinAmount')?.dataset?.userEdited ?? '0',
+    type:$('fbcFinType')?.value ?? '',
+    rate:$('fbcFinRate')?.value ?? '',
+    months:$('fbcFinMonths')?.value ?? '',
+    fees:$('fbcFinFees')?.value ?? ''
+  };
+
+  $('fbcRLayer')?.remove();
+  document.querySelectorAll('#employee > .fbc-pdfbar').forEach(el=>el.remove());
+
+  ensureRUI();
+
+  if(payload){
+    applyPayload(payload);
+  }
+
+  if(saved.purpose && $('fbcFinPurpose')) $('fbcFinPurpose').value=saved.purpose;
+  if($('fbcFinAmount')){
+    $('fbcFinAmount').value=saved.amount;
+    $('fbcFinAmount').dataset.userEdited=saved.amountUserEdited;
+  }
+  if(saved.type && $('fbcFinType')) $('fbcFinType').value=saved.type;
+  if($('fbcFinRate')) $('fbcFinRate').value=saved.rate;
+  if($('fbcFinMonths')) $('fbcFinMonths').value=saved.months;
+  if($('fbcFinFees')) $('fbcFinFees').value=saved.fees;
+
+  const purpose=$('fbcFinPurpose')?.value;
+  const hint=$('fbcFinAmountHint');
+  if(hint){
+    if(purpose==='marketing'){
+      hint.textContent=T(
+        'Geben Sie den geplanten Betrag für Kundengewinnung oder Marketing ein.',
+        'Введите планируемую сумму на привлечение клиентов или маркетинг.'
+      );
+    }else if(purpose==='investment'){
+      hint.textContent=T(
+        'Geben Sie den geplanten Betrag für Investitionen oder Ausstattung ein.',
+        'Введите планируемую сумму на инвестиции или оборудование.'
+      );
+    }else if(purpose==='custom'){
+      hint.textContent=T(
+        'Geben Sie den gewünschten Finanzierungsbetrag ein.',
+        'Введите желаемую сумму финансирования.'
+      );
+    }
+  }
+}
+
+document.addEventListener('fbc:language-changed',()=>{
+  setTimeout(refreshRLanguageUI,0);
+});
+
 function boot(){
   console.log('FBC R boot start');
 
