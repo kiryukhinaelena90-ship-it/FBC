@@ -6359,55 +6359,103 @@ const mcReason =
   get(p,'audit.mc_error') ??
   null;
 
+let fbcRiskSummary='';
+
 if($('fbcRMonteCarlo')){
   $('fbcRMonteCarlo').hidden = !mcAvailable;
 
+  const riskText=$('fbcMCRiskText');
+
   if(mcAvailable){
+    const p10=Number(robustness.p10);
+    const p50=Number(robustness.p50);
+    const p90=Number(robustness.p90);
 
-    const p10 = robustness.p10;
-    const p50 = robustness.p50;
-    const p90 = robustness.p90;
-    const probability = robustness.target_probability;
+    const range=
+      Number.isFinite(p10) && Number.isFinite(p90)
+        ? Math.max(0,p90-p10)
+        : NaN;
 
-    $('fbcMCProbability').textContent =
-      probability == null ? '—' : pct(probability);
+    const rangeRatio=
+      Number.isFinite(range) && Number.isFinite(p50)
+        ? range/Math.max(Math.abs(p50),1)
+        : NaN;
 
-    $('fbcMCP10').textContent =
-      p10 == null ? '—' : money(p10);
+    const sensitivity=
+      !Number.isFinite(rangeRatio)
+        ? T(
+            'Die Schwankungsbreite konnte nicht eindeutig bewertet werden.',
+            'Размах колебаний не удалось однозначно оценить.'
+          )
+        : rangeRatio<=0.10
+          ? T(
+              'Die erwartete Ergebnisbreite ist relativ gering.',
+              'Ожидаемый диапазон результата относительно небольшой.'
+            )
+          : rangeRatio<=0.25
+            ? T(
+                'Die Kostenentwicklung kann das Ergebnis spürbar verändern.',
+                'Изменение затрат может заметно повлиять на результат.'
+              )
+            : T(
+                'Das Ergebnis reagiert deutlich auf ungünstige Kostenentwicklungen.',
+                'Результат заметно чувствителен к неблагоприятному изменению затрат.'
+              );
 
-    $('fbcMCP50').textContent =
-      p50 == null ? '—' : money(p50);
+    const finActiveRisk=Boolean(get(p,'financing.active'));
 
-    $('fbcMCP90').textContent =
-      p90 == null ? '—' : money(p90);
+    const dscrRisk=Number(
+      get(p,'post_decision.capital_service_ratio') ??
+      get(p,'financing.current.min_capital_service_ratio') ??
+      get(p,'financing.dscr')
+    );
 
-    const note=$('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
-    if(note){
-      note.textContent=T(
-        'FBC prüft Ihre gewählte Entscheidung unter vielen möglichen Entwicklungen von Energie-, Kraftstoff- und Personalkosten. Eine aktive Finanzierung wird mit den eingegebenen Konditionen im Ergebnis berücksichtigt.',
-        'FBC проверяет выбранное решение при множестве возможных изменений затрат на энергию, топливо и персонал. Активное финансирование учитывается в результате на введённых условиях.'
-      );
+    let financingRisk='';
+
+    if(finActiveRisk){
+      financingRisk=
+        Number.isFinite(dscrRisk)
+          ? (
+              dscrRisk>=1.2
+                ? T(
+                    ' Die laufende Kreditrate ist nach dem aktuellen Finanzierungstest gedeckt und verfügt über einen zusätzlichen Puffer.',
+                    ' По текущему финансовому тесту кредитный платёж покрывается и имеется дополнительный запас.'
+                  )
+                : dscrRisk>=1
+                  ? T(
+                      ' Die laufende Kreditrate ist gedeckt, der finanzielle Puffer ist jedoch gering.',
+                      ' Кредитный платёж покрывается, но финансовый запас небольшой.'
+                    )
+                  : T(
+                      ' Die laufende Kreditrate ist mit den aktuell verfügbaren Mitteln nicht vollständig gedeckt.',
+                      ' При текущих доступных средствах кредитный платёж покрывается не полностью.'
+                    )
+            )
+          : '';
     }
 
-  } else {
+    fbcRiskSummary =
+      T(
+        'Die Monte-Carlo-Simulation prüft intern viele mögliche Entwicklungen von Energie-, Kraftstoff- und Personalkosten. ',
+        'Модель Монте-Карло внутри FBC проверяет множество возможных изменений затрат на энергию, топливо и персонал. '
+      )
+      + sensitivity
+      + financingRisk;
 
-    $('fbcMCProbability').textContent = '—';
-    $('fbcMCP10').textContent = '—';
-    $('fbcMCP50').textContent = '—';
-    $('fbcMCP90').textContent = '—';
+    if(riskText){
+      riskText.textContent=fbcRiskSummary;
+    }
 
-    const note =
-      $('fbcRMonteCarlo')?.querySelector('.fbc-r-note');
-
-    if(note){
-      note.textContent = mcReason
+  }else{
+    if(riskText){
+      riskText.textContent = mcReason
         ? T(
-            `Monte-Carlo-Berechnung konnte nicht ausgeführt werden: ${mcReason}`,
-            `Расчёт Monte Carlo не выполнен: ${mcReason}`
+            `Die mathematische Risikoprüfung konnte nicht ausgeführt werden: ${mcReason}`,
+            `Математическая проверка рисков не выполнена: ${mcReason}`
           )
         : T(
-            'Für diesen Rechenschritt liegt keine Monte-Carlo-Auswertung vor.',
-            'Для этого расчёта результат Monte Carlo отсутствует.'
+            'Für diesen Rechenschritt liegt keine mathematische Risikoprüfung vor.',
+            'Для этого расчёта математическая проверка рисков отсутствует.'
           );
     }
   }
