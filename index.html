@@ -6645,13 +6645,14 @@ try{ data=raw ? JSON.parse(raw) : null; }catch(e){ data=null; }
 
 if(!r.ok){
   console.error('FBC R backend response:', raw);
-    throw new Error(
-      data?.message ||
-      data?.upstream?.message ||
-      data?.upstream?.error ||
-      data?.error ||
-      ('HTTP '+r.status)
-    );
+throw new Error(
+  data?.message ||
+  data?.upstream?.message ||
+  data?.upstream?.error ||
+  data?.error ||
+  raw ||
+  ('HTTP '+r.status)
+);
   }
 
   return applyPayload(data);
