@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>   
 <head>
 <!-- FBC V7.2 Type System + Decision Preview · visual redesign + audit fixes · 2026-08-31 -->
   <meta charset="utf-8">
@@ -2525,37 +2525,117 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-implementation-grid>label{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid #edf1f3;font-size:11px;color:#60707d}
 .fbc-implementation-grid input{width:70px;height:36px}
 
-/* Financing · compact ledger-style inputs */
-.fbc-fin-details{margin-top:8px}
-.fbc-fin-body{padding:0 2px}
-.fbc-fin-intro{margin:0 0 8px;color:#687684;font-size:12px;line-height:1.5}
-.fbc-fin-row{display:grid;grid-template-columns:180px minmax(260px,1fr) auto;gap:16px;align-items:center;padding:11px 2px;border-bottom:1px solid #e3e8ec}
-.fbc-fin-row>span{font-size:12px;font-weight:750;color:#344c5d}
-.fbc-fin-explain{color:#7a8894;font-size:10.5px;line-height:1.4}
-.fbc-fin-static{font-size:13px;color:#2f4353;font-weight:650}
-.fbc-fin-control{justify-self:end;display:flex;align-items:center;gap:7px;min-width:0}
-.fbc-fin-control input,.fbc-fin-control select,.fbc-fin-row input,.fbc-fin-row select{height:40px;border:1px solid #cfd8df!important;background:#fff!important;border-radius:9px;padding:0 11px;color:var(--ink);font:inherit;box-shadow:none!important}
-#fbcFinAmount{width:170px}
-#fbcFinType{width:280px}
-#fbcFinRate{width:115px}
-#fbcFinMonths{width:95px}
-#fbcFinFees{width:145px}
-.fbc-fin-control .unit{width:auto}
-.fbc-fin-control .unit>b{white-space:nowrap}
+/* Financing · visually identical to Block 3 (Handlungsspielräume) */
+.fbc-fin-details{
+  margin-top:12px;
+  border:1px solid #dfe5e9;
+  border-radius:12px;
+  background:#fafcfd;
+  overflow:hidden;
+}
+.fbc-fin-body{padding:0 14px 14px}
+.fbc-fin-intro{display:none}
+
+.fbc-fin-row{
+  display:grid;
+  grid-template-columns:minmax(260px,1fr) 180px;
+  gap:14px;
+  align-items:center;
+  padding:10px 0;
+  border-top:1px solid #e8edf0;
+}
+.fbc-fin-row:first-of-type{border-top:0}
+
+.fbc-fin-label{
+  min-width:0;
+}
+.fbc-fin-label>span{
+  display:block;
+  font-size:12px;
+  font-weight:750;
+  color:#344c5d;
+}
+.fbc-fin-explain{
+  display:block;
+  margin-top:3px;
+  color:#687684;
+  font-size:10.5px;
+  line-height:1.4;
+}
+.fbc-fin-explain:empty{display:none}
+
+.fbc-fin-control{
+  width:180px;
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+}
+.fbc-fin-control .unit{
+  width:180px;
+  margin:0;
+}
+.fbc-fin-control .unit input{
+  width:145px;
+}
+.fbc-fin-control select{
+  width:180px;
+}
+
+.fbc-fin-control input,
+.fbc-fin-control select{
+  height:36px;
+  border:1px solid #cfd8df;
+  background:#fff;
+  border-radius:8px;
+  padding:0 9px;
+  color:var(--ink);
+  font:inherit;
+  box-shadow:none;
+}
+.fbc-fin-control .unit>b{
+  white-space:nowrap;
+  color:#687684;
+}
 .fbc-fin-explain #fbcFinInterestStat{margin:4px 0 0}
-.fbc-fin-advanced{margin-top:0;border-top:0;padding-top:0;border-bottom:1px solid #e3e8ec}
-.fbc-fin-advanced>summary{padding:11px 2px}
-.fbc-fin-advanced .fbc-fin-row{border-top:1px solid #edf1f3;border-bottom:0}
-#fbcFinancingProgress{margin-top:12px}
-.fbc-financing-check{margin-top:18px;padding:0;border:0;border-top:1px solid #dfe5e9;border-radius:0;background:transparent}
-.fbc-financing-check .fbc-r-change-row{padding:9px 2px}
-.fbc-fin-liquidity-row{margin-top:4px;border-top:1px solid #cbd6de!important}
-#fbcRDSCRText{margin-top:12px;padding:10px 12px;border-left:3px solid #607e63;background:#f2f6f2;border-radius:0 9px 9px 0}
-.fbc-fin-stale{margin:10px 0 0;padding:9px 11px;border-left:3px solid #9a7b55;background:#f7f4ef;color:#6e604e;font-size:11px;line-height:1.45}
+
+.fbc-fin-advanced{
+  margin-top:12px;
+  border-top:1px solid #e4e9ed;
+  border-bottom:0;
+  padding-top:10px;
+}
+.fbc-fin-advanced>summary{
+  cursor:pointer;
+  list-style:none;
+  padding:0;
+  font-size:12px;
+  font-weight:800;
+  color:#566c7d;
+}
+.fbc-fin-advanced>summary::-webkit-details-marker{display:none}
+.fbc-fin-advanced>summary:after{content:"+";float:right}
+.fbc-fin-advanced[open]>summary:after{content:"–"}
+.fbc-fin-advanced .fbc-fin-row{
+  margin-top:10px;
+  border-top:1px solid #edf1f3;
+}
+
+.fbc-evidence-action{padding-top:12px}
+#fbcFinancingProgress{margin-top:10px}
+.fbc-financing-check{margin-top:14px;padding:0;border:0;border-top:1px solid #dfe5e9;border-radius:0;background:transparent}
+.fbc-financing-check .fbc-r-change-row{padding:8px 0}
+.fbc-fin-liquidity-row{margin-top:4px;border-top:1px solid #cbd6de}
+#fbcRDSCRText{margin-top:10px;padding:9px 11px;border-left:3px solid #607e63;background:#f2f6f2;border-radius:0 9px 9px 0}
+.fbc-fin-stale{margin:8px 0 0;padding:8px 10px;border-left:3px solid #9a7b55;background:#f7f4ef;color:#6e604e;font-size:11px;line-height:1.45}
+
 @media(max-width:760px){
-  .fbc-fin-row{grid-template-columns:1fr;gap:6px;align-items:start}
-  .fbc-fin-control{justify-self:start;width:100%}
-  #fbcFinAmount,#fbcFinType,#fbcFinRate,#fbcFinMonths,#fbcFinFees{width:min(100%,320px)}
+  .fbc-fin-row{grid-template-columns:1fr;gap:7px}
+  .fbc-fin-control{width:100%;justify-self:stretch}
+  .fbc-fin-control .unit{width:100%}
+  .fbc-fin-control .unit input,
+  .fbc-fin-control select{width:100%}
 }
 
 /* Employee economics · money first, hours second */
@@ -4753,6 +4833,8 @@ function renderPdfReport(){
   const p=window.FBC_R_ANALYSIS_PAYLOAD||{};
   const current=get(p,'current.expected_net')??get(p,'current.net_available');
   const target=get(p,'current.monthly_target')??num('empOwnerGoal');
+  const projected=get(p,'recommendation.projected_net');
+  const remainingGap=get(p,'recommendation.remaining_gap_eur');
   const gap=(Number.isFinite(Number(current))&&Number.isFinite(Number(target)))?Math.max(0,Number(target)-Number(current)):null;
   const eCost=employeeCost(),o=ownerState();
   const bill=num('empBillableHoursMonth'),price=num('empCustomerPrice');
@@ -4762,11 +4844,12 @@ function renderPdfReport(){
   const p90=get(p,'robustness.p90')??get(p,'post_decision.p90');
   const be=get(p,'break_even.business.break_even_revenue');
   const ebe=get(p,'break_even.employee.break_even_hours');
-  const dscr=get(p,'post_decision.capital_service_ratio')??get(p,'financing.dscr');
+  const dscr=get(p,'post_decision.capital_service_ratio')??get(p,'financing.dscr')??get(p,'financing.current.min_capital_service_ratio');
+  const finCurrent=get(p,'financing.current');
   const rec=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation')??T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.');
   const methods=methodsUsed(p);
   host.innerHTML=`<div class="pdf-title">FUTURE Business Cockpit</div><div class="pdf-sub">${T('R-Backend-Report · Werte aus dem aktuellen Cockpit; R-Werte nur wenn Payload vorliegt.','R-отчёт · текущие данные Cockpit; R-значения только при наличии payload.')}</div>
-  <div class="pdf-top"><div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(current)}</strong></div><div><small>${T('Monatsziel','Месячная цель')}</small><strong>${money(target)}</strong></div><div><small>${T('Ziellücke','Разрыв до цели')}</small><strong>${money(gap)}</strong></div></div>
+  <div class="pdf-top"><div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(current)}</strong></div><div><small>${T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации')}</small><strong>${money(projected)}</strong></div><div><small>${T('Verbleibender Abstand zum Nettoziel','Оставшийся разрыв до цели')}</small><strong>${money(remainingGap)}</strong></div></div>
   <h2>${T('AKTUELLER STAND','ТЕКУЩЕЕ СОСТОЯНИЕ')}</h2>
   <div class="pdf-row"><span>${T('Inhaberpreis / abrechenbare Stunden','Цена владельца / оплачиваемые часы')}</span><b>${money(o.price)} / ${Number(o.billable_hours_month||0).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h/Monat</b></div>
   <div class="pdf-row"><span>${T('Mitarbeiter','Сотрудник')}</span><b>${esc($('empForm')?.selectedOptions?.[0]?.textContent||'—')} · ${money(num('empWage'))}/h · ${bill.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h fakturiert</b></div>
@@ -4779,6 +4862,7 @@ function renderPdfReport(){
   <div class="pdf-row"><span>Business Break-even</span><b>${money(be)}</b></div>
   <div class="pdf-row"><span>Mitarbeiter Break-even</span><b>${ebe==null?'—':Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h/Monat'}</b></div>
   <div class="pdf-row"><span>Kapitaldienst / DSCR</span><b>${Number.isFinite(Number(dscr))?Number(dscr).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2}):'—'}</b></div>
+  ${(()=>{if(!finCurrent||typeof finCurrent!=='object')return'';const typeLabels={annuity:T('Annuitätendarlehen','Аннуитетный кредит'),tilgung:T('Tilgungsdarlehen','Кредит с равномерным погашением'),endfaellig:T('Endfälliges Darlehen','Погашение в конце срока'),credit_line:T('Kreditlinie','Кредитная линия'),zinsfrei:T('Zinsfreie Finanzierung','Беспроцентное финансирование')};const raw=String(finCurrent.type??'');const type=typeLabels[raw]||raw||'—';const amount=Number(finCurrent.amount);const rate=Number(finCurrent.rate_pa);const months=Number(finCurrent.months);const first=Number(finCurrent.first_month_cash_service);const last=Number(finCurrent.last_month_cash_service);const interest=Number(finCurrent.total_interest);const rest=Number(finCurrent.restschuld_end);return `<h2>${T('FINANZIERUNG','ФИНАНСИРОВАНИЕ')}</h2><div class="pdf-row"><span>${T('Finanzierungsart','Тип финансирования')}</span><b>${esc(type)}</b></div><div class="pdf-row"><span>${T('Finanzierungsbetrag','Сумма финансирования')}</span><b>${money(amount)}</b></div><div class="pdf-row"><span>${T('Zinssatz p.a. / Laufzeit','Годовая ставка / срок')}</span><b>${Number.isFinite(rate)?fmtNum(rate,2)+' %':'—'} · ${Number.isFinite(months)?fmtNum(months,0)+' '+T('Monate','мес.'):'—'}</b></div><div class="pdf-row"><span>${T('Belastung erster / letzter Monat','Платёж первый / последний месяц')}</span><b>${money(first)} / ${money(last)}</b></div><div class="pdf-row"><span>${T('Zinsen gesamt','Всего процентов')}</span><b>${money(interest)}</b></div><div class="pdf-row"><span>${T('Restschuld am Laufzeitende','Остаток долга в конце срока')}</span><b>${money(rest)}</b></div>`})()}
   <h2>${T('EMPFEHLUNG','РЕКОМЕНДАЦИЯ')}</h2><div class="pdf-rec">${esc(typeof rec==='string'?rec:JSON.stringify(rec))}</div>
   ${(()=>{const ch=get(p,'recommendation.changes');return Array.isArray(ch)&&ch.length?`<h2>${T('BESTÄTIGTE ENTSCHEIDUNG','ПОДТВЕРЖДЁННОЕ РЕШЕНИЕ')}</h2>${ch.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${esc(String(c.current??'—'))} → ${esc(String(c.proposed??'—'))} ${esc(c.unit||'')}</b></div>`).join('')}`:''})()}
   ${(()=>{const sh=get(p,'recommendation.explanation');const cc=sh&&Array.isArray(sh.contributions)?sh.contributions:[];return sh?.available&&cc.length?`<h2>SHAPLEY · ${T('Warum diese Kombination?','Почему эта комбинация?')}</h2>${cc.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${money(c.contribution_eur??c.contribution)}</b></div>`).join('')}`:''})()}
@@ -4819,7 +4903,7 @@ layer.innerHTML=`
       <div class="fbc-analysis-progress-fill"></div>
     </div>
     <small class="fbc-analysis-progress-text">
-      ${T('Aktueller Stand wird analysiert …','Анализируется текущее состояние …')}
+      ${T('Analyse wird berechnet …','Выполняется расчёт …')}
     </small>
   </div>
 
@@ -5276,33 +5360,25 @@ fin.className = 'fbc-fin-details';
 
 fin.innerHTML = `
   <div class="fbc-fin-body">
-    <p class="fbc-fin-intro">
-      ${T(
-        'Finanzierung wird als separate Option für Geschäftsausbau und Wachstum geprüft. Betrag, Belastung und Kapitaldienstfähigkeit werden getrennt vom operativen Ergebnis berechnet.',
-        'Финансирование проверяется отдельно для расширения и роста бизнеса. Сумма, нагрузка и способность обслуживать кредит рассчитываются отдельно от операционного результата.'
-      )}
-    </p>
 
     <input type="hidden" id="fbcFinPurpose" value="target_gap">
 
-    <div class="fbc-fin-row">
-      <span>${T('Finanzierungszweck','Цель финансирования')}</span>
-      <div class="fbc-fin-explain"></div>
-      <div class="fbc-fin-static">${T('Geschäftsausbau / Wachstum','Расширение и рост бизнеса')}</div>
-    </div>
 
     <div class="fbc-fin-row">
-      <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
-      <div class="fbc-fin-explain" id="fbcFinAmountHint">${T(
-        'Orientierungsbetrag auf Basis der aktuellen Ziellücke. Sie können den Betrag frei ändern.',
-        'Ориентировочная сумма на основе текущего разрыва до цели. Сумму можно свободно изменить.'
-      )}</div>
+      <div class="fbc-fin-label">
+        <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
+        <small class="fbc-fin-explain" id="fbcFinAmountHint">${T(
+          'Orientierungsbetrag auf Basis der aktuellen Ziellücke. Sie können den Betrag frei ändern.',
+          'Ориентировочная сумма на основе текущего разрыва до цели. Сумму можно свободно изменить.'
+        )}</small>
+      </div>
       <div class="fbc-fin-control"><div class="unit"><input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></div>
     </div>
 
     <div class="fbc-fin-row">
-      <span>${T('Finanzierungsart','Тип финансирования')}</span>
-      <div class="fbc-fin-explain"></div>
+      <div class="fbc-fin-label">
+        <span>${T('Finanzierungsart','Тип финансирования')}</span>
+      </div>
       <div class="fbc-fin-control"><select id="fbcFinType">
         <option value="annuity">${T('Annuitätendarlehen','Аннуитетный кредит')}</option>
         <option value="tilgung">${T('Tilgungsdarlehen','Кредит с равномерным погашением')}</option>
@@ -5313,25 +5389,30 @@ fin.innerHTML = `
     </div>
 
     <div class="fbc-fin-row">
-      <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
-      <div class="fbc-fin-explain">
-        ${T('Orientierungswert aus der Bundesbank-Zinsstatistik. Bitte durch Ihre tatsächliche Bankkondition ersetzen.','Ориентир по статистике Bundesbank. Замените на фактическую ставку вашего банка.')}
-        <br><button type="button" class="fbc-cost-stat-link" id="fbcFinInterestStat">${T('Statistik & Prognose','Статистика и прогноз')}</button>
+      <div class="fbc-fin-label">
+        <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
+        <small class="fbc-fin-explain">
+          ${T('Orientierungswert aus der Bundesbank-Zinsstatistik. Bitte durch Ihre tatsächliche Bankkondition ersetzen.','Ориентир по статистике Bundesbank. Замените на фактическую ставку вашего банка.')}
+          <br><button type="button" class="fbc-cost-stat-link" id="fbcFinInterestStat">${T('Statistik & Prognose','Статистика и прогноз')}</button>
+        </small>
       </div>
       <div class="fbc-fin-control"><div class="unit"><input id="fbcFinRate" type="text" inputmode="decimal" placeholder="4,36"><b>%</b></div></div>
     </div>
 
     <div class="fbc-fin-row">
-      <span>${T('Laufzeit','Срок')}</span>
-      <div class="fbc-fin-explain"></div>
+      <div class="fbc-fin-label">
+        <span>${T('Laufzeit','Срок')}</span>
+      </div>
       <div class="fbc-fin-control"><div class="unit"><input id="fbcFinMonths" type="number" min="1" placeholder="36"><b>${T('Mon.','мес.')}</b></div></div>
     </div>
 
     <details class="fbc-fin-advanced">
       <summary>${T('Weitere Angaben','Дополнительные параметры')}</summary>
       <div class="fbc-fin-row">
-        <span>${T('Zusätzliche monatliche Finanzierungskosten','Дополнительные ежемесячные расходы')}</span>
-        <div class="fbc-fin-explain">${T('Zum Beispiel laufende Bank- oder Bereitstellungsgebühren; keine Tilgung.','Например, регулярные банковские комиссии; погашение основного долга сюда не входит.')}</div>
+        <div class="fbc-fin-label">
+          <span>${T('Zusätzliche monatliche Finanzierungskosten','Дополнительные ежемесячные расходы')}</span>
+          <small class="fbc-fin-explain">${T('Zum Beispiel laufende Bank- oder Bereitstellungsgebühren; keine Tilgung.','Например, регулярные банковские комиссии; погашение основного долга сюда не входит.')}</small>
+        </div>
         <div class="fbc-fin-control"><div class="unit"><input id="fbcFinFees" type="text" inputmode="decimal" placeholder="0"><b>€ / ${T('Monat','мес.')}</b></div></div>
       </div>
     </details>
@@ -5542,23 +5623,19 @@ if($('fbcRFazitList')){
     if(btn){
       btn.disabled=true;
       btn.classList.add('fbc-run-busy');
-      if(!isEvidence && !isFinancing){
-        btn.textContent=T(
-          'Aktueller Stand wird analysiert…',
-          'Анализируется текущее состояние…'
-        );
-      }
+      btn.textContent=T(
+        'Analyse läuft…',
+        'Анализ выполняется…'
+      );
     }
 
     if(evidenceBtn){
       evidenceBtn.disabled=true;
       evidenceBtn.classList.add('fbc-run-busy');
-      if(isEvidence){
-        evidenceBtn.textContent=T(
-          'Optimierung wird berechnet…',
-          'Рассчитывается оптимизация…'
-        );
-      }
+      evidenceBtn.textContent=T(
+        'Analyse läuft…',
+        'Анализ выполняется…'
+      );
     }
 
     const financingBtn=$('fbcRunFinancing');
@@ -5569,20 +5646,15 @@ if($('fbcRFazitList')){
     }
 
     $('fbcRStatus').textContent =
-      isFinancing
+      isEvidence
         ? T(
-            'R prüft die Finanzierung und Kapitaldienstfähigkeit…',
-            'R проверяет финансирование и способность обслуживать долг…'
+            'R prüft die bestätigten Grenzen…',
+            'R проверяет подтверждённые границы…'
           )
-        : isEvidence
-          ? T(
-              'R berechnet die beste zulässige Kombination…',
-              'R рассчитывает лучшую допустимую комбинацию…'
-            )
-          : T(
-              'R analysiert den aktuellen Stand und die Einflussfaktoren…',
-              'R анализирует текущее состояние и факторы влияния…'
-            );
+        : T(
+            'R berechnet die Entscheidung…',
+            'R рассчитывает решение…'
+          );
 
 const base=window.FBC_ANALYSIS_CONFIG||{};
 
@@ -5643,15 +5715,10 @@ if(btn){
       evidenceBtn.disabled=false;
       evidenceBtn.classList.remove('fbc-run-busy');
 
-      evidenceBtn.textContent = isEvidence
-        ? T(
-            'Mit diesen Grenzen neu berechnen',
-            'Пересчитать с этими границами'
-          )
-        : T(
-            'Handlungsspielräume auswerten',
-            'Оценить реальные рамки изменений'
-          );
+      evidenceBtn.textContent=T(
+        'Mit diesen Grenzen neu berechnen',
+        'Считать заново с этими границами'
+      );
     }
   }
 }
