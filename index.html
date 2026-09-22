@@ -4436,10 +4436,15 @@ document.addEventListener('input',event=>{
   const input=event.target;
   if(!(input instanceof HTMLInputElement))return;
   if(input.type==='range'||input.type==='checkbox')return;
+
   configureValidation();
+
   if(!validateInput(input)){
     event.stopImmediatePropagation();
+    return;
   }
+
+  calculateAll();
 },true);
 document.addEventListener('change',event=>{
   const input=event.target;
