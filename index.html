@@ -2525,21 +2525,38 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-implementation-grid>label{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid #edf1f3;font-size:11px;color:#60707d}
 .fbc-implementation-grid input{width:70px;height:36px}
 
-/* Financing · same visual grammar as block 3 */
-.fbc-financing-details{margin-top:12px}
-.fbc-fin-row{display:grid;grid-template-columns:minmax(220px,1fr) minmax(220px,300px);gap:18px;align-items:start;padding:11px 0;border-top:1px solid #e8edf0}
-.fbc-fin-row:first-of-type{border-top:0}
-.fbc-fin-row>span{font-size:12px;font-weight:750;color:#344c5d;padding-top:10px}
-.fbc-fin-row input,.fbc-fin-row select{width:100%;height:42px;border:1px solid #cfc5bb;background:#fff9f3;border-radius:10px;padding:0 12px;color:var(--ink);font:inherit}
-.fbc-fin-row small{display:block;margin-top:5px;color:#8794a0;font-size:10.5px;line-height:1.4}
-.fbc-fin-row .unit{width:100%}
-.fbc-fin-advanced .fbc-fin-row{margin-top:8px}
-#fbcFinInterestStat{margin-top:5px}
+/* Financing · compact ledger-style inputs */
+.fbc-fin-details{margin-top:8px}
+.fbc-fin-body{padding:0 2px}
+.fbc-fin-intro{margin:0 0 8px;color:#687684;font-size:12px;line-height:1.5}
+.fbc-fin-row{display:grid;grid-template-columns:180px minmax(260px,1fr) auto;gap:16px;align-items:center;padding:11px 2px;border-bottom:1px solid #e3e8ec}
+.fbc-fin-row>span{font-size:12px;font-weight:750;color:#344c5d}
+.fbc-fin-explain{color:#7a8894;font-size:10.5px;line-height:1.4}
+.fbc-fin-static{font-size:13px;color:#2f4353;font-weight:650}
+.fbc-fin-control{justify-self:end;display:flex;align-items:center;gap:7px;min-width:0}
+.fbc-fin-control input,.fbc-fin-control select,.fbc-fin-row input,.fbc-fin-row select{height:40px;border:1px solid #cfd8df!important;background:#fff!important;border-radius:9px;padding:0 11px;color:var(--ink);font:inherit;box-shadow:none!important}
+#fbcFinAmount{width:170px}
+#fbcFinType{width:280px}
+#fbcFinRate{width:115px}
+#fbcFinMonths{width:95px}
+#fbcFinFees{width:145px}
+.fbc-fin-control .unit{width:auto}
+.fbc-fin-control .unit>b{white-space:nowrap}
+.fbc-fin-explain #fbcFinInterestStat{margin:4px 0 0}
+.fbc-fin-advanced{margin-top:0;border-top:0;padding-top:0;border-bottom:1px solid #e3e8ec}
+.fbc-fin-advanced>summary{padding:11px 2px}
+.fbc-fin-advanced .fbc-fin-row{border-top:1px solid #edf1f3;border-bottom:0}
 #fbcFinancingProgress{margin-top:12px}
 .fbc-financing-check{margin-top:18px;padding:0;border:0;border-top:1px solid #dfe5e9;border-radius:0;background:transparent}
 .fbc-financing-check .fbc-r-change-row{padding:9px 2px}
 .fbc-fin-liquidity-row{margin-top:4px;border-top:1px solid #cbd6de!important}
 #fbcRDSCRText{margin-top:12px;padding:10px 12px;border-left:3px solid #607e63;background:#f2f6f2;border-radius:0 9px 9px 0}
+.fbc-fin-stale{margin:10px 0 0;padding:9px 11px;border-left:3px solid #9a7b55;background:#f7f4ef;color:#6e604e;font-size:11px;line-height:1.45}
+@media(max-width:760px){
+  .fbc-fin-row{grid-template-columns:1fr;gap:6px;align-items:start}
+  .fbc-fin-control{justify-self:start;width:100%}
+  #fbcFinAmount,#fbcFinType,#fbcFinRate,#fbcFinMonths,#fbcFinFees{width:min(100%,320px)}
+}
 
 /* Employee economics · money first, hours second */
 .fbc-employee-hours-title{margin-top:14px;padding-top:12px;border-top:1px solid #dfe5e9}
@@ -2551,11 +2568,12 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-fazit-row{grid-template-columns:minmax(190px,.8fr) minmax(0,1.8fr)!important;gap:22px!important;padding:11px 2px!important;border-top:0!important;border-bottom:1px solid #e3e8ec}
 .fbc-fazit-label{font-size:11px!important;letter-spacing:.03em!important;color:#687684!important}
 .fbc-fazit-value{font-size:15px!important;line-height:1.5!important;color:#2c3d4b!important}
+.fbc-fazit-note{display:block;margin-top:3px;color:#748392;font-size:11px;line-height:1.4}
 .fbc-fazit-row.is-warning .fbc-fazit-label,.fbc-fazit-row.is-warning .fbc-fazit-value{color:#8a5148!important}
 
 @media(max-width:760px){
-  .fbc-bound-row,.fbc-bound-row-cost,.fbc-fin-row{grid-template-columns:1fr}
-  .fbc-bound-row>.unit,.fbc-bound-row-cost .fbc-cost-extra,.fbc-fin-row>div,.fbc-fin-row>select{width:100%;justify-self:stretch}
+  .fbc-bound-row,.fbc-bound-row-cost{grid-template-columns:1fr}
+  .fbc-bound-row>.unit,.fbc-bound-row-cost .fbc-cost-extra{width:100%;justify-self:stretch}
   .fbc-bound-row>.unit input{width:100%}
   .fbc-bound-row-cost .fbc-cost-extra{grid-template-columns:1fr}
   .fbc-bound-row-cost .fbc-cost-extra .unit,.fbc-bound-row-cost .fbc-cost-extra .unit input{width:100%}
@@ -5252,85 +5270,76 @@ fin.id = 'fbcFinanceCard';
 fin.className = 'fbc-fin-details';
 
 fin.innerHTML = `
-  <details class="fbc-decision-evidence fbc-financing-details" id="fbcFinancingDetails" open>
-    <summary>${T('Finanzierung berechnen','Рассчитать финансирование')}</summary>
-    <div class="fbc-decision-body">
-      <p class="fbc-decision-help">
-        ${T(
-          'Finanzierung wird als separate Option für Geschäftsausbau und Wachstum geprüft. FBC schlägt einen Orientierungsbetrag vor; Sie können ihn frei ändern.',
-          'Финансирование проверяется как отдельная возможность для расширения и роста бизнеса. FBC предлагает ориентировочную сумму, которую можно свободно изменить.'
-        )}
-      </p>
+  <div class="fbc-fin-body">
+    <p class="fbc-fin-intro">
+      ${T(
+        'Finanzierung wird als separate Option für Geschäftsausbau und Wachstum geprüft. Betrag, Belastung und Kapitaldienstfähigkeit werden getrennt vom operativen Ergebnis berechnet.',
+        'Финансирование проверяется отдельно для расширения и роста бизнеса. Сумма, нагрузка и способность обслуживать кредит рассчитываются отдельно от операционного результата.'
+      )}
+    </p>
 
-      <div class="fbc-fin-row">
-        <span>${T('Finanzierungsgrund','Цель финансирования')}</span>
-        <select id="fbcFinPurpose">
-          <option value="target_gap">${T('Geschäftsausbau / Wachstum','Расширение и рост бизнеса')}</option>
-        </select>
-      </div>
+    <input type="hidden" id="fbcFinPurpose" value="target_gap">
 
-      <div class="fbc-fin-row">
-        <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
-        <div>
-          <div class="unit"><input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0"><b>€</b></div>
-          <small id="fbcFinAmountHint">${T(
-            'FBC trägt den Orientierungsbetrag automatisch ein. Sie können die Summe jederzeit ändern.',
-            'FBC автоматически подставляет ориентировочную сумму. Вы можете изменить её в любой момент.'
-          )}</small>
-        </div>
-      </div>
-
-      <div class="fbc-fin-row">
-        <span>${T('Finanzierungsart','Тип финансирования')}</span>
-        <select id="fbcFinType">
-          <option value="annuity">${T('Annuitätendarlehen','Аннуитетный кредит')}</option>
-          <option value="tilgung">${T('Tilgungsdarlehen','Кредит с равномерным погашением')}</option>
-          <option value="bullet">${T('Endfälliges Darlehen','Погашение в конце срока')}</option>
-          <option value="line">${T('Kreditlinie','Кредитная линия')}</option>
-          <option value="zero">${T('Zinsfreie Finanzierung','Беспроцентное финансирование')}</option>
-        </select>
-      </div>
-
-      <div class="fbc-fin-row">
-        <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
-        <div>
-          <div class="unit"><input id="fbcFinRate" type="text" inputmode="decimal" placeholder="4,36"><b>%</b></div>
-          <small class="fbc-fin-market-hint">${T(
-            'Orientierungswert aus der Bundesbank-Zinsstatistik. Bitte durch Ihre tatsächliche Bankkondition ersetzen.',
-            'Ориентир по статистике Bundesbank. Замените на фактическую ставку вашего банка.'
-          )}</small>
-          <button type="button" class="fbc-cost-stat-link" id="fbcFinInterestStat">${T('Statistik & Prognose','Статистика и прогноз')}</button>
-        </div>
-      </div>
-
-      <div class="fbc-fin-row">
-        <span>${T('Laufzeit','Срок')}</span>
-        <div class="unit"><input id="fbcFinMonths" type="number" min="1" placeholder="36"><b>${T('Mon.','мес.')}</b></div>
-      </div>
-
-      <details class="fbc-fin-advanced">
-        <summary>${T('Weitere Angaben','Дополнительные параметры')}</summary>
-        <div class="fbc-fin-row">
-          <span>${T('Zusätzliche monatliche Finanzierungskosten','Дополнительные ежемесячные расходы по финансированию')}</span>
-          <div>
-            <div class="unit"><input id="fbcFinFees" type="text" inputmode="decimal" placeholder="0"><b>€ / ${T('Monat','мес.')}</b></div>
-            <small>${T(
-              'Zum Beispiel laufende Bank- oder Bereitstellungsgebühren; keine Tilgung.',
-              'Например, регулярные банковские комиссии; погашение основного долга сюда не входит.'
-            )}</small>
-          </div>
-        </div>
-      </details>
-
-      <div class="fbc-evidence-action">
-        <button class="fbc-r-primary" type="button" id="fbcRunFinancing">${T('Berechnen','Рассчитать')}</button>
-      </div>
-      <div class="fbc-analysis-progress" id="fbcFinancingProgress" aria-live="polite">
-        <div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div>
-        <small class="fbc-analysis-progress-text">${T('Finanzierung wird berechnet …','Рассчитывается финансирование …')}</small>
-      </div>
+    <div class="fbc-fin-row">
+      <span>${T('Finanzierungszweck','Цель финансирования')}</span>
+      <div class="fbc-fin-explain"></div>
+      <div class="fbc-fin-static">${T('Geschäftsausbau / Wachstum','Расширение и рост бизнеса')}</div>
     </div>
-  </details>
+
+    <div class="fbc-fin-row">
+      <span>${T('Finanzierungsbetrag','Сумма финансирования')}</span>
+      <div class="fbc-fin-explain" id="fbcFinAmountHint">${T(
+        'Orientierungsbetrag auf Basis der aktuellen Ziellücke. Sie können den Betrag frei ändern.',
+        'Ориентировочная сумма на основе текущего разрыва до цели. Сумму можно свободно изменить.'
+      )}</div>
+      <div class="fbc-fin-control"><div class="unit"><input id="fbcFinAmount" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></div>
+    </div>
+
+    <div class="fbc-fin-row">
+      <span>${T('Finanzierungsart','Тип финансирования')}</span>
+      <div class="fbc-fin-explain"></div>
+      <div class="fbc-fin-control"><select id="fbcFinType">
+        <option value="annuity">${T('Annuitätendarlehen','Аннуитетный кредит')}</option>
+        <option value="tilgung">${T('Tilgungsdarlehen','Кредит с равномерным погашением')}</option>
+        <option value="bullet">${T('Endfälliges Darlehen','Погашение в конце срока')}</option>
+        <option value="line">${T('Kreditlinie','Кредитная линия')}</option>
+        <option value="zero">${T('Zinsfreie Finanzierung','Беспроцентное финансирование')}</option>
+      </select></div>
+    </div>
+
+    <div class="fbc-fin-row">
+      <span>${T('Zinssatz p.a.','Годовая ставка')}</span>
+      <div class="fbc-fin-explain">
+        ${T('Orientierungswert aus der Bundesbank-Zinsstatistik. Bitte durch Ihre tatsächliche Bankkondition ersetzen.','Ориентир по статистике Bundesbank. Замените на фактическую ставку вашего банка.')}
+        <br><button type="button" class="fbc-cost-stat-link" id="fbcFinInterestStat">${T('Statistik & Prognose','Статистика и прогноз')}</button>
+      </div>
+      <div class="fbc-fin-control"><div class="unit"><input id="fbcFinRate" type="text" inputmode="decimal" placeholder="4,36"><b>%</b></div></div>
+    </div>
+
+    <div class="fbc-fin-row">
+      <span>${T('Laufzeit','Срок')}</span>
+      <div class="fbc-fin-explain"></div>
+      <div class="fbc-fin-control"><div class="unit"><input id="fbcFinMonths" type="number" min="1" placeholder="36"><b>${T('Mon.','мес.')}</b></div></div>
+    </div>
+
+    <details class="fbc-fin-advanced">
+      <summary>${T('Weitere Angaben','Дополнительные параметры')}</summary>
+      <div class="fbc-fin-row">
+        <span>${T('Zusätzliche monatliche Finanzierungskosten','Дополнительные ежемесячные расходы')}</span>
+        <div class="fbc-fin-explain">${T('Zum Beispiel laufende Bank- oder Bereitstellungsgebühren; keine Tilgung.','Например, регулярные банковские комиссии; погашение основного долга сюда не входит.')}</div>
+        <div class="fbc-fin-control"><div class="unit"><input id="fbcFinFees" type="text" inputmode="decimal" placeholder="0"><b>€ / ${T('Monat','мес.')}</b></div></div>
+      </div>
+    </details>
+
+    <div class="fbc-fin-stale" id="fbcFinancingStale" hidden></div>
+    <div class="fbc-evidence-action">
+      <button class="fbc-r-primary" type="button" id="fbcRunFinancing">${T('Berechnen','Рассчитать')}</button>
+    </div>
+    <div class="fbc-analysis-progress" id="fbcFinancingProgress" aria-live="polite">
+      <div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div>
+      <small class="fbc-analysis-progress-text">${T('Finanzierung wird berechnet …','Рассчитывается финансирование …')}</small>
+    </div>
+  </div>
 `;
 
 const financingSection = document.getElementById('fbcFinancingSection');
@@ -5352,19 +5361,41 @@ if(interestStatBtn){
 const financingAmountInput=$('fbcFinAmount');
 const financingPurposeInput=$('fbcFinPurpose');
 
+window.FBC_INVALIDATE_FINANCING_RESULT = function(message){
+  fbcFinancingSelected = false;
+  const box=$('fbcRFinancingCheck');
+  if(box) box.hidden=true;
+  const stale=$('fbcFinancingStale');
+  if(stale){
+    stale.hidden=false;
+    stale.textContent=message || T(
+      'Finanzierungsdaten wurden geändert. Bitte Finanzierung neu berechnen.',
+      'Параметры финансирования изменены. Рассчитайте финансирование заново.'
+    );
+  }
+};
+
 window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT = function(force=false){
   const input=$('fbcFinAmount');
   if(!input) return;
   const targetGap=Number(input.dataset.targetGap||0);
   if(!force && input.dataset.userEdited==='1') return;
-  input.value=targetGap>0 ? targetGap.toFixed(2) : '';
+  const nextValue=targetGap>0 ? targetGap.toFixed(2) : '';
+  const prevValue=String(input.value||'').replace(',','.');
+  if(prevValue && nextValue && Math.abs(Number(prevValue)-Number(nextValue))>0.005){
+    window.FBC_INVALIDATE_FINANCING_RESULT?.(T(
+      'Die Ziellücke hat sich geändert. Bitte Finanzierung mit dem aktualisierten Betrag neu berechnen.',
+      'Разрыв до цели изменился. Рассчитайте финансирование заново с обновлённой суммой.'
+    ));
+  }
+  input.value=nextValue;
   input.dataset.userEdited='0';
   const hint=$('fbcFinAmountHint');
   if(hint){
     hint.textContent=targetGap>0
       ? T(
-          'Orientierung: aktuelle Ziellücke. Für Geschäftsausbau und Wachstum können Sie den Betrag frei anpassen.',
-          'Ориентир: текущий разрыв до цели. Для расширения и роста бизнеса сумму можно свободно изменить.'
+          'Orientierungsbetrag auf Basis der aktuellen Ziellücke. Sie können den Betrag frei ändern.',
+          'Ориентировочная сумма на основе текущего разрыва до цели. Сумму можно свободно изменить.'
         )
       : T(
           'Für Geschäftsausbau und Wachstum können Sie einen eigenen Finanzierungsbetrag eingeben.',
@@ -5377,8 +5408,16 @@ if(financingAmountInput && !financingAmountInput.dataset.fbcBound){
   financingAmountInput.dataset.fbcBound='1';
   financingAmountInput.addEventListener('input',()=>{
     financingAmountInput.dataset.userEdited='1';
+    window.FBC_INVALIDATE_FINANCING_RESULT?.();
   });
 }
+['fbcFinType','fbcFinRate','fbcFinMonths','fbcFinFees'].forEach(id=>{
+  const el=$(id);
+  if(!el || el.dataset.fbcInvalidateBound) return;
+  el.dataset.fbcInvalidateBound='1';
+  el.addEventListener('input',()=>window.FBC_INVALIDATE_FINANCING_RESULT?.());
+  el.addEventListener('change',()=>window.FBC_INVALIDATE_FINANCING_RESULT?.());
+});
 
 if(financingPurposeInput && !financingPurposeInput.dataset.fbcBound){
   financingPurposeInput.dataset.fbcBound='1';
@@ -5413,6 +5452,8 @@ if(financingRunBtn){
     }
 
     fbcFinancingSelected = true;
+    const stale=$('fbcFinancingStale');
+    if(stale) stale.hidden=true;
     financingRunBtn.disabled = true;
     financingRunBtn.textContent = T('Berechnung läuft…','Расчёт выполняется…');
 
@@ -6175,7 +6216,7 @@ const hasOptimizedDecision =
     const financingRelevant=
       finActive ||
       (financingAllowedByDecision && (targetGapFinancing>0.01 || liquidityBridgeNeed>0.01));
-    finSection.hidden=false;
+    finSection.hidden=!financingRelevant;
 
     const financeCard=$('fbcFinanceCard');
     if(financeCard){
@@ -6214,12 +6255,26 @@ const finCurrent=get(p,'financing.current');
 
 if(debtBox){
 
+  const requestedFinAmount=num('fbcFinAmount');
+  const payloadFinAmount=Number(finCurrent?.amount);
+  const financingAmountMatches=
+    !Number.isFinite(requestedFinAmount) || requestedFinAmount<=0 ||
+    !Number.isFinite(payloadFinAmount) ||
+    Math.abs(requestedFinAmount-payloadFinAmount)<=0.005;
+
   const hasFinancingResult=
     finActive &&
     finCurrent &&
-    typeof finCurrent === 'object';
+    typeof finCurrent === 'object' &&
+    financingAmountMatches;
 
   debtBox.hidden=!hasFinancingResult;
+  if(finActive && finCurrent && !financingAmountMatches){
+    window.FBC_INVALIDATE_FINANCING_RESULT?.(T(
+      'Der Finanzierungsbetrag wurde aktualisiert. Bitte Finanzierung neu berechnen.',
+      'Сумма финансирования обновлена. Рассчитайте финансирование заново.'
+    ));
+  }
 
   if(hasFinancingResult){
 
@@ -6480,36 +6535,55 @@ if($('fbcRFazit') && $('fbcRFazitText')){
   if(fazitBox && fazitStatus && fazitList){
     fazitStatus.textContent=T('Gesamtergebnis der Finanzanalyse','Полные итоги финансового анализа');
     const rows=[];
-    const add=(label,value,warning=false)=>{ if(value) rows.push({label,value,warning}); };
+    const add=(label,value,warning=false,note='')=>{ if(value) rows.push({label,value,warning,note}); };
+
+    const optimizationNote=changesFazit.length ? changesFazit.map(c=>{
+      const label=c.label||c.lever||'';
+      const cur=Number(c.current), prop=Number(c.proposed);
+      const unit=String(c.unit||'');
+      const fmt=v=>unit.includes('EUR')?money(v):`${Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})}${unit?' '+unit:''}`;
+      return `${label}: ${Number.isFinite(cur)?fmt(cur):'—'} → ${Number.isFinite(prop)?fmt(prop):'—'}`;
+    }).join(' · ') : '';
 
     if(Number.isFinite(currentNetFazit)) add(T('Aktuelles Monatsnetto','Текущее месячное нетто'),money(currentNetFazit));
     if(Number.isFinite(targetFazit)) add(T('Nettoziel','Цель по нетто'),money(targetFazit));
-    if(Number.isFinite(projectedNetFazit)) add(T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации'),money(projectedNetFazit));
-    if(Number.isFinite(remainingGapFazit) && remainingGapFazit>0.01) add(T('Verbleibender Abstand zum Nettoziel','Оставшееся расстояние до цели по нетто'),money(remainingGapFazit));
+    if(Number.isFinite(projectedNetFazit)) add(
+      T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации'),
+      money(projectedNetFazit),
+      false,
+      optimizationNote ? T(`Optimierung: ${optimizationNote}`,`Оптимизация: ${optimizationNote}`) : ''
+    );
+    if(Number.isFinite(remainingGapFazit) && remainingGapFazit>0.01) add(T('Verbleibender Abstand zum Nettoziel','Оставшийся разрыв до цели по нетто'),money(remainingGapFazit));
 
-    if(changesFazit.length){
-      const decisionText=changesFazit.map(c=>{
-        const label=c.label||c.lever||'';
-        const cur=Number(c.current), prop=Number(c.proposed);
-        const unit=String(c.unit||'');
-        const fmt=v=>unit.includes('EUR')?money(v):`${Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})}${unit?' '+unit:''}`;
-        return `${label}: ${Number.isFinite(cur)?fmt(cur):'—'} → ${Number.isFinite(prop)?fmt(prop):'—'}`;
-      }).join(' · ');
-      add(T('Empfohlene Entscheidung','Рекомендуемое решение'),decisionText);
-    }
+    const requestedAmountFazit=num('fbcFinAmount');
+    const financingFreshFazit=
+      finActiveFazit && Number.isFinite(finAmountFazit) && finAmountFazit>0 &&
+      (!Number.isFinite(requestedAmountFazit) || requestedAmountFazit<=0 || Math.abs(finAmountFazit-requestedAmountFazit)<=0.005);
 
-    if(finActiveFazit && Number.isFinite(finAmountFazit) && finAmountFazit>0){
+    if(financingFreshFazit){
       const payment=Number.isFinite(finMaxFazit)?finMaxFazit:finFirstFazit;
-      let finText=T(`Finanzierung ${money(finAmountFazit)}`,`Финансирование ${money(finAmountFazit)}`);
-      if(Number.isFinite(payment)) finText += T(` · Belastung bis zu ${money(payment)} / Monat`,` · нагрузка до ${money(payment)} / месяц`);
+      const needText=Number.isFinite(remainingGapFazit) && remainingGapFazit>0.01
+        ? T(
+            `Das Nettoziel von ${Number.isFinite(targetFazit)?money(targetFazit):'—'} wird operativ noch nicht vollständig erreicht. Für den verbleibenden Finanzierungsbedarf von ${money(remainingGapFazit)} wurde eine Finanzierung in Höhe von ${money(finAmountFazit)} geprüft.`,
+            `Цель по нетто ${Number.isFinite(targetFazit)?money(targetFazit):'—'} операционно ещё не достигается полностью. Для оставшейся потребности в финансировании ${money(remainingGapFazit)} проверено финансирование на сумму ${money(finAmountFazit)}.`
+          )
+        : T(`Geprüfte Finanzierung: ${money(finAmountFazit)}.`,`Проверенное финансирование: ${money(finAmountFazit)}.`);
+      let coverage='';
+      if(Number.isFinite(payment)) coverage += T(` Monatliche Belastung bis zu ${money(payment)}.`,` Ежемесячная нагрузка до ${money(payment)}.`);
       if(Number.isFinite(finDscrFazit)){
-        finText += finDscrFazit>=1.2
-          ? T(' · Kapitaldienst deutlich gedeckt',' · платежи по долгу уверенно покрываются')
+        coverage += finDscrFazit>=1.2
+          ? T(' Der Kapitaldienst ist aus den verfügbaren Mitteln gedeckt; es besteht ein zusätzlicher Liquiditätspuffer.',' Платёж по кредиту покрывается доступными средствами; остаётся дополнительный запас ликвидности.')
           : finDscrFazit>=1
-            ? T(' · Kapitaldienst gedeckt, Puffer gering',' · платежи покрываются, запас небольшой')
-            : T(' · Kapitaldienst nicht vollständig gedeckt',' · платежи по долгу покрываются не полностью');
+            ? T(' Der Kapitaldienst ist gedeckt, der Liquiditätspuffer ist jedoch gering.',' Платёж по кредиту покрывается, но запас ликвидности небольшой.')
+            : T(' Der Kapitaldienst ist mit den aktuell verfügbaren Mitteln nicht vollständig gedeckt.',' Платёж по кредиту не полностью покрывается текущими доступными средствами.');
       }
-      add(T('Finanzierung','Финансирование'),finText,Number.isFinite(finDscrFazit)&&finDscrFazit<1);
+      add(T('Finanzierung','Финансирование'),needText+coverage,Number.isFinite(finDscrFazit)&&finDscrFazit<1);
+    }else if(finActiveFazit && Number.isFinite(finAmountFazit) && finAmountFazit>0){
+      add(
+        T('Finanzierung','Финансирование'),
+        T('Der Finanzierungsbetrag wurde seit der letzten Berechnung geändert. Bitte Finanzierung neu berechnen.','Сумма финансирования изменилась после последнего расчёта. Рассчитайте финансирование заново.'),
+        true
+      );
     }
 
     if(fbcRiskSummary) add(T('Risikoprüfung','Проверка рисков'),fbcRiskSummary);
@@ -6522,7 +6596,7 @@ if($('fbcRFazit') && $('fbcRFazitText')){
     fazitList.innerHTML=rows.map(row=>`
       <div class="fbc-fazit-row${row.warning?' is-warning':''}">
         <div class="fbc-fazit-label">${esc(row.label)}</div>
-        <div class="fbc-fazit-value">${esc(row.value)}</div>
+        <div class="fbc-fazit-value">${esc(row.value)}${row.note?`<small class="fbc-fazit-note">${esc(row.note)}</small>`:''}</div>
       </div>
     `).join('');
     fazitBox.hidden=rows.length===0;
@@ -6625,7 +6699,7 @@ function refreshRLanguageUI(){
   if(hint){
     const targetGap=Number($('fbcFinAmount')?.dataset?.targetGap||0);
     hint.textContent=targetGap>0
-      ? T('Orientierung: aktuelle Ziellücke. Für Geschäftsausbau und Wachstum können Sie den Betrag frei anpassen.','Ориентир: текущий разрыв до цели. Для расширения и роста бизнеса сумму можно свободно изменить.')
+      ? T('Orientierungsbetrag auf Basis der aktuellen Ziellücke. Sie können den Betrag frei ändern.','Ориентировочная сумма на основе текущего разрыва до цели. Сумму можно свободно изменить.')
       : T('Für Geschäftsausbau und Wachstum können Sie einen eigenen Finanzierungsbetrag eingeben.','Для расширения и роста бизнеса можно указать собственную сумму финансирования.');
   }
 }
