@@ -5121,115 +5121,29 @@ layer.innerHTML=`
 
   <!-- 7. ROBUSTHEIT -->
 
-  <section class="fbc-analysis-section">
-    <div class="fbc-analysis-heading">
-      <div>
-        <h3>${T('Robustheit der Entscheidung','Устойчивость решения')}</h3>
-        <p>
-          ${T(
-            'Monte Carlo prüft die bereits ausgewählte Entscheidung unter möglichen Schwankungen. Die Entscheidung wird dabei nicht neu optimiert.',
-            'Monte Carlo проверяет уже выбранное решение при возможных колебаниях. Само решение при этом заново не оптимизируется.'
-          )}
-        </p>
-      </div>
-      <span class="fbc-step-badge">7</span>
+  <!-- 7. RISIKOPRÜFUNG -->
+
+<section class="fbc-analysis-section">
+  <div class="fbc-analysis-heading">
+    <div>
+      <h3>${T('Risikoprüfung','Проверка рисков')}</h3>
+      <p>
+        ${T(
+          'FBC nutzt eine Monte-Carlo-Simulation intern, um zu prüfen, wie empfindlich die gewählte Lösung auf mögliche Kostenentwicklungen reagiert.',
+          'FBC использует модель Монте-Карло внутри расчёта, чтобы проверить, насколько выбранное решение чувствительно к возможным изменениям затрат.'
+        )}
+      </p>
     </div>
-
-<div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
-
-  <div class="fbc-r-detail-title">
-    ${T(
-      'Wie stabil ist das erwartete Monatsnetto?',
-      'Насколько устойчив ожидаемый месячный результат?'
-    )}
+    <span class="fbc-step-badge">7</span>
   </div>
 
-  <p class="fbc-r-note">
-    ${T(
-      'FBC prüft Ihre gewählte Entscheidung unter vielen möglichen Entwicklungen von Energie-, Kraftstoff- und Personalkosten. Eine aktive Finanzierung wird mit den eingegebenen Konditionen im Ergebnis berücksichtigt.',
-      'FBC проверяет выбранное решение при множестве возможных изменений затрат на энергию, топливо и персонал. Активное финансирование учитывается в результате на введённых условиях.'
-    )}
-  </p>
-
-  <div class="fbc-mc-result-list">
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Chance, das Nettoziel zu erreichen',
-          'Шанс достичь цели по нетто'
-        )}</strong>
-        <small>${T(
-          'Anteil der geprüften Entwicklungen, in denen Ihr Ziel erreicht oder überschritten wird.',
-          'Доля проверенных сценариев, в которых цель достигается или превышается.'
-        )}</small>
-      </div>
-      <b id="fbcMCProbability">—</b>
+  <div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
+    <div class="fbc-r-detail-title">
+      ${T('Mathematische Risikoprüfung','Математическая проверка рисков')}
     </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Unterer Prognosewert',
-          'Нижний прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'In etwa 10 % der geprüften Entwicklungen liegt das Monatsnetto unter diesem Wert.',
-          'Примерно в 10 % проверенных сценариев месячное нетто оказывается ниже этого значения.'
-        )}</small>
-      </div>
-      <b id="fbcMCP10">—</b>
-    </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Zentraler Prognosewert',
-          'Центральный прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'Die Hälfte der geprüften Entwicklungen liegt darunter, die andere Hälfte darüber.',
-          'Половина проверенных сценариев находится ниже этого значения, половина — выше.'
-        )}</small>
-      </div>
-      <b id="fbcMCP50">—</b>
-    </div>
-
-    <div class="fbc-mc-result-row">
-      <div>
-        <strong>${T(
-          'Oberer Prognosewert',
-          'Верхний прогнозный уровень'
-        )}</strong>
-        <small>${T(
-          'Nur etwa 10 % der geprüften Entwicklungen liegen über diesem Wert.',
-          'Только примерно 10 % проверенных сценариев оказываются выше этого значения.'
-        )}</small>
-      </div>
-      <b id="fbcMCP90">—</b>
-    </div>
-
+    <p class="fbc-r-note" id="fbcMCRiskText"></p>
   </div>
-
-</div>
-  </section>
-
-
-  <!-- 8. GESAMTFAZIT -->
-
-  <section class="fbc-analysis-section">
-    <div class="fbc-analysis-heading">
-      <div>
-        <h3>${T('FBC Fazit','Вывод FBC')}</h3>
-        <p>${T('Zusammenfassung der Analyse, Entscheidung und Robustheitsprüfung.','Итог анализа, решения и проверки устойчивости.')}</p>
-      </div>
-      <span class="fbc-step-badge">8</span>
-    </div>
-
-    <div class="fbc-r-detailbox" id="fbcRFazit" hidden>
-      <div class="fbc-r-note" id="fbcRFazitText"></div>
-    </div>
-  </section>
+</section>
 
 
   <!-- TECHNISCHER STATUS -->
