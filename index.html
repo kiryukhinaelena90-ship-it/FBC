@@ -5501,18 +5501,19 @@ if(financingRunBtn){
       return;
     }
 
-    fbcFinancingSelected = true;
-    const stale=$('fbcFinancingStale');
-    if(stale) stale.hidden=true;
-    financingRunBtn.disabled = true;
-    financingRunBtn.textContent = T('Berechnung läuft…','Расчёт выполняется…');
+// При запуске расчёта фиксируем именно ту сумму,
+// которую пользователь сейчас отправляет в R.
+if(financingAmountInput){
+  financingAmountInput.dataset.userEdited = '1';
+}
 
-    try{
-      await runRAnalysis('fbcRunFinancing');
-    }finally{
-      financingRunBtn.disabled = false;
-      financingRunBtn.textContent = T('Berechnen','Рассчитать');
-    }
+fbcFinancingSelected = true;
+
+const stale=$('fbcFinancingStale');
+if(stale){
+  stale.hidden = true;
+  stale.textContent = '';
+}
   });
 }
 
