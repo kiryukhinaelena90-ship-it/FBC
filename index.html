@@ -6378,16 +6378,18 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
-  const remainingGapForFinancing = Number(
+const remainingGapForFinancing = Number(
   get(p,'recommendation.remaining_gap_eur')
 );
 
 const financingSection = $('fbcFinancingSection');
 
 if(financingSection){
-  financingSection.hidden =
+  const financingNeeded =
     Number.isFinite(remainingGapForFinancing) &&
-    remainingGapForFinancing <= 0;
+    remainingGapForFinancing > 0;
+
+  financingSection.hidden = !financingNeeded;
 }
 const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
