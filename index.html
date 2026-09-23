@@ -6244,7 +6244,7 @@ const hasOptimizedDecision =
 
     const changesHtml=validChanges.length
       ? `
-        <div class="fbc-r-detail-title" style="margin-top:16px">${T('Empfohlene Änderungen','Рекомендуемые изменения')}</div>
+        <div class="fbc-r-detail-title" style="margin-top:16px">${T('Im Modell angewandte Änderungen','Применённые в расчёте изменения')}</div>
         ${validChanges.map(c=>{
           const cur=Number(c.current), prop=Number(c.proposed);
           const rel=Number.isFinite(cur)&&cur!==0&&Number.isFinite(prop)?((prop-cur)/Math.abs(cur))*100:NaN;
