@@ -4478,7 +4478,42 @@ function solveModeRevenue(p,business,insurance,goal){
 }
 function employeeReady(){return hasInput('#empOwnerPrice')&&hasInput('#empOwnerHours')&&hasInput('#empOwnerDays')&&hasInput('#empWage')&&hasInput('#empHours')&&(!$('#empBillable').checked||hasInput('#empCustomerPrice'))}
 function employeeStarted(){return ['#empOwnerPrice','#empOwnerHours','#empOwnerDays','#empWage','#empHours','#empOwnerGoal'].some(hasInput)||modeCosts('emp')>0}
-function updateEmployee(){
+function employeeSustainableHours(billableHours, availableHours){
+  const h=Math.max(0,Number(billableHours)||0);
+  const a=Math.max(0,Number(availableHours)||0);
+
+  if(a<=0){
+    return{
+      utilization:null,
+      effectiveHours:h*0.95,
+      zone:'capacity_unknown'
+    };
+  }
+
+  const h70=0.70*a;
+  const h85=0.85*a;
+  const h100=a;
+
+  const p1=Math.min(h,h70);
+  const p2=Math.max(0,Math.min(h,h85)-h70);
+  const p3=Math.max(0,Math.min(h,h100)-h85);
+  const p4=Math.max(0,h-h100);
+
+  return{
+    utilization:h/a,
+    effectiveHours:
+      0.95*p1 +
+      1.00*p2 +
+      0.85*p3 +
+      0.65*p4,
+    zone:
+      h/a<0.70 ? 'low' :
+      h/a<=0.85 ? 'normal' :
+      h/a<=1.00 ? 'high' :
+      'overload'
+  };
+}
+  function updateEmployee(){
   const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),recommended=actualBillable>0?emp.total/actualBillable:costReferenceRate;
   emp.billableHours=actualBillable;
   emp.revenue=customerPrice*actualBillable;
