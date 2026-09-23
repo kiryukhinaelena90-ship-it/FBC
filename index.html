@@ -2751,6 +2751,76 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   .fbc-implementation-grid{grid-template-columns:1fr}
   .fbc-fazit-row{grid-template-columns:1fr!important;gap:4px!important}
 }
+  /* Compact and unified controls · Handlungsspielräume + Finanzierung */
+
+.fbc-bound-row input,
+.fbc-bound-row select,
+.fbc-fin-control input,
+.fbc-fin-control select{
+  border-radius:10px!important;
+}
+
+/* Desktop: controls ca. 25 % narrower */
+@media(min-width:761px){
+
+  /* Handlungsspielräume */
+  .fbc-bound-row{
+    grid-template-columns:minmax(260px,1fr) 135px;
+  }
+
+  .fbc-bound-row>.unit{
+    width:135px;
+    justify-self:end;
+  }
+
+  .fbc-bound-row>.unit input{
+    width:109px;
+  }
+
+  /* Kostenposition */
+  .fbc-bound-row-cost{
+    grid-template-columns:minmax(260px,1fr) 289px;
+  }
+
+  .fbc-bound-row-cost .fbc-cost-extra{
+    grid-template-columns:143px 132px;
+    gap:14px;
+    justify-content:end;
+  }
+
+  #fbcBoundCostKey{
+    width:143px;
+  }
+
+  .fbc-bound-row-cost .fbc-cost-extra .unit{
+    width:132px;
+  }
+
+  .fbc-bound-row-cost .fbc-cost-extra .unit input{
+    width:107px;
+  }
+
+  /* Finanzierung */
+  .fbc-fin-row{
+    grid-template-columns:minmax(260px,1fr) 135px;
+  }
+
+  .fbc-fin-control{
+    width:135px;
+  }
+
+  .fbc-fin-control .unit{
+    width:135px;
+  }
+
+  .fbc-fin-control .unit input{
+    width:109px;
+  }
+
+  .fbc-fin-control select{
+    width:135px;
+  }
+}
 </style>
 
 </head>
