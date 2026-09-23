@@ -5390,7 +5390,7 @@ layer.innerHTML=`
 
   <!-- 8. GESAMTFAZIT -->
 
-  <section class="fbc-analysis-section">
+<section class="fbc-analysis-section" id="fbcFazitSection" hidden>
     <div class="fbc-analysis-heading">
       <div>
         <h3>${T('Finanzanalyse und Handlungsempfehlung','Финансовый анализ и рекомендации')}</h3>
@@ -5733,7 +5733,9 @@ if($('fbcRMonteCarlo')){
     if($('fbcRFazit')){
   $('fbcRFazit').hidden = true;
 }
-
+if($('fbcFazitSection')){
+  $('fbcFazitSection').hidden = true;
+}
 if($('fbcRFazitText')){
   $('fbcRFazitText').textContent = '';
 }
@@ -5901,6 +5903,10 @@ function invalidateRAnalysis(){
   if($('fbcRFazit')){
     $('fbcRFazit').hidden = true;
   }
+
+  if($('fbcFazitSection')){
+    $('fbcFazitSection').hidden = true;
+  }
 }
 function financing(){
   const amount = num('fbcFinAmount');
@@ -5953,14 +5959,7 @@ function financing(){
   };
 
   const errors=[];
-if(direct && bill <= 0){
-  errors.push(
-    T(
-      'Bitte geben Sie die tatsächlich an Kunden abrechenbaren Mitarbeiterstunden pro Monat ein.',
-      'Укажите фактические часы сотрудника в месяц, которые выставляются клиенту.'
-    )
-  );
-}
+
   const ownerRevenue=
     o.price * o.billable_hours_month;
 
@@ -6746,7 +6745,23 @@ if($('fbcRMonteCarlo')){
     ? get(p,'fazit.ru')
     : get(p,'fazit.de');
 
-if($('fbcRFazit') && $('fbcRFazitText')){
+const fazitSection=$('fbcFazitSection');
+const fazitChanges=get(p,'recommendation.changes');
+
+const hasFinalDecision =
+  String(p?.status||'') !== 'no_evidenced_lever' &&
+  Array.isArray(fazitChanges);
+
+if(fazitSection){
+  fazitSection.hidden=!hasFinalDecision;
+}
+
+if(!hasFinalDecision){
+  if($('fbcRFazit')) $('fbcRFazit').hidden=true;
+  if($('fbcRFazitList')) $('fbcRFazitList').innerHTML='';
+}
+
+if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
   const businessOk=get(p,'post_decision.business_break_even_ok') ?? get(p,'break_even.ok');
   const businessMargin=Number(get(p,'break_even.business.safety_margin') ?? get(p,'post_decision.business_break_even_margin_eur'));
   const businessCritical=businessOk===false || (Number.isFinite(businessMargin) && businessMargin<0);
