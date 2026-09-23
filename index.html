@@ -3398,11 +3398,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
     <div class="orientation-box customer-price-orientation" id="empPriceOrientation">
       <div>
-       <small
-  data-de="Nachhaltig kostenorientierter Kundenpreis / Std. · keine R-Empfehlung"
-  data-ru="Устойчивая ориентировочная цена клиенту / ч · не R-рекомендация">
-  Nachhaltig kostenorientierter Kundenpreis / Std. · keine R-Empfehlung
-</small>
+       <small data-de="Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung" data-ru="Ориентировочная цена клиенту / ч · только покрытие затрат, не R-рекомендация">Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung</small>
         <strong id="empRecommendedPrice">—</strong>
       </div>
       <button id="empApplyRecommendedPrice" type="button" data-de="Kostendeckenden Satz übernehmen" data-ru="Подставить ставку покрытия затрат">Kostendeckenden Satz übernehmen</button>
@@ -4482,53 +4478,10 @@ function solveModeRevenue(p,business,insurance,goal){
 }
 function employeeReady(){return hasInput('#empOwnerPrice')&&hasInput('#empOwnerHours')&&hasInput('#empOwnerDays')&&hasInput('#empWage')&&hasInput('#empHours')&&(!$('#empBillable').checked||hasInput('#empCustomerPrice'))}
 function employeeStarted(){return ['#empOwnerPrice','#empOwnerHours','#empOwnerDays','#empWage','#empHours','#empOwnerGoal'].some(hasInput)||modeCosts('emp')>0}
-function employeeSustainableHours(billableHours, availableHours){
-  const h=Math.max(0,Number(billableHours)||0);
-  const a=Math.max(0,Number(availableHours)||0);
-
-  if(a<=0){
-    return{
-      utilization:null,
-      effectiveHours:h*0.95,
-      zone:'capacity_unknown'
-    };
-  }
-
-  const h70=0.70*a;
-  const h85=0.85*a;
-  const h100=a;
-
-  const p1=Math.min(h,h70);
-  const p2=Math.max(0,Math.min(h,h85)-h70);
-  const p3=Math.max(0,Math.min(h,h100)-h85);
-  const p4=Math.max(0,h-h100);
-
-  return{
-    utilization:h/a,
-    effectiveHours:
-      0.95*p1 +
-      1.00*p2 +
-      0.85*p3 +
-      0.65*p4,
-    zone:
-      h/a<0.70 ? 'low' :
-      h/a<=0.85 ? 'normal' :
-      h/a<=1.00 ? 'high' :
-      'overload'
-  };
-}
-  function updateEmployee(){
-  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation);
-  const employeeLoad=employeeSustainableHours(actualBillable,emp.workHours);
-  const recommended=employeeLoad.effectiveHours>0
-    ? emp.total/employeeLoad.effectiveHours
-    : costReferenceRate;
-
-  emp.effectiveBillableHours=employeeLoad.effectiveHours;
-  emp.billableUtilization=employeeLoad.utilization;
-  emp.utilizationZone=employeeLoad.zone;
+function updateEmployee(){
+  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),recommended=actualBillable>0?emp.total/actualBillable:costReferenceRate;
   $('#empApplyRecommendedPrice').dataset.recommendedPrice=String(recommended);
-  emp.billableHours=actualBillable;
+emp.billableHours=actualBillable;
   emp.revenue=customerPrice*actualBillable;
   emp.contribution=emp.revenue-emp.total;
   $('#empCapacityHours').textContent=`${emp.workHours.toLocaleString(lang==='ru'?'ru-RU':'de-DE',{maximumFractionDigits:1})} h / ${t('Monat','месяц')}`;
@@ -4772,7 +4725,9 @@ if(vacation.dataset.autoVacation==='true'){
 });
 $('#empDays').addEventListener('input',()=>{$('#empDays').dataset.autoDays='false'});
 $('#empApplyRecommendedPrice').addEventListener('click',()=>{
-  const recommendation=Number($('#empApplyRecommendedPrice').dataset.recommendedPrice)||0;
+  const recommendation=
+    Number($('#empApplyRecommendedPrice').dataset.recommendedPrice)||0;
+
   if(recommendation>0){
     $('#empCustomerPrice').value=recommendation.toFixed(2);
     calculateAll();
