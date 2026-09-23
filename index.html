@@ -5953,14 +5953,7 @@ function financing(){
   };
 
   const errors=[];
-if(direct && bill <= 0){
-  errors.push(
-    T(
-      'Bitte geben Sie die tatsächlich an Kunden abrechenbaren Mitarbeiterstunden pro Monat ein.',
-      'Укажите фактические часы сотрудника в месяц, которые выставляются клиенту.'
-    )
-  );
-}
+
   const ownerRevenue=
     o.price * o.billable_hours_month;
 
