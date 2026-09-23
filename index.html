@@ -4057,6 +4057,20 @@ function updateSolo(){
   ['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.toggle('hidden',!bridgeReady));
   if(bridgeReady){$('#soloBridgeCurrent').textContent=euro(a.revenue);$('#soloBridgeRequired').textContent=euro(a.requiredPlan.revenue);$('#soloBridgeGap').textContent=euro(Math.abs(gap));$('#soloBridgeGapLabel').textContent=gap>=0?t('Zusätzlich erforderlich','Дополнительно необходимо'):t('Über dem erforderlichen Umsatz','Сверх необходимой выручки');$('#soloBridgeBusiness').textContent=euro(a.business);$('#soloBridgeProtection').textContent=euro(requiredProtection);$('#soloBridgeTaxes').textContent=euro(a.requiredPlan.taxMonth);$('#soloBridgeGoal').textContent=euro(a.goal)}
 updateAnnualTurnover('#soloAnnualTurnover',a.revenue*12);
+  $('#soloAnnualBusinessCosts').textContent =
+  euro(a.business * 12);
+
+$('#soloAnnualTotalExpenses').textContent =
+  euro(a.allCosts * 12);
+
+$('#soloAnnualBeforeTaxes').textContent =
+  euro((a.revenue - a.allCosts) * 12);
+
+$('#soloAnnualTaxes').textContent =
+  euro(a.taxMonth * 12);
+
+$('#soloAnnualNet').textContent =
+  euro(a.remainMonth * 12);
 updatePriceEquation(a.required,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},a.time.workMonth>0);
   $('#soloRequiredNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Mindeststundensatz netto / Std.','Минимальная ставка нетто / ч');
   $('#soloRequiredGrossLabel').textContent=goalEntered?t('Empfohlener Rechnungspreis / Std.','Рекомендуемая цена счёта / ч'):t('Mindestpreis brutto / Std.','Минимальная цена брутто / ч');
