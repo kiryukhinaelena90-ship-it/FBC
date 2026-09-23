@@ -1974,7 +1974,8 @@ input[type="number"]::-webkit-outer-spin-button{
 .annual-result-final strong{font-size:19px!important;color:var(--ui-navy)!important;font-weight:540!important}
 
 /* Final shared hierarchy: employee result, monthly business result, annual result. */
-#employee .annual-result-title{
+#employee .annual-result-title,
+#solo .annual-result-title{
   font-family:var(--font-ui)!important;
   font-size:13px!important;
   line-height:1.35!important;
@@ -1983,9 +1984,9 @@ input[type="number"]::-webkit-outer-spin-button{
   color:var(--ui-navy)!important;
   text-transform:none!important;
 }
-#employee .cost-equation>div>span,
-#employee .result-ledger .ledger-row>span,
-#employee .annual-result-row>span{
+
+#employee .annual-result-row>span,
+#solo .annual-result-row>span{
   font-family:var(--font-ui)!important;
   font-size:13px!important;
   line-height:1.4!important;
@@ -1993,9 +1994,9 @@ input[type="number"]::-webkit-outer-spin-button{
   letter-spacing:0!important;
   color:var(--ui-muted)!important;
 }
-#employee .cost-equation>div>strong,
-#employee .result-ledger .ledger-row>strong,
-#employee .annual-result-row>strong{
+
+#employee .annual-result-row>strong,
+#solo .annual-result-row>strong{
   font-family:var(--font-ui)!important;
   font-variant-numeric:tabular-nums lining-nums!important;
   font-size:15px!important;
@@ -2004,39 +2005,41 @@ input[type="number"]::-webkit-outer-spin-button{
   letter-spacing:0!important;
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div:first-child>span,
-#employee .result-ledger .ledger-primary>span,
-#employee .annual-result-title+.annual-result-row>span{
+
+#employee .annual-result-title+.annual-result-row>span,
+#solo .annual-result-title+.annual-result-row>span{
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div:first-child>strong,
-#employee .result-ledger .ledger-primary>strong,
-#employee .annual-result-title+.annual-result-row>strong{
+
+#employee .annual-result-title+.annual-result-row>strong,
+#solo .annual-result-title+.annual-result-row>strong{
   font-size:17px!important;
   font-weight:500!important;
 }
-#employee .cost-equation>div.total>span,
-#employee .result-ledger .ledger-subtotal>span,
-#employee .annual-result-subtotal>span{
+
+#employee .annual-result-subtotal>span,
+#solo .annual-result-subtotal>span{
   font-size:13px!important;
   font-weight:590!important;
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div.total>strong,
-#employee .result-ledger .ledger-subtotal>strong,
-#employee .annual-result-subtotal>strong{
+
+#employee .annual-result-subtotal>strong,
+#solo .annual-result-subtotal>strong{
   font-size:17px!important;
   font-weight:500!important;
   color:var(--ui-text)!important;
 }
-#employee .result-ledger .ledger-final>span,
-#employee .annual-result-final>span{
+
+#employee .annual-result-final>span,
+#solo .annual-result-final>span{
   font-size:13px!important;
   font-weight:650!important;
   color:var(--ui-navy)!important;
 }
-#employee .result-ledger .ledger-final>strong,
-#employee .annual-result-final>strong{
+
+#employee .annual-result-final>strong,
+#solo .annual-result-final>strong{
   font-size:19px!important;
   font-weight:540!important;
   color:var(--ui-navy)!important;
