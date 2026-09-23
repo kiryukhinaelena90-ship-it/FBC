@@ -1615,6 +1615,18 @@ input::placeholder{color:#aab4bd!important}
   gap:14px;
 }
 
+#solo .owner-time-summary{
+  display:flex;
+  align-items:baseline;
+  gap:6px;
+  width:100%;
+  margin-top:14px;
+}
+
+#solo .owner-time-summary span{
+  margin-top:0;
+}
+
 #solo .result-goal-row{
   margin:16px 0;
   padding:16px;
@@ -1623,10 +1635,6 @@ input::placeholder{color:#aab4bd!important}
 
 #solo .annual-result-card{
   margin-top:16px;
-}
-
-#solo .annual-result-row{
-  min-height:44px;
 }
 
 #solo .result-ledger{
@@ -1799,7 +1807,7 @@ h3{font-weight:600!important;line-height:1.22!important}
   font-size:21px!important;
   font-weight:400!important;
 }
-/* Ergebnis / Jahresübersicht · einheitliche Beträge */
+/* Ergebnis / Jahreshochrechnung · einheitliche Beträge */
 .result-ledger .ledger-row strong,
 .annual-result-row strong{
   font-size:15px!important;
@@ -1886,7 +1894,7 @@ h3{font-weight:600!important;line-height:1.22!important}
   padding:14px 16px;
   border:1px solid var(--ui-line);
   border-radius:10px;
-  background:var(--ui-soft);
+  background:#fff;
 }
 .employee-billable-hours-copy{min-width:0}
 .employee-billable-hours-copy>span{
@@ -1928,11 +1936,11 @@ input[type="number"]::-webkit-outer-spin-button{
   margin:0!important;
   padding:0!important;
 }
-/* Jahresübersicht: simple ledger, no font clash. */
+/* Jahreshochrechnung: simple ledger, no font clash. */
 .annual-result-card{
   background:var(--ui-surface)!important;
-  border:1px solid var(--ui-line)!important;
-  border-radius:14px!important;
+  border:0!important;
+  border-radius:0!important;
   overflow:hidden;
   box-shadow:none!important;
 }
@@ -1962,7 +1970,8 @@ input[type="number"]::-webkit-outer-spin-button{
 .annual-result-final strong{font-size:19px!important;color:var(--ui-navy)!important;font-weight:540!important}
 
 /* Final shared hierarchy: employee result, monthly business result, annual result. */
-#employee .annual-result-title{
+#employee .annual-result-title,
+#solo .annual-result-title{
   font-family:var(--font-ui)!important;
   font-size:13px!important;
   line-height:1.35!important;
@@ -1971,9 +1980,9 @@ input[type="number"]::-webkit-outer-spin-button{
   color:var(--ui-navy)!important;
   text-transform:none!important;
 }
-#employee .cost-equation>div>span,
-#employee .result-ledger .ledger-row>span,
-#employee .annual-result-row>span{
+
+#employee .annual-result-row>span,
+#solo .annual-result-row>span{
   font-family:var(--font-ui)!important;
   font-size:13px!important;
   line-height:1.4!important;
@@ -1981,9 +1990,9 @@ input[type="number"]::-webkit-outer-spin-button{
   letter-spacing:0!important;
   color:var(--ui-muted)!important;
 }
-#employee .cost-equation>div>strong,
-#employee .result-ledger .ledger-row>strong,
-#employee .annual-result-row>strong{
+
+#employee .annual-result-row>strong,
+#solo .annual-result-row>strong{
   font-family:var(--font-ui)!important;
   font-variant-numeric:tabular-nums lining-nums!important;
   font-size:15px!important;
@@ -1992,39 +2001,41 @@ input[type="number"]::-webkit-outer-spin-button{
   letter-spacing:0!important;
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div:first-child>span,
-#employee .result-ledger .ledger-primary>span,
-#employee .annual-result-title+.annual-result-row>span{
+
+#employee .annual-result-title+.annual-result-row>span,
+#solo .annual-result-title+.annual-result-row>span{
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div:first-child>strong,
-#employee .result-ledger .ledger-primary>strong,
-#employee .annual-result-title+.annual-result-row>strong{
+
+#employee .annual-result-title+.annual-result-row>strong,
+#solo .annual-result-title+.annual-result-row>strong{
   font-size:17px!important;
   font-weight:500!important;
 }
-#employee .cost-equation>div.total>span,
-#employee .result-ledger .ledger-subtotal>span,
-#employee .annual-result-subtotal>span{
+
+#employee .annual-result-subtotal>span,
+#solo .annual-result-subtotal>span{
   font-size:13px!important;
   font-weight:590!important;
   color:var(--ui-text)!important;
 }
-#employee .cost-equation>div.total>strong,
-#employee .result-ledger .ledger-subtotal>strong,
-#employee .annual-result-subtotal>strong{
+
+#employee .annual-result-subtotal>strong,
+#solo .annual-result-subtotal>strong{
   font-size:17px!important;
   font-weight:500!important;
   color:var(--ui-text)!important;
 }
-#employee .result-ledger .ledger-final>span,
-#employee .annual-result-final>span{
+
+#employee .annual-result-final>span,
+#solo .annual-result-final>span{
   font-size:13px!important;
   font-weight:650!important;
   color:var(--ui-navy)!important;
 }
-#employee .result-ledger .ledger-final>strong,
-#employee .annual-result-final>strong{
+
+#employee .annual-result-final>strong,
+#solo .annual-result-final>strong{
   font-size:19px!important;
   font-weight:540!important;
   color:var(--ui-navy)!important;
@@ -2168,8 +2179,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 <style id="fbc-r-merge-style">
 /* V7.4 remains the UI shell; decision outputs come only from R. */
-#employee .price-result-section,
-#employee .scenario-panel.dual-scenario{display:none!important}
 #employee .customer-price-orientation{display:flex!important}
 .fbc-input-note{display:block;margin-top:5px;font-size:10px;line-height:1.35;color:#687684}
 #fbcRLayer{margin-top:18px}
@@ -2342,7 +2351,18 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-decision-help{font-size:11px;line-height:1.45;color:#687684;margin:0 0 10px}
 .fbc-bound-row{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(95px,.75fr) minmax(78px,.55fr);gap:9px;align-items:center;padding:9px 0;border-top:1px solid #e8edf0}
 .fbc-bound-row:first-of-type{border-top:0}
-.fbc-bound-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:750;color:#344c5d}
+.fbc-bound-toggle,
+.fbc-fin-label > span{
+  font-size:12px;
+  font-weight:750;
+  color:#344c5d;
+}
+
+.fbc-bound-toggle{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 .fbc-bound-row .unit{margin:0}
 .fbc-bound-months{display:flex;align-items:center;gap:5px}
 .fbc-bound-months input{width:58px}
@@ -2549,51 +2569,65 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   padding:10px 0;
   border-top:1px solid #e8edf0;
 }
-.fbc-fin-row:first-of-type{border-top:0}
-.fbc-fin-label{min-width:0}
-.fbc-fin-label>span{
-  display:block;
-  font-size:12px;
-  font-weight:750;
-  color:#344c5d;
-}
-.fbc-fin-explain{
-  display:block;
-  margin-top:3px;
-  color:#687684;
-  font-size:10.5px;
-  line-height:1.4;
-}
-.fbc-fin-explain:empty{display:none}
+
 .fbc-fin-control{
   width:180px;
   justify-self:end;
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:6px;
   min-width:0;
 }
-.fbc-fin-control .unit{width:180px;margin:0}
-.fbc-fin-control .unit input{width:145px}
-.fbc-fin-control select{width:180px}
+
+.fbc-fin-control .unit{
+  width:180px;
+  margin:0;
+}
+
+.fbc-fin-control .unit input{
+  width:145px;
+}
+
+.fbc-fin-control select{
+  width:180px;
+}
+
 .fbc-fin-control input,
 .fbc-fin-control select{
-  height:36px;
-  border:1px solid #cfd8df;
   background:#fff;
-  border-radius:8px;
-  padding:0 9px;
   color:var(--ink);
-  font:inherit;
+  border:1px solid #cfc5bb;
+  border-radius:10px;
+  font-size:13.3333px;
+  line-height:normal;
+  font-weight:400;
   box-shadow:none;
+  outline:none;
+}
+  .fbc-fin-control input:focus,
+.fbc-fin-control select:focus{
+  border-color:#cfc5bb;
+  box-shadow:none;
+  outline:none;
 }
 .fbc-fin-control .unit>b{white-space:nowrap;color:#687684}
-.fbc-fin-explain #fbcFinInterestStat{margin:4px 0 0}
+.fbc-fin-details .fbc-fin-explain,
+.fbc-fin-details .fbc-fin-stale,
+.fbc-fin-details #fbcFinancingProgress .fbc-analysis-progress-text{
+  display:block;
+  font-family:var(--font-ui)!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  color:var(--muted)!important;
+}
+  .fbc-fin-explain #fbcFinInterestStat{margin:4px 0 0}
 .fbc-fin-advanced{
-  margin-top:12px;
+  margin-top:6px;
   border-top:1px solid #e4e9ed;
   border-bottom:0;
-  padding-top:10px;
+  padding-top:6px;
 }
 .fbc-fin-advanced>summary{
   cursor:pointer;
@@ -2606,17 +2640,19 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-fin-advanced>summary::-webkit-details-marker{display:none}
 .fbc-fin-advanced>summary:after{content:"+";float:right}
 .fbc-fin-advanced[open]>summary:after{content:"–"}
-.fbc-fin-advanced .fbc-fin-row{margin-top:10px;border-top:1px solid #edf1f3}
+.fbc-fin-advanced .fbc-fin-row{
+  margin-top:4px;
+  padding:6px 0;
+  border-top:1px solid #edf1f3;
+}
 .fbc-evidence-action{padding-top:12px}
 #fbcFinancingProgress{margin-top:10px}
 .fbc-financing-check{margin-top:14px;padding:0;border:0;border-top:1px solid #dfe5e9;border-radius:0;background:transparent}
 .fbc-financing-check .fbc-r-change-row{padding:8px 0}
 .fbc-fin-liquidity-row{margin-top:4px;border-top:1px solid #cbd6de}
-#fbcRDSCRText{margin-top:10px;padding:9px 11px;border-left:3px solid #607e63;background:#f2f6f2;border-radius:0 9px 9px 0}
-<<<<<<< HEAD
-/* Neutral info state — no red/brown warning palette */
-=======
->>>>>>> ff16fc753a67fc96a78cda370d196ab8a3529063
+#fbcRDSCRText{margin-top:10px;padding:9px 11px;border-left:3px solid #284e6d;background:#f1f5f8;border-radius:0 9px 9px 0}
+
+
 .fbc-fin-stale{
   margin:8px 0 0;
   padding:8px 10px;
@@ -2625,13 +2661,66 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   color:#566c7d;
   font-size:11px;
   line-height:1.45;
-<<<<<<< HEAD
-=======
+
 }
-@media(max-width:1180px){
-  .fbc-fin-row{grid-template-columns:240px minmax(280px,1fr) 230px}
->>>>>>> ff16fc753a67fc96a78cda370d196ab8a3529063
+
+/* Employee final polish · one neutral hierarchy, no warning-red emphasis. */
+#employee .employee-profile-card > .orientation-box:not(.customer-price-orientation){
+  background:#f7f9fb!important;
+  border-color:var(--ui-line)!important;
 }
+#employee .employee-profile-card > .customer-price-orientation{
+  background:#edf3f8!important;
+  border-color:#cfdbe5!important;
+}
+#employee .employee-profile-card > .orientation-box > div{
+  grid-template-columns:1fr!important;
+  grid-template-areas:"label" "value" "hint"!important;
+  row-gap:3px!important;
+}
+#employee .employee-profile-card > .orientation-box > div > small{
+  grid-area:label!important;
+  display:block!important;
+  width:100%!important;
+}
+#employee .employee-profile-card > .orientation-box > div > strong{grid-area:value!important}
+#employee .employee-profile-card > .orientation-box > div > .team-schedule-info{grid-area:hint!important}
+
+.fbc-assumption-note{
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #e3e8ec;
+  color:#687684;
+  font-size:11px;
+  line-height:1.5;
+  font-weight:400;
+}
+.fbc-employee-economics-status{
+  margin:-1px -1px 8px;
+  padding:10px 12px;
+  border-left:3px solid #315575;
+  background:#f1f5f8;
+  color:#23313d;
+  font-size:13px;
+  line-height:1.4;
+  font-weight:650;
+}
+.fbc-employee-economics-status.is-open{
+  border-left-color:#7d94a6;
+  background:#f5f8fa;
+  color:#3c5264;
+}
+.fbc-r-change-row-key{
+  background:#f7f9fb;
+}
+.fbc-r-change-row-key>span,
+.fbc-r-change-row-key>b{
+  color:#23313d!important;
+  font-weight:600!important;
+}
+
 @media(max-width:760px){
   .fbc-fin-row{grid-template-columns:1fr;gap:7px}
   .fbc-fin-control{width:100%;justify-self:stretch}
@@ -2810,7 +2899,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <input id="soloVacation" type="number" min="0" max="60" placeholder="0" data-auto-vacation="true">
 <small id="soloVacationRecommendation" data-de="Empfehlung: erst Arbeitstage eingeben." data-ru="Рекомендация: сначала укажите рабочие дни.">Empfehlung: erst Arbeitstage eingeben.</small>
 </label>
-
+</div>
 <div class="owner-time-summary">
   <strong data-de="Zeit-Orientierung"
           data-ru="Ориентир по рабочему времени">
@@ -2987,7 +3076,61 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
 <span id="soloTotalCosts" class="hidden">—</span><span id="soloProfitBeforeTax" class="hidden">—</span>
 <div class="tax-detail" id="soloTaxDetail">—</div>
+<div class="annual-result-card">
+  <div class="annual-result-title"
+       data-de="Jahreshochrechnung"
+       data-ru="Годовой прогноз">
+    Jahreshochrechnung
+  </div>
 
+  <div class="annual-result-row">
+    <span data-de="Umsatzerlöse (ohne USt) / Jahr"
+          data-ru="Выручка без НДС / год">
+      Umsatzerlöse (ohne USt) / Jahr
+    </span>
+    <strong id="soloAnnualTurnover">—</strong>
+  </div>
+
+  <div class="annual-result-row">
+    <span data-de="Betriebsausgaben / Jahr"
+          data-ru="Расходы бизнеса / год">
+      Betriebsausgaben / Jahr
+    </span>
+    <strong id="soloAnnualBusinessCosts">—</strong>
+  </div>
+
+  <div class="annual-result-row annual-result-subtotal">
+    <span data-de="Gesamtausgaben / Jahr"
+          data-ru="Общие расходы / год">
+      Gesamtausgaben / Jahr
+    </span>
+    <strong id="soloAnnualTotalExpenses">—</strong>
+  </div>
+
+  <div class="annual-result-row annual-result-subtotal">
+    <span data-de="Verfügbar vor Steuern / Jahr"
+          data-ru="Доступно до налогов / год">
+      Verfügbar vor Steuern / Jahr
+    </span>
+    <strong id="soloAnnualBeforeTaxes">—</strong>
+  </div>
+
+  <div class="annual-result-row">
+    <span data-de="Steuern · Orientierung / Jahr"
+          data-ru="Налоги · ориентир / год">
+      Steuern · Orientierung / Jahr
+    </span>
+    <strong id="soloAnnualTaxes">—</strong>
+  </div>
+
+  <div class="annual-result-row annual-result-final">
+    <span data-de="Verfügbar nach Steuern / Jahr"
+          data-ru="Доступно после налогов / год">
+      Verfügbar nach Steuern / Jahr
+    </span>
+    <strong id="soloAnnualNet">—</strong>
+  </div>
+</div>
       <div class="result-goal-row" id="ownerMonthlyGoalBlock">
 <label class="field">
 <span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
@@ -3076,7 +3219,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <div class="section-heading">
     <div>
       <span class="section-kicker" data-de="MITARBEITER" data-ru="СОТРУДНИК">MITARBEITER</span>
-      <h2 data-de="Mitarbeiterprofil und Lohn-Orientierung" data-ru="Профиль сотрудника и ориентир зарплаты">Mitarbeiterprofil und Lohn-Orientierung</h2>
+      <h2 data-de="Mitarbeiterdaten" data-ru="Данные сотрудника">Mitarbeiterdaten</h2>
     </div>
   </div>
 
@@ -3189,7 +3332,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <div>
     <span data-de="+ Lohnnebenkosten" data-ru="+ Дополнительные расходы работодателя">+ Lohnnebenkosten</span>
     <strong id="empAddons">—</strong>
-    <small data-de="Arbeitgeberanteile zur Sozialversicherung, Umlagen und Unfallversicherung." data-ru="Взносы работодателя на социальное страхование, Umlagen и страхование от несчастных случаев.">Arbeitgeberanteile zur Sozialversicherung, Umlagen und Unfallversicherung.</small>
+    <small data-de="Orientierung: Arbeitgeberanteile zur Sozialversicherung, Umlagen und Unfallversicherung. Die tatsächliche Höhe hängt u. a. von Krankenkasse, Umlagen, Unfallversicherung und dem konkreten Beschäftigungsverhältnis ab." data-ru="Ориентир: взносы работодателя на социальное страхование, Umlagen и страхование от несчастных случаев. Фактическая величина зависит, в частности, от Krankenkasse, Umlagen, Unfallversicherung и конкретного вида занятости.">Orientierung: Arbeitgeberanteile zur Sozialversicherung, Umlagen und Unfallversicherung. Die tatsächliche Höhe hängt u. a. von Krankenkasse, Umlagen, Unfallversicherung und dem konkreten Beschäftigungsverhältnis ab.</small>
   </div>
   <div class="total">
     <span data-de="= Personalkosten Mitarbeiter/in" data-ru="= Расходы на сотрудника">= Personalkosten Mitarbeiter/in</span>
@@ -3221,9 +3364,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <div class="tax-detail" id="companyTaxDetail">—</div>
 <div class="annual-result-card">
   <div class="annual-result-title"
-       data-de="Jahresübersicht"
-       data-ru="Годовой итог">
-    Jahresübersicht
+       data-de="Jahreshochrechnung"
+       data-ru="Годовой прогноз">
+    Jahreshochrechnung
   </div>
 
   <div class="annual-result-row">
@@ -3331,50 +3474,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   </small>
 </div>
     
-<div class="price-result-section">
-<label class="field vat-choice compact-vat-choice"><span data-de="USt-Satz für diese Kalkulation" data-ru="Ставка НДС для этого расчёта">USt-Satz für diese Kalkulation</span><select id="empVatMode" class="vat-mode-select"><option value="standard" data-de="Regelsteuersatz · 19 %" data-ru="Обычная ставка · 19 %">Regelsteuersatz · 19 %</option><option value="reduced" data-de="Ermäßigter Steuersatz · 7 %" data-ru="Льготная ставка · 7 %">Ermäßigter Steuersatz · 7 %</option></select></label>
-<div id="companyPriceHeading" class="alternative-heading" data-de="Zielorientierte Kundenpreise · gemeinsam kalkuliert" data-ru="Целевые цены для клиента · рассчитаны совместно">Zielorientierte Kundenpreise · gemeinsam kalkuliert</div>
-<details class="target-info">
-  <summary data-de="ⓘ Preislogik" data-ru="ⓘ Логика цены">ⓘ Preislogik</summary>
-  <div class="target-info-body">
-    <p data-de="Das Monatsziel wird proportional auf die empfohlenen Kundenpreise aller abrechenbaren Rollen verteilt." data-ru="Месячная цель пропорционально распределяется по рекомендованным клиентским ценам всех ролей, выставляемых клиенту.">Das Monatsziel wird proportional auf die empfohlenen Kundenpreise aller abrechenbaren Rollen verteilt.</p>
-    <p data-de="Inhaberpreis mindestens 10 % über dem höchsten Mitarbeiterpreis." data-ru="Цена владельца минимум на 10 % выше самой высокой цены сотрудника.">Inhaberpreis mindestens 10 % über dem höchsten Mitarbeiterpreis.</p>
-  </div>
-</details>
-<div class="dual-reverse-results">
-<div class="reverse-result price-card">
-<span data-de="Kundenpreis Inhaber/in" data-ru="Цена клиенту за владельца">Kundenpreis Inhaber/in</span>
-<div class="price-equation compact"><div><small id="companyOwnerNetLabel" data-de="Netto / Std." data-ru="Нетто / ч">Netto / Std.</small><strong id="companyRequiredRate">—</strong></div><span>+</span><div><small id="companyOwnerVatLabel">USt · 19 %</small><strong id="companyOwnerVat">—</strong></div><span>=</span><div class="price-gross"><small id="companyOwnerGrossLabel" data-de="Rechnungspreis" data-ru="Сумма счёта">Rechnungspreis</small><strong id="companyOwnerGross">—</strong></div></div>
-<small id="companyVat">—</small>
-</div>
-<div id="companyRequiredEmployeeWrap" class="reverse-result price-card">
-<span data-de="Kundenpreis Mitarbeiter/in (nur bei aktivierter Kundenarbeit)" data-ru="Цена клиенту за сотрудника (только если работа сотрудника выставляется клиенту)">Kundenpreis Mitarbeiter/in (nur bei aktivierter Kundenarbeit)</span>
-<div class="price-equation compact"><div><small id="companyEmployeeNetLabel" data-de="Netto / Std." data-ru="Нетто / ч">Netto / Std.</small><strong id="companyRequiredEmployeeRate">—</strong></div><span>+</span><div><small id="companyEmployeeVatLabel">USt · 19 %</small><strong id="companyEmployeeVat">—</strong></div><span>=</span><div class="price-gross"><small id="companyEmployeeGrossLabel" data-de="Rechnungspreis" data-ru="Сумма счёта">Rechnungspreis</small><strong id="companyEmployeeGross">—</strong></div></div>
-<small id="companyEmployeeRateNote">—</small>
-</div>
-</div>
-</div>
-<div class="scenario-panel dual-scenario">
-<div>
-<span class="free-badge" data-de="WAS WÄRE, WENN?" data-ru="А ЧТО, ЕСЛИ?">WAS WÄRE, WENN?</span>
-<h3 data-de="Preise von Inhaber/in und Mitarbeiter/in testen" data-ru="Проверьте цены владельца и сотрудника">Preise von Inhaber/in und Mitarbeiter/in testen</h3>
-<p class="scenario-gesture" data-de="↔ HIER ZIEHEN · Die Haupteingabe bleibt unverändert" data-ru="↔ ДВИГАЙТЕ ЗДЕСЬ · Основная цена не изменится">↔ HIER ZIEHEN · Die Haupteingabe bleibt unverändert</p>
-</div>
-<label class="scenario-slider">
-<span data-de="Kundenpreis Inhaber/in verändern" data-ru="Цена владельца в сценарии">Kundenpreis Inhaber/in verändern</span>
-<input id="empScenarioPrice" type="range" min="0" max="250" value="0" disabled>
-<b><span id="empScenarioPriceOut">0</span> €</b>
-</label>
-<div class="scenario-answer">
-<small data-de="Netto verfügbar / Monat" data-ru="Доступно чистыми / месяц">Netto verfügbar / Monat</small>
-<strong id="empScenarioRemain">0,00 €</strong>
-</div>
-<label id="empScenarioEmployeeWrap" class="scenario-slider">
-<span data-de="Mitarbeiterpreis im Szenario" data-ru="Цена сотрудника в сценарии">Mitarbeiterpreis im Szenario</span>
-<input id="empScenarioEmployeePrice" type="range" min="0" max="250" value="0" disabled>
-<b><span id="empScenarioEmployeePriceOut">0</span> €</b>
-</label>
-</div>
+
 </article>
   </section>
 
@@ -3427,7 +3527,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <small id="teamOwnerBreakdown" class="hidden">—</small>
 <div class="tax-detail" id="teamTaxDetail">—</div>
 <div class="annual-result-card">
-  <div class="annual-result-title" data-de="Jahresübersicht" data-ru="Годовой итог">Jahresübersicht</div>
+  <div class="annual-result-title" data-de="Jahreshochrechnung" data-ru="Годовой прогноз">Jahreshochrechnung</div>
   <div class="annual-result-row"><span data-de="Umsatzerlöse (ohne USt) / Jahr" data-ru="Выручка без НДС / год">Umsatzerlöse (ohne USt) / Jahr</span><strong id="teamAnnualTurnover">—</strong></div>
   <div class="annual-result-row annual-result-subtotal"><span data-de="Betriebsergebnis vor Steuern / Jahr" data-ru="Результат бизнеса до налогов / год">Betriebsergebnis vor Steuern / Jahr</span><strong id="teamAnnualOperatingResult">—</strong></div>
   <div class="annual-result-row"><span data-de="Steuern · Orientierung / Jahr" data-ru="Налоги · ориентир / год">Steuern · Orientierung / Jahr</span><strong id="teamAnnualTaxes">—</strong></div>
@@ -3676,10 +3776,10 @@ const roles={
 };
 const ROLE_RANK={helper:1,office:2,skilled:3,custom:3,science:4,lead:5};
 const forms={
-  full:{de:'Vollzeit',ru:'Полная занятость',rate:.2185,type:'employee'},part:{de:'Teilzeit',ru:'Неполная занятость',rate:.2185,type:'employee'},midi:{de:'Midijob',ru:'Midijob',rate:.2185,type:'employee'},mini:{de:'Minijob',ru:'Minijob',rate:.3117,type:'employee'},student:{de:'Werkstudent',ru:'Werkstudent',rate:.108,type:'employee'},intern:{de:'Praktikant',ru:'Практикант',rate:.2185,type:'employee'},short:{de:'Kurzfristige Beschäftigung',ru:'Краткосрочная занятость',rate:.02,type:'employee'},freelancer:{de:'Freelancer / Subunternehmer',ru:'Фрилансер / субподрядчик',rate:0,type:'external'},anu:{de:'ANÜ / Leiharbeit',ru:'ANÜ / временный персонал',rate:0,type:'external'}
+  full:{de:'Vollzeit',ru:'Полная занятость',rate:.2185,type:'employee'},part:{de:'Teilzeit',ru:'Неполная занятость',rate:.2185,type:'employee'},midi:{de:'Midijob',ru:'Midijob',rate:.2185,type:'employee'},mini:{de:'Minijob',ru:'Minijob',rate:.3117,type:'employee'},student:{de:'Werkstudent',ru:'Werkstudent',rate:.108,type:'employee'},intern:{de:'Praktikant',ru:'Практикант',rate:.2185,type:'employee'},short:{de:'Kurzfristige Beschäftigung',ru:'Краткосрочная занятость',rate:.02,type:'employee'},anu:{de:'ANÜ / Leiharbeit',ru:'ANÜ / временный персонал',rate:0,type:'external'}
 };
 const EMPLOYMENT_SCHEDULES={
-  full:{hours:40,days:5},part:{hours:24,days:3},midi:{hours:20,days:3},mini:{hours:10,days:2},student:{hours:20,days:3},intern:{hours:40,days:5},short:{hours:20,days:3},freelancer:{hours:20,days:3},anu:{hours:40,days:5}
+  full:{hours:40,days:5},part:{hours:24,days:3},midi:{hours:20,days:3},mini:{hours:10,days:2},student:{hours:20,days:3},intern:{hours:40,days:5},short:{hours:20,days:3},anu:{hours:40,days:5}
 };
 function scheduleOrientation(formKey){const s=EMPLOYMENT_SCHEDULES[formKey]||EMPLOYMENT_SCHEDULES.part,companyVacation=s.days*6,legalMinimum=s.days*4;return{...s,companyVacation,legalMinimum}}
 function scheduleText(formKey){const s=scheduleOrientation(formKey);return t(`Orientierung: ca. ${s.hours} Std. an ${s.days} Tagen / Woche. Urlaub bei betrieblichem 30-Tage-Niveau: ${s.companyVacation} Tage; gesetzliches Minimum: ${s.legalMinimum} Tage. Arbeitszeit ist vereinbarungsabhängig.`,`Ориентир: около ${s.hours} ч. в ${s.days} дней в неделю. Отпуск при уровне компании 30 дней: ${s.companyVacation} дней; законный минимум: ${s.legalMinimum} дней. Рабочее время зависит от договора.`)}
@@ -3924,7 +4024,15 @@ function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#team
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
 function pendingCard(id,pending=true){const card=$(id)?.closest('.result-card');if(card)card.classList.toggle('pending-result',pending)}
 function setSoloPending(){zero(['#soloResPrice','#soloTotalCosts','#soloResCost','#soloResRemainHour','#soloResRemainMonth','#soloProfitBeforeTax','#soloIncomeTax','#soloTradeTax','#soloTaxesTotal','#scenarioRemain']);updatePriceEquation(0,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},false);['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.add('hidden'));$('#soloVatResult').textContent=t('Bitte zuerst die markierten Felder ausfüllen.','Сначала заполните отмеченные поля.');$('#soloStatus').textContent=t('Eingaben fehlen','Нужны данные');$('#soloStatus').className='status-chip';$('#scenarioPrice').value=0;$('#scenarioPrice').disabled=true;$('#scenarioPriceOut').textContent='0';pendingCard('#soloResPrice',true)}
-function setEmployeePending(){zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining','#companyRequiredRate','#empScenarioRemain']);$('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');$('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#companyRequiredRate').textContent=euro(0)+' / '+t('eigene Arbeitsstunde','рабочий час владельца');$('#companyVat').textContent=t('Bitte zuerst die erforderlichen Felder ausfüllen.','Сначала заполните необходимые поля.');$('#empScenarioPrice').disabled=true;$('#empScenarioPrice').value=0;$('#empScenarioPriceOut').textContent='0';$('#empWarning').classList.add('hidden');$('#empTargetGapMessage')?.classList.add('hidden');pendingCard('#empGross',true);pendingCard('#companyOwnerNeed',true)}
+function setEmployeePending(){
+  zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining']);
+  if($('#empContributionNote')) $('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');
+  if($('#companyTaxDetail')) $('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');
+  $('#empWarning')?.classList.add('hidden');
+  $('#empTargetGapMessage')?.classList.add('hidden');
+  pendingCard('#empGross',true);
+  pendingCard('#companyOwnerNeed',true);
+}
 function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness','#teamBurden','#teamTaxes','#teamRevenue','#teamRate','#teamScenarioRemain']);$('#teamOwnerBreakdown').textContent=euro(0);$('#teamTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#teamVat').textContent=t('Bitte zuerst mindestens eine Rolle ausfüllen.','Сначала заполните хотя бы одну роль.');$('#teamScenarioPrice').disabled=true;$('#teamScenarioPrice').value=0;$('#teamScenarioPriceOut').textContent='0';pendingCard('#teamGross',true)}
 
 function populateSelect(select,data){
@@ -4003,6 +4111,20 @@ function updateSolo(){
   ['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.toggle('hidden',!bridgeReady));
   if(bridgeReady){$('#soloBridgeCurrent').textContent=euro(a.revenue);$('#soloBridgeRequired').textContent=euro(a.requiredPlan.revenue);$('#soloBridgeGap').textContent=euro(Math.abs(gap));$('#soloBridgeGapLabel').textContent=gap>=0?t('Zusätzlich erforderlich','Дополнительно необходимо'):t('Über dem erforderlichen Umsatz','Сверх необходимой выручки');$('#soloBridgeBusiness').textContent=euro(a.business);$('#soloBridgeProtection').textContent=euro(requiredProtection);$('#soloBridgeTaxes').textContent=euro(a.requiredPlan.taxMonth);$('#soloBridgeGoal').textContent=euro(a.goal)}
 updateAnnualTurnover('#soloAnnualTurnover',a.revenue*12);
+  $('#soloAnnualBusinessCosts').textContent =
+  euro(a.business * 12);
+
+$('#soloAnnualTotalExpenses').textContent =
+  euro(a.allCosts * 12);
+
+$('#soloAnnualBeforeTaxes').textContent =
+  euro((a.revenue - a.allCosts) * 12);
+
+$('#soloAnnualTaxes').textContent =
+  euro(a.taxMonth * 12);
+
+$('#soloAnnualNet').textContent =
+  euro(a.remainMonth * 12);
 updatePriceEquation(a.required,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},a.time.workMonth>0);
   $('#soloRequiredNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Mindeststundensatz netto / Std.','Минимальная ставка нетто / ч');
   $('#soloRequiredGrossLabel').textContent=goalEntered?t('Empfohlener Rechnungspreis / Std.','Рекомендуемая цена счёта / ч'):t('Mindestpreis brutto / Std.','Минимальная цена брутто / ч');
@@ -4081,7 +4203,7 @@ function ownerModeMarkup(p){
  'Энергия / электричество / газ',
  'Tatsächliche Energiekosten / Monat',
  'Фактические расходы на энергию / месяц'],['▣','Software','Programme / Software','Программы / ПО','Lizenzen, Cloud','Лицензии, облако'],['§','Accounting','Steuerberater / Buchhaltung','Налоговый консультант / бухгалтерия','Laufende Betreuung','Текущее сопровождение'],['◉','Insurance','Betriebsversicherungen','Страхование бизнеса','Betrieblich, nicht privat','Для бизнеса, не личное'],['⬡','Material','Material / direkte Kosten','Материалы / прямые затраты','Verbrauch, Einkauf','Расходники, закупки'],['↗','Marketing','Werbung / Akquise','Реклама / привлечение','Anzeigen, Vertrieb','Объявления, продажи'],['＋','Other','Sonstiges','Прочее','Weitere laufende Kosten','Другие текущие расходы']].map(x=>`<label><span class="cost-icon">${x[0]}</span><b data-de="${x[2]}" data-ru="${x[3]}">${x[2]}</b><div class="unit"><input id="${p}Cost${x[1]}" class="mode-cost decimal-input" data-mode="${p}" type="text" inputmode="decimal" placeholder="0"><b>€</b></div><small data-de="${x[4]}" data-ru="${x[5]}">${x[4]}</small></label>`).join('')}</div></article>
-  <article class="card" tabindex="0"><div class="step">04</div><h2 data-de="Absicherung des Inhabers" data-ru="Страхование владельца">Absicherung des Inhabers</h2><div class="field-grid four protection-grid"><label class="field"><span data-de="Rentenversicherung" data-ru="Пенсионное страхование">Rentenversicherung</span><select id="${p}PensionMode"><option value="statutory" data-de="Gesetzlich · einkommensgerecht" data-ru="Государственное · по расчётной прибыли">Gesetzlich · einkommensgerecht</option><option value="standard" data-de="Gesetzlich · Regelbeitrag" data-ru="Государственное · стандартный взнос">Gesetzlich · Regelbeitrag</option><option value="fixed" data-de="Eigener Monatsbetrag" data-ru="Своя сумма в месяц">Eigener Monatsbetrag</option><option value="none" data-de="Derzeit nicht berücksichtigt" data-ru="Пока не учитывать">Derzeit nicht berücksichtigt</option></select></label><label class="field"><span data-de="Private Versicherungen / Monat" data-ru="Личные страховки / месяц">Private Versicherungen / Monat</span><div class="unit"><input id="${p}OwnerInsurance" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label><label class="field ${p}-pension-fixed hidden"><span data-de="Vorsorgebetrag / Monat" data-ru="Пенсионный взнос / месяц">Vorsorgebetrag / Monat</span><div class="unit"><input id="${p}PensionFixed" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label></div><div class="engine-note"><strong data-de="Automatisch berücksichtigt:" data-ru="Учтено автоматически:">Automatisch berücksichtigt:</strong> <span id="${p}PensionInfo">—</span></div></article>`;
+  <article class="card" tabindex="0"><div class="step">04</div><h2 data-de="Absicherung des Inhabers" data-ru="Страхование владельца">Absicherung des Inhabers</h2><div class="field-grid four protection-grid"><label class="field"><span data-de="Rentenversicherung" data-ru="Пенсионное страхование">Rentenversicherung</span><select id="${p}PensionMode"><option value="statutory" data-de="Gesetzlich · einkommensgerecht" data-ru="Государственное · по расчётной прибыли">Gesetzlich · einkommensgerecht</option><option value="standard" data-de="Gesetzlich · Regelbeitrag" data-ru="Государственное · стандартный взнос">Gesetzlich · Regelbeitrag</option><option value="fixed" data-de="Eigener Monatsbetrag" data-ru="Своя сумма в месяц">Eigener Monatsbetrag</option><option value="none" data-de="Derzeit nicht berücksichtigt" data-ru="Пока не учитывать">Derzeit nicht berücksichtigt</option></select></label><label class="field"><span data-de="Private Absicherung / Monat" data-ru="Личная страховая защита / месяц">Private Absicherung / Monat</span><div class="unit"><input id="${p}OwnerInsurance" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div><small data-de="z. B. Kranken- und Pflegeversicherung; keine Betriebsversicherung." data-ru="например, медицинское страхование и Pflegeversicherung; не страхование бизнеса.">z. B. Kranken- und Pflegeversicherung; keine Betriebsversicherung.</small></label><label class="field ${p}-pension-fixed hidden"><span data-de="Vorsorgebetrag / Monat" data-ru="Пенсионный взнос / месяц">Vorsorgebetrag / Monat</span><div class="unit"><input id="${p}PensionFixed" class="decimal-input" type="text" inputmode="decimal" placeholder="0"><b>€</b></div></label></div><div class="engine-note"><strong data-de="Automatisch berücksichtigt:" data-ru="Учтено автоматически:">Automatisch berücksichtigt:</strong> <span id="${p}PensionInfo">—</span></div></article>`;
 }
 
 function renderOwnerModes(){
@@ -4269,7 +4391,7 @@ function solveModeRevenue(p,business,insurance,goal){
 function employeeReady(){return hasInput('#empOwnerPrice')&&hasInput('#empOwnerHours')&&hasInput('#empOwnerDays')&&hasInput('#empWage')&&hasInput('#empHours')&&(!$('#empBillable').checked||hasInput('#empCustomerPrice'))}
 function employeeStarted(){return ['#empOwnerPrice','#empOwnerHours','#empOwnerDays','#empWage','#empHours','#empOwnerGoal'].some(hasInput)||modeCosts('emp')>0}
 function updateEmployee(){
-  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,recommended=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0;
+  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),recommended=actualBillable>0?emp.total/actualBillable:costReferenceRate;
   emp.billableHours=actualBillable;
   emp.revenue=customerPrice*actualBillable;
   emp.contribution=emp.revenue-emp.total;
@@ -4285,61 +4407,63 @@ function updateEmployee(){
   updateCompany(emp,owner);
 }
 function updateCompany(emp,owner){
-  const billable=$('#empBillable').checked,ownerBillableHours=Math.max(0,num('#empOwnerBillableHours')),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+emp.revenue,business=owner.business+emp.total,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('emp',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimateEmployee(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,goal=num('#empOwnerGoal'),goalEntered=hasInput('#empOwnerGoal')&&goal>0,required=solveModeRevenue('emp',business,owner.insurance,goal),recommended=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')),ownerBaseRate=billable?recommended:(owner.workMonth?required.revenue/owner.workMonth:0),baseTargetRevenue=ownerBaseRate*owner.workMonth+(billable?recommended*emp.workHours:0),targetFactor=proportionalTargetFactor(required.revenue,baseTargetRevenue,goalEntered),employeeRate=billable?recommended*targetFactor:0,ownerRecommended=billable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
-  $('#companyOwnerRevenue').textContent=euro(totalRevenue);$('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);$('#companyCurrentTaxes').textContent=euro(taxMonth);$('#companyCurrentRemain').textContent=euro(remain);$('#companyBusiness').textContent=euro(owner.business);$('#companyProtection').textContent=euro(protection);$('#companyEmployee').textContent=euro(emp.total);$('#companyEmployeeRevenue').textContent=euro(emp.revenue);$('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);$('#companyTaxDetail').textContent=taxTextEmployee(tax);updateAnnualTurnover('#companyAnnualTurnover', totalRevenue * 12);
-const targetGapMessage=$('#empTargetGapMessage');
-const targetGapHeadline=$('#empTargetGapHeadline');
+  const billable=$('#empBillable').checked,
+    ownerBillableHours=Math.max(0,num('#empOwnerBillableHours')),
+    ownerRevenue=owner.price*ownerBillableHours,
+    totalRevenue=ownerRevenue+emp.revenue,
+    business=owner.business+emp.total,
+    profit=Math.max(0,totalRevenue-business),
+    pension=updateModePanels('emp',owner,profit),
+    protection=owner.insurance+pension.monthly,
+    totalCosts=business+protection,
+    tax=taxEstimateEmployee(profit*12),
+    taxMonth=tax.total/12,
+    remain=totalRevenue-totalCosts-taxMonth,
+    goal=num('#empOwnerGoal'),
+    goalEntered=hasInput('#empOwnerGoal')&&goal>0;
 
-if(targetGapMessage&&targetGapHeadline){
-  if(goalEntered){
-    const targetGap=goal-remain;
+  $('#companyOwnerRevenue').textContent=euro(totalRevenue);
+  $('#companyCurrentCosts').textContent=euro(totalRevenue-totalCosts);
+  $('#companyCurrentTaxes').textContent=euro(taxMonth);
+  $('#companyCurrentRemain').textContent=euro(remain);
+  $('#companyBusiness').textContent=euro(owner.business);
+  $('#companyProtection').textContent=euro(protection);
+  $('#companyEmployee').textContent=euro(emp.total);
+  $('#companyEmployeeRevenue').textContent=euro(emp.revenue);
+  $('#companyEmployeeRevenueRow').classList.toggle('hidden',!billable);
+  $('#companyTaxDetail').textContent=taxTextEmployee(tax);
+  updateAnnualTurnover('#companyAnnualTurnover', totalRevenue * 12);
 
-    targetGapMessage.classList.remove('hidden');
+  const targetGapMessage=$('#empTargetGapMessage');
+  const targetGapHeadline=$('#empTargetGapHeadline');
 
-    targetGapHeadline.textContent=targetGap>0
-      ? t(
-          `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
-          `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
-        )
-      : t(
-          `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
-          `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
-        );
-  }else{
-    targetGapMessage.classList.add('hidden');
+  if(targetGapMessage&&targetGapHeadline){
+    if(goalEntered){
+      const targetGap=goal-remain;
+      targetGapMessage.classList.remove('hidden');
+      targetGapHeadline.textContent=targetGap>0
+        ? t(
+            `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
+            `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
+          )
+        : t(
+            `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
+            `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
+          );
+    }else{
+      targetGapMessage.classList.add('hidden');
+    }
   }
+
+  $('#companyAnnualBusinessCosts').textContent=euro(owner.business * 12);
+  $('#companyAnnualEmployeeCosts').textContent=euro(emp.total * 12);
+  $('#companyAnnualTotalExpenses').textContent=euro((owner.business + emp.total + protection) * 12);
+  $('#companyAnnualBeforeTaxes').textContent=euro((totalRevenue - owner.business - emp.total - protection) * 12);
+  $('#companyAnnualTaxes').textContent=euro(taxMonth * 12);
+  $('#companyAnnualNet').textContent=euro(remain * 12);
+
+  pendingCard('#companyOwnerRevenue',!employeeStarted());
 }
-$('#companyAnnualBusinessCosts').textContent =
-  euro(owner.business * 12);
-
-$('#companyAnnualEmployeeCosts').textContent =
-  euro(emp.total * 12);
-
-$('#companyAnnualTotalExpenses').textContent =
-  euro((owner.business + emp.total + protection) * 12);
-
-$('#companyAnnualBeforeTaxes').textContent =
-  euro((totalRevenue - owner.business - emp.total - protection) * 12);
-
-$('#companyAnnualTaxes').textContent =
-  euro(taxMonth * 12);
-
-$('#companyAnnualNet').textContent =
-  euro(remain * 12);
-  updatePriceEquation(ownerRecommended,{net:'#companyRequiredRate',vat:'#companyOwnerVat',gross:'#companyOwnerGross',label:'#companyOwnerVatLabel'},goalEntered);
-  $('#companyPriceHeading').textContent=goalEntered?t('Zielorientierte Kundenpreise · gemeinsam kalkuliert','Целевые цены для клиента · рассчитаны совместно'):t('Kostenorientierte Kundenpreise · ohne persönliches Monatsziel','Цены по затратам · без личной месячной цели');
-  $('#companyOwnerNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Kostenorientierter Preis netto / Std.','Цена по затратам нетто / ч');
-  $('#companyOwnerGrossLabel').textContent=goalEntered?t('Empfohlener Rechnungspreis','Рекомендуемая цена счёта'):t('Kostenorientierter Preis brutto','Цена по затратам брутто');
-  $('#companyVat').textContent=goalEntered?t('Monatsziel ist in der Preisempfehlung berücksichtigt.','Месячная цель учтена в рекомендации цены.'):t('Persönliches Monatsziel noch nicht enthalten.','Личная месячная цель ещё не включена.');
-  $('#companyRequiredEmployeeWrap').classList.toggle('hidden',!billable);if(billable){
-    updatePriceEquation(employeeRate,{net:'#companyRequiredEmployeeRate',vat:'#companyEmployeeVat',gross:'#companyEmployeeGross',label:'#companyEmployeeVatLabel'},goalEntered);
-    $('#companyEmployeeNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Kostenorientierter Preis netto / Std.','Цена по затратам нетто / ч');
-    $('#companyEmployeeGrossLabel').textContent=goalEntered?t('Empfohlener Rechnungspreis','Рекомендуемая цена счёта'):t('Kostenorientierter Preis brutto','Цена по затратам брутто');
-    $('#companyEmployeeRateNote').textContent=goalEntered?t('Kostenorientierte Rollenempfehlung, bei Monatsziel mit demselben Ziel-Faktor wie der Inhaberpreis skaliert.','Ориентир роли по затратам; при месячной цели масштабируется тем же коэффициентом, что и цена владельца.'):t(`Kosten- und rollenorientierte Orientierung: mindestens ${euro(recommended)} / Std. netto. Persönliches Monatsziel noch nicht enthalten.`,`Ориентир по затратам и роли: минимум ${euro(recommended)} / ч без НДС. Личная месячная цель ещё не включена.`);
-  }
-  const slider=$('#empScenarioPrice'),employeeSlider=$('#empScenarioEmployeePrice');slider.disabled=owner.workMonth<=0;employeeSlider.disabled=!billable||emp.workHours<=0;$('#empScenarioEmployeeWrap').classList.toggle('hidden',!billable);if(document.activeElement!==slider){slider.value=Math.max(0,Math.min(250,owner.price));$('#empScenarioPriceOut').textContent=slider.value}if(document.activeElement!==employeeSlider){employeeSlider.value=Math.max(0,Math.min(250,num('#empCustomerPrice')));$('#empScenarioEmployeePriceOut').textContent=employeeSlider.value}updateEmployeeScenario(emp,owner);pendingCard('#companyOwnerRevenue',!employeeStarted());
-}
-function updateEmployeeScenario(emp,owner){const price=num('#empScenarioPrice'),employeePrice=$('#empBillable').checked?num('#empScenarioEmployeePrice'):0,revenue=price*owner.workMonth+employeePrice*emp.workHours,business=owner.business+emp.total,profit=Math.max(0,revenue-business),pension=modePension('emp',profit).monthly,tax=taxEstimateEmployee(profit*12).total/12,remain=revenue-business-owner.insurance-pension-tax;$('#empScenarioPriceOut').textContent=price;$('#empScenarioEmployeePriceOut').textContent=employeePrice;$('#empScenarioRemain').textContent=euro(remain)}
 
 function addTeamMember(preset={}){
   const node=$('#teamRowTemplate').content.firstElementChild.cloneNode(true),days=node.querySelector('.team-days'),vacation=node.querySelector('.team-vacation'),form=node.querySelector('.team-form'),hours=node.querySelector('.team-hours');
@@ -4981,6 +5105,12 @@ layer.innerHTML=`
           'Методика в фоне: локальный анализ чувствительности. Проценты нужны только для сравнения — само решение появляется лишь после подтверждения реальных рамок изменений.'
         )}
       </small>
+      <small class="fbc-assumption-note">
+        ${T(
+          'Annahme: Die Analyse unterstellt zunächst unveränderte Nachfrage. Marktreaktionen werden nur berücksichtigt, wenn dafür belastbare Annahmen vorliegen.',
+          'Допущение: сначала анализ предполагает неизменный спрос. Реакция рынка учитывается только при наличии обоснованных предпосылок.'
+        )}
+      </small>
     </div>
   </section>
 
@@ -5001,6 +5131,7 @@ layer.innerHTML=`
     </div>
 
     <div class="fbc-r-detailbox" id="fbcEmployeeEconomicsBox">
+      <div class="fbc-employee-economics-status" id="fbcEmployeeEconomicsStatus">—</div>
       <div class="fbc-r-change-row"><span>${T('Personalkosten gesamt / Monat','Полная стоимость сотрудника / месяц')}</span><b id="fbcEmployeeCostMonth">—</b></div>
       <div class="fbc-r-change-row"><span>${T('Kundenumsatz Mitarbeiter/in / Monat','Выручка сотрудника от клиентов / месяц')}</span><b id="fbcEmployeeRevenueMonth">—</b></div>
       <div class="fbc-r-change-row"><span>${T('Beitrag zum Betriebsergebnis','Вклад в результат бизнеса')}</span><b id="fbcEmployeeContributionMonth">—</b></div>
@@ -5190,7 +5321,7 @@ layer.innerHTML=`
   <section class="fbc-analysis-section" id="fbcShapleySection">
     <div class="fbc-analysis-heading">
       <div>
-        <h3>${T('Was trägt zur Verbesserung bei?','Что именно даёт улучшение?')}</h3>
+        <h3>${T('Beitrag der einzelnen Änderungen','Вклад отдельных изменений')}</h3>
         <p>
           ${T(
             'Nach Auswahl der Kombination zeigt die Shapley-Analyse, welchen tatsächlichen Beitrag die verwendeten Hebel zur Ergebnisverbesserung leisten.',
@@ -5237,7 +5368,7 @@ layer.innerHTML=`
 <section class="fbc-analysis-section">
   <div class="fbc-analysis-heading">
     <div>
-      <h3>${T('Risikoprüfung','Проверка рисков')}</h3>
+      <h3>${T('Kostenrisiko','Риск изменения затрат')}</h3>
       <p>
         ${T(
           'FBC nutzt eine Monte-Carlo-Simulation intern, um zu prüfen, wie empfindlich die gewählte Lösung auf mögliche Kostenentwicklungen reagiert.',
@@ -5250,7 +5381,7 @@ layer.innerHTML=`
 
   <div class="fbc-r-detailbox" id="fbcRMonteCarlo" hidden>
     <div class="fbc-r-detail-title">
-      ${T('Mathematische Risikoprüfung','Математическая проверка рисков')}
+      ${T('Mathematische Prüfung des Kostenrisikos','Математическая проверка риска затрат')}
     </div>
     <p class="fbc-r-note" id="fbcMCRiskText"></p>
   </div>
@@ -5552,11 +5683,10 @@ if(stale){
   stale.hidden = true;
   stale.textContent = '';
 }
-<<<<<<< HEAD
+
 
 await runRAnalysis('fbcRunFinancing');
-=======
->>>>>>> ff16fc753a67fc96a78cda370d196ab8a3529063
+
   });
 }
 
@@ -6135,15 +6265,18 @@ const hasOptimizedDecision =
 
   if(box && hasOptimizedDecision){
     const validChanges=Array.isArray(changes)?changes:[];
-    const targetText=targetReached
-      ? (Number.isFinite(timeToTarget)
-          ? T(`Ja · in ${fmtNum(timeToTarget,0)} Mon.`,`Да · через ${fmtNum(timeToTarget,0)} мес.`)
-          : T('Ja','Да'))
-      : T('Mit den bestätigten Grenzen nicht erreichbar','Недостижима при подтверждённых границах');
+    const currentTargetReached=Number.isFinite(currentNet)&&Number.isFinite(target)&&currentNet>=target-0.01;
+    const targetText=currentTargetReached
+      ? T('Erreicht','Достигнута')
+      : targetReached
+        ? (Number.isFinite(timeToTarget)
+            ? T(`Innerhalb der bestätigten Grenzen erreichbar · ca. ${fmtNum(timeToTarget,0)} Mon.`,`Достижима в подтверждённых границах · примерно через ${fmtNum(timeToTarget,0)} мес.`)
+            : T('Innerhalb der bestätigten Grenzen erreichbar','Достижима в подтверждённых границах'))
+        : T('Innerhalb der bestätigten Grenzen nicht vollständig erreichbar','В подтверждённых границах полностью не достигается');
 
     const changesHtml=validChanges.length
       ? `
-        <div class="fbc-r-detail-title" style="margin-top:16px">${T('Empfohlene Änderungen','Рекомендуемые изменения')}</div>
+        <div class="fbc-r-detail-title" style="margin-top:16px">${T('Im Modell angewandte Änderungen','Применённые в расчёте изменения')}</div>
         ${validChanges.map(c=>{
           const cur=Number(c.current), prop=Number(c.proposed);
           const rel=Number.isFinite(cur)&&cur!==0&&Number.isFinite(prop)?((prop-cur)/Math.abs(cur))*100:NaN;
@@ -6162,10 +6295,12 @@ const hasOptimizedDecision =
     box.hidden=false;
     box.innerHTML=`
       <div class="fbc-r-detail-title">${T('Ergebnis der Optimierung','Результат оптимизации')}</div>
-      <div class="fbc-r-change-row"><span>${T('Aktuelles Monatsnetto','Текущее месячное нетто')}</span><b>${money(currentNet)}</b></div>
+      <div class="fbc-r-change-row"><span>${T('Aktuelles Netto','Текущее нетто')}</span><b>${money(currentNet)}</b></div>
+      ${Number.isFinite(target)?`<div class="fbc-r-change-row"><span>${T('Nettoziel / Monat','Цель по нетто / месяц')}</span><b>${money(target)}</b></div>`:''}
+      ${Number.isFinite(projected)?`<div class="fbc-r-change-row fbc-r-change-row-key"><span>${T('Bestmögliches Netto','Максимально достижимое нетто')}</span><b>${money(projected)}</b></div>`:''}
       ${Number.isFinite(projected)&&Number.isFinite(currentNet)?`<div class="fbc-r-change-row"><span>${T('Verbesserung des Monatsnettos','Улучшение месячного нетто')}</span><b>+${money(Math.max(0,projected-currentNet))} / ${T('Monat','месяц')}</b></div>`:''}
       ${!targetReached&&Number.isFinite(target)&&Number.isFinite(projected)?`<div class="fbc-r-change-row"><span>${T('Verbleibende Ziellücke','Оставшийся разрыв до цели')}</span><b>${money(Math.max(0,target-projected))} / ${T('Monat','месяц')}</b></div>`:''}
-      <div class="fbc-r-change-row"><span>${T('Ziel erreichbar','Цель достижима')}</span><b>${targetText}</b></div>
+      <div class="fbc-r-change-row"><span>${T('Nettoziel','Цель по нетто')}</span><b>${targetText}</b></div>
       ${changesHtml}
     `;
   }
@@ -6179,7 +6314,7 @@ const hasOptimizedDecision =
       const total=Number(sh.total_improvement_eur);
       shbox.hidden=false;
       shbox.innerHTML=`
-        <div class="fbc-r-detail-title">${T('Shapley · Beitrag zur Ergebnisverbesserung','Shapley · вклад в улучшение результата')}</div>
+        <div class="fbc-r-detail-title">${T('Beitrag der einzelnen Änderungen','Вклад отдельных изменений')}</div>
         ${contrib.map(c=>{
           const eur=Number(c.contribution_eur??c.contribution);
           const share=Number.isFinite(total)&&Math.abs(total)>1e-9&&Number.isFinite(eur)?eur/total*100:NaN;
@@ -6221,6 +6356,14 @@ const hasOptimizedDecision =
       const empCustomerPrice=Number(get(p,'break_even.employee.customer_price'));
       const empRevenueMonth=Number.isFinite(empCustomerPrice)&&Number.isFinite(empHours) ? empCustomerPrice*empHours : NaN;
       const empContributionMonth=Number.isFinite(empRevenueMonth)&&Number.isFinite(empCostMonth) ? empRevenueMonth-empCostMonth : NaN;
+      const empEconomicsStatus=$('fbcEmployeeEconomicsStatus');
+      if(empEconomicsStatus){
+        empEconomicsStatus.textContent=empOk===true
+          ? T('Mitarbeiter deckt die eigenen Personalkosten','Сотрудник покрывает собственные расходы')
+          : T('Mitarbeiter deckt die eigenen Personalkosten noch nicht','Сотрудник пока не покрывает собственные расходы');
+        empEconomicsStatus.classList.toggle('is-covered',empOk===true);
+        empEconomicsStatus.classList.toggle('is-open',empOk!==true);
+      }
       if($('fbcEmployeeCostMonth')) $('fbcEmployeeCostMonth').textContent=Number.isFinite(empCostMonth)?money(empCostMonth):'—';
       if($('fbcEmployeeRevenueMonth')) $('fbcEmployeeRevenueMonth').textContent=Number.isFinite(empRevenueMonth)?money(empRevenueMonth):'—';
       if($('fbcEmployeeContributionMonth')) $('fbcEmployeeContributionMonth').textContent=Number.isFinite(empContributionMonth)?`${empContributionMonth>=0?'+':''}${money(empContributionMonth)}`:'—';
@@ -6679,7 +6822,7 @@ if($('fbcRFazit') && $('fbcRFazitText')){
       );
     }
 
-    if(fbcRiskSummary) add(T('Risikoprüfung','Проверка рисков'),fbcRiskSummary);
+    if(fbcRiskSummary) add(T('Kostenrisiko','Риск изменения затрат'),fbcRiskSummary);
     if(businessCritical) add(
       T('Hinweis','Внимание'),
       T('Die aktuelle Kostenstruktur liegt unter dem Business Break-even und sollte geprüft werden.','Текущая структура расходов находится ниже точки безубыточности бизнеса и требует проверки.'),
