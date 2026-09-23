@@ -4764,7 +4764,15 @@ if(vacation.dataset.autoVacation==='true'){
   calculateAll();
 });
 $('#empDays').addEventListener('input',()=>{$('#empDays').dataset.autoDays='false'});
-$('#empApplyRecommendedPrice').addEventListener('click',()=>{$('#empCustomerPrice').value=rolePriceRecommendation($('#empRole').value,$('#empForm').value,num('#empWage'),num('#empHours'),num('#empDays')||5,num('#empVacation')).toFixed(2);calculateAll()});
+$('#empApplyRecommendedPrice').addEventListener('click',()=>{
+  const recommendation=
+    Number($('#empApplyRecommendedPrice').dataset.recommendedPrice)||0;
+
+  if(recommendation>0){
+    $('#empCustomerPrice').value=recommendation.toFixed(2);
+    calculateAll();
+  }
+});
 $('#addTeamMember').addEventListener('click',()=>addTeamMember({role:'helper',form:'mini',wage:''}));
 
 document.addEventListener('input',event=>{
