@@ -4229,29 +4229,6 @@ function updateScenario(){const p=num('#scenarioPrice'),a=soloData(p);$('#scenar
 
 function employeeOwnerData(){const weekly=num('#empOwnerHours'),vac=num('#empOwnerVacation'),holidays=holidayDays2026(5),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/5));return{goal:num('#empOwnerGoal'),business:num('#empBusinessCosts'),insurance:num('#empOwnerInsurance'),pension:num('#empOwnerPension'),workMonth:annualHours/12,holidays}}
 function orientation(roleKey,formKey){const role=roles[roleKey]||roles.helper,factor=regions[$('#region').value]?.[1]||1;let low=Math.max(MIN_WAGE,role.range[0]*factor),high=Math.max(low,role.range[1]*factor);if(formKey==='mini')high=Math.max(low,Math.min(high,19.5));if(formKey==='student'){low=Math.max(MIN_WAGE,low*.9);high=Math.max(low,high*.88)}if(formKey==='intern'){low=MIN_WAGE;high=Math.max(low,Math.min(high,18))}return{low,high,mid:(low+high)/2}}
-function rolePriceRecommendation(roleKey,formKey,wage,hours,days,vacation){
-  const employeeLoad=
-  employeeSustainableHours(
-    actualBillable,
-    emp.workHours
-  );
-
-const recommended=
-  employeeLoad.effectiveHours>0
-    ? emp.total/employeeLoad.effectiveHours
-    : costReferenceRate;
-
-emp.effectiveBillableHours=employeeLoad.effectiveHours;
-emp.billableUtilization=employeeLoad.utilization;
-emp.utilizationZone=employeeLoad.zone;
-  const o=orientation(roleKey,formKey),schedule=scheduleOrientation(formKey);
-  const referenceWage=Number(wage)>0?Number(wage):o.mid;
-  const referenceHours=Number(hours)>0?Number(hours):schedule.hours;
-  const referenceDays=Number(days)>0?Number(days):schedule.days;
-  const referenceVacation=Number(vacation)>=0&&String(vacation)!==''?Number(vacation):schedule.companyVacation;
-  const reference=employmentData(formKey,referenceWage,referenceHours,0,0,referenceDays,referenceVacation,0);
-  return reference.workHour;
-}
 function employmentData(formKey,wage,hours,extraCost=0,customerPrice=0,days=5,vacation=30,sickReserve=0){const form=forms[formKey]||forms.part,safeDays=Math.max(1,Math.min(5,days||5)),contractHours=hours*52/12,holidays=holidayDays2026(safeDays),availableBeforeReserve=Math.max(0,hours*52-(Math.max(0,vacation)+holidays)*(hours/safeDays)),workHours=availableBeforeReserve*(1-Math.min(30,Math.max(0,sickReserve))/100)/12,gross=wage*contractHours,rate=form.rate,addons=gross*rate,total=gross+addons+extraCost,revenue=customerPrice*workHours,contribution=revenue-total;return{form,workHours,contractHours,gross,rate,addons,extraCost,total,revenue,contribution,customerPrice,workHour:workHours?total/workHours:0,days:safeDays,vacation,holidays}}
 /* legacy duplicate updateEmployee removed in R-ready release */
 /* legacy duplicate updateCompany removed in R-ready release */
