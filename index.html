@@ -2759,7 +2759,25 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 .fbc-fin-control select{
   border-radius:10px!important;
 }
+/* Block 3 + 6 · clean input borders */
+.fbc-bound-row input:not([type="checkbox"]),
+.fbc-bound-row select,
+.fbc-fin-control input:not([type="checkbox"]),
+.fbc-fin-control select{
+  border:1px solid #cfc5bb!important;
+  outline:none!important;
+  box-shadow:none!important;
+  background:#fff!important;
+}
 
+.fbc-bound-row input:not([type="checkbox"]):focus,
+.fbc-bound-row select:focus,
+.fbc-fin-control input:not([type="checkbox"]):focus,
+.fbc-fin-control select:focus{
+  border-color:#cfc5bb!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
 /* Desktop: controls ca. 25 % narrower */
 @media(min-width:761px){
 
