@@ -6741,13 +6741,12 @@ if($('fbcRMonteCarlo')){
     ? get(p,'fazit.ru')
     : get(p,'fazit.de');
 
-if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
-  const fazitSection=$('fbcFazitSection');
-const fazitChanges=get(p,'recommendation.changes');
+const fazitSection=$('fbcFazitSection');
+const fazitStatusCode=String(p?.status||'');
 
 const hasFinalDecision =
-  String(p?.status||'') !== 'no_evidenced_lever' &&
-  Array.isArray(fazitChanges);
+  fazitStatusCode !== 'no_evidenced_lever' &&
+  fazitStatusCode !== '';
 
 if(fazitSection){
   fazitSection.hidden=!hasFinalDecision;
@@ -6757,6 +6756,8 @@ if(!hasFinalDecision){
   if($('fbcRFazit')) $('fbcRFazit').hidden=true;
   if($('fbcRFazitList')) $('fbcRFazitList').innerHTML='';
 }
+
+if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
   const businessOk=get(p,'post_decision.business_break_even_ok') ?? get(p,'break_even.ok');
   const businessMargin=Number(get(p,'break_even.business.safety_margin') ?? get(p,'post_decision.business_break_even_margin_eur'));
   const businessCritical=businessOk===false || (Number.isFinite(businessMargin) && businessMargin<0);
