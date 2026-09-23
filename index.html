@@ -4514,7 +4514,7 @@ function employeeSustainableHours(billableHours, availableHours){
   };
 }
   function updateEmployee(){
-  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),recommended=actualBillable>0?emp.total/actualBillable:costReferenceRate;
+  const role=$('#empRole')?.value || 'skilled',formKey=$('#empForm').value,wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),billable=$('#empBillable').checked,customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation);
   emp.billableHours=actualBillable;
   emp.revenue=customerPrice*actualBillable;
   emp.contribution=emp.revenue-emp.total;
