@@ -5282,7 +5282,9 @@ function payloadFinancingActive(p){
 function syncRModeUI(mode=activeRMode()){
   const layer=$('fbcRLayer');
   const pdf=$('fbcPdfBar') || document.querySelector('.fbc-pdfbar');
-
+const soloOwnerSection = $('fbcSoloOwnerEconomicsSection');
+const employeeSection = $('fbcEmployeeEconomicsSection');
+  
   const host=
     mode==='solo'
       ? ($('soloRMount') || $('solo'))
@@ -5472,7 +5474,53 @@ layer.innerHTML=`
   </section>
 
   <!-- 3. REALISTISCHE HANDLUNGSSPIELRÄUME -->
+<section class="fbc-analysis-section" id="fbcSoloOwnerEconomicsSection" hidden>
+  <div class="fbc-analysis-head">
+    <div>
+      <span class="section-kicker">2</span>
+      <h3 data-de="Auslastung und wirtschaftliche Tragfähigkeit"
+          data-ru="Загрузка и экономическая устойчивость">
+        Auslastung und wirtschaftliche Tragfähigkeit
+      </h3>
+    </div>
+  </div>
 
+  <div class="fbc-metric-grid">
+    <div>
+      <small data-de="Abrechenbare Inhaberstunden"
+             data-ru="Оплачиваемые часы владельца">
+        Abrechenbare Inhaberstunden
+      </small>
+      <strong id="fbcSoloOwnerHours">—</strong>
+    </div>
+
+    <div>
+      <small data-de="Verfügbare Kapazität"
+             data-ru="Доступная мощность">
+        Verfügbare Kapazität
+      </small>
+      <strong id="fbcSoloOwnerCapacity">—</strong>
+    </div>
+
+    <div>
+      <small data-de="Auslastung"
+             data-ru="Загрузка">
+        Auslastung
+      </small>
+      <strong id="fbcSoloOwnerUtilization">—</strong>
+    </div>
+
+    <div>
+      <small data-de="Business Break-even"
+             data-ru="Точка безубыточности бизнеса">
+        Business Break-even
+      </small>
+      <strong id="fbcSoloOwnerBreakEven">—</strong>
+    </div>
+  </div>
+
+  <div class="engine-note" id="fbcSoloOwnerEconomicsNote">—</div>
+</section>
   <section class="fbc-analysis-section">
     <div class="fbc-analysis-heading">
       <div>
@@ -7091,6 +7139,64 @@ function applyPayload(p){
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
   $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
+ const soloOwnerSection = $('fbcSoloOwnerEconomicsSection');
+
+if (soloOwnerSection && activeRMode() === 'solo') {
+  const hours = Number(get(p, 'break_even.business.expected_billable_hours'));
+  const capacity = Number(soloSnapshot().owner.available_hours_month);
+  const beHours = Number(get(p, 'break_even.business.break_even_hours'));
+
+  if ($('fbcSoloOwnerHours')) {
+    $('fbcSoloOwnerHours').textContent =
+      Number.isFinite(hours) ? `${hours.toFixed(1)} h` : '—';
+  }
+
+  if ($('fbcSoloOwnerCapacity')) {
+    $('fbcSoloOwnerCapacity').textContent =
+      Number.isFinite(capacity) ? `${capacity.toFixed(1)} h` : '—';
+  }
+
+  if ($('fbcSoloOwnerUtilization')) {
+    const util =
+      Number.isFinite(hours) &&
+      Number.isFinite(capacity) &&
+      capacity > 0
+        ? hours / capacity
+        : null;
+
+    $('fbcSoloOwnerUtilization').textContent =
+      Number.isFinite(util)
+        ? `${(util * 100).toFixed(1)} %`
+        : '—';
+  }
+
+  if ($('fbcSoloOwnerBreakEven')) {
+    $('fbcSoloOwnerBreakEven').textContent =
+      Number.isFinite(beHours)
+        ? `${beHours.toFixed(1)} h`
+        : '—';
+  }
+
+  if ($('fbcSoloOwnerEconomicsNote')) {
+    const diff =
+      Number.isFinite(hours) && Number.isFinite(beHours)
+        ? hours - beHours
+        : null;
+
+    $('fbcSoloOwnerEconomicsNote').textContent =
+      Number.isFinite(diff)
+        ? diff >= 0
+          ? T(
+              `Aktuell liegen Sie ${diff.toFixed(1)} abrechenbare Stunden über dem Business Break-even.`,
+              `Сейчас вы на ${diff.toFixed(1)} оплачиваемых часа выше точки безубыточности бизнеса.`
+            )
+          : T(
+              `Aktuell fehlen ${Math.abs(diff).toFixed(1)} abrechenbare Stunden bis zum Business Break-even.`,
+              `Сейчас до точки безубыточности бизнеса не хватает ${Math.abs(diff).toFixed(1)} оплачиваемых часа.`
+            )
+        : '—';
+  }
+}
 const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
 const mcReason =
