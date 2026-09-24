@@ -5296,7 +5296,13 @@ const employeeSection = $('fbcEmployeeEconomicsSection');
     if(layer && layer.parentElement!==host) host.appendChild(layer);
     if(pdf && pdf.parentElement!==host) host.appendChild(pdf);
   }
+if (soloOwnerSection) {
+  soloOwnerSection.hidden = mode !== 'solo';
+}
 
+if (employeeSection) {
+  employeeSection.hidden = mode !== 'employee';
+}
   if(layer) layer.classList.toggle('hidden', !host);
   if(pdf) pdf.classList.toggle('hidden', !host);
 
@@ -5477,7 +5483,7 @@ layer.innerHTML=`
 <section class="fbc-analysis-section" id="fbcSoloOwnerEconomicsSection" hidden>
   <div class="fbc-analysis-head">
     <div>
-      <span class="section-kicker">2</span>
+      <span class="fbc-step-badge">2</span>
       <h3 data-de="Auslastung und wirtschaftliche Tragfähigkeit"
           data-ru="Загрузка и экономическая устойчивость">
         Auslastung und wirtschaftliche Tragfähigkeit
