@@ -4123,7 +4123,27 @@ function soloReady(){
          hasInput('#soloBillableHoursMonth') &&
          ($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))
 }
-function soloStarted(){return ['#soloPrice','#soloHours','#soloDays','#soloVacation','#costOffice','#costVehicle','#costSoftware','#costAccounting','#costInsurance','#costMaterial','#costMarketing','#costOther','#ownerInsurance','#pensionFixed','#soloGoal','#tradeTaxRate'].some(hasInput)}
+function soloStarted(){
+  return [
+    '#soloPrice',
+    '#soloHours',
+    '#soloDays',
+    '#soloVacation',
+    '#soloBillableHoursMonth'
+    '#costOffice',
+    '#costVehicle',
+    '#costSoftware',
+    '#costAccounting',
+    '#costInsurance',
+    '#costMaterial',
+    '#costMarketing',
+    '#costOther',
+    '#ownerInsurance',
+    '#pensionFixed',
+    '#soloGoal',
+    '#tradeTaxRate'
+  ].some(hasInput)
+}
 /* legacy duplicate employeeReady removed in R-ready release */
 function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#teamOwnerNeed')&&rows.length>0&&rows.some(row=>String(row.querySelector('.team-wage').value).trim()!==''&&String(row.querySelector('.team-hours').value).trim()!=='')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
