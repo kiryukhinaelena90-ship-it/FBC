@@ -2987,6 +2987,13 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <input id="soloVacation" type="number" min="0" max="60" placeholder="0" data-auto-vacation="true">
 <small id="soloVacationRecommendation" data-de="Empfehlung: erst Arbeitstage eingeben." data-ru="Рекомендация: сначала укажите рабочие дни.">Empfehlung: erst Arbeitstage eingeben.</small>
 </label>
+   <label class="field">
+<span data-de="Urlaubstage / Jahr" data-ru="Отпуск / дней в год">Urlaubstage / Jahr</span>
+<input id="soloVacation" type="number" min="0" max="60" placeholder="0" data-auto-vacation="true">
+<small id="soloVacationRecommendation" data-de="Empfehlung: erst Arbeitstage eingeben." data-ru="Рекомендация: сначала укажите рабочие дни.">Empfehlung: erst Arbeitstage eingeben.</small>
+</label>
+</div>
+<div class="owner-time-summary">     
 </div>
 <div class="owner-time-summary">
   <strong data-de="Zeit-Orientierung"
@@ -3947,7 +3954,11 @@ function refreshScheduleAdvice(){
 }
 function configureValidation(){
   const rules=[
-    ['#soloPrice',0,null],['#soloHours',1,80],['#soloDays',1,5],['#soloVacation',0,60],
+    ['#soloPrice',0,null],
+['#soloHours',1,80],
+['#soloDays',1,5],
+['#soloVacation',0,60],
+['#soloBillableHoursMonth',0,null],
     ['#empOwnerPrice',0,null],['#empOwnerHours',1,80],['#empOwnerDays',1,5],['#empOwnerVacation',0,60],
     ['#teamOwnerPrice',0,null],['#teamOwnerHours',1,80],['#teamOwnerDays',1,5],['#teamOwnerVacation',0,60],
     ['#empWage',0,null],['#empHours',0,80],['#empDays',1,5],['#empVacation',0,60],['#empCustomerPrice',0,null],
@@ -4105,7 +4116,13 @@ function taxTextEmployee(tax){
 function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),name=regions[$('#region').value]?.[0]||'';return t(`${count.toLocaleString('de-DE',{maximumFractionDigits:1})} gesetzliche Feiertage 2026 in ${name} berücksichtigt${daysPerWeek<5?' (anteilig geschätzt)':''}.`,`${count.toLocaleString('ru-RU',{maximumFractionDigits:1})} официальных праздничных дней 2026 года в земле ${name} учтено${daysPerWeek<5?' (пропорциональная оценка)':''}.`)}
 
 function hasInput(id){const element=$(id);return Boolean(element&&String(element.value).trim()!=='')}
-function soloReady(){return hasInput('#soloPrice')&&hasInput('#soloHours')&&hasInput('#soloDays')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
+function soloReady(){
+  return hasInput('#soloPrice') &&
+         hasInput('#soloHours') &&
+         hasInput('#soloDays') &&
+         hasInput('#soloBillableHoursMonth') &&
+         ($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))
+}
 function soloStarted(){return ['#soloPrice','#soloHours','#soloDays','#soloVacation','#costOffice','#costVehicle','#costSoftware','#costAccounting','#costInsurance','#costMaterial','#costMarketing','#costOther','#ownerInsurance','#pensionFixed','#soloGoal','#tradeTaxRate'].some(hasInput)}
 /* legacy duplicate employeeReady removed in R-ready release */
 function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#teamOwnerNeed')&&rows.length>0&&rows.some(row=>String(row.querySelector('.team-wage').value).trim()!==''&&String(row.querySelector('.team-hours').value).trim()!=='')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
