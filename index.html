@@ -7,7 +7,7 @@
   <meta name="description" content="FUTURE Business Cockpit: Kalkulationsnavigator für Preise, Kosten und Personalentscheidungen.">
   <title>FUTURE Business Cockpit · Kalkulationsnavigator</title>
   <style>
-:root{--paper:#f3efe9;--card:#fbfaf8;--ink:#242321;--muted:#716c65;--line:#d2c8bc;--brown:#a57c5d;--brown-dark:#8c674c;--brown-soft:#eee2d7;--green:#607e63;--red:#9a5f50;--shadow:0 14px 42px rgba(65,48,34,.09)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}.site-header{height:72px;padding:0 max(24px,calc((100vw - 1180px)/2));display:flex;align-items:center;gap:28px;background:rgba(251,250,248,.94);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}.brand{display:flex;align-items:baseline;gap:7px;text-decoration:none;color:var(--ink);letter-spacing:.04em;font-size:14px;white-space:nowrap}.brand strong{font-size:16px}.brand span{font-size:10px;color:var(--brown);font-weight:800;border-left:1px solid var(--line);padding-left:8px}.topnav{display:flex;gap:20px;margin-left:auto}.topnav a,.site-footer a{color:var(--ink);text-decoration:none;font-size:14px}.topnav a:hover,.site-footer a:hover{color:var(--brown)}.lang{display:flex;padding:3px;background:var(--paper);border-radius:10px}.lang button{border:0;background:transparent;padding:7px 9px;border-radius:7px;color:var(--muted);cursor:pointer;font-weight:800}.lang button.active{background:var(--brown);color:white}main{width:min(1180px,calc(100% - 32px));margin:0 auto}.hero{padding:72px 0 36px;max-width:900px}.eyebrow,.section-kicker{font-size:11px;letter-spacing:.16em;font-weight:900;color:var(--brown)}h1{font-size:clamp(38px,6vw,66px);line-height:1.03;letter-spacing:-.045em;margin:14px 0 20px}h2{font-size:clamp(23px,3vw,31px);line-height:1.15;margin:5px 0 22px;letter-spacing:-.025em}h3{margin:5px 0;font-size:17px}.hero p{font-size:19px;color:var(--muted);max-width:780px}.promise-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.promise-row span{padding:8px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;background:var(--card)}.card{position:relative;background:var(--card);border:1px solid var(--line);border-left:6px solid transparent;border-right:6px solid transparent;border-radius:18px;padding:30px;margin:18px 0;box-shadow:0 2px 0 rgba(0,0,0,.02);transition:.18s ease}.card.active-step,.card:focus-within{border-left-color:var(--brown);border-right-color:var(--brown);box-shadow:var(--shadow)}.profile{padding:24px 28px}.step{position:absolute;right:24px;top:20px;color:#c4bbb2;font-weight:900;font-size:23px}.profile-grid,.field-grid{display:grid;gap:14px}.profile-grid{grid-template-columns:1fr 1fr;margin-top:14px}.field-grid.four{grid-template-columns:repeat(4,1fr)}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field>span,.check-field b{font-size:13px;font-weight:800}.field input,.field select,.team-row input,.team-row select{width:100%;min-width:0;height:43px;border:1px solid #cfc5bb;background:white;border-radius:10px;padding:0 12px;color:var(--ink);font:inherit}.field input:focus,.field select:focus,.team-row input:focus,.team-row select:focus{outline:3px solid rgba(122,80,56,.16);border-color:var(--brown)}.unit{display:flex;align-items:center;gap:7px}.unit input{flex:1}.unit>b{font-size:13px;color:var(--muted)}.engine-note{margin-top:16px;padding:13px 15px;border-left:3px solid var(--brown);background:#f5f0eb;border-radius:0 10px 10px 0;color:var(--muted);font-size:13px}.engine-note strong{color:var(--brown-dark)}.mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0 12px}.mode-tab{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;text-align:left;cursor:pointer;color:var(--ink)}.mode-tab b,.mode-tab small{display:block}.mode-tab b{font-size:16px}.mode-tab small{color:var(--muted);margin-top:3px}.mode-tab.active{border-color:var(--brown);background:var(--brown);color:white;box-shadow:var(--shadow)}.mode-tab.active small{color:#eee3db}.hidden,[hidden]{display:none!important}.intro,.fineprint{color:var(--muted)}.intro{margin-top:-12px}.fineprint{font-size:12px}.cost-lines{border-top:1px solid var(--line)}.cost-lines label{display:grid;grid-template-columns:34px minmax(190px,1fr) 160px minmax(160px,1fr);gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid #e7e0d9}.cost-lines label>b{font-size:14px}.cost-lines small{color:var(--muted)}.cost-lines input{height:38px;border:1px solid #cfc5bb;border-radius:9px;padding:0 10px;width:125px;background:white}.cost-icon{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:var(--brown-soft);color:var(--brown);font-weight:900}.check-field{border:1px solid var(--line);background:#f7f3ef;border-radius:12px;padding:12px;display:flex;align-items:flex-start;gap:10px}.check-field input{margin-top:5px}.check-field span,.check-field small{display:block}.check-field small{color:var(--muted);font-size:11px;margin-top:3px}.asset-result,.employee-result-grid,.team-final{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.asset-result>div,.employee-result-grid>div,.team-final>div{padding:15px;background:#f3eee9;border-radius:12px}.asset-result small,.asset-result strong,.employee-result-grid small,.employee-result-grid strong,.team-final small,.team-final strong{display:block}.asset-result strong,.employee-result-grid strong,.team-final strong{font-size:21px;margin-top:5px}.goal{grid-column:span 2}.result-card{background:#f9f5f1}.result-heading,.team-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.status-chip{padding:7px 11px;border-radius:999px;background:#eee7df;font-size:12px;font-weight:900}.status-chip.good{background:#dfeade;color:var(--green)}.status-chip.bad{background:#f1dddd;color:var(--red)}.result-chain{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1.25fr;gap:9px;align-items:stretch}.result-chain>div{padding:15px;background:white;border:1px solid var(--line);border-radius:12px}.result-chain>span{display:grid;place-items:center;color:var(--brown);font-weight:900}.result-chain small,.result-chain strong{display:block}.result-chain strong{font-size:22px;margin-top:6px}.highlight{background:var(--brown)!important;color:white!important}.reverse-result{margin-top:16px;border:1px solid var(--brown);border-radius:14px;padding:17px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:5px 20px}.reverse-result span,.reverse-result strong,.reverse-result small{display:block}.reverse-result strong{font-size:28px;color:var(--brown-dark)}.reverse-result small{grid-column:1/-1;color:var(--muted)}.scenario-panel{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:18px;align-items:center;margin-top:18px;padding:18px;border-radius:14px;background:#2e2925;color:white}.scenario-panel label{display:grid;grid-template-columns:1fr auto;gap:5px;font-size:12px}.scenario-panel input{grid-column:1/-1;width:100%;accent-color:#c79874}.scenario-answer small,.scenario-answer strong{display:block}.scenario-answer strong{font-size:23px;margin-top:4px}.free-badge,.plus-badge{font-size:10px;font-weight:900;letter-spacing:.12em;color:#e6b891}.orientation-box{margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:15px;background:var(--brown-soft);border-radius:13px;padding:14px 16px}.orientation-box small,.orientation-box strong{display:block}.orientation-box strong{font-size:20px;color:var(--brown-dark)}.orientation-box button,.primary-btn{border:0;border-radius:10px;background:var(--brown);color:white;padding:11px 14px;font-weight:800;cursor:pointer}.expert{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.expert summary{font-size:13px;color:var(--brown);cursor:pointer;font-weight:800}.expert .field{width:260px;margin-top:12px}.warning{margin-top:12px;padding:12px;border-radius:10px;background:#f5dfd8;color:#7d312c;font-size:13px}.employee-result-grid{grid-template-columns:repeat(5,1fr)}.summary-table{border-top:1px solid var(--line)}.summary-table>div{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid var(--line)}.summary-table .total{background:var(--brown-soft);font-size:18px}.team-labels,.team-row{display:grid;grid-template-columns:1.45fr 1.35fr .75fr .7fr .8fr 36px;gap:8px}.team-labels{padding:8px 4px;color:var(--muted);font-size:11px}.team-row{position:relative;padding:9px 0;border-top:1px solid var(--line)}.team-row input,.team-row select{height:39px;}.team-row input.is-suggestion{
+:root{--paper:#f3efe9;--card:#fbfaf8;--ink:#242321;--muted:#716c65;--line:#d2c8bc;--brown:#a57c5d;--brown-dark:#8c674c;--brown-soft:#eee2d7;--green:#607e63;--red:#9a5f50;--shadow:0 14px 42px rgba(65,48,34,.09)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}.site-header{height:72px;padding:0 max(24px,calc((100vw - 1180px)/2));display:flex;align-items:center;gap:28px;background:rgba(251,250,248,.94);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}.brand{display:flex;align-items:baseline;gap:7px;text-decoration:none;color:var(--ink);letter-spacing:.04em;font-size:14px;white-space:nowrap}.brand strong{font-size:16px}.brand span{font-size:10px;color:var(--brown);font-weight:800;border-left:1px solid var(--line);padding-left:8px}.topnav{display:flex;gap:20px;margin-left:auto}.topnav a,.site-footer a{color:var(--ink);text-decoration:none;font-size:14px}.topnav a:hover,.site-footer a:hover{color:var(--brown)}.lang{display:flex;padding:3px;background:var(--paper);border-radius:10px}.lang button{border:0;background:transparent;padding:7px 9px;border-radius:7px;color:var(--muted);cursor:pointer;font-weight:800}.lang button.active{background:var(--brown);color:white}main{width:min(1180px,calc(100% - 32px));margin:0 auto}.hero{padding:72px 0 36px;max-width:900px}.eyebrow,.section-kicker{font-size:11px;letter-spacing:.16em;font-weight:900;color:var(--brown)}h1{font-size:clamp(38px,6vw,66px);line-height:1.03;letter-spacing:-.045em;margin:14px 0 20px}h2{font-size:clamp(23px,3vw,31px);line-height:1.15;margin:5px 0 22px;letter-spacing:-.025em}h3{margin:5px 0;font-size:17px}.hero p{font-size:19px;color:var(--muted);max-width:780px}.promise-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.promise-row span{padding:8px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;background:var(--card)}.card{position:relative;background:var(--card);border:1px solid var(--line);border-left:6px solid transparent;border-right:6px solid transparent;border-radius:18px;padding:30px;margin:18px 0;box-shadow:0 2px 0 rgba(0,0,0,.02);transition:.18s ease}.card.active-step,.card:focus-within{border-left-color:var(--brown);border-right-color:var(--brown);box-shadow:var(--shadow)}.profile{padding:24px 28px}.step{position:absolute;right:24px;top:20px;color:#c4bbb2;font-weight:900;font-size:23px}.profile-grid,.field-grid{display:grid;gap:14px}.profile-grid{grid-template-columns:1fr 1fr;margin-top:14px}.field-grid.four{grid-template-columns:repeat(4,1fr)}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field>span,.check-field b{font-size:13px;font-weight:800}.field input,.field select,.team-row input,.team-row select{width:100%;min-width:0;height:43px;border:1px solid #cfc5bb;background:white;border-radius:10px;padding:0 12px;color:var(--ink);font:inherit}.field input:focus,.field select:focus,.team-row input:focus,.team-row select:focus{outline:3px solid rgba(122,80,56,.16);border-color:var(--brown)}.unit{display:flex;align-items:center;gap:7px}.unit input{flex:1}.unit>b{font-size:13px;color:var(--muted)}.engine-note{margin-top:16px;padding:13px 15px;border-left:3px solid var(--brown);background:#f5f0eb;border-radius:0 10px 10px 0;color:var(--muted);font-size:13px}.engine-note strong{color:var(--brown-dark)}.mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0 12px}.mode-tab{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;text-align:left;cursor:pointer;color:var(--ink)}.mode-tab b,.mode-tab small{display:block}.mode-tab b{font-size:16px}.mode-tab small{color:var(--muted);margin-top:3px}.mode-tab.active{border-color:var(--brown);background:var(--brown);color:white;box-shadow:var(--shadow)}.mode-tab.active small{color:#eee3db}.hidden{display:none!important}.intro,.fineprint{color:var(--muted)}.intro{margin-top:-12px}.fineprint{font-size:12px}.cost-lines{border-top:1px solid var(--line)}.cost-lines label{display:grid;grid-template-columns:34px minmax(190px,1fr) 160px minmax(160px,1fr);gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid #e7e0d9}.cost-lines label>b{font-size:14px}.cost-lines small{color:var(--muted)}.cost-lines input{height:38px;border:1px solid #cfc5bb;border-radius:9px;padding:0 10px;width:125px;background:white}.cost-icon{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:var(--brown-soft);color:var(--brown);font-weight:900}.check-field{border:1px solid var(--line);background:#f7f3ef;border-radius:12px;padding:12px;display:flex;align-items:flex-start;gap:10px}.check-field input{margin-top:5px}.check-field span,.check-field small{display:block}.check-field small{color:var(--muted);font-size:11px;margin-top:3px}.asset-result,.employee-result-grid,.team-final{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.asset-result>div,.employee-result-grid>div,.team-final>div{padding:15px;background:#f3eee9;border-radius:12px}.asset-result small,.asset-result strong,.employee-result-grid small,.employee-result-grid strong,.team-final small,.team-final strong{display:block}.asset-result strong,.employee-result-grid strong,.team-final strong{font-size:21px;margin-top:5px}.goal{grid-column:span 2}.result-card{background:#f9f5f1}.result-heading,.team-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.status-chip{padding:7px 11px;border-radius:999px;background:#eee7df;font-size:12px;font-weight:900}.status-chip.good{background:#dfeade;color:var(--green)}.status-chip.bad{background:#f1dddd;color:var(--red)}.result-chain{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1.25fr;gap:9px;align-items:stretch}.result-chain>div{padding:15px;background:white;border:1px solid var(--line);border-radius:12px}.result-chain>span{display:grid;place-items:center;color:var(--brown);font-weight:900}.result-chain small,.result-chain strong{display:block}.result-chain strong{font-size:22px;margin-top:6px}.highlight{background:var(--brown)!important;color:white!important}.reverse-result{margin-top:16px;border:1px solid var(--brown);border-radius:14px;padding:17px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:5px 20px}.reverse-result span,.reverse-result strong,.reverse-result small{display:block}.reverse-result strong{font-size:28px;color:var(--brown-dark)}.reverse-result small{grid-column:1/-1;color:var(--muted)}.scenario-panel{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:18px;align-items:center;margin-top:18px;padding:18px;border-radius:14px;background:#2e2925;color:white}.scenario-panel label{display:grid;grid-template-columns:1fr auto;gap:5px;font-size:12px}.scenario-panel input{grid-column:1/-1;width:100%;accent-color:#c79874}.scenario-answer small,.scenario-answer strong{display:block}.scenario-answer strong{font-size:23px;margin-top:4px}.free-badge,.plus-badge{font-size:10px;font-weight:900;letter-spacing:.12em;color:#e6b891}.orientation-box{margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:15px;background:var(--brown-soft);border-radius:13px;padding:14px 16px}.orientation-box small,.orientation-box strong{display:block}.orientation-box strong{font-size:20px;color:var(--brown-dark)}.orientation-box button,.primary-btn{border:0;border-radius:10px;background:var(--brown);color:white;padding:11px 14px;font-weight:800;cursor:pointer}.expert{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}.expert summary{font-size:13px;color:var(--brown);cursor:pointer;font-weight:800}.expert .field{width:260px;margin-top:12px}.warning{margin-top:12px;padding:12px;border-radius:10px;background:#f5dfd8;color:#7d312c;font-size:13px}.employee-result-grid{grid-template-columns:repeat(5,1fr)}.summary-table{border-top:1px solid var(--line)}.summary-table>div{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid var(--line)}.summary-table .total{background:var(--brown-soft);font-size:18px}.team-labels,.team-row{display:grid;grid-template-columns:1.45fr 1.35fr .75fr .7fr .8fr 36px;gap:8px}.team-labels{padding:8px 4px;color:var(--muted);font-size:11px}.team-row{position:relative;padding:9px 0;border-top:1px solid var(--line)}.team-row input,.team-row select{height:39px;}.team-row input.is-suggestion{
   color:#9aa3ad;
   background:#f6f7f8;
 }
@@ -2839,47 +2839,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 </style>
 
-
-<style id="fbc-mobile-cost-fix">
-@media(max-width:600px){
-  .cost-lines label{
-    grid-template-columns:27px minmax(0,1fr) 110px!important;
-    column-gap:10px!important;
-    row-gap:5px!important;
-  }
-  .cost-lines label > b{
-    grid-column:2!important;
-    grid-row:1!important;
-    min-width:0!important;
-    padding-right:0!important;
-    overflow-wrap:anywhere;
-  }
-  .cost-lines label > .unit{
-    grid-column:3!important;
-    grid-row:1!important;
-    width:100%!important;
-    min-width:0!important;
-  }
-  .cost-lines label > small{
-    grid-column:2 / 4!important;
-    grid-row:2!important;
-    min-width:0!important;
-    overflow-wrap:anywhere;
-  }
-  .cost-lines label > .fbc-cost-stat-link{
-    grid-column:2 / 4!important;
-    grid-row:3!important;
-    justify-self:start!important;
-    white-space:normal!important;
-  }
-}
-@media(max-width:340px){
-  .site-header{gap:8px!important;}
-  .brand{font-size:11px!important;letter-spacing:.02em!important;}
-  .brand strong{font-size:12px!important;}
-  .lang button{padding:6px 6px!important;}
-}
-</style>
 </head>
 <body>
 <header class="site-header">
@@ -3294,9 +3253,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
       <div class="result-goal-row" id="ownerMonthlyGoalBlock">
 <label class="field">
-<span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
-      data-ru="Сколько вы хотите реально оставлять себе каждый месяц?">
-  Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?
+<span data-de="Wie viel möchten Sie wirklich jeden Monat netto für sich übrig haben?"
+      data-ru="Сколько вы хотите реально оставлять себе Netto каждый месяц?">
+  Wie viel möchten Sie wirklich jeden Monat netto für sich übrig haben?
 </span>
   <div class="unit">
 <input id="soloGoal"
@@ -3309,22 +3268,29 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <b>€</b>
 </div>
 <small class="goal-explainer"
-       data-de="Umsatz allein sagt wenig darüber aus, was Ihnen tatsächlich bleibt. Geben Sie Ihr gewünschtes monatliches Ergebnis an – FBC prüft, ob Preis, Auslastung und Kosten dazu passen."
-       data-ru="Оборот сам по себе мало говорит о том, сколько денег в итоге остаётся у вас. Укажите желаемую сумму — FBC проверит, подходят ли к этой цели ваша цена, загрузка и расходы.">
-  Umsatz allein sagt wenig darüber aus, was Ihnen tatsächlich bleibt. Geben Sie Ihr gewünschtes monatliches Ergebnis an – FBC prüft, ob Preis, Auslastung und Kosten dazu passen.
+       data-de="Geben Sie Ihr gewünschtes Nettoziel pro Monat ein. FBC zeigt, wie groß die Lücke zum aktuellen Ergebnis ist."
+       data-ru="Укажите желаемую чистую сумму в месяц. FBC покажет разницу между текущим результатом и вашей целью.">
+  Geben Sie Ihr gewünschtes Nettoziel pro Monat ein. FBC zeigt, wie groß die Lücke zum aktuellen Ergebnis ist.
 </small>
-      <small data-de="Von diesem Ziel startet die weitere Berechnung."
-       data-ru="От этой цели начинается дальнейший расчёт.">
-  Von diesem Ziel startet die weitere Berechnung.
-</small>
-<small id="soloCompleteness" data-de="Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen." data-ru="Предварительный результат · недостающие данные можно добавить в любой момент.">Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.</small>
+<small id="soloCompleteness" class="hidden" data-de="Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen." data-ru="Предварительный результат · недостающие данные можно добавить в любой момент.">Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.</small>
 </label>
 </div>
-      
+<div id="soloTargetGapMessage"
+     class="target-gap-message hidden"
+     aria-live="polite">
+
+  <strong id="soloTargetGapHeadline">—</strong>
+
+  <small
+    data-de="R prüft, welche Kombination aus Preis, Auslastung und Kosten diese Lücke realistisch schließen kann."
+    data-ru="R проверит, какая комбинация цены, загрузки и расходов позволит реалистично закрыть эту разницу.">
+    R prüft, welche Kombination aus Preis, Auslastung und Kosten diese Lücke realistisch schließen kann.
+  </small>
+</div>      
 </div>
     </article>
   </section>
-
+<div id="soloRMount" class="fbc-r-mount"></div>
   <section id="employee" class="flow hidden">
     <div class="employee-intro">
 
@@ -3570,15 +3536,11 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
        style="width:100px!important;max-width:100px!important;flex:0 0 100px!important;">
 <b>€</b>
 </div>
-<small data-de="Umsatz allein sagt wenig darüber aus, was Ihnen tatsächlich bleibt. Geben Sie Ihr gewünschtes monatliches Ergebnis an – FBC prüft, ob Preis, Auslastung und Kosten dazu passen."
-       data-ru="Оборот сам по себе мало говорит о том, сколько денег в итоге остаётся у вас. Укажите желаемую сумму — FBC проверит, подходят ли к этой цели ваша цена, загрузка и расходы.">
-  Umsatz allein sagt wenig darüber aus, was Ihnen tatsächlich bleibt. Geben Sie Ihr gewünschtes monatliches Ergebnis an – FBC prüft, ob Preis, Auslastung und Kosten dazu passen.
+<small data-de="Geben Sie Ihr gewünschtes Nettoziel pro Monat ein. FBC zeigt, wie groß die Lücke zum aktuellen Ergebnis ist."
+       data-ru="Укажите желаемую чистую сумму в месяц. FBC покажет разницу между текущим результатом и вашей целью.">
+  Geben Sie Ihr gewünschtes Nettoziel pro Monat ein. FBC zeigt, wie groß die Lücke zum aktuellen Ergebnis ist.
 </small>
 
-<small data-de="Von diesem Ziel startet die weitere Berechnung."
-       data-ru="От этой цели начинается дальнейший расчёт.">
-  Von diesem Ziel startet die weitere Berechnung.
-</small>
 </label>
  </div>      
 <div id="empTargetGapMessage"
@@ -3594,7 +3556,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 </article>
   </section>
-
+<div id="employeeRMount" class="fbc-r-mount"></div>
   <section id="team" class="flow hidden">
     <div id="teamOwnerInputs">
 </div>
@@ -4360,8 +4322,32 @@ $('#soloAnnualNet').textContent =
   euro(a.remainMonth * 12);
 
   $('#soloCompleteness').textContent=complete?t('Berechnung vollständig. Änderungen werden sofort übernommen.','Расчёт заполнен. Все изменения учитываются сразу.'):t('Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.','Предварительный результат · недостающие данные можно добавить в любой момент.');
-  const status=$('#soloStatus');if(!complete){status.textContent=t('Vorläufig','Предварительно');status.className='status-chip'}else if(!goalEntered){status.textContent=t('Aktuelle Kalkulation','Текущий расчёт');status.className='status-chip'}else{status.textContent=a.remainMonth>=a.goal?t('Ziel erreichbar','Цель достигается'):t('Preis reicht noch nicht','Цены пока недостаточно');status.className='status-chip '+(a.remainMonth>=a.goal?'good':'bad')}
+  const targetGapMessage = $('#soloTargetGapMessage');
+const targetGapHeadline = $('#soloTargetGapHeadline');
+
+if (targetGapMessage && targetGapHeadline) {
+  if (goalEntered) {
+    const targetGap = a.goal - a.remainMonth;
+
+    targetGapMessage.classList.remove('hidden');
+
+    targetGapHeadline.textContent = targetGap > 0
+      ? t(
+          `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
+          `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
+        )
+      : t(
+          `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
+          `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
+        );
+  } else {
+    targetGapMessage.classList.add('hidden');
+  }
 }
+  const status=$('#soloStatus');if(!complete){status.textContent=t('Vorläufig','Предварительно');status.className='status-chip'}else if(!goalEntered){status.textContent=t('Aktuelle Kalkulation','Текущий расчёт');status.className='status-chip'}else{status.textContent=a.remainMonth>=a.goal?t('Ziel erreichbar','Цель достигается'):t('Preis reicht noch nicht','Цены пока недостаточно');status.className='status-chip '+(a.remainMonth>=a.goal?'good':'bad')}
+  
+}
+
 
 function employeeOwnerData(){const weekly=num('#empOwnerHours'),vac=num('#empOwnerVacation'),holidays=holidayDays2026(5),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/5));return{goal:num('#empOwnerGoal'),business:num('#empBusinessCosts'),insurance:num('#empOwnerInsurance'),pension:num('#empOwnerPension'),workMonth:annualHours/12,holidays}}
 function orientation(roleKey,formKey){const role=roles[roleKey]||roles.helper,factor=regions[$('#region').value]?.[1]||1;let low=Math.max(MIN_WAGE,role.range[0]*factor),high=Math.max(low,role.range[1]*factor);if(formKey==='mini')high=Math.max(low,Math.min(high,19.5));if(formKey==='student'){low=Math.max(MIN_WAGE,low*.9);high=Math.max(low,high*.88)}if(formKey==='intern'){low=MIN_WAGE;high=Math.max(low,Math.min(high,18))}return{low,high,mid:(low+high)/2}}
@@ -4810,6 +4796,8 @@ setupOwnerAutoDays('#soloHours','#soloDays','#soloVacation');setupOwnerAutoDays(
 $$('.lang button').forEach(b=>b.addEventListener('click',()=>translate(b.dataset.lang)));
 $$('.mode-tab').forEach(button=>button.addEventListener('click',()=>{
   const mode=button.dataset.mode;
+  const previousMode=document.querySelector('.mode-tab.active')?.dataset.mode||'solo';
+  if(previousMode!==mode)window.FBC_INVALIDATE_R_ANALYSIS?.();
 
   $$('.mode-tab').forEach(b=>b.classList.remove('active'));
   button.classList.add('active');
@@ -4822,9 +4810,8 @@ $('#soloSeoIntro')?.classList.toggle('hidden',mode!=='solo');
 $('#employeeSeoIntro')?.classList.toggle('hidden',mode!=='employee');
 $('#teamSeoIntro')?.classList.toggle('hidden',mode!=='team');
 
-  window.FBC_INVALIDATE_R_ANALYSIS?.();
-  calculateAll();
   window.FBC_SYNC_R_MODE_UI?.(mode);
+  calculateAll();
 }));
 $$('.card').forEach(card=>['click','focusin'].forEach(event=>card.addEventListener(event,()=>{const flow=card.closest('.flow');if(flow)flow.querySelectorAll('.card').forEach(c=>c.classList.toggle('active-step',c===card))})));
 document.addEventListener('change',event=>{
@@ -5057,7 +5044,7 @@ calculateAll();
     if(!started && e.target.closest('#calculator')){ started=true; send('calculation_start'); }
   },{passive:true});
   document.querySelectorAll('.mode-tab[data-mode]').forEach(btn=>btn.addEventListener('click',()=>send('mode_'+btn.dataset.mode)));
-  const resultIds=['soloResRemainMonth','companyCurrentRemain','teamAnnualNet'];
+  const resultIds=['soloRequiredPrice','companyCurrentRemain','teamAnnualNet'];
   const observer=new MutationObserver(()=>{
     if(completed) return;
     const ready=resultIds.some(id=>{const el=document.getElementById(id);return el && el.textContent && !['—','0','0,00 €'].includes(el.textContent.trim())});
@@ -5175,9 +5162,20 @@ async function status(mode,calcId){
 'use strict';
 const $=id=>document.getElementById(id), RU=()=>document.documentElement.lang==='ru', T=(de,ru)=>RU()?ru:de;
 const num=id=>{const e=$(id);if(!e)return 0;const x=Number(String(e.value??'').trim().replace(/\s/g,'').replace(',','.'));return Number.isFinite(x)?x:0};
-const finiteNumber=v=>v===null||v===undefined||v===''?NaN:Number(v);
-const money=v=>{const n=finiteNumber(v);return Number.isFinite(n)?new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n):'—'};
-const pct=v=>{const n=finiteNumber(v);return Number.isFinite(n)?new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1}).format(n*100)+' %':'—'};
+const finiteNumber=v=>{
+  if(v===null||v===undefined||v==='')return null;
+  const n=Number(v);
+  return Number.isFinite(n)?n:null;
+};
+const firstFinite=(...values)=>{
+  for(const value of values){
+    const n=finiteNumber(value);
+    if(n!==null)return n;
+  }
+  return null;
+};
+const money=v=>{const n=finiteNumber(v);return n===null?'—':new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n)};
+const pct=v=>{const n=finiteNumber(v);return n===null?'—':new Intl.NumberFormat(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1}).format(n*100)+' %'};
 const get=(o,path)=>path.split('.').reduce((a,k)=>a&&a[k]!==undefined?a[k]:null,o);
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -5194,23 +5192,102 @@ function methodsUsed(p){
   const m=get(p||{},'production_meta.methods_used')||get(p||{},'methods_used')||get(p||{},'audit.methods_used')||[];
   return Array.isArray(m)?m:[];
 }
+function renderPdfReport(){
+  let host=$('fbcPdfReport');
+  if(!host){host=document.createElement('section');host.id='fbcPdfReport';document.body.appendChild(host)}
 
+  const p=window.FBC_R_ANALYSIS_PAYLOAD||{};
+  const mode=activeRMode();
+  const s=activeCockpitSnapshot(mode);
+  const owner=s?.owner||{};
+  const employee=s?.employee||{};
+
+  const current=firstFinite(get(p,'current.expected_net'),get(p,'current.net_available'));
+  const target=firstFinite(get(p,'current.monthly_target'),owner.monthly_target);
+  const projected=firstFinite(get(p,'recommendation.projected_net'),get(p,'recommendation.expected_net_after'));
+  const remainingGap=payloadTargetGap(p,s);
+  const biz=Object.values(s?.operating_costs||{}).reduce((a,b)=>a+(finiteNumber(b)??0),0);
+  const prob=firstFinite(get(p,'robustness.target_probability'),get(p,'post_decision.mc_target_probability'));
+  const p10=firstFinite(get(p,'robustness.p10'),get(p,'post_decision.p10'));
+  const p90=firstFinite(get(p,'robustness.p90'),get(p,'post_decision.p90'));
+  const be=firstFinite(get(p,'break_even.business.break_even_revenue'),get(p,'break_even.business.revenue'));
+  const ebe=mode==='employee'?finiteNumber(get(p,'break_even.employee.break_even_hours')):null;
+  const dscr=firstFinite(get(p,'post_decision.capital_service_ratio'),get(p,'financing.dscr'),get(p,'financing.current.min_capital_service_ratio'));
+  const finCurrent=get(p,'financing.current');
+  const rec=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation')??T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.');
+  const methods=methodsUsed(p);
+
+  const ownerHours=finiteNumber(owner.billable_hours_month)??0;
+  const employeeHours=finiteNumber(employee.billable_hours_month)??0;
+  const employeeForm=mode==='employee'
+    ? ($('empForm')?.selectedOptions?.[0]?.textContent||employee.form||'—')
+    : '';
+
+  host.innerHTML=`<div class="pdf-title">FUTURE Business Cockpit</div><div class="pdf-sub">${T('R-Backend-Report · Werte aus dem aktuellen Cockpit; R-Werte nur wenn Payload vorliegt.','R-отчёт · текущие данные Cockpit; R-значения только при наличии payload.')}</div>
+  <div class="pdf-top"><div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(current)}</strong></div><div><small>${T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации')}</small><strong>${money(projected)}</strong></div><div><small>${T('Verbleibender Abstand zum Nettoziel','Оставшийся разрыв до цели')}</small><strong>${money(remainingGap)}</strong></div></div>
+  <h2>${T('AKTUELLER STAND','ТЕКУЩЕЕ СОСТОЯНИЕ')}</h2>
+  <div class="pdf-row"><span>${T('Inhaberpreis / abrechenbare Stunden','Цена владельца / оплачиваемые часы')}</span><b>${money(owner.price)} / ${ownerHours.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h/Monat</b></div>
+  ${mode==='employee'?`<div class="pdf-row"><span>${T('Mitarbeiter','Сотрудник')}</span><b>${esc(employeeForm)} · ${money(employee.wage_hour)}/h · ${employeeHours.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h fakturiert</b></div><div class="pdf-row"><span>${T('Personalkosten','Расходы на персонал')}</span><b>${money(employee.personnel_cost_month)}</b></div>`:''}
+  <div class="pdf-row"><span>${T('Betriebskosten','Расходы бизнеса')}</span><b>${money(biz)}</b></div>
+  <h2>${T('R-ANALYSE & ROBUSTHEIT','R-АНАЛИЗ И УСТОЙЧИВОСТЬ')}</h2>
+  <div class="pdf-row"><span>Expected net</span><b>${money(current)}</b></div>
+  <div class="pdf-row"><span>P10 – P90</span><b>${money(p10)} – ${money(p90)}</b></div>
+  <div class="pdf-row"><span>P(Ziel erreicht)</span><b>${pct(prob)}</b></div>
+  <div class="pdf-row"><span>Business Break-even</span><b>${money(be)}</b></div>
+  ${mode==='employee'?`<div class="pdf-row"><span>Mitarbeiter Break-even</span><b>${ebe===null?'—':ebe.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h/Monat'}</b></div>`:''}
+  <div class="pdf-row"><span>Kapitaldienst / DSCR</span><b>${dscr===null?'—':dscr.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})}</b></div>
+  ${(()=>{if(!finCurrent||typeof finCurrent!=='object')return'';const typeLabels={annuity:T('Annuitätendarlehen','Аннуитетный кредит'),tilgung:T('Tilgungsdarlehen','Кредит с равномерным погашением'),bullet:T('Endfälliges Darlehen','Погашение в конце срока'),line:T('Kreditlinie','Кредитная линия'),zero:T('Zinsfreie Finanzierung','Беспроцентное финансирование')};const raw=String(finCurrent.type??'');const type=typeLabels[raw]||raw||'—';const amount=finiteNumber(finCurrent.amount);const rate=finiteNumber(finCurrent.rate_pa);const months=finiteNumber(finCurrent.months);const first=finiteNumber(finCurrent.first_month_cash_service);const last=finiteNumber(finCurrent.last_month_cash_service);const interest=finiteNumber(finCurrent.total_interest);const rest=finiteNumber(finCurrent.restschuld_end);return `<h2>${T('FINANZIERUNG','ФИНАНСИРОВАНИЕ')}</h2><div class="pdf-row"><span>${T('Finanzierungsart','Тип финансирования')}</span><b>${esc(type)}</b></div><div class="pdf-row"><span>${T('Finanzierungsbetrag','Сумма финансирования')}</span><b>${money(amount)}</b></div><div class="pdf-row"><span>${T('Zinssatz p.a. / Laufzeit','Годовая ставка / срок')}</span><b>${rate===null?'—':rate.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})+' %'} · ${months===null?'—':months.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:0})+' '+T('Monate','мес.')}</b></div><div class="pdf-row"><span>${T('Belastung erster / letzter Monat','Платёж первый / последний месяц')}</span><b>${money(first)} / ${money(last)}</b></div><div class="pdf-row"><span>${T('Zinsen gesamt','Всего процентов')}</span><b>${money(interest)}</b></div><div class="pdf-row"><span>${T('Restschuld am Laufzeitende','Остаток долга в конце срока')}</span><b>${money(rest)}</b></div>`})()}
+  <h2>${T('EMPFEHLUNG','РЕКОМЕНДАЦИЯ')}</h2><div class="pdf-rec">${esc(typeof rec==='string'?rec:JSON.stringify(rec))}</div>
+  ${(()=>{const ch=get(p,'recommendation.changes');return Array.isArray(ch)&&ch.length?`<h2>${T('BESTÄTIGTE ENTSCHEIDUNG','ПОДТВЕРЖДЁННОЕ РЕШЕНИЕ')}</h2>${ch.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${esc(String(c.current??'—'))} → ${esc(String(c.proposed??'—'))} ${esc(c.unit||'')}</b></div>`).join('')}`:''})()}
+  ${(()=>{const sh=get(p,'recommendation.explanation');const cc=sh&&Array.isArray(sh.contributions)?sh.contributions:[];return sh?.available&&cc.length?`<h2>SHAPLEY · ${T('Warum diese Kombination?','Почему эта комбинация?')}</h2>${cc.map(c=>`<div class="pdf-row"><span>${esc(c.label||c.lever||'')}</span><b>${money(c.contribution_eur??c.contribution)}</b></div>`).join('')}`:''})()}
+  <h2>${T('STATISTISCHER HINTERGRUND','СТАТИСТИЧЕСКИЙ ФОН')}</h2><div class="pdf-rec">${T('Energie, Kraftstoff, Arbeitskosten und Kreditzins werden als separater Informationslayer geführt. Historische Reihen sind unabhängig von der Entscheidung einsehbar; sie werden nicht automatisch als Entscheidungsinput verwendet.','Энергия, топливо, затраты на труд и кредитная ставка ведутся как отдельный информационный слой. Исторические ряды доступны независимо от решения и не используются автоматически как вход для рекомендации.')}</div>
+  ${(()=>{const sob=get(p,'sobol')??get(p,'sensitivity.sobol')??get(p,'robustness.sobol');if(!sob)return'';return `<h2>SOBOL · ${T('Sensitivität','Чувствительность')}</h2><div class="pdf-rec">${esc(typeof sob==='string'?sob:JSON.stringify(sob))}</div>`})()}
+  <h2>${T('METHODEN · nur tatsächlich ausgeführt','МЕТОДЫ · только реально выполненные')}</h2><div class="pdf-methods">${methods.length?methods.map(esc).join(' · '):'—'}</div>`;
+}
 function activeRMode(){
   return document.querySelector('.mode-tab.active')?.dataset.mode || 'solo';
 }
 
-function activeCockpitSnapshot(){
-  return activeRMode()==='solo' ? soloSnapshot() : snapshot();
+function activeCockpitSnapshot(mode=activeRMode()){
+  return mode==='solo' ? soloSnapshot() : snapshot();
+}
+
+function payloadTargetGap(p,s=activeCockpitSnapshot()){
+  const recommendationGap=finiteNumber(get(p,'recommendation.remaining_gap_eur'));
+  if(recommendationGap!==null)return Math.max(0,recommendationGap);
+
+  const target=firstFinite(get(p,'current.monthly_target'),s?.owner?.monthly_target);
+  const projected=firstFinite(
+    get(p,'recommendation.projected_net'),
+    get(p,'recommendation.expected_net_after')
+  );
+  if(target!==null&&projected!==null)return Math.max(0,target-projected);
+
+  const currentGap=finiteNumber(get(p,'current.target_gap_eur'));
+  if(currentGap!==null)return Math.max(0,currentGap);
+
+  const currentNet=firstFinite(get(p,'current.expected_net'),get(p,'current.net_available'));
+  return target!==null&&currentNet!==null ? Math.max(0,target-currentNet) : null;
+}
+
+function payloadFinancingActive(p){
+  const explicit=get(p,'financing.active');
+  if(typeof explicit==='boolean')return explicit;
+  const status=String(get(p,'financing.status')??'');
+  if(status==='current_financing_only')return true;
+  if(status==='no_financing')return false;
+  return Boolean(activeCockpitSnapshot()?.financing?.active);
 }
 
 function syncRModeUI(mode=activeRMode()){
   const layer=$('fbcRLayer');
-  const pdf=$('fbcPdfBar');
+  const pdf=$('fbcPdfBar') || document.querySelector('.fbc-pdfbar');
+
   const host=
     mode==='solo'
-      ? $('solo')
+      ? ($('soloRMount') || $('solo'))
       : mode==='employee'
-        ? $('employee')
+        ? ($('employeeRMount') || $('employee'))
         : null;
 
   if(host){
@@ -5221,226 +5298,35 @@ function syncRModeUI(mode=activeRMode()){
   if(layer) layer.classList.toggle('hidden', !host);
   if(pdf) pdf.classList.toggle('hidden', !host);
 
-  const soloMode=mode==='solo';
+  const employeeMode=mode==='employee';
 
-  document
-    .querySelectorAll('#fbcSensitivityList .fbc-sens-row[data-sens-key^="employee_"]')
-    .forEach(el=>{ el.hidden=soloMode; });
-
-  if(soloMode && $('fbcEmployeeEconomicsSection')){
-    $('fbcEmployeeEconomicsSection').hidden=true;
-  }
-  if(!soloMode && $('fbcOwnerEconomicsSection')){
-    $('fbcOwnerEconomicsSection').hidden=true;
-  }
+  layer?.querySelectorAll(
+    '[data-sens-key="employee_customer_price"], [data-sens-key="employee_billable_hours"]'
+  ).forEach(el=>el.classList.toggle('hidden',!employeeMode));
 
   ['fbcBoundEmpPriceOn','fbcBoundEmpHoursOn'].forEach(id=>{
-    const el=$(id)?.closest('.fbc-bound-row');
-    if(el){
-      el.hidden=soloMode;
-      el.classList.toggle('hidden',soloMode);
-    }
+    $(id)?.closest('.fbc-bound-row')?.classList.toggle('hidden',!employeeMode);
   });
 
-  ['fbcBoundEmpPriceMonths','fbcBoundEmpHoursMonths'].forEach(id=>{
-    const el=$(id)?.closest('label');
-    if(el){
-      el.hidden=soloMode;
-      el.classList.toggle('hidden',soloMode);
-    }
-  });
-
-  const priceResponseNote=$('fbcPriceResponseNote');
-  if(priceResponseNote && !window.FBC_R_ANALYSIS_PAYLOAD){
-    priceResponseNote.hidden=true;
+  if(!employeeMode){
+    const employeeEconomics=$('fbcEmployeeEconomicsSection');
+    if(employeeEconomics) employeeEconomics.hidden=true;
   }
 }
 window.FBC_SYNC_R_MODE_UI=syncRModeUI;
-function renderPdfReport(){
-  let host=$('fbcPdfReport');
-  if(!host){
-    host=document.createElement('section');
-    host.id='fbcPdfReport';
-    document.body.appendChild(host);
-  }
-
-  const p=window.FBC_R_ANALYSIS_PAYLOAD||{};
-  const mode=activeRMode();
-  const s=activeCockpitSnapshot();
-  const o=s?.owner||{};
-  const e=s?.employee||{};
-  const currentNet=finiteNumber(get(p,'current.expected_net') ?? get(p,'current.net_available'));
-  const target=finiteNumber(get(p,'current.monthly_target') ?? o.monthly_target);
-  const projected=finiteNumber(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
-  const gapRaw=finiteNumber(
-    get(p,'recommendation.remaining_gap_eur') ??
-    get(p,'current.target_gap_eur')
-  );
-  const gap=Number.isFinite(gapRaw)
-    ? Math.max(0,gapRaw)
-    : (Number.isFinite(currentNet)&&Number.isFinite(target)
-        ? Math.max(0,target-currentNet)
-        : NaN);
-
-  const status=String(p?.status||'');
-  const optimized=status && status!=='no_evidenced_lever';
-  const revenue=finiteNumber(get(p,'current.revenue') ?? s?.current?.revenue);
-  const businessCosts=Number(
-    get(p,'current.operating_costs') ??
-    Object.values(s?.operating_costs||{}).reduce((a,b)=>a+Number(b||0),0)
-  );
-  const personnelCost=Number(get(p,'current.personnel_cost') ?? s?.current?.personnel_cost ?? 0);
-  const financingResultCost=finiteNumber(get(p,'current.financing_result_cost'));
-  const beforeProtectionTax=finiteNumber(get(p,'current.result_before_owner_protection_tax'));
-  const insurance=finiteNumber(get(p,'current.insurance_month'));
-  const pension=finiteNumber(get(p,'current.pension_month'));
-  const tax=finiteNumber(get(p,'current.tax_month'));
-
-  const prob=finiteNumber(get(p,'robustness.target_probability') ?? get(p,'post_decision.mc_target_probability'));
-  const p10=finiteNumber(get(p,'robustness.p10') ?? get(p,'post_decision.p10'));
-  const p90=finiteNumber(get(p,'robustness.p90') ?? get(p,'post_decision.p90'));
-  const be=finiteNumber(get(p,'break_even.business.break_even_revenue'));
-  const ebe=finiteNumber(get(p,'break_even.employee.break_even_hours'));
-  const dscr=finiteNumber(
-    get(p,'post_decision.capital_service_ratio') ??
-    get(p,'financing.dscr') ??
-    get(p,'financing.current.min_capital_service_ratio')
-  );
-
-  const ownerUtil=finiteNumber(get(p,'break_even.owner.utilization_rate') ?? get(p,'sensitivity.owner_utilization.utilization_rate'));
-  const ownerEff=finiteNumber(get(p,'break_even.owner.effective_billable_hours') ?? get(p,'sensitivity.owner_utilization.effective_hours'));
-  const ownerCapacity=finiteNumber(get(p,'break_even.owner.physical_available_hours') ?? get(p,'sensitivity.owner_utilization.available_hours'));
-  const ownerSustainableBE=finiteNumber(get(p,'break_even.owner.sustainable_break_even_hours'));
-  const ownerSustainableMargin=finiteNumber(get(p,'break_even.owner.sustainable_result_margin_month'));
-
-  const finInput=financing();
-  const finCurrent=get(p,'financing.current');
-  const finTypeRaw=String(finCurrent?.type ?? finInput?.type ?? '');
-  const typeLabels={
-    annuity:T('Annuitätendarlehen','Аннуитетный кредит'),
-    tilgung:T('Tilgungsdarlehen','Кредит с равномерным погашением'),
-    bullet:T('Endfälliges Darlehen','Погашение в конце срока'),
-    endfaellig:T('Endfälliges Darlehen','Погашение в конце срока'),
-    line:T('Kreditlinie','Кредитная линия'),
-    credit_line:T('Kreditlinie','Кредитная линия'),
-    zero:T('Zinsfreie Finanzierung','Беспроцентное финансирование'),
-    zinsfrei:T('Zinsfreie Finanzierung','Беспроцентное финансирование')
-  };
-
-  const finAmount=finiteNumber(finCurrent?.amount ?? finInput?.amount);
-  const finRate=finiteNumber(finCurrent?.rate_pa ?? finInput?.rate_pa);
-  const finMonths=finiteNumber(finCurrent?.months ?? finInput?.months);
-  const finDebtService=finiteNumber(finCurrent?.debt_service_month ?? finCurrent?.first_month_cash_service);
-  const finInterestFees=finiteNumber(finCurrent?.interest_plus_fees_month);
-  const finPrincipal=finiteNumber(finCurrent?.principal_month);
-
-  const methods=methodsUsed(p);
-  const recRaw=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
-  const rec=status==='no_evidenced_lever'
-    ? T(
-        'Der aktuelle Stand wurde berechnet. Eine operative Empfehlung entsteht erst aus den von Ihnen bestätigten Handlungsspielräumen.',
-        'Текущее состояние рассчитано. Операционная рекомендация появится после подтверждения вами реальных рамок изменений.'
-      )
-    : (typeof recRaw==='string'&&recRaw
-        ? recRaw
-        : T('Noch keine validierte R-Empfehlung.','Пока нет валидированной R-рекомендации.'));
-
-  const modeLabel=mode==='solo'
-    ? T('Solo · nur Inhaber/in','Solo · только владелец')
-    : T('Inhaber/in + Mitarbeiter/in','Владелец + сотрудник');
-
-  const fmtHours=v=>Number.isFinite(Number(v))
-    ? Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h'
-    : '—';
-
-  const row=(label,value)=>`<div class="pdf-row"><span>${esc(label)}</span><b>${esc(value)}</b></div>`;
-
-  const employeeRows=mode==='employee'
-    ? [
-        row(T('Mitarbeiter','Сотрудник'),
-            `${esc($('empForm')?.selectedOptions?.[0]?.textContent||'—')} · ${money(num('empWage'))}/h · ${fmtHours(Number(e?.billable_hours_month||0))}/${T('Monat','мес.')}`),
-        row(T('Personalkosten','Расходы на персонал'),money(personnelCost)),
-        row(T('Mitarbeiter Break-even','Окупаемость сотрудника'),
-            Number.isFinite(ebe)?fmtHours(ebe)+' / '+T('Monat','мес.'):'—')
-      ].join('')
-    : '';
-
-  const soloRows=mode==='solo'
-    ? [
-        row(T('Physische Arbeitskapazität','Физическая рабочая ёмкость'),fmtHours(ownerCapacity)),
-        row(T('Abrechenbare Stunden','Оплачиваемые часы'),fmtHours(Number(o.billable_hours_month||0))),
-        row(T('Effektive Stunden im Belastungsmodell','Эффективные часы в модели нагрузки'),fmtHours(ownerEff)),
-        row(T('Auslastung','Загрузка'),Number.isFinite(ownerUtil)?pct(ownerUtil):'—'),
-        row(T('Nachhaltiger Business Break-even','Устойчивый break-even бизнеса'),fmtHours(ownerSustainableBE)),
-        row(T('Nachhaltige Ergebnisreserve','Устойчивый запас результата'),money(ownerSustainableMargin))
-      ].join('')
-    : '';
-
-  const financingRows=(finInput?.active || (finCurrent&&typeof finCurrent==='object'))
-    ? `
-      <h2>${T('FINANZIERUNG','ФИНАНСИРОВАНИЕ')}</h2>
-      ${row(T('Finanzierungsart','Тип финансирования'),typeLabels[finTypeRaw]||finTypeRaw||'—')}
-      ${row(T('Finanzierungsbetrag','Сумма финансирования'),money(finAmount))}
-      ${row(T('Zinssatz p.a. / Laufzeit','Годовая ставка / срок'),
-            `${Number.isFinite(finRate)?finRate.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})+' %':'—'} · ${Number.isFinite(finMonths)?finMonths.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:0})+' '+T('Monate','мес.'):'—'}`)}
-      ${row(T('Monatlicher Kapitaldienst','Ежемесячный долговой платёж'),money(finDebtService))}
-      ${row(T('Zinsen + Gebühren / Monat','Проценты + комиссии / месяц'),money(finInterestFees))}
-      ${row(T('Tilgung / Monat','Погашение основного долга / месяц'),money(finPrincipal))}
-      ${row('DSCR',Number.isFinite(dscr)?dscr.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2}):'—')}
-    `
-    : '';
-
-  host.innerHTML=`
-    <div class="pdf-title">FUTURE Business Cockpit</div>
-    <div class="pdf-sub">${esc(modeLabel)} · ${T('R-Backend-Report · Werte aus dem aktuellen Cockpit.','R-отчёт · данные из текущего Cockpit.')}</div>
-
-    <div class="pdf-top">
-      <div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(currentNet)}</strong></div>
-      <div><small>${optimized?T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации'):T('Nettoziel / Monat','Цель по нетто / месяц')}</small><strong>${optimized?money(projected):money(target)}</strong></div>
-      <div><small>${T('Abstand zum Nettoziel','Разрыв до цели')}</small><strong>${money(gap)}</strong></div>
-    </div>
-
-    <h2>${T('AKTUELLER STAND','ТЕКУЩЕЕ СОСТОЯНИЕ')}</h2>
-    ${row(T('Inhaberpreis / abrechenbare Stunden','Цена владельца / оплачиваемые часы'),
-          `${money(Number(o.price||0))} / ${fmtHours(Number(o.billable_hours_month||0))}/${T('Monat','мес.')}`)}
-    ${row(T('Umsatz / Monat','Выручка / месяц'),money(revenue))}
-    ${row(T('Betriebskosten / Monat','Расходы бизнеса / месяц'),money(businessCosts))}
-    ${Number.isFinite(financingResultCost)&&financingResultCost>0?row(T('Finanzierungsaufwand / Monat','Расходы по финансированию / месяц'),money(financingResultCost)):''}
-    ${row(T('Ergebnis vor persönlicher Absicherung und Steuern','Результат до личного страхования и налогов'),money(beforeProtectionTax))}
-    ${row(T('Versicherung / Monat','Страхование / месяц'),money(insurance))}
-    ${row(T('Altersvorsorge / Monat','Пенсия / месяц'),money(pension))}
-    ${row(T('Steuern · Orientierung / Monat','Налоги · ориентир / месяц'),money(tax))}
-    ${employeeRows}
-
-    ${mode==='solo'?`<h2>${T('SOLO · AUSLASTUNG UND TRAGFÄHIGKEIT','SOLO · ЗАГРУЗКА И УСТОЙЧИВОСТЬ')}</h2>${soloRows}`:''}
-
-    <h2>${T('R-ANALYSE & ROBUSTHEIT','R-АНАЛИЗ И УСТОЙЧИВОСТЬ')}</h2>
-    ${row(T('Business Break-even · Umsatz','Business Break-even · выручка'),money(be))}
-    ${Number.isFinite(p10)||Number.isFinite(p90)?row('P10 – P90',`${money(p10)} – ${money(p90)}`):''}
-    ${Number.isFinite(prob)?row('P(Ziel erreicht)',pct(prob)):''}
-
-    ${financingRows}
-
-    <h2>${T('EMPFEHLUNG / EINORDNUNG','РЕКОМЕНДАЦИЯ / ОЦЕНКА')}</h2>
-    <div class="pdf-rec">${esc(rec)}</div>
-
-    ${(()=>{const ch=get(p,'recommendation.changes');return Array.isArray(ch)&&ch.length
-      ? `<h2>${T('BESTÄTIGTE ENTSCHEIDUNG','ПОДТВЕРЖДЁННОЕ РЕШЕНИЕ')}</h2>${ch.map(c=>row(c.label||c.lever||'',`${String(c.current??'—')} → ${String(c.proposed??'—')} ${c.unit||''}`)).join('')}`
-      : ''})()}
-
-    <h2>${T('METHODEN · nur tatsächlich ausgeführt','МЕТОДЫ · только реально выполненные')}</h2>
-    <div class="pdf-methods">${methods.length?methods.map(esc).join(' · '):'—'}</div>
-  `;
-}
 
 function ensureRUI(){
   const solo=$('solo');
   const emp=$('employee');
+
   if((!solo&&!emp)||$('fbcRLayer')){
     syncRModeUI();
     return;
   }
-  const initialHost=activeRMode()==='solo' ? solo : emp;
+
+  const initialHost=activeRMode()==='solo'
+    ? ($('soloRMount') || solo)
+    : ($('employeeRMount') || emp);
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
 layer.innerHTML=`
   <div class="section-kicker">
@@ -5549,11 +5435,10 @@ layer.innerHTML=`
       </small>
       <small class="fbc-assumption-note">
         ${T(
-          'Preisannahme: FBC verwendet eine konstante Preiselastizität ε = −0,60. Preisänderungen verändern daher die erwarteten abrechenbaren Stunden. Das ist eine Modellannahme und keine Marktprognose.',
-          'Допущение по цене: FBC использует постоянную ценовую эластичность ε = −0,60. Поэтому изменение цены меняет ожидаемое число оплачиваемых часов. Это модельное допущение, а не прогноз рынка.'
+          'Annahme: Preisänderungen berücksichtigen im Modell eine konstante Preiselastizität der Nachfrage von ε = −0,60. Diese Elastizität ist eine Modellannahme und keine gemessene Marktreaktion.',
+          'Допущение: при изменении цены модель учитывает постоянную ценовую эластичность спроса ε = −0,60. Это модельное допущение, а не измеренная реакция рынка.'
         )}
       </small>
-      <div class="fbc-r-note" id="fbcPriceResponseNote" hidden></div>
     </div>
   </section>
 
@@ -5583,31 +5468,6 @@ layer.innerHTML=`
       <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Окупаемость с')}</span><b id="fbcEmployeeHoursBE">—</b></div>
       <div class="fbc-r-change-row"><span>${T('Differenz','Разница')}</span><b id="fbcEmployeeHoursGap">—</b></div>
       <div class="fbc-r-note" id="fbcEmployeeEconomicsText"></div>
-    </div>
-  </section>
-
-  <section class="fbc-analysis-section" id="fbcOwnerEconomicsSection" hidden>
-    <div class="fbc-analysis-heading">
-      <div>
-        <h3>${T('Solo · Auslastung und Tragfähigkeit','Solo · загрузка и устойчивость')}</h3>
-        <p>
-          ${T(
-            'FBC prüft die abrechenbaren Stunden des Inhabers gegen die physische Arbeitskapazität und bewertet die nachhaltige Kostendeckung mit demselben Belastungsmodell wie bei der Mitarbeiterdiagnostik.',
-            'FBC сопоставляет оплачиваемые часы владельца с физической рабочей ёмкостью и оценивает устойчивое покрытие затрат по той же модели нагрузки, что и диагностика сотрудника.'
-          )}
-        </p>
-      </div>
-      <span class="fbc-step-badge">2</span>
-    </div>
-
-    <div class="fbc-r-detailbox" id="fbcOwnerEconomicsBox">
-      <div class="fbc-employee-economics-status" id="fbcOwnerEconomicsStatus">—</div>
-      <div class="fbc-r-change-row"><span>${T('Physische Arbeitskapazität / Monat','Физическая рабочая ёмкость / месяц')}</span><b id="fbcOwnerCapacity">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b id="fbcOwnerHoursCurrent">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Effektive Stunden im Belastungsmodell','Эффективные часы в модели нагрузки')}</span><b id="fbcOwnerHoursEffective">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Nachhaltiger Business Break-even ab','Устойчивый Business Break-even с')}</span><b id="fbcOwnerHoursBE">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Auslastungszone','Зона загрузки')}</span><b id="fbcOwnerUtilizationZone">—</b></div>
-      <div class="fbc-r-note" id="fbcOwnerEconomicsText"></div>
     </div>
   </section>
 
@@ -5925,14 +5785,14 @@ layer.innerHTML=`
 `;
   (initialHost||emp||solo).appendChild(layer);
 
-  [solo,emp].filter(Boolean).forEach(flow=>{
-    if(flow.dataset.fbcRInvalidationBound)return;
-    flow.dataset.fbcRInvalidationBound='1';
+  [solo,emp].filter(Boolean).forEach(host=>{
+    if(host.dataset.fbcRInvalidationBound)return;
+    host.dataset.fbcRInvalidationBound='1';
     ['input','change'].forEach(eventName=>{
-      flow.addEventListener(eventName,event=>{
+      host.addEventListener(eventName,event=>{
         const el=event.target;
         if(!(el instanceof Element))return;
-        if(el.closest('#fbcRLayer') || el.closest('#fbcFinanceCard') || el.closest('.fbc-pdfbar'))return;
+        if(el.closest('#fbcRLayer') || el.closest('#fbcFinanceCard'))return;
         invalidateRAnalysis();
       });
     });
@@ -6159,13 +6019,9 @@ await runRAnalysis('fbcRunFinancing');
   });
 }
 
-  const pdf=document.createElement('div');
-  pdf.id='fbcPdfBar';
-  pdf.className='fbc-pdfbar';
-  pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;
-  (initialHost||emp||solo).appendChild(pdf);
-  $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
-  syncRModeUI();
+  const pdf=document.createElement('div');pdf.id='fbcPdfBar';pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;(initialHost||emp||solo).appendChild(pdf);
+  $('fbcPdfButton').addEventListener('click',()=>{if(!window.FBC_R_ANALYSIS_PAYLOAD)return;renderPdfReport();window.print()});
+  syncRModeUI(activeRMode());
 async function runRAnalysis(sourceId='fbcRunAnalysis'){
   console.log('FBC runRAnalysis start', sourceId);
   const btn=$('fbcRunAnalysis');
@@ -6221,17 +6077,6 @@ if($('fbcRFazitList')){
 }
   try{
     if(progress){
-      const progressText=progress.querySelector('.fbc-analysis-progress-text');
-      if(progressText){
-        progressText.textContent=
-          isEvidence
-            ? T('Bestätigte Handlungsspielräume werden ausgewertet …','Оцениваются подтверждённые рамки изменений …')
-            : isFinancing
-              ? T('Finanzierung und Kapitaldienst werden berechnet …','Рассчитываются финансирование и долговая нагрузка …')
-              : activeRMode()==='solo'
-                ? T('Ist-Zustand und Sensitivität werden berechnet …','Рассчитываются текущее состояние и чувствительность …')
-                : T('Analyse wird berechnet …','Выполняется расчёт …');
-      }
       progress.classList.add('is-active');
       if(isEvidence || isFinancing){
         progress.style.display='block';
@@ -6276,20 +6121,10 @@ if($('fbcRFazitList')){
             'R prüft die bestätigten Grenzen…',
             'R проверяет подтверждённые границы…'
           )
-        : isFinancing
-          ? T(
-              'R berechnet Finanzierung und Kapitaldienst…',
-              'R рассчитывает финансирование и долговую нагрузку…'
-            )
-          : activeRMode()==='solo'
-            ? T(
-                'R berechnet Ist-Zustand, Break-even und Sensitivität…',
-                'R рассчитывает текущее состояние, break-even и чувствительность…'
-              )
-            : T(
-                'R berechnet die Entscheidung…',
-                'R рассчитывает решение…'
-              );
+        : T(
+            'R berechnet die Entscheidung…',
+            'R рассчитывает решение…'
+          );
 
 const base=window.FBC_ANALYSIS_CONFIG||{};
 
@@ -6372,42 +6207,6 @@ function invalidateRAnalysis(){
   window.FBC_R_ANALYSIS_PAYLOAD = null;
   window.FBC_P1_DECISION_PAYLOAD = null;
 
-  if($('fbcOwnerEconomicsSection')) $('fbcOwnerEconomicsSection').hidden=true;
-  if($('fbcEmployeeEconomicsSection')) $('fbcEmployeeEconomicsSection').hidden=true;
-  if($('fbcPriceResponseNote')){
-    $('fbcPriceResponseNote').hidden=true;
-    $('fbcPriceResponseNote').textContent='';
-  }
-
-  document.querySelectorAll('#fbcSensitivityList .fbc-sens-row').forEach(row=>{
-    const strong=row.querySelector('.fbc-sens-value strong');
-    const small=row.querySelector('.fbc-sens-value small');
-    const fill=row.querySelector('.fbc-sens-fill');
-    if(strong) strong.textContent='—';
-    if(small) small.textContent=T('R-Wert','значение R');
-    if(fill) fill.style.width='8px';
-  });
-
-  if($('fbcSensitivityFazitText')){
-    $('fbcSensitivityFazitText').textContent=T(
-      'Sobald die R-Werte vorliegen, hebt FBC die wichtigsten Stellschrauben hervor. Im nächsten Schritt prüfen Sie nur, welche davon in Ihrem Unternehmen tatsächlich veränderbar sind.',
-      'После получения значений R FBC выделит наиболее важные рычаги. На следующем шаге вы проверяете только то, какие из них действительно можно менять в вашем бизнесе.'
-    );
-  }
-
-  if($('fbcRChanges')){
-    $('fbcRChanges').hidden=true;
-    $('fbcRChanges').innerHTML='';
-  }
-  if($('fbcRShapley')){
-    $('fbcRShapley').hidden=true;
-    $('fbcRShapley').innerHTML='';
-  }
-  if($('fbcRMonteCarlo')){
-    $('fbcRMonteCarlo').hidden=true;
-  }
-  if($('fbcPdfButton')) $('fbcPdfButton').disabled=true;
-
   fbcFinancingSelected = false;
 
   if($('fbcFinancingSection')){
@@ -6434,11 +6233,9 @@ function invalidateRAnalysis(){
   if($('fbcRFazit')){
     $('fbcRFazit').hidden = true;
   }
-  if($('fbcFazitSection')){
-    $('fbcFazitSection').hidden = true;
-  }
-  if($('fbcShapleySection')){
-    $('fbcShapleySection').hidden = true;
+
+  if($('fbcPdfButton')){
+    $('fbcPdfButton').disabled = true;
   }
 }
 window.FBC_INVALIDATE_R_ANALYSIS=invalidateRAnalysis;
@@ -6761,11 +6558,15 @@ function soloBuildConfig(analysis={}){
   };
 }
 function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
-const activeBuildConfig=analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis);
-window.FBC_P0_PRODUCTION_BRIDGE={snapshot:activeCockpitSnapshot,financing,buildConfig:activeBuildConfig,status:()=>{const s=activeCockpitSnapshot();return{ready:(s.errors||[]).length===0,errors:s.errors||[],snapshot:s,mode:activeRMode()}}};
-window.FBC_P1_PRODUCTION_BRIDGE={buildConfig:activeBuildConfig,renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0',mode:activeRMode()})};
+window.FBC_P0_PRODUCTION_BRIDGE={
+  snapshot:()=>activeCockpitSnapshot(),
+  financing,
+  buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),
+  status:()=>{const s=activeCockpitSnapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}
+};
+window.FBC_P1_PRODUCTION_BRIDGE={buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
 window.FBC_P2_ASSURANCE_BRIDGE={apply:p=>{window.FBC_P2_ASSURANCE_PAYLOAD=p?.assurance||p?.audit||null;return window.FBC_P2_ASSURANCE_PAYLOAD}};
-window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=get(p||{},'post_decision.capital_service_ratio')??get(p||{},'financing.dscr');if($('fbcRDSCR'))$('fbcRDSCR').textContent=Number.isFinite(Number(v))?Number(v).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2}):'—';return v}};
+window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=firstFinite(get(p||{},'post_decision.capital_service_ratio'),get(p||{},'financing.dscr'));if($('fbcRDSCR'))$('fbcRDSCR').textContent=v===null?'—':v.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2});return v}};
 
 function chart(host,data,key){
   if(!host)return;
@@ -6867,36 +6668,6 @@ function renderSensitivity(p){
     }
   });
 
-  const priceNote=$('fbcPriceResponseNote');
-  if(priceNote){
-    const dm=get(p,'sensitivity.demand_model')||{};
-    const up=dm.owner_price_higher_1pct;
-    const down=dm.owner_price_lower_1pct;
-    const formatResponse=(x)=>{
-      const planned=Number(x?.planned_hours);
-      const expected=Number(x?.expected_hours);
-      if(!Number.isFinite(planned)||!Number.isFinite(expected)||planned<=0)return null;
-      const deltaPct=(expected/planned-1)*100;
-      return {
-        expected,
-        deltaPct
-      };
-    };
-    const upR=formatResponse(up);
-    const downR=formatResponse(down);
-    if(upR&&downR){
-      const sign=v=>v>0?'+':'';
-      priceNote.hidden=false;
-      priceNote.textContent=T(
-        `Preismodell ε = −0,60: +1 % Preis → erwartete abrechenbare Stunden ${upR.expected.toLocaleString('de-DE',{maximumFractionDigits:2})} (${sign(upR.deltaPct)}${upR.deltaPct.toLocaleString('de-DE',{maximumFractionDigits:2})} %); −1 % Preis → ${downR.expected.toLocaleString('de-DE',{maximumFractionDigits:2})} (${sign(downR.deltaPct)}${downR.deltaPct.toLocaleString('de-DE',{maximumFractionDigits:2})} %).`,
-        `Ценовая модель ε = −0,60: +1 % к цене → ожидаемые оплачиваемые часы ${upR.expected.toLocaleString('ru-RU',{maximumFractionDigits:2})} (${sign(upR.deltaPct)}${upR.deltaPct.toLocaleString('ru-RU',{maximumFractionDigits:2})} %); −1 % к цене → ${downR.expected.toLocaleString('ru-RU',{maximumFractionDigits:2})} (${sign(downR.deltaPct)}${downR.deltaPct.toLocaleString('ru-RU',{maximumFractionDigits:2})} %).`
-      );
-    }else{
-      priceNote.hidden=true;
-      priceNote.textContent='';
-    }
-  }
-
   const ft=$('fbcSensitivityFazitText');
   if(!ft)return;
 
@@ -6921,16 +6692,13 @@ function renderSensitivity(p){
 function renderDecisionDetails(p){
   const box=$('fbcRChanges');
   const shbox=$('fbcRShapley');
-  const mode=activeRMode();
-  const soloMode=mode==='solo';
 
   renderSensitivity(p);
-  syncRModeUI(mode);
 
   const changes=get(p,'recommendation.changes');
-  const currentNet=finiteNumber(get(p,'current.expected_net') ?? get(p,'current.net_available'));
+  const currentNet=firstFinite(get(p,'current.expected_net'),get(p,'current.net_available'));
   const target=finiteNumber(get(p,'current.monthly_target'));
-  const projected=finiteNumber(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
+  const projected=firstFinite(get(p,'recommendation.projected_net'),get(p,'recommendation.expected_net_after'));
   const payloadStatus=String(p?.status||'');
 const recommendationSection=$('fbcRecommendationSection');
 
@@ -6947,15 +6715,15 @@ const hasOptimizedDecision =
   const timeToTarget=finiteNumber(get(p,'target_path.time_to_target_months'));
 
   const fmtNum=(v,d=2)=>{
-    const n=Number(v);
-    return Number.isFinite(n)
+    const n=finiteNumber(v);
+    return n!==null
       ? n.toLocaleString(RU()?'ru-RU':'de-DE',{minimumFractionDigits:d,maximumFractionDigits:d})
       : '—';
   };
 
   const changeValue=(v,unit)=>{
-    const n=Number(v);
-    if(!Number.isFinite(n))return '—';
+    const n=finiteNumber(v);
+    if(n===null)return '—';
     if(String(unit||'').includes('EUR'))return fmtNum(n,2);
     if(String(unit||'').includes('h'))return fmtNum(n,1);
     return fmtNum(n,2);
@@ -7042,10 +6810,10 @@ const hasOptimizedDecision =
 
   if(empSection){
     const showEmployee=
-  !soloMode &&
+  activeRMode()==='employee' &&
   empApplicable === true &&
-  Number.isFinite(empHours) &&
-  Number.isFinite(empBE);
+  empHours!==null &&
+  empBE!==null;
     empSection.hidden=!showEmployee;
 
     if(showEmployee){
@@ -7088,90 +6856,9 @@ const hasOptimizedDecision =
     }
   }
 
-  const ownerSection=$('fbcOwnerEconomicsSection');
-  if(ownerSection){
-    const ownerCapacity=finiteNumber(
-      get(p,'break_even.owner.physical_available_hours') ??
-      get(p,'sensitivity.owner_utilization.available_hours')
-    );
-    const ownerHours=finiteNumber(
-      get(p,'break_even.owner.billable_hours') ??
-      get(p,'sensitivity.owner_utilization.billable_hours')
-    );
-    const ownerEffective=finiteNumber(
-      get(p,'break_even.owner.effective_billable_hours') ??
-      get(p,'sensitivity.owner_utilization.effective_hours')
-    );
-    const ownerBE=finiteNumber(get(p,'break_even.owner.sustainable_break_even_hours'));
-    const ownerUtilRate=finiteNumber(
-      get(p,'break_even.owner.utilization_rate') ??
-      get(p,'sensitivity.owner_utilization.utilization_rate')
-    );
-    const ownerZone=String(
-      get(p,'break_even.owner.utilization_zone') ??
-      get(p,'sensitivity.owner_utilization.zone') ??
-      ''
-    );
-    const ownerMargin=finiteNumber(get(p,'break_even.owner.sustainable_result_margin_month'));
-    const showOwner=
-      soloMode &&
-      Number.isFinite(ownerHours) &&
-      Number.isFinite(ownerEffective);
-
-    ownerSection.hidden=!showOwner;
-
-    if(showOwner){
-      const ownerOk=
-        Number.isFinite(ownerBE)
-          ? ownerHours>=ownerBE
-          : Number.isFinite(ownerMargin)
-            ? ownerMargin>=0
-            : null;
-
-      const statusEl=$('fbcOwnerEconomicsStatus');
-      if(statusEl){
-        statusEl.textContent=
-          ownerOk===true
-            ? T('Nachhaltiger Business Break-even ist erreicht','Устойчивый Business Break-even достигнут')
-            : ownerOk===false
-              ? T('Nachhaltiger Business Break-even ist noch nicht erreicht','Устойчивый Business Break-even пока не достигнут')
-              : T('Auslastung und Belastungsmodell','Загрузка и модель устойчивости');
-        statusEl.classList.toggle('is-covered',ownerOk===true);
-        statusEl.classList.toggle('is-open',ownerOk===false);
-      }
-
-      if($('fbcOwnerCapacity')) $('fbcOwnerCapacity').textContent=Number.isFinite(ownerCapacity)?`${fmtNum(ownerCapacity,1)} h`:'—';
-      if($('fbcOwnerHoursCurrent')) $('fbcOwnerHoursCurrent').textContent=`${fmtNum(ownerHours,1)} h`;
-      if($('fbcOwnerHoursEffective')) $('fbcOwnerHoursEffective').textContent=`${fmtNum(ownerEffective,1)} h`;
-      if($('fbcOwnerHoursBE')) $('fbcOwnerHoursBE').textContent=Number.isFinite(ownerBE)?`${fmtNum(ownerBE,1)} h`:'—';
-
-      const zoneLabels={
-        low:T('unter 70 % · Gewicht 0,95','ниже 70 % · вес 0,95'),
-        normal:T('70–85 % · Gewicht 1,00','70–85 % · вес 1,00'),
-        high:T('85–100 % · Gewicht 0,85','85–100 % · вес 0,85'),
-        overload:T('über 100 % · Gewicht 0,65','выше 100 % · вес 0,65'),
-        capacity_unknown:T('Kapazität nicht bestimmt','ёмкость не определена')
-      };
-      const zoneText=zoneLabels[ownerZone]||ownerZone||'—';
-      if($('fbcOwnerUtilizationZone')){
-        $('fbcOwnerUtilizationZone').textContent=
-          Number.isFinite(ownerUtilRate)
-            ? `${pct(ownerUtilRate)} · ${zoneText}`
-            : zoneText;
-      }
-
-      if($('fbcOwnerEconomicsText')){
-        $('fbcOwnerEconomicsText').textContent=T(
-          `Die tatsächliche Rechnung bleibt unverändert: Umsatz = Preis × abrechenbare Stunden. Für die Tragfähigkeitsdiagnostik werden die Stunden stufenweise gewichtet: 0–70 % × 0,95 · 70–85 % × 1,00 · 85–100 % × 0,85 · über 100 % × 0,65. Aktuell entsprechen ${fmtNum(ownerHours,1)} abrechenbare Stunden ${fmtNum(ownerEffective,1)} effektiven Stunden im Belastungsmodell.`,
-          `Фактический расчёт не меняется: выручка = цена × оплачиваемые часы. Для диагностики устойчивости часы взвешиваются по зонам: 0–70 % × 0,95 · 70–85 % × 1,00 · 85–100 % × 0,85 · выше 100 % × 0,65. Сейчас ${fmtNum(ownerHours,1)} оплачиваемых часов соответствуют ${fmtNum(ownerEffective,1)} эффективным часам в модели нагрузки.`
-        );
-      }
-    }
-  }
-
   /* Business break-even stays internal unless structurally critical. */
   const businessOk=get(p,'post_decision.business_break_even_ok') ?? get(p,'break_even.ok');
-  const businessMargin=finiteNumber(get(p,'break_even.business.safety_margin') ?? get(p,'post_decision.business_break_even_margin_eur'));
+  const businessMargin=firstFinite(get(p,'break_even.business.safety_margin'),get(p,'post_decision.business_break_even_margin_eur'));
   const businessCritical=(businessOk===false)||(Number.isFinite(businessMargin)&&businessMargin<0);
 
   const fazitText=$('fbcRFazitText');
@@ -7185,18 +6872,12 @@ const hasOptimizedDecision =
   }
 
   /* Financing / liquidity is a separate branch, never an operating profit lever. */
-  const dscr=finiteNumber(get(p,'post_decision.capital_service_ratio') ?? get(p,'financing.current.min_capital_service_ratio') ?? get(p,'financing.dscr'));
-  const finActive=Boolean(get(p,'financing.active') ?? activeCockpitSnapshot()?.financing?.active ?? financing()?.active);
+  const dscr=firstFinite(get(p,'post_decision.capital_service_ratio'),get(p,'financing.current.min_capital_service_ratio'),get(p,'financing.dscr'));
+  const finActive=payloadFinancingActive(p);
   const implementationMonths=finiteNumber(get(p,'target_path.implementation_months_max'));
-  const remainingGapRaw=finiteNumber(
-    get(p,'recommendation.remaining_gap_eur') ??
-    get(p,'current.target_gap_eur')
-  );
-  const remainingGap=Number.isFinite(remainingGapRaw)
-    ? Math.max(0,remainingGapRaw)
-    : (Number.isFinite(target)&&Number.isFinite(projected)?Math.max(0,target-projected):0);
+  const remainingGap=payloadTargetGap(p);
   const bridgeNeedRaw=finiteNumber(get(p,'target_path.liquidity_bridge_need_eur'));
-  const liquidityBridgeNeed=Number.isFinite(bridgeNeedRaw) && bridgeNeedRaw>0
+  const liquidityBridgeNeed=bridgeNeedRaw!==null && bridgeNeedRaw>0
     ? bridgeNeedRaw
     : 0;
 
@@ -7209,7 +6890,6 @@ const hasOptimizedDecision =
       ? targetGapFinancing
       : liquidityBridgeNeed;
 
-  const financingAllowedByDecision=payloadStatus!=='no_evidenced_lever' || soloMode;
   const finSection=$('fbcFinancingSection');
 
   if($('fbcFinTargetGapDisplay')){
@@ -7235,7 +6915,7 @@ const hasOptimizedDecision =
   if(finSection){
     const financingRelevant=
       finActive ||
-      (financingAllowedByDecision && (targetGapFinancing>0.01 || liquidityBridgeNeed>0.01));
+      targetGapFinancing>0.01 || liquidityBridgeNeed>0.01;
     finSection.hidden=!financingRelevant;
 
     const financeCard=$('fbcFinanceCard');
@@ -7272,12 +6952,11 @@ const hasOptimizedDecision =
 
 const debtBox=$('fbcRFinancingCheck');
 const finCurrent=get(p,'financing.current');
-const finInputCurrent=financing();
 
 if(debtBox){
 
   const requestedFinAmount=num('fbcFinAmount');
-  const payloadFinAmount=Number(finCurrent?.amount ?? finInputCurrent?.amount);
+  const payloadFinAmount=Number(finCurrent?.amount);
   const financingAmountMatches=
     !Number.isFinite(requestedFinAmount) || requestedFinAmount<=0 ||
     !Number.isFinite(payloadFinAmount) ||
@@ -7299,20 +6978,20 @@ if(debtBox){
 
   if(hasFinancingResult){
 
-    const finAmount=Number(finCurrent.amount ?? finInputCurrent?.amount);
-    const finMonths=Number(finCurrent.months ?? finInputCurrent?.months);
-    const firstPayment=Number(finCurrent.first_month_cash_service ?? finCurrent.debt_service_month);
-    const maxPayment=Number(finCurrent.max_month_cash_service ?? finCurrent.debt_service_month);
+    const finAmount=Number(finCurrent.amount);
+    const finMonths=Number(finCurrent.months);
+    const firstPayment=Number(finCurrent.first_month_cash_service);
+    const maxPayment=Number(finCurrent.max_month_cash_service);
     const backendLastPayment=Number(finCurrent.last_month_cash_service);
     const totalInterest=Number(finCurrent.total_interest);
     const totalFees=Number(finCurrent.total_fees);
     const totalExpense=Number(finCurrent.total_financing_expense);
     const restDebt=Number(finCurrent.restschuld_end);
-    const rawType=String(finCurrent.type ?? finInputCurrent?.type ?? $('fbcFinType')?.value ?? 'annuity');
+    const rawType=String(finCurrent.type ?? $('fbcFinType')?.value ?? 'annuity');
     const typeMap={bullet:'endfaellig',line:'credit_line',zero:'zinsfrei'};
     const finType=typeMap[rawType]||rawType;
-    const ratePa=Number(finCurrent.rate_pa ?? finInputCurrent?.rate_pa ?? num('fbcFinRate'));
-    const monthlyFees=Number(finCurrent.fees_month ?? finInputCurrent?.fees_month ?? num('fbcFinFees') ?? 0);
+    const ratePa=Number(finCurrent.rate_pa ?? num('fbcFinRate'));
+    const monthlyFees=Number(finCurrent.fees_month ?? num('fbcFinFees') ?? 0);
 
     let lastPayment=backendLastPayment;
     if(!Number.isFinite(lastPayment) && Number.isFinite(finAmount) && Number.isFinite(finMonths) && finMonths>0){
@@ -7331,13 +7010,6 @@ if(debtBox){
     const rows=[];
     if(Number.isFinite(finAmount)) rows.push(row(T('Finanzierungsbetrag','Сумма финансирования'),money(finAmount)));
     if(Number.isFinite(finMonths)) rows.push(row(T('Laufzeit','Срок'),`${fmtNum(finMonths,0)} ${T('Monate','мес.')}`));
-    const p0InterestFees=Number(finCurrent.interest_plus_fees_month);
-    const p0Principal=Number(finCurrent.principal_month);
-    const p0DebtService=Number(finCurrent.debt_service_month);
-
-    if(Number.isFinite(p0InterestFees)) rows.push(row(T('Zinsen + Gebühren / Monat','Проценты + комиссии / месяц'),money(p0InterestFees)));
-    if(Number.isFinite(p0Principal)) rows.push(row(T('Tilgung / Monat','Погашение основного долга / месяц'),money(p0Principal)));
-    if(Number.isFinite(p0DebtService) && !Number.isFinite(firstPayment)) rows.push(row(T('Kapitaldienst / Monat','Долговой платёж / месяц'),money(p0DebtService)));
 
     if(finType==='annuity'){
       if(Number.isFinite(firstPayment)) rows.push(row(T('Monatliche Rate','Ежемесячный платёж'),money(firstPayment)));
@@ -7412,37 +7084,13 @@ if(debtBox){
 
 function applyPayload(p){
   window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;
+  if($('fbcPdfButton'))$('fbcPdfButton').disabled=false;
   if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');
   if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');
-  if($('fbcPdfButton')) $('fbcPdfButton').disabled=false;
   
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
-  if($('fbcRRecommendation')){
-    $('fbcRRecommendation').textContent=
-      String(p?.status||'')==='no_evidenced_lever'
-        ? T(
-            'Aktueller Stand berechnet. Eine operative Empfehlung entsteht erst aus Ihren bestätigten Handlungsspielräumen.',
-            'Текущее состояние рассчитано. Операционная рекомендация появится после подтверждения вами реальных рамок изменений.'
-          )
-        : (typeof exp==='string'&&exp
-            ? exp
-            : T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.'));
-  }
+  $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
   renderDecisionDetails(p);
-const remainingGapForFinancing = Number(
-  get(p,'recommendation.remaining_gap_eur') ??
-  get(p,'current.target_gap_eur')
-);
-
-const financingSection = $('fbcFinancingSection');
-
-if(financingSection){
-  const financingNeeded =
-    Number.isFinite(remainingGapForFinancing) &&
-    remainingGapForFinancing > 0;
-
-  financingSection.hidden = !financingNeeded;
-}
 const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
 const mcReason =
@@ -7458,9 +7106,9 @@ if($('fbcRMonteCarlo')){
   const riskText=$('fbcMCRiskText');
 
   if(mcAvailable){
-    const p10=Number(robustness.p10);
-    const p50=Number(robustness.p50);
-    const p90=Number(robustness.p90);
+    const p10=finiteNumber(robustness.p10);
+    const p50=finiteNumber(robustness.p50);
+    const p90=finiteNumber(robustness.p90);
 
     const range=
       Number.isFinite(p10) && Number.isFinite(p90)
@@ -7492,11 +7140,11 @@ if($('fbcRMonteCarlo')){
             ? T(' Kostenänderungen können das Monatsnetto spürbar verändern.',' Изменения затрат могут заметно повлиять на месячное нетто.')
             : T(' Das Monatsnetto reagiert deutlich auf ungünstige Kostenentwicklungen.',' Месячное нетто заметно чувствительно к неблагоприятному изменению затрат.');
 
-    const finActiveRisk=Boolean(get(p,'financing.active'));
+    const finActiveRisk=payloadFinancingActive(p);
 
-    const dscrRisk=Number(
-      get(p,'post_decision.capital_service_ratio') ??
-      get(p,'financing.current.min_capital_service_ratio') ??
+    const dscrRisk=firstFinite(
+      get(p,'post_decision.capital_service_ratio'),
+      get(p,'financing.current.min_capital_service_ratio'),
       get(p,'financing.dscr')
     );
 
@@ -7553,11 +7201,8 @@ const fazitSection=$('fbcFazitSection');
 const fazitStatusCode=String(p?.status||'');
 
 const hasFinalDecision =
-  (fazitStatusCode !== 'no_evidenced_lever' && fazitStatusCode !== '') ||
-  (
-    activeRMode()==='solo' &&
-    Number.isFinite(finiteNumber(get(p,'current.expected_net') ?? get(p,'current.net_available')))
-  );
+  fazitStatusCode !== 'no_evidenced_lever' &&
+  fazitStatusCode !== '';
 
 if(fazitSection){
   fazitSection.hidden=!hasFinalDecision;
@@ -7570,22 +7215,19 @@ if(!hasFinalDecision){
 
 if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
   const businessOk=get(p,'post_decision.business_break_even_ok') ?? get(p,'break_even.ok');
-  const businessMargin=finiteNumber(get(p,'break_even.business.safety_margin') ?? get(p,'post_decision.business_break_even_margin_eur'));
+  const businessMargin=firstFinite(get(p,'break_even.business.safety_margin'),get(p,'post_decision.business_break_even_margin_eur'));
   const businessCritical=businessOk===false || (Number.isFinite(businessMargin) && businessMargin<0);
-  const finActiveFazit=Boolean(get(p,'financing.active') ?? activeCockpitSnapshot()?.financing?.active ?? financing()?.active);
-  const currentNetFazit=finiteNumber(get(p,'current.expected_net') ?? get(p,'current.net_available'));
+  const finActiveFazit=payloadFinancingActive(p);
+  const currentNetFazit=firstFinite(get(p,'current.expected_net'),get(p,'current.net_available'));
   const targetFazit=finiteNumber(get(p,'current.monthly_target'));
-  const projectedNetFazit=finiteNumber(get(p,'recommendation.projected_net') ?? get(p,'recommendation.expected_net_after'));
-  const remainingGapFazit=finiteNumber(
-    get(p,'recommendation.remaining_gap_eur') ??
-    get(p,'current.target_gap_eur')
-  );
+  const projectedNetFazit=firstFinite(get(p,'recommendation.projected_net'),get(p,'recommendation.expected_net_after'));
+  const remainingGapFazit=payloadTargetGap(p);
   const changesFazit=Array.isArray(get(p,'recommendation.changes')) ? get(p,'recommendation.changes') : [];
   const finCurrentFazit=get(p,'financing.current')||{};
-  const finAmountFazit=finiteNumber(finCurrentFazit.amount ?? get(p,'financing.amount') ?? financing()?.amount);
-  const finFirstFazit=finiteNumber(finCurrentFazit.first_month_cash_service ?? finCurrentFazit.debt_service_month);
-  const finMaxFazit=finiteNumber(finCurrentFazit.max_month_cash_service ?? finCurrentFazit.debt_service_month);
-  const finDscrFazit=finiteNumber(get(p,'post_decision.capital_service_ratio') ?? finCurrentFazit.min_capital_service_ratio ?? get(p,'financing.dscr'));
+  const finAmountFazit=firstFinite(finCurrentFazit.amount,get(p,'financing.amount'));
+  const finFirstFazit=finiteNumber(finCurrentFazit.first_month_cash_service);
+  const finMaxFazit=finiteNumber(finCurrentFazit.max_month_cash_service);
+  const finDscrFazit=firstFinite(get(p,'post_decision.capital_service_ratio'),finCurrentFazit.min_capital_service_ratio,get(p,'financing.dscr'));
 
   const legacyFazit=$('fbcRFazitText');
   if(legacyFazit) legacyFazit.textContent='';
@@ -7595,10 +7237,7 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
   const fazitList=$('fbcRFazitList');
 
   if(fazitBox && fazitStatus && fazitList){
-    fazitStatus.textContent=
-      activeRMode()==='solo' && fazitStatusCode==='no_evidenced_lever'
-        ? T('Aktueller Solo-Stand','Текущее состояние Solo')
-        : T('Gesamtergebnis der Finanzanalyse','Полные итоги финансового анализа');
+    fazitStatus.textContent=T('Gesamtergebnis der Finanzanalyse','Полные итоги финансового анализа');
     const rows=[];
     const add=(label,value,warning=false,note='')=>{ if(value) rows.push({label,value,warning,note}); };
 
@@ -7611,31 +7250,7 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
     }).join(' · ') : '';
 
     if(Number.isFinite(currentNetFazit)) add(T('Aktuelles Monatsnetto','Текущее месячное нетто'),money(currentNetFazit));
-
-    if(activeRMode()==='solo'){
-      const currentRevenueFazit=finiteNumber(get(p,'current.revenue'));
-      const currentCostsFazit=finiteNumber(get(p,'current.operating_costs'));
-      const currentPensionFazit=finiteNumber(get(p,'current.pension_month'));
-      const currentTaxFazit=finiteNumber(get(p,'current.tax_month'));
-      const ownerUtilFazit=finiteNumber(get(p,'break_even.owner.utilization_rate') ?? get(p,'sensitivity.owner_utilization.utilization_rate'));
-      const ownerBEFazit=finiteNumber(get(p,'break_even.owner.sustainable_break_even_hours'));
-      const ownerMarginFazit=finiteNumber(get(p,'break_even.owner.sustainable_result_margin_month'));
-
-      if(Number.isFinite(targetFazit)) add(T('Nettoziel / Monat','Цель по нетто / месяц'),money(targetFazit));
-      if(Number.isFinite(currentRevenueFazit)) add(T('Umsatz / Monat','Выручка / месяц'),money(currentRevenueFazit));
-      if(Number.isFinite(currentCostsFazit)) add(T('Betriebskosten / Monat','Расходы бизнеса / месяц'),money(currentCostsFazit));
-      if(Number.isFinite(currentPensionFazit)) add(T('Altersvorsorge / Monat','Пенсия / месяц'),money(currentPensionFazit));
-      if(Number.isFinite(currentTaxFazit)) add(T('Steuern · Orientierung / Monat','Налоги · ориентир / месяц'),money(currentTaxFazit));
-      if(Number.isFinite(ownerUtilFazit)) add(T('Auslastung','Загрузка'),pct(ownerUtilFazit));
-      if(Number.isFinite(ownerBEFazit)) add(T('Nachhaltiger Business Break-even','Устойчивый Business Break-even'),`${ownerBEFazit.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h / ${T('Monat','мес.')}`);
-      if(Number.isFinite(ownerMarginFazit)) add(
-        T('Nachhaltige Ergebnisreserve','Устойчивый запас результата'),
-        money(ownerMarginFazit),
-        ownerMarginFazit<0
-      );
-    }
-
-    if(Number.isFinite(projectedNetFazit) && !(fazitStatusCode==='no_evidenced_lever' && activeRMode()==='solo')) add(
+    if(Number.isFinite(projectedNetFazit)) add(
       T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации'),
       money(projectedNetFazit),
       false,
@@ -7701,15 +7316,15 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
   const ebe=get(p,'break_even.employee.break_even_hours');
   const employeeBEEl=$('fbcREmployeeBE');
   if(employeeBEEl){
-    employeeBEEl.textContent=Number.isFinite(Number(ebe))
-      ? Number(ebe).toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h'
-      : '—';
+    const ebeNum=finiteNumber(ebe);
+    employeeBEEl.textContent=ebeNum===null
+      ? '—'
+      : ebeNum.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h';
   }
   window.FBC_P2_ASSURANCE_BRIDGE.apply(p);
   window.FBC_CAPITAL_SERVICE_BRIDGE.apply(p);
   const fs=get(p,'factor_forecasts')||get(p,'forecasts')||{};
   for(const k of ['energy','fuel','labor','interest'])chart($('fbcChart_'+k),get(fs,k+'.path')||get(fs,k+'.series')||fs[k],k);
-  syncRModeUI();
   document.dispatchEvent(new CustomEvent('fbc:r-payload',{detail:p}));
   return p
 }
@@ -7747,7 +7362,7 @@ throw new Error(
 
   return applyPayload(data);
 }
-window.FBC_R_BACKEND_ADAPTER={buildRequest:buildConfig,applyPayload,analyze};
+window.FBC_R_BACKEND_ADAPTER={buildRequest:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),applyPayload,analyze};
 
 function installStatLinks(){
   document.querySelectorAll('.fbc-stat-link').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',()=>jumpToStat(b.dataset.statTarget||'labor'))});
@@ -7780,9 +7395,10 @@ function refreshRLanguageUI(){
 
   ensureRUI();
 
-  /* Restore financing inputs before applying the saved payload.
-     P0 financing has no top-level `financing.active`; the UI therefore also
-     derives activity from the current financing form state. */
+  if(payload){
+    applyPayload(payload);
+  }
+
   if($('fbcFinPurpose')) $('fbcFinPurpose').value='target_gap';
   if($('fbcFinAmount')){
     $('fbcFinAmount').value=saved.amount;
@@ -7792,12 +7408,6 @@ function refreshRLanguageUI(){
   if($('fbcFinRate')) $('fbcFinRate').value=saved.rate;
   if($('fbcFinMonths')) $('fbcFinMonths').value=saved.months;
   if($('fbcFinFees')) $('fbcFinFees').value=saved.fees;
-
-  if(payload){
-    applyPayload(payload);
-  }
-
-  syncRModeUI();
 
   const hint=$('fbcFinAmountHint');
   if(hint){
@@ -7817,7 +7427,6 @@ function boot(){
 
   try {
     ensureRUI();
-    syncRModeUI();
     console.log('FBC R UI created', !!document.getElementById('fbcRLayer'));
   } catch (e) {
     console.error('FBC ensureRUI ERROR:', e);
