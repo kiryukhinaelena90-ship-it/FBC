@@ -6229,6 +6229,81 @@ function financing(){
     trade_tax_rate:num('tradeTaxRate')
   };
 }
+  function soloSnapshot(){
+  const time=workTime();
+
+  const costs={
+    office:num('#costOffice'),
+    vehicle:num('#costVehicle'),
+    fuel:num('#costFuel'),
+    energy:num('#costEnergy'),
+    software:num('#costSoftware'),
+    accounting:num('#costAccounting'),
+    insurance:num('#costInsurance'),
+    material:num('#costMaterial'),
+    marketing:num('#costMarketing'),
+    other:num('#costOther')
+  };
+
+  const price=num('#soloPrice');
+  const billableHours=num('#soloBillableHoursMonth');
+
+  const ownerRevenue=
+    price * billableHours;
+
+  const operating=
+    Object.values(costs).reduce((a,b)=>a+b,0);
+
+  return{
+    schema_version:'FBC_P0_FACTUAL_1.0',
+
+    errors:[],
+
+    owner:{
+      price:price,
+      hours_week:num('#soloHours'),
+      days_week:num('#soloDays')||5,
+      vacation_days:num('#soloVacation'),
+      available_hours_month:time.workMonth,
+      billable_hours_month:billableHours,
+      monthly_target:num('#soloGoal'),
+      insurance_month:num('#ownerInsurance'),
+      pension_mode:$('#pensionMode')?.value||'none',
+      pension_fixed_month:num('#pensionFixed'),
+      holidays:time.holidays||0
+    },
+
+    employee:{
+      form:'part',
+      wage_hour:0,
+      hours_week:0,
+      days_week:5,
+      vacation_days:0,
+      direct_billing:false,
+      customer_price:0,
+      paid_available_hours_month:0,
+      billable_hours_month:0,
+      personnel_cost_month:0,
+      employer_addon_rate:0,
+      holidays:0
+    },
+
+    operating_costs:costs,
+
+    financing:financing(),
+
+    current:{
+      owner_revenue:ownerRevenue,
+      employee_revenue:0,
+      revenue:ownerRevenue,
+      operating_costs:operating,
+      personnel_cost:0
+    },
+
+    legal_form:$('#legalForm')?.value||'freelance',
+    trade_tax_rate:num('#tradeTaxRate')
+  };
+}
 function readDecisionEvidence(){
   const s=snapshot();
   const confirmed_bounds={}, cost_evidence={};
