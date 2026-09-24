@@ -3283,7 +3283,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
     </article>
   </section>
-
+<div id="soloRMount" class="fbc-r-mount"></div>
   <section id="employee" class="flow hidden">
     <div class="employee-intro">
 
@@ -3553,7 +3553,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 </article>
   </section>
-
+<div id="employeeRMount" class="fbc-r-mount"></div>
   <section id="team" class="flow hidden">
     <div id="teamOwnerInputs">
 </div>
@@ -5195,9 +5195,41 @@ function renderPdfReport(){
   ${(()=>{const sob=get(p,'sobol')??get(p,'sensitivity.sobol')??get(p,'robustness.sobol');if(!sob)return'';return `<h2>SOBOL · ${T('Sensitivität','Чувствительность')}</h2><div class="pdf-rec">${esc(typeof sob==='string'?sob:JSON.stringify(sob))}</div>`})()}
   <h2>${T('METHODEN · nur tatsächlich ausgeführt','МЕТОДЫ · только реально выполненные')}</h2><div class="pdf-methods">${methods.length?methods.map(esc).join(' · '):'—'}</div>`;
 }
+function activeRMode(){
+  return document.querySelector('.mode-tab.active')?.dataset.mode || 'solo';
+}
 
+function syncRModeUI(mode=activeRMode()){
+  const layer=$('fbcRLayer');
+  const pdf=$('fbcPdfBar');
+
+  const host=
+    mode==='solo'
+      ? ($('soloRMount') || $('solo'))
+      : mode==='employee'
+        ? ($('employeeRMount') || $('employee'))
+        : null;
+
+  if(host){
+    if(layer && layer.parentElement!==host) host.appendChild(layer);
+    if(pdf && pdf.parentElement!==host) host.appendChild(pdf);
+  }
+
+  if(layer) layer.classList.toggle('hidden', !host);
+  if(pdf) pdf.classList.toggle('hidden', !host);
+}
 function ensureRUI(){
-  const emp=$('employee'); if(!emp||$('fbcRLayer'))return;
+  const solo=$('solo');
+  const emp=$('employee');
+
+  if((!solo&&!emp)||$('fbcRLayer')){
+    syncRModeUI();
+    return;
+  }
+
+  const initialHost=activeRMode()==='solo'
+    ? ($('soloRMount') || solo)
+    : ($('employeeRMount') || emp);
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
 layer.innerHTML=`
   <div class="section-kicker">
@@ -5654,7 +5686,7 @@ layer.innerHTML=`
     </div>
   </div>
 `;
-  emp.appendChild(layer);
+  (initialHost||emp||solo).appendChild(layer);
 
   if(!emp.dataset.fbcRInvalidationBound){
     emp.dataset.fbcRInvalidationBound='1';
@@ -5889,7 +5921,7 @@ await runRAnalysis('fbcRunFinancing');
   });
 }
 
-  const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;emp.appendChild(pdf);
+  const pdf=document.createElement('div');pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button">PDF</button>`;(initialHost||emp||solo).appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{renderPdfReport();window.print()});
 async function runRAnalysis(sourceId='fbcRunAnalysis'){
   console.log('FBC runRAnalysis start', sourceId);
