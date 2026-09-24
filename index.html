@@ -1627,6 +1627,12 @@ input::placeholder{color:#aab4bd!important}
   margin-top:0;
 }
 
+#solo .solo-billable-row{
+  display:grid;
+  grid-template-columns:minmax(260px,360px);
+  margin-top:14px;
+}
+
 #solo .result-goal-row{
   margin:16px 0;
   padding:16px;
@@ -2988,6 +2994,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <small id="soloVacationRecommendation" data-de="Empfehlung: erst Arbeitstage eingeben." data-ru="Рекомендация: сначала укажите рабочие дни.">Empfehlung: erst Arbeitstage eingeben.</small>
 </label>
 </div>
+
 <div class="owner-time-summary">
   <strong data-de="Zeit-Orientierung"
           data-ru="Ориентир по рабочему времени">
@@ -2995,6 +3002,29 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   </strong>
 
   <span id="soloTimeInfo">—</span>
+</div>
+
+<div class="solo-billable-row">
+  <label class="field">
+    <span
+      data-de="Abgerechnete Kundenstunden / Monat"
+      data-ru="Оплачиваемые клиентами часы / месяц">
+      Abgerechnete Kundenstunden / Monat
+    </span>
+
+    <input
+      id="soloBillableHoursMonth"
+      type="number"
+      min="0"
+      step="0.1"
+      placeholder="0">
+
+    <small
+      data-de="Summe der im Monat tatsächlich berechneten Kundenstunden. Kein automatisches Limit durch die Zeit-Orientierung."
+      data-ru="Сумма часов, фактически выставленных клиентам за месяц. Значение автоматически не ограничивается ориентиром рабочего времени.">
+      Summe der im Monat tatsächlich berechneten Kundenstunden. Kein automatisches Limit durch die Zeit-Orientierung.
+    </small>
+  </label>
 </div>
 
 </article>
@@ -3856,7 +3886,7 @@ const regions={
 const HOLIDAYS_2026=[[4,'*'],[2,'bw by st'],[0,'be mv'],[5,'*'],[0,'bb'],[1,'*'],[5,'*'],[4,'*'],[0,'bb'],[1,'*'],[4,'bw by he nw rp sl'],[6,'sl'],[0,'th'],[6,'*'],[6,'bb hb hh mv ni sn st sh th'],[0,'bw by nw rp sl'],[3,'sn'],[5,'*'],[6,'*']];
 const roles={
   lead:{de:'Leitung',ru:'Руководство',range:[28,46]},
-  science:{de:'Wissenschaftler',ru:'Научный специалист',range:[23,36]},
+  science:{de:'Spezialist',ru:'Научный специалист',range:[23,36]},
   skilled:{de:'Fachkraft',ru:'Квалифицированный специалист',range:[18,29]},
   office:{de:'Büro / Verwaltung',ru:'Офис / администрация',range:[15.5,23]},
   helper:{de:'Hilfskraft',ru:'Вспомогательный персонал',range:[MIN_WAGE,17]},
@@ -3947,7 +3977,11 @@ function refreshScheduleAdvice(){
 }
 function configureValidation(){
   const rules=[
-    ['#soloPrice',0,null],['#soloHours',1,80],['#soloDays',1,5],['#soloVacation',0,60],
+    ['#soloPrice',0,null],
+['#soloHours',1,80],
+['#soloDays',1,5],
+['#soloVacation',0,60],
+['#soloBillableHoursMonth',0,null],
     ['#empOwnerPrice',0,null],['#empOwnerHours',1,80],['#empOwnerDays',1,5],['#empOwnerVacation',0,60],
     ['#teamOwnerPrice',0,null],['#teamOwnerHours',1,80],['#teamOwnerDays',1,5],['#teamOwnerVacation',0,60],
     ['#empWage',0,null],['#empHours',0,80],['#empDays',1,5],['#empVacation',0,60],['#empCustomerPrice',0,null],
@@ -4105,8 +4139,34 @@ function taxTextEmployee(tax){
 function holidayInfo(daysPerWeek=5){const count=holidayDays2026(daysPerWeek),name=regions[$('#region').value]?.[0]||'';return t(`${count.toLocaleString('de-DE',{maximumFractionDigits:1})} gesetzliche Feiertage 2026 in ${name} berücksichtigt${daysPerWeek<5?' (anteilig geschätzt)':''}.`,`${count.toLocaleString('ru-RU',{maximumFractionDigits:1})} официальных праздничных дней 2026 года в земле ${name} учтено${daysPerWeek<5?' (пропорциональная оценка)':''}.`)}
 
 function hasInput(id){const element=$(id);return Boolean(element&&String(element.value).trim()!=='')}
-function soloReady(){return hasInput('#soloPrice')&&hasInput('#soloHours')&&hasInput('#soloDays')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
-function soloStarted(){return ['#soloPrice','#soloHours','#soloDays','#soloVacation','#costOffice','#costVehicle','#costSoftware','#costAccounting','#costInsurance','#costMaterial','#costMarketing','#costOther','#ownerInsurance','#pensionFixed','#soloGoal','#tradeTaxRate'].some(hasInput)}
+function soloReady(){
+  return hasInput('#soloPrice') &&
+         hasInput('#soloHours') &&
+         hasInput('#soloDays') &&
+         hasInput('#soloBillableHoursMonth') &&
+         ($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))
+}
+function soloStarted(){
+  return [
+    '#soloPrice',
+    '#soloHours',
+    '#soloDays',
+    '#soloVacation',
+    '#soloBillableHoursMonth',
+    '#costOffice',
+    '#costVehicle',
+    '#costSoftware',
+    '#costAccounting',
+    '#costInsurance',
+    '#costMaterial',
+    '#costMarketing',
+    '#costOther',
+    '#ownerInsurance',
+    '#pensionFixed',
+    '#soloGoal',
+    '#tradeTaxRate'
+  ].some(hasInput)
+}
 /* legacy duplicate employeeReady removed in R-ready release */
 function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#teamOwnerNeed')&&rows.length>0&&rows.some(row=>String(row.querySelector('.team-wage').value).trim()!==''&&String(row.querySelector('.team-hours').value).trim()!=='')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
@@ -4185,7 +4245,81 @@ function monthlyCostSum(){return $$('.monthly-cost').reduce((sum,input)=>sum+(Nu
 function workTime(){const weekly=num('#soloHours'),days=Math.max(1,num('#soloDays')),vac=num('#soloVacation'),holidays=holidayDays2026(days),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/days));return{workMonth:annualHours/12,holidays,days}}
 function pensionData(profit=0){const mode=$('#pensionMode').value;let monthly=0;if(mode==='statutory')monthly=Math.max(0,profit)*.186;else if(mode==='standard')monthly=735.63;else if(mode==='fixed')monthly=num('#pensionFixed');return{mode,monthly}}
 function solveSoloMonthlyRevenue(businessCosts,ownerInsurance,goal){let low=0,high=Math.max(10000,(businessCosts+ownerInsurance+goal)*2+1000);const available=revenue=>{const profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12).total/12,pension=pensionData(profit).monthly;return revenue-businessCosts-ownerInsurance-pension-tax};while(available(high)<goal&&high<1e7)high*=2;for(let i=0;i<70;i++){const mid=(low+high)/2;if(available(mid)>=goal)high=mid;else low=mid}const revenue=high,profit=Math.max(0,revenue-businessCosts),tax=taxEstimate(profit*12),pension=pensionData(profit);return{revenue,profit,tax,pension,taxMonth:tax.total/12}}
-function soloData(priceOverride=null){const time=workTime(),business=monthlyCostSum(),goal=num('#soloGoal'),price=priceOverride??num('#soloPrice'),revenue=price*time.workMonth,profitBeforeTax=Math.max(0,revenue-business),pension=pensionData(profitBeforeTax),ownerInsurance=num('#ownerInsurance'),personal=ownerInsurance+pension.monthly,tax=taxEstimate(profitBeforeTax*12),taxMonth=tax.total/12,remainMonth=revenue-business-personal-taxMonth,totalLoad=business+personal+taxMonth,costHour=time.workMonth?totalLoad/time.workMonth:0,requiredPlan=solveSoloMonthlyRevenue(business,ownerInsurance,goal);return{time,pension,business,personal,allCosts:business+personal,goal,price,revenue,profitBeforeTax,tax,taxMonth,costHour,remainMonth,remainHour:price-costHour,required:time.workMonth?requiredPlan.revenue/time.workMonth:0,requiredPlan}}
+function soloData(priceOverride=null){
+  const time=workTime();
+  const business=monthlyCostSum();
+  const goal=num('#soloGoal');
+  const price=priceOverride??num('#soloPrice');
+
+  const billableHours=
+    Math.max(0,num('#soloBillableHoursMonth'));
+
+  const revenue=
+    price*billableHours;
+
+  const profitBeforeTax=
+    Math.max(0,revenue-business);
+
+  const pension=
+    pensionData(profitBeforeTax);
+
+  const ownerInsurance=
+    num('#ownerInsurance');
+
+  const personal=
+    ownerInsurance+pension.monthly;
+
+  const tax=
+    taxEstimate(profitBeforeTax*12);
+
+  const taxMonth=
+    tax.total/12;
+
+  const remainMonth=
+    revenue-business-personal-taxMonth;
+
+  const totalLoad=
+    business+personal+taxMonth;
+
+  const costHour=
+    billableHours>0
+      ? totalLoad/billableHours
+      : 0;
+
+  const requiredPlan=
+    solveSoloMonthlyRevenue(
+      business,
+      ownerInsurance,
+      goal
+    );
+
+  return{
+    time,
+    billableHours,
+    pension,
+    business,
+    personal,
+    allCosts:business+personal,
+    goal,
+    price,
+    revenue,
+    profitBeforeTax,
+    tax,
+    taxMonth,
+    costHour,
+    remainMonth,
+
+    remainHour:
+      price-costHour,
+
+    required:
+      billableHours>0
+        ? requiredPlan.revenue/billableHours
+        : 0,
+
+    requiredPlan
+  };
+}
 
 function updateProfile(){const legal=$('#legalForm').value,freelance=legal==='freelance',trade=legal==='sole_trade',rate=num('#tradeTaxRate');$('#tradeTaxWrap').classList.toggle('hidden',!trade);$('#legalFormInfo').textContent=freelance?t('Freiberuflich: keine Gewerbesteuer; Einkommensteuer wird weiterhin berücksichtigt.','Freiberuflich: Gewerbesteuer не взимается; Einkommensteuer продолжает учитываться.'):trade?t('Gewerbesteuer ist eine Gemeindesteuer nur für Gewerbebetriebe. Unter dem Freibetrag von 24.500 € Gewerbeertrag / Jahr fällt beim Einzelunternehmen keine Gewerbesteuer an.','Gewerbesteuer — муниципальный налог только для Gewerbe. При Gewerbeertrag до Freibetrag 24 500 € в год у Einzelunternehmen налог не возникает.'):t('Noch nicht sicher: Einkommensteuer wird berücksichtigt; Gewerbesteuer bleibt bis zur Einordnung bei 0 €.','Пока не уверены: Einkommensteuer учитывается; Gewerbesteuer до определения вида деятельности равна 0 €.');$('#tradeTaxInfo').textContent=freelance?t('Freiberufliche Tätigkeiten unterliegen grundsätzlich nicht der Gewerbesteuer.','Freiberufliche Tätigkeiten обычно не облагаются Gewerbesteuer.'):trade?t(`Vereinfacht für Einzelunternehmen: 1) Gewerbeertrag − 24.500 € Freibetrag. 2) Den verbleibenden Betrag × 3,5 % = Steuermessbetrag. 3) Steuermessbetrag × Hebesatz Ihrer Gemeinde. Beispiel bei 400 %: 30.000 € − 24.500 € = 5.500 €; × 3,5 % = 192,50 €; × 400 % (= × 4) = 770 € Gewerbesteuer. Die mögliche Einkommensteuer-Ermäßigung nach § 35 EStG wird anschließend gesondert berücksichtigt.`,`Упрощённо для Einzelunternehmen: 1) Gewerbeertrag − Freibetrag 24 500 €. 2) Остаток × 3,5% = Steuermessbetrag. 3) Steuermessbetrag × Hebesatz муниципалитета. Пример при 400%: 30 000 € − 24 500 € = 5 500 €; × 3,5% = 192,50 €; × 400% (= × 4) = 770 € Gewerbesteuer. Возможное уменьшение Einkommensteuer по §35 EStG учитывается отдельно.`):t('Die Anwendbarkeit hängt von der tatsächlichen Tätigkeit ab.','Применимость зависит от фактического вида деятельности.')}
 function updateSolo(){
