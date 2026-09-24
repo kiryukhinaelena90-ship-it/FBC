@@ -5279,6 +5279,45 @@ function payloadFinancingActive(p){
   return Boolean(activeCockpitSnapshot()?.financing?.active);
 }
 
+function applySensitivityModeVisibility(mode=activeRMode()){
+  const allowed = mode==='solo'
+    ? new Set(['owner_price','owner_hours','operating_costs'])
+    : new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs']);
+
+  document.querySelectorAll('#fbcSensitivityList .fbc-sens-row').forEach(row=>{
+    row.classList.toggle('hidden',!allowed.has(row.dataset.sensKey));
+  });
+
+  const employeeMode=mode==='employee';
+  ['fbcBoundEmpPriceOn','fbcBoundEmpHoursOn'].forEach(id=>{
+    $(id)?.closest('.fbc-bound-row')?.classList.toggle('hidden',!employeeMode);
+  });
+}
+
+function clearSensitivityDisplay(){
+  document.querySelectorAll('#fbcSensitivityList .fbc-sens-row').forEach(row=>{
+    const valueBox=row.querySelector('.fbc-sens-value');
+    const fill=row.querySelector('.fbc-sens-fill');
+    if(valueBox){
+      const strong=valueBox.querySelector('strong');
+      const small=valueBox.querySelector('small');
+      if(strong) strong.textContent='—';
+      if(small) small.textContent=T('R-Wert','значение R');
+    }
+    if(fill){
+      fill.style.width='8px';
+      fill.style.opacity='.28';
+    }
+  });
+
+  if($('fbcSensitivityFazitText')){
+    $('fbcSensitivityFazitText').textContent=T(
+      'Sobald die R-Werte vorliegen, hebt FBC die wichtigsten Stellschrauben hervor. Im nächsten Schritt prüfen Sie nur, welche davon in Ihrem Unternehmen tatsächlich veränderbar sind.',
+      'После получения значений R FBC выделит наиболее важные рычаги. На следующем шаге вы проверяете только то, какие из них действительно можно менять в вашем бизнесе.'
+    );
+  }
+}
+
 function syncRModeUI(mode=activeRMode()){
   const layer=$('fbcRLayer');
   const pdf=$('fbcPdfBar') || document.querySelector('.fbc-pdfbar');
@@ -5298,20 +5337,7 @@ function syncRModeUI(mode=activeRMode()){
   if(layer) layer.classList.toggle('hidden', !host);
   if(pdf) pdf.classList.toggle('hidden', !host);
 
-  const employeeMode=mode==='employee';
-
-  layer?.querySelectorAll(
-    '[data-sens-key="employee_customer_price"], [data-sens-key="employee_billable_hours"]'
-  ).forEach(el=>el.classList.toggle('hidden',!employeeMode));
-
-  ['fbcBoundEmpPriceOn','fbcBoundEmpHoursOn'].forEach(id=>{
-    $(id)?.closest('.fbc-bound-row')?.classList.toggle('hidden',!employeeMode);
-  });
-
-  if(!employeeMode){
-    const employeeEconomics=$('fbcEmployeeEconomicsSection');
-    if(employeeEconomics) employeeEconomics.hidden=true;
-  }
+  applySensitivityModeVisibility(mode);
 }
 window.FBC_SYNC_R_MODE_UI=syncRModeUI;
 
@@ -5442,37 +5468,54 @@ layer.innerHTML=`
     </div>
   </section>
 
-  <!-- 2. MITARBEITER KOSTENDECKUNG -->
+  <!-- 2. WIRTSCHAFTLICHE EINORDNUNG · gleicher Aufbau in Solo und Employee -->
 
-  <section class="fbc-analysis-section" id="fbcEmployeeEconomicsSection" hidden>
+  <section class="fbc-analysis-section" id="fbcEconomicsSection" hidden>
     <div class="fbc-analysis-heading">
       <div>
-        <h3>${T('Mitarbeiter · Kostendeckung','Сотрудник · окупаемость')}</h3>
-<p>
-  ${T(
-    'FBC prüft, ob der Mitarbeiter mit den aktuell abrechenbaren Stunden seine eigenen Personalkosten deckt.',
-    'FBC проверяет, покрывает ли сотрудник своими текущими оплачиваемыми часами собственные расходы на персонал.'
-  )}
-</p>
+        <h3 id="fbcEconomicsTitle">—</h3>
+        <p id="fbcEconomicsIntro">—</p>
       </div>
       <span class="fbc-step-badge">2</span>
     </div>
 
-    <div class="fbc-r-detailbox" id="fbcEmployeeEconomicsBox">
-      <div class="fbc-employee-economics-status" id="fbcEmployeeEconomicsStatus">—</div>
-      <div class="fbc-r-change-row"><span>${T('Personalkosten gesamt / Monat','Полная стоимость сотрудника / месяц')}</span><b id="fbcEmployeeCostMonth">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Kundenumsatz Mitarbeiter/in / Monat','Выручка сотрудника от клиентов / месяц')}</span><b id="fbcEmployeeRevenueMonth">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Beitrag zum Betriebsergebnis','Вклад в результат бизнеса')}</span><b id="fbcEmployeeContributionMonth">—</b></div>
-      <div class="fbc-r-detail-title fbc-employee-hours-title">${T('Abrechenbare Stunden','Оплачиваемые часы')}</div>
-      <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b id="fbcEmployeeHoursCurrent">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Окупаемость с')}</span><b id="fbcEmployeeHoursBE">—</b></div>
-      <div class="fbc-r-change-row"><span>${T('Differenz','Разница')}</span><b id="fbcEmployeeHoursGap">—</b></div>
-      <div class="fbc-r-note" id="fbcEmployeeEconomicsText"></div>
+    <div class="fbc-r-detailbox" id="fbcEconomicsBox">
+      <div class="fbc-employee-economics-status" id="fbcEconomicsStatus">—</div>
+
+      <div class="fbc-r-change-row">
+        <span id="fbcEconomicsRow1Label">—</span>
+        <b id="fbcEconomicsRow1Value">—</b>
+      </div>
+      <div class="fbc-r-change-row">
+        <span id="fbcEconomicsRow2Label">—</span>
+        <b id="fbcEconomicsRow2Value">—</b>
+      </div>
+      <div class="fbc-r-change-row">
+        <span id="fbcEconomicsRow3Label">—</span>
+        <b id="fbcEconomicsRow3Value">—</b>
+      </div>
+
+      <div class="fbc-r-detail-title fbc-employee-hours-title" id="fbcEconomicsHoursTitle">
+        ${T('Abrechenbare Stunden','Оплачиваемые часы')}
+      </div>
+      <div class="fbc-r-change-row">
+        <span id="fbcEconomicsHoursCurrentLabel">${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span>
+        <b id="fbcEconomicsHoursCurrent">—</b>
+      </div>
+      <div class="fbc-r-change-row">
+        <span id="fbcEconomicsHoursBELabel">—</span>
+        <b id="fbcEconomicsHoursBE">—</b>
+      </div>
+      <div class="fbc-r-change-row">
+        <span>${T('Differenz','Разница')}</span>
+        <b id="fbcEconomicsHoursGap">—</b>
+      </div>
+
+      <div class="fbc-r-note" id="fbcEconomicsText"></div>
     </div>
   </section>
 
   <!-- 3. REALISTISCHE HANDLUNGSSPIELRÄUME -->
-
   <section class="fbc-analysis-section">
     <div class="fbc-analysis-heading">
       <div>
@@ -5712,6 +5755,14 @@ layer.innerHTML=`
       ${T('Mathematische Prüfung des Kostenrisikos','Математическая проверка риска затрат')}
     </div>
     <p class="fbc-r-note" id="fbcMCRiskText"></p>
+  </div>
+
+  <div class="fbc-r-detailbox" id="fbcRSobol" hidden style="margin-top:12px">
+    <div class="fbc-r-detail-title">
+      ${T('Sobol · Einfluss auf die Ergebnisunsicherheit','Sobol · вклад в неопределённость результата')}
+    </div>
+    <div id="fbcSobolRows"></div>
+    <p class="fbc-r-note" id="fbcSobolText"></p>
   </div>
 </section>
 
@@ -6033,6 +6084,11 @@ const isEvidence =
 const isFinancing =
   sourceId === 'fbcRunFinancing';
 
+window.FBC_R_RUN_CONTEXT =
+  isEvidence ? 'decision' :
+  isFinancing ? 'financing' :
+  'baseline';
+
   const progress = $(
     isEvidence
       ? 'fbcEvidenceProgress'
@@ -6054,6 +6110,15 @@ const isFinancing =
   }
 if($('fbcRMonteCarlo')){
   $('fbcRMonteCarlo').hidden = true;
+}
+if($('fbcRSobol')){
+  $('fbcRSobol').hidden = true;
+}
+if($('fbcSobolRows')){
+  $('fbcSobolRows').innerHTML = '';
+}
+if($('fbcSobolText')){
+  $('fbcSobolText').textContent = '';
 }
   if($('fbcRShapley')){
     $('fbcRShapley').hidden = true;
@@ -6190,6 +6255,7 @@ if(btn){
         'Считать заново с этими границами'
       );
     }
+    window.FBC_R_RUN_CONTEXT = null;
   }
 }
 
@@ -6204,13 +6270,67 @@ function ownerState(){
 }
 let fbcFinancingSelected = false;  
 function invalidateRAnalysis(){
+  const mode=activeRMode();
+
   window.FBC_R_ANALYSIS_PAYLOAD = null;
   window.FBC_P1_DECISION_PAYLOAD = null;
+  window.FBC_R_RUN_CONTEXT = null;
+
+  if(window.FBC_R_BASELINE_BY_MODE && mode){
+    delete window.FBC_R_BASELINE_BY_MODE[mode];
+  }
 
   fbcFinancingSelected = false;
 
-  if($('fbcFinancingSection')){
-    $('fbcFinancingSection').hidden = true;
+  clearSensitivityDisplay();
+  applySensitivityModeVisibility(mode);
+
+  const economics=$('fbcEconomicsSection');
+  if(economics) economics.hidden=true;
+
+  if($('fbcEconomicsStatus')){
+    $('fbcEconomicsStatus').textContent='—';
+    $('fbcEconomicsStatus').classList.remove('is-covered','is-open');
+  }
+
+  [
+    'fbcEconomicsRow1Value',
+    'fbcEconomicsRow2Value',
+    'fbcEconomicsRow3Value',
+    'fbcEconomicsHoursCurrent',
+    'fbcEconomicsHoursBE',
+    'fbcEconomicsHoursGap'
+  ].forEach(id=>{if($(id))$(id).textContent='—';});
+
+  if($('fbcEconomicsText')) $('fbcEconomicsText').textContent='';
+
+  if($('fbcRChanges')){
+    $('fbcRChanges').hidden=true;
+    $('fbcRChanges').innerHTML='';
+  }
+
+  if($('fbcRShapley')){
+    $('fbcRShapley').hidden=true;
+    $('fbcRShapley').innerHTML='';
+  }
+  if($('fbcShapleySection')) $('fbcShapleySection').hidden=true;
+
+  if($('fbcRMonteCarlo')) $('fbcRMonteCarlo').hidden=true;
+  if($('fbcMCRiskText')) $('fbcMCRiskText').textContent='';
+
+  if($('fbcRSobol')) $('fbcRSobol').hidden=true;
+  if($('fbcSobolRows')) $('fbcSobolRows').innerHTML='';
+  if($('fbcSobolText')) $('fbcSobolText').textContent='';
+
+  if($('fbcFinancingSection')) $('fbcFinancingSection').hidden=true;
+  if($('fbcRFinancingCheck')) $('fbcRFinancingCheck').hidden=true;
+
+  if($('fbcRFazit')) $('fbcRFazit').hidden=true;
+  if($('fbcFazitSection')) $('fbcFazitSection').hidden=true;
+
+  if($('fbcRRecommendation')){
+    $('fbcRRecommendation').textContent=
+      T('Noch keine optimierte Kombination berechnet.','Оптимизированная комбинация ещё не рассчитана.');
   }
 
   if($('fbcRStatus')){
@@ -6226,17 +6346,7 @@ function invalidateRAnalysis(){
       T('R-Analyse starten','Запустить R-анализ');
   }
 
-  if($('fbcRFinancingCheck')){
-    $('fbcRFinancingCheck').hidden = true;
-  }
-
-  if($('fbcRFazit')){
-    $('fbcRFazit').hidden = true;
-  }
-
-  if($('fbcPdfButton')){
-    $('fbcPdfButton').disabled = true;
-  }
+  if($('fbcPdfButton')) $('fbcPdfButton').disabled=true;
 }
 window.FBC_INVALIDATE_R_ANALYSIS=invalidateRAnalysis;
 
@@ -6594,9 +6704,15 @@ function chart(host,data,key){
   </svg><small class="fbc-chart-source">${T('Datenreihe aus validiertem R-Payload','Ряд данных из валидированного R-payload')}</small>`;
 }
 
-function renderSensitivity(p){
+function renderSensitivity(p,mode=activeRMode()){
   const rows=[...document.querySelectorAll('#fbcSensitivityList .fbc-sens-row')];
   if(!rows.length)return;
+
+  const allowed = mode==='solo'
+    ? new Set(['owner_price','owner_hours','operating_costs'])
+    : new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs']);
+
+  applySensitivityModeVisibility(mode);
 
   const candidates=
     get(p,'sensitivity.local') ??
@@ -6604,45 +6720,67 @@ function renderSensitivity(p){
     get(p,'influence.normalized') ??
     get(p,'differential_influence.normalized');
 
-  let data=[];
-  if(Array.isArray(candidates)) data=candidates;
-
+  const data=Array.isArray(candidates)?candidates:[];
   const byKey={};
+
   data.forEach(x=>{
     const k=String(x.lever??x.variable??x.key??'');
     if(k)byKey[k]=x;
   });
 
   const values=[];
+
   rows.forEach(row=>{
     const key=row.dataset.sensKey;
-    const item=byKey[key];
     const valueBox=row.querySelector('.fbc-sens-value');
     const fill=row.querySelector('.fbc-sens-fill');
 
-    if(!item){
+    if(!allowed.has(key)){
+      row.classList.add('hidden');
       if(valueBox){
-        valueBox.querySelector('strong').textContent='—';
-        valueBox.querySelector('small').textContent=T('noch nicht im R-Payload','ещё нет в R-payload');
+        const strong=valueBox.querySelector('strong');
+        const small=valueBox.querySelector('small');
+        if(strong)strong.textContent='—';
+        if(small)small.textContent=T('R-Wert','значение R');
       }
-      if(fill)fill.style.width='8px';
+      if(fill){
+        fill.style.width='8px';
+        fill.style.opacity='.28';
+      }
       return;
     }
 
-    const netPct=Number(
+    row.classList.remove('hidden');
+    const item=byKey[key];
+
+    if(!item){
+      if(valueBox){
+        const strong=valueBox.querySelector('strong');
+        const small=valueBox.querySelector('small');
+        if(strong)strong.textContent='—';
+        if(small)small.textContent=T('noch nicht im R-Payload','ещё нет в R-payload');
+      }
+      if(fill){
+        fill.style.width='8px';
+        fill.style.opacity='.28';
+      }
+      return;
+    }
+
+    const netPct=finiteNumber(
       item.net_change_pct ??
       item.relative_net_change_pct ??
       item.elasticity_pct ??
       item.effect_pct
     );
 
-    const netEur=Number(
+    const netEur=finiteNumber(
       item.net_change_eur ??
       item.effect_eur ??
       item.delta_net_eur
     );
 
-    if(Number.isFinite(netPct)){
+    if(netPct!==null){
       values.push({key,netPct,netEur,row,item});
     }
   });
@@ -6652,19 +6790,31 @@ function renderSensitivity(p){
   values.forEach(v=>{
     const valueBox=v.row.querySelector('.fbc-sens-value');
     const fill=v.row.querySelector('.fbc-sens-fill');
+
     if(fill){
-      const width=maxAbs>0?Math.max(8,Math.min(100,Math.abs(v.netPct)/maxAbs*100)):8;
+      const width=maxAbs>0
+        ? Math.max(8,Math.min(100,Math.abs(v.netPct)/maxAbs*100))
+        : 8;
       fill.style.width=width+'%';
       fill.style.opacity='1';
     }
+
     if(valueBox){
+      const strong=valueBox.querySelector('strong');
+      const small=valueBox.querySelector('small');
       const sign=v.netPct>0?'+':'';
-      valueBox.querySelector('strong').textContent=
-        `${sign}${v.netPct.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})} %`;
-      valueBox.querySelector('small').textContent=
-        Number.isFinite(v.netEur)
-          ? `${money(v.netEur)} / ${T('Monat','месяц')}`
-          : T('relative Netto-Wirkung','относительное влияние на нетто');
+
+      if(strong){
+        strong.textContent=
+          `${sign}${v.netPct.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})} %`;
+      }
+
+      if(small){
+        small.textContent=
+          v.netEur!==null
+            ? `${money(v.netEur)} / ${T('Monat','месяц')}`
+            : T('relative Netto-Wirkung','относительное влияние на нетто');
+      }
     }
   });
 
@@ -6682,18 +6832,243 @@ function renderSensitivity(p){
   values.sort((a,b)=>Math.abs(b.netPct)-Math.abs(a.netPct));
   const top=values[0];
   const label=top.item.label || top.row.querySelector('.fbc-sens-label strong')?.textContent || top.key;
+
   ft.textContent=T(
     `Von den aktuell gemessenen Faktoren reagiert Ihr Monatsnetto rechnerisch am stärksten auf „${label}“. Ob Sie diesen Faktor tatsächlich verändern möchten, legen Sie im nächsten Schritt selbst fest.`,
     `Из измеренных факторов месячное нетто математически сильнее всего реагирует на «${label}». Решать, хотите ли вы действительно менять этот фактор, вы будете на следующем шаге.`
   );
 }
 
+function renderEconomicsStep2(p,mode=activeRMode()){
+  const section=$('fbcEconomicsSection');
+  if(!section || !p)return;
+
+  const s=activeCockpitSnapshot(mode);
+  if(!s)return;
+
+  const fmtHours=v=>{
+    const n=finiteNumber(v);
+    return n===null
+      ? '—'
+      : `${n.toLocaleString(RU()?'ru-RU':'de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} h`;
+  };
+
+  const setText=(id,value)=>{if($(id))$(id).textContent=value;};
+  const status=$('fbcEconomicsStatus');
+
+  if(mode==='solo'){
+    const revenue=firstFinite(
+      get(p,'current.revenue'),
+      get(p,'break_even.business.projected_revenue'),
+      s?.current?.revenue,
+      s?.current?.owner_revenue
+    );
+
+    const operating=firstFinite(
+      get(p,'current.operating_costs'),
+      s?.current?.operating_costs
+    );
+
+    const financingCost=firstFinite(
+      get(p,'current.financing_result_cost'),
+      0
+    );
+
+    const resultBefore=firstFinite(
+      get(p,'current.result_before_owner_protection_tax'),
+      revenue!==null && operating!==null
+        ? revenue-operating-(financingCost??0)
+        : null
+    );
+
+    const hours=finiteNumber(s?.owner?.billable_hours_month);
+    const beHours=finiteNumber(get(p,'break_even.business.break_even_hours'));
+    const diff=hours!==null && beHours!==null ? hours-beHours : null;
+
+    const businessOkRaw=
+      get(p,'post_decision.business_break_even_ok') ??
+      get(p,'break_even.business.ok') ??
+      get(p,'break_even.ok');
+
+    const businessOk=typeof businessOkRaw==='boolean'
+      ? businessOkRaw
+      : (diff!==null ? diff>=-1e-9 : null);
+
+    setText('fbcEconomicsTitle',T('Solo · Ergebnis und Break-even','Solo · результат и точка безубыточности'));
+    setText('fbcEconomicsIntro',T(
+      'FBC zeigt, wie Ihr aktueller Umsatz zu den laufenden Betriebskosten steht und ab wie vielen abrechenbaren Stunden der Business Break-even erreicht wird.',
+      'FBC показывает, как текущая выручка соотносится с расходами бизнеса и с какого количества оплачиваемых часов достигается точка безубыточности.'
+    ));
+
+    if(status){
+      status.textContent=
+        businessOk===true
+          ? T('Das aktuelle Geschäftsmodell liegt über dem Business Break-even','Текущая модель бизнеса находится выше точки безубыточности')
+          : businessOk===false
+            ? T('Das aktuelle Geschäftsmodell liegt noch unter dem Business Break-even','Текущая модель бизнеса пока находится ниже точки безубыточности')
+            : T('Business Break-even wird aus den aktuellen Daten eingeordnet','Точка безубыточности оценивается по текущим данным');
+
+      status.classList.toggle('is-covered',businessOk===true);
+      status.classList.toggle('is-open',businessOk!==true);
+    }
+
+    setText('fbcEconomicsRow1Label',T('Umsatz gesamt / Monat','Общая выручка / месяц'));
+    setText('fbcEconomicsRow1Value',money(revenue));
+
+    setText('fbcEconomicsRow2Label',T('Betriebskosten gesamt / Monat','Расходы бизнеса / месяц'));
+    setText('fbcEconomicsRow2Value',money(operating));
+
+    setText('fbcEconomicsRow3Label',T('Betriebsergebnis vor Absicherung und Steuern','Результат бизнеса до страхования владельца и налогов'));
+    setText('fbcEconomicsRow3Value',money(resultBefore));
+
+    setText('fbcEconomicsHoursTitle',T('Abrechenbare Stunden','Оплачиваемые часы'));
+    setText('fbcEconomicsHoursCurrentLabel',T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы'));
+    setText('fbcEconomicsHoursCurrent',fmtHours(hours));
+
+    setText('fbcEconomicsHoursBELabel',T('Business Break-even ab','Точка безубыточности с'));
+    setText('fbcEconomicsHoursBE',fmtHours(beHours));
+
+    if(diff===null){
+      setText('fbcEconomicsHoursGap','—');
+      setText('fbcEconomicsText',T(
+        'Für die Einordnung des Business Break-even fehlen noch belastbare Stundenwerte.',
+        'Для оценки точки безубыточности пока не хватает надёжных данных по часам.'
+      ));
+    }else if(diff>=0){
+      setText('fbcEconomicsHoursGap',`+${fmtHours(diff)} · ${T('darüber','выше')}`);
+      setText('fbcEconomicsText',T(
+        `Das Unternehmen liegt aktuell ${fmtHours(diff)} über dem Business Break-even. Die laufenden Betriebskosten sind damit aus dem aktuellen Umsatz gedeckt.`,
+        `Сейчас бизнес находится на ${fmtHours(diff)} выше точки безубыточности. Текущая выручка покрывает расходы бизнеса.`
+      ));
+    }else{
+      setText('fbcEconomicsHoursGap',`${fmtHours(Math.abs(diff))} · ${T('fehlen','не хватает')}`);
+      setText('fbcEconomicsText',T(
+        `Bis zum Business Break-even fehlen aktuell ${fmtHours(Math.abs(diff))} abrechenbare Stunden pro Monat.`,
+        `До точки безубыточности сейчас не хватает ${fmtHours(Math.abs(diff))} оплачиваемых часов в месяц.`
+      ));
+    }
+
+    section.hidden=false;
+    return;
+  }
+
+  const directBilling=Boolean(s?.employee?.direct_billing);
+
+  const empCost=firstFinite(
+    get(p,'break_even.employee.personnel_cost_month'),
+    s?.employee?.personnel_cost_month
+  );
+
+  const empPrice=firstFinite(
+    get(p,'break_even.employee.customer_price'),
+    s?.employee?.customer_price
+  );
+
+  const empHours=directBilling
+    ? firstFinite(
+        get(p,'break_even.employee.billable_hours'),
+        get(p,'break_even.employee.expected_billable_hours'),
+        s?.employee?.billable_hours_month
+      )
+    : null;
+
+  const empRevenue=directBilling
+    ? firstFinite(
+        get(p,'break_even.employee.revenue_month'),
+        empPrice!==null && empHours!==null ? empPrice*empHours : null
+      )
+    : 0;
+
+  const empContribution=firstFinite(
+    get(p,'break_even.employee.result_contribution_month'),
+    empRevenue!==null && empCost!==null ? empRevenue-empCost : null
+  );
+
+  const empBE=directBilling
+    ? finiteNumber(get(p,'break_even.employee.break_even_hours'))
+    : null;
+
+  const diff=empHours!==null && empBE!==null ? empHours-empBE : null;
+
+  const empOkRaw=
+    get(p,'break_even.employee.ok') ??
+    get(p,'post_decision.employee_break_even_ok');
+
+  const empOk=typeof empOkRaw==='boolean'
+    ? empOkRaw
+    : (diff!==null ? diff>=-1e-9 : null);
+
+  setText('fbcEconomicsTitle',T('Mitarbeiter · Kosten und Ergebnis','Сотрудник · расходы и результат'));
+  setText('fbcEconomicsIntro',T(
+    'FBC zeigt, was der Mitarbeiter kostet, welchen Umsatz er erzielt und wie die aktuell abrechenbaren Stunden zum Betriebsergebnis beitragen.',
+    'FBC показывает стоимость сотрудника, его выручку и вклад текущих оплачиваемых часов в результат бизнеса.'
+  ));
+
+  if(status){
+    status.textContent=
+      !directBilling
+        ? T('Der Mitarbeiter wird aktuell nicht direkt an Kunden abgerechnet','Сотрудник сейчас не выставляется клиентам напрямую')
+        : empOk===true
+          ? T('Der Mitarbeiter deckt seine eigenen Personalkosten','Сотрудник покрывает собственные расходы')
+          : empOk===false
+            ? T('Der Mitarbeiter deckt seine eigenen Personalkosten noch nicht','Сотрудник пока не покрывает собственные расходы')
+            : T('Die Wirtschaftlichkeit wird aus den aktuellen Daten eingeordnet','Экономический результат оценивается по текущим данным');
+
+    status.classList.toggle('is-covered',directBilling && empOk===true);
+    status.classList.toggle('is-open',!directBilling || empOk!==true);
+  }
+
+  setText('fbcEconomicsRow1Label',T('Personalkosten gesamt / Monat','Полная стоимость сотрудника / месяц'));
+  setText('fbcEconomicsRow1Value',money(empCost));
+
+  setText('fbcEconomicsRow2Label',T('Kundenumsatz Mitarbeiter/in / Monat','Выручка сотрудника от клиентов / месяц'));
+  setText('fbcEconomicsRow2Value',money(empRevenue));
+
+  setText('fbcEconomicsRow3Label',T('Beitrag zum Betriebsergebnis','Вклад в результат бизнеса'));
+  setText(
+    'fbcEconomicsRow3Value',
+    empContribution===null ? '—' : `${empContribution>=0?'+':''}${money(empContribution)}`
+  );
+
+  setText('fbcEconomicsHoursTitle',T('Abrechenbare Stunden','Оплачиваемые часы'));
+  setText('fbcEconomicsHoursCurrentLabel',T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы'));
+  setText('fbcEconomicsHoursCurrent',directBilling?fmtHours(empHours):'—');
+
+  setText('fbcEconomicsHoursBELabel',T('Kostendeckung ab','Окупаемость с'));
+  setText('fbcEconomicsHoursBE',directBilling?fmtHours(empBE):'—');
+
+  if(!directBilling){
+    setText('fbcEconomicsHoursGap','—');
+    setText('fbcEconomicsText',T(
+      'Da der Mitarbeiter aktuell nicht direkt an Kunden abgerechnet wird, wird keine separate Kostendeckung in abrechenbaren Stunden ausgewiesen.',
+      'Поскольку сотрудник сейчас не выставляется клиентам напрямую, отдельная окупаемость в оплачиваемых часах не рассчитывается.'
+    ));
+  }else if(diff===null){
+    setText('fbcEconomicsHoursGap','—');
+    setText('fbcEconomicsText',T(
+      'Für die Kostendeckung fehlen noch belastbare Stundenwerte.',
+      'Для расчёта окупаемости пока не хватает надёжных данных по часам.'
+    ));
+  }else if(diff>=0){
+    setText('fbcEconomicsHoursGap',`+${fmtHours(diff)} · ${T('über Kostendeckung','выше точки окупаемости')}`);
+    setText('fbcEconomicsText',T(
+      `Der Mitarbeiter deckt seine Personalkosten und liegt aktuell ${fmtHours(diff)} über der Kostendeckungsgrenze.`,
+      `Сотрудник покрывает свои расходы и сейчас находится на ${fmtHours(diff)} выше границы окупаемости.`
+    ));
+  }else{
+    setText('fbcEconomicsHoursGap',`${fmtHours(Math.abs(diff))} · ${T('fehlen','не хватает')}`);
+    setText('fbcEconomicsText',T(
+      `Für die Kostendeckung fehlen aktuell ${fmtHours(Math.abs(diff))} abrechenbare Stunden pro Monat.`,
+      `До окупаемости сейчас не хватает ${fmtHours(Math.abs(diff))} оплачиваемых часов в месяц.`
+    ));
+  }
+
+  section.hidden=false;
+}
 
 function renderDecisionDetails(p){
   const box=$('fbcRChanges');
   const shbox=$('fbcRShapley');
-
-  renderSensitivity(p);
 
   const changes=get(p,'recommendation.changes');
   const currentNet=firstFinite(get(p,'current.expected_net'),get(p,'current.net_available'));
@@ -6774,9 +7149,9 @@ const hasOptimizedDecision =
   const sh=get(p,'recommendation.explanation');
   const contrib=sh&&Array.isArray(sh.contributions)?sh.contributions:[];
   const shapleySection=$('fbcShapleySection');
-  if(shapleySection) shapleySection.hidden = !(sh?.available && contrib.length > 1);
+  if(shapleySection) shapleySection.hidden = !(sh?.available && contrib.length > 0);
   if(shbox){
-    if(sh?.available && contrib.length > 1){
+    if(sh?.available && contrib.length > 0){
       const total=Number(sh.total_improvement_eur);
       shbox.hidden=false;
       shbox.innerHTML=`
@@ -6798,61 +7173,6 @@ const hasOptimizedDecision =
     }else{
       shbox.hidden=true;
       shbox.innerHTML='';
-    }
-  }
-
-  /* Employee economics is user-facing only when separately applicable. */
-  const empApplicable=get(p,'break_even.employee.applicable');
-  const empOk=get(p,'break_even.employee.ok') ?? get(p,'post_decision.employee_break_even_ok');
-  const empHours=finiteNumber(get(p,'break_even.employee.billable_hours'));
-  const empBE=finiteNumber(get(p,'break_even.employee.break_even_hours'));
-  const empSection=$('fbcEmployeeEconomicsSection');
-
-  if(empSection){
-    const showEmployee=
-  activeRMode()==='employee' &&
-  empApplicable === true &&
-  empHours!==null &&
-  empBE!==null;
-    empSection.hidden=!showEmployee;
-
-    if(showEmployee){
-      const missing=Math.max(0,empBE-empHours);
-      const surplus=Math.max(0,empHours-empBE);
-      const empCostMonth=finiteNumber(get(p,'break_even.employee.personnel_cost_month'));
-      const empCustomerPrice=finiteNumber(get(p,'break_even.employee.customer_price'));
-      const empRevenueMonth=Number.isFinite(empCustomerPrice)&&Number.isFinite(empHours) ? empCustomerPrice*empHours : NaN;
-      const empContributionMonth=Number.isFinite(empRevenueMonth)&&Number.isFinite(empCostMonth) ? empRevenueMonth-empCostMonth : NaN;
-      const empEconomicsStatus=$('fbcEmployeeEconomicsStatus');
-      if(empEconomicsStatus){
-        empEconomicsStatus.textContent=empOk===true
-          ? T('Mitarbeiter deckt die eigenen Personalkosten','Сотрудник покрывает собственные расходы')
-          : T('Mitarbeiter deckt die eigenen Personalkosten noch nicht','Сотрудник пока не покрывает собственные расходы');
-        empEconomicsStatus.classList.toggle('is-covered',empOk===true);
-        empEconomicsStatus.classList.toggle('is-open',empOk!==true);
-      }
-      if($('fbcEmployeeCostMonth')) $('fbcEmployeeCostMonth').textContent=Number.isFinite(empCostMonth)?money(empCostMonth):'—';
-      if($('fbcEmployeeRevenueMonth')) $('fbcEmployeeRevenueMonth').textContent=Number.isFinite(empRevenueMonth)?money(empRevenueMonth):'—';
-      if($('fbcEmployeeContributionMonth')) $('fbcEmployeeContributionMonth').textContent=Number.isFinite(empContributionMonth)?`${empContributionMonth>=0?'+':''}${money(empContributionMonth)}`:'—';
-      if($('fbcEmployeeHoursCurrent'))$('fbcEmployeeHoursCurrent').textContent=`${fmtNum(empHours,1)} h`;
-      if($('fbcEmployeeHoursBE'))$('fbcEmployeeHoursBE').textContent=`${fmtNum(empBE,1)} h`;
-      if($('fbcEmployeeHoursGap'))$('fbcEmployeeHoursGap').textContent=
-        empOk===true
-          ? `+${fmtNum(surplus,1)} h · ${T('über Kostendeckung','выше точки окупаемости')}`
-          : `${fmtNum(missing,1)} h · ${T('fehlen','не хватает')}`;
-
-      if($('fbcEmployeeEconomicsText')){
-        $('fbcEmployeeEconomicsText').textContent=
-          empOk===true
-            ? T(
-                `Der Mitarbeiter deckt seine vollständigen Personalkosten von ${money(empCostMonth)} mit dem aktuellen Kundenumsatz und trägt positiv zum Betriebsergebnis bei.`,
-                `Сотрудник покрывает полную месячную стоимость ${money(empCostMonth)} текущей выручкой от клиентов и вносит положительный вклад в результат бизнеса.`
-              )
-            : T(
-                `Der Mitarbeiter deckt seine vollständigen Personalkosten von ${money(empCostMonth)} mit dem aktuellen Kundenumsatz noch nicht vollständig. Für die Kostendeckung sind ${fmtNum(empBE,1)} abrechenbare Stunden pro Monat erforderlich; aktuell fehlen ${fmtNum(missing,1)} Stunden.`,
-                `Сотрудник пока не полностью покрывает свою полную месячную стоимость ${money(empCostMonth)} текущей выручкой от клиентов. Для окупаемости требуется ${fmtNum(empBE,1)} оплачиваемых часов в месяц; сейчас не хватает ${fmtNum(missing,1)} ч.`
-              );
-      }
     }
   }
 
@@ -7082,15 +7402,157 @@ if(debtBox){
     }
   }
 
+function renderSobol(p){
+  const box=$('fbcRSobol');
+  const rowsHost=$('fbcSobolRows');
+  const textHost=$('fbcSobolText');
+  if(!box)return;
+
+  const sob=
+    get(p,'sobol') ??
+    get(p,'sensitivity.sobol') ??
+    get(p,'robustness.sobol');
+
+  if(!sob){
+    box.hidden=true;
+    if(rowsHost)rowsHost.innerHTML='';
+    if(textHost)textHost.textContent='';
+    return;
+  }
+
+  let items=[];
+
+  if(Array.isArray(sob)){
+    items=sob;
+  }else if(Array.isArray(sob?.indices)){
+    items=sob.indices;
+  }else if(Array.isArray(sob?.factors)){
+    items=sob.factors;
+  }else if(Array.isArray(sob?.rows)){
+    items=sob.rows;
+  }else if(sob && typeof sob==='object'){
+    const first=sob.first_order ?? sob.first ?? sob.S1;
+    const total=sob.total_order ?? sob.total ?? sob.ST;
+
+    if(first && typeof first==='object' && !Array.isArray(first)){
+      const keys=new Set([
+        ...Object.keys(first),
+        ...(total && typeof total==='object' && !Array.isArray(total) ? Object.keys(total) : [])
+      ]);
+
+      items=[...keys].map(key=>({
+        factor:key,
+        first_order:first?.[key],
+        total_order:total?.[key]
+      }));
+    }
+  }
+
+  const rowHtml=items.map(item=>{
+    const label=String(
+      item.label ??
+      item.factor ??
+      item.variable ??
+      item.lever ??
+      item.name ??
+      item.key ??
+      ''
+    );
+
+    const first=firstFinite(
+      item.first_order,
+      item.first,
+      item.s1,
+      item.S1,
+      item.main_effect
+    );
+
+    const total=firstFinite(
+      item.total_order,
+      item.total,
+      item.st,
+      item.ST,
+      item.total_effect
+    );
+
+    if(!label || (first===null && total===null))return '';
+
+    const parts=[];
+
+    if(first!==null){
+      parts.push(`S1 ${first.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
+    }
+
+    if(total!==null){
+      parts.push(`ST ${total.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
+    }
+
+    return `<div class="fbc-r-change-row"><span>${esc(label)}</span><b>${esc(parts.join(' · '))}</b></div>`;
+  }).filter(Boolean);
+
+  if(rowsHost)rowsHost.innerHTML=rowHtml.join('');
+
+  const note=
+    typeof sob==='string'
+      ? sob
+      : (sob?.sentence ?? sob?.note ?? sob?.summary ?? '');
+
+  if(textHost){
+    textHost.textContent=String(
+      note ||
+      (
+        rowHtml.length
+          ? T(
+              'S1 zeigt den direkten Einfluss eines Faktors; ST berücksichtigt zusätzlich Wechselwirkungen mit anderen Faktoren.',
+              'S1 показывает прямое влияние фактора; ST дополнительно учитывает взаимодействия с другими факторами.'
+            )
+          : T(
+              'Sobol-Ergebnisse sind im Payload vorhanden, aber nicht in einer unterstützten Struktur aufbereitet.',
+              'Результаты Sobol присутствуют в payload, но имеют неподдерживаемую структуру.'
+            )
+      )
+    );
+  }
+
+  box.hidden=false;
+}
+
 function applyPayload(p){
-  window.FBC_R_ANALYSIS_PAYLOAD=p;window.FBC_P1_DECISION_PAYLOAD=p;
+  const mode=activeRMode();
+  const runContext=window.FBC_R_RUN_CONTEXT || 'baseline';
+
+  window.FBC_R_ANALYSIS_PAYLOAD=p;
+  window.FBC_P1_DECISION_PAYLOAD=p;
+  window.FBC_R_BASELINE_BY_MODE=window.FBC_R_BASELINE_BY_MODE||{};
+
+  if(runContext==='baseline'){
+    window.FBC_R_BASELINE_BY_MODE[mode]=p;
+  }
+
+  const baselinePayload=
+    window.FBC_R_BASELINE_BY_MODE[mode] ||
+    (runContext==='baseline' ? p : null) ||
+    p;
+
   if($('fbcPdfButton'))$('fbcPdfButton').disabled=false;
   if($('fbcRStatus'))$('fbcRStatus').textContent=T('Validierter R-Payload angewendet','Валидированный R-payload применён');
   if($('fbcRunAnalysis'))$('fbcRunAnalysis').textContent=T('Analyse aktualisieren','Обновить анализ');
-  
+
+  renderSensitivity(baselinePayload,mode);
+  renderEconomicsStep2(baselinePayload,mode);
+
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
-  $('fbcRRecommendation').textContent=typeof exp==='string'&&exp?exp:T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
+
+  if($('fbcRRecommendation')){
+    $('fbcRRecommendation').textContent=
+      typeof exp==='string'&&exp
+        ? exp
+        : T('Keine zusätzliche operative Maßnahme aus R ausgegeben.','R не выдал дополнительной операционной меры.');
+  }
+
   renderDecisionDetails(p);
+  renderSobol(p);
+
 const robustness = get(p,'robustness') || {};
 const mcAvailable = robustness?.available === true;
 const mcReason =
