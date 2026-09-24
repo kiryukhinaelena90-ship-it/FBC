@@ -5706,7 +5706,7 @@ layer.innerHTML=`
   </section>
 
 
-  <!-- 6. FINANZIERUNG / LIQUIDITÄT -->
+  <!-- 6. FINANZIERUNG -->
 
   <section class="fbc-analysis-section" id="fbcFinancingSection" hidden>
     <div class="fbc-analysis-heading">
@@ -6088,6 +6088,13 @@ window.FBC_R_RUN_CONTEXT =
   isEvidence ? 'decision' :
   isFinancing ? 'financing' :
   'baseline';
+
+/* Operational P0/P1 runs must stay financing-free. Financing is a separate
+   third calculation launched only from Step 6. */
+if(!isFinancing){
+  fbcFinancingSelected=false;
+  if($('fbcRFinancingCheck'))$('fbcRFinancingCheck').hidden=true;
+}
 
   const progress = $(
     isEvidence
@@ -7066,6 +7073,122 @@ function renderEconomicsStep2(p,mode=activeRMode()){
   section.hidden=false;
 }
 
+function renderSobol(p){
+  const box=$('fbcRSobol');
+  const rowsHost=$('fbcSobolRows');
+  const textHost=$('fbcSobolText');
+  if(!box)return;
+
+  const sob=
+    get(p,'sobol') ??
+    get(p,'sensitivity.sobol') ??
+    get(p,'robustness.sobol');
+
+  if(!sob){
+    box.hidden=true;
+    if(rowsHost)rowsHost.innerHTML='';
+    if(textHost)textHost.textContent='';
+    return;
+  }
+
+  let items=[];
+
+  if(Array.isArray(sob)){
+    items=sob;
+  }else if(Array.isArray(sob?.indices)){
+    items=sob.indices;
+  }else if(Array.isArray(sob?.factors)){
+    items=sob.factors;
+  }else if(Array.isArray(sob?.rows)){
+    items=sob.rows;
+  }else if(sob && typeof sob==='object'){
+    const first=sob.first_order ?? sob.first ?? sob.S1;
+    const total=sob.total_order ?? sob.total ?? sob.ST;
+
+    if(first && typeof first==='object' && !Array.isArray(first)){
+      const keys=new Set([
+        ...Object.keys(first),
+        ...(total && typeof total==='object' && !Array.isArray(total) ? Object.keys(total) : [])
+      ]);
+
+      items=[...keys].map(key=>({
+        factor:key,
+        first_order:first?.[key],
+        total_order:total?.[key]
+      }));
+    }
+  }
+
+  const rowHtml=items.map(item=>{
+    const label=String(
+      item.label ??
+      item.factor ??
+      item.variable ??
+      item.lever ??
+      item.name ??
+      item.key ??
+      ''
+    );
+
+    const first=firstFinite(
+      item.first_order,
+      item.first,
+      item.s1,
+      item.S1,
+      item.main_effect
+    );
+
+    const total=firstFinite(
+      item.total_order,
+      item.total,
+      item.st,
+      item.ST,
+      item.total_effect
+    );
+
+    if(!label || (first===null && total===null))return '';
+
+    const parts=[];
+
+    if(first!==null){
+      parts.push(`S1 ${first.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
+    }
+
+    if(total!==null){
+      parts.push(`ST ${total.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
+    }
+
+    return `<div class="fbc-r-change-row"><span>${esc(label)}</span><b>${esc(parts.join(' · '))}</b></div>`;
+  }).filter(Boolean);
+
+  if(rowsHost)rowsHost.innerHTML=rowHtml.join('');
+
+  const note=
+    typeof sob==='string'
+      ? sob
+      : (sob?.sentence ?? sob?.note ?? sob?.summary ?? '');
+
+  if(textHost){
+    textHost.textContent=String(
+      note ||
+      (
+        rowHtml.length
+          ? T(
+              'S1 zeigt den direkten Einfluss eines Faktors; ST berücksichtigt zusätzlich Wechselwirkungen mit anderen Faktoren.',
+              'S1 показывает прямое влияние фактора; ST дополнительно учитывает взаимодействия с другими факторами.'
+            )
+          : T(
+              'Sobol-Ergebnisse sind im Payload vorhanden, aber nicht in einer unterstützten Struktur aufbereitet.',
+              'Результаты Sobol присутствуют в payload, но имеют неподдерживаемую структуру.'
+            )
+      )
+    );
+  }
+
+  box.hidden=false;
+}
+
+
 function renderDecisionDetails(p){
   const box=$('fbcRChanges');
   const shbox=$('fbcRShapley');
@@ -7191,84 +7314,50 @@ const hasOptimizedDecision =
     if(!existing.includes(extra.trim()))fazitText.textContent=(existing+' '+extra).trim();
   }
 
-  /* Financing / liquidity is a separate branch, never an operating profit lever. */
+  /* Financing is evaluated only after the evidenced P1 decision.
+     It is never an operating profit lever and is not opened from the P0 gap. */
   const dscr=firstFinite(get(p,'post_decision.capital_service_ratio'),get(p,'financing.current.min_capital_service_ratio'),get(p,'financing.dscr'));
   const finActive=payloadFinancingActive(p);
-  const implementationMonths=finiteNumber(get(p,'target_path.implementation_months_max'));
-  const remainingGap=payloadTargetGap(p);
-  const bridgeNeedRaw=finiteNumber(get(p,'target_path.liquidity_bridge_need_eur'));
-  const liquidityBridgeNeed=bridgeNeedRaw!==null && bridgeNeedRaw>0
-    ? bridgeNeedRaw
-    : 0;
-
-  const targetGapFinancing=Number.isFinite(remainingGap) && remainingGap>0
-    ? remainingGap
-    : 0;
-
-  const financingNeed=
-    targetGapFinancing>0
-      ? targetGapFinancing
-      : liquidityBridgeNeed;
+  const runContext=window.FBC_R_RUN_CONTEXT || 'baseline';
+  const decisionGap=finiteNumber(get(p,'recommendation.remaining_gap_eur'));
+  const targetGapFinancing=
+    (runContext==='decision' || runContext==='financing') && decisionGap!==null
+      ? Math.max(0,decisionGap)
+      : 0;
 
   const finSection=$('fbcFinancingSection');
-
-  if($('fbcFinTargetGapDisplay')){
-    $('fbcFinTargetGapDisplay').textContent=money(targetGapFinancing);
-  }
-
-  if($('fbcFinBridgeDisplay')){
-    $('fbcFinBridgeDisplay').textContent=money(liquidityBridgeNeed);
-  }
 
   if($('fbcFinAmount')){
     const amountInput=$('fbcFinAmount');
     amountInput.dataset.targetGap=String(targetGapFinancing);
-    amountInput.dataset.bridgeNeed=String(liquidityBridgeNeed);
+    delete amountInput.dataset.bridgeNeed;
 
     const purpose=$('fbcFinPurpose');
     if(purpose) purpose.value='target_gap';
-    if(amountInput.dataset.userEdited!=='1'){
+
+    /* A fresh P1 decision owns the suggested amount. Once the user starts
+       the separate financing calculation, their entered amount is preserved. */
+    if(runContext==='decision'){
+      amountInput.dataset.userEdited='0';
       window.FBC_APPLY_FINANCING_PURPOSE_AMOUNT?.(true);
     }
   }
 
   if(finSection){
     const financingRelevant=
-      finActive ||
-      targetGapFinancing>0.01 || liquidityBridgeNeed>0.01;
+      runContext==='decision'
+        ? targetGapFinancing>0.01
+        : runContext==='financing'
+          ? finActive
+          : false;
+
     finSection.hidden=!financingRelevant;
 
     const financeCard=$('fbcFinanceCard');
     if(financeCard){
       financeCard.classList.remove('hidden');
     }
-
-    if($('fbcFinancingOpportunityText')){
-      if(finActive){
-        $('fbcFinancingOpportunityText').textContent=T(
-          'Die Finanzierung wurde separat vom operativen Ergebnis berechnet. Unten sehen Sie Belastung, Kosten und Kapitaldienstfähigkeit.',
-          'Финансирование рассчитано отдельно от операционного результата. Ниже показаны нагрузка, расходы и способность обслуживать долг.'
-        );
-      }else if(targetGapFinancing>0.01){
-        $('fbcFinancingOpportunityText').textContent=T(
-          `Nach den bestätigten operativen Änderungen verbleibt eine Ziellücke von ${money(targetGapFinancing)}. FBC schlägt diesen Betrag als Finanzierung zur Zielüberbrückung vor. Der Kredit wird separat vom operativen Ergebnis ausgewiesen und seine Rückzahlungsbelastung wird geprüft.`,
-          `После подтверждённых операционных изменений остаётся разрыв до цели ${money(targetGapFinancing)}. FBC предлагает эту сумму как финансирование для перекрытия разрыва до цели. Кредит показывается отдельно от операционного результата, а его платёжная нагрузка проверяется.`
-        );
-      }else if(liquidityBridgeNeed>0.01){
-        const timing=Number.isFinite(implementationMonths)&&implementationMonths>0
-          ? T(` Die bestätigte Umsetzung benötigt bis zu ${fmtNum(implementationMonths,0)} Monate.`,` Подтверждённое внедрение требует до ${fmtNum(implementationMonths,0)} мес.`)
-          : '';
-        $('fbcFinancingOpportunityText').textContent=T(
-          `Das Nettoziel wird operativ erreicht, aber bis zur vollständigen Umsetzung entsteht ein vorübergehender Liquiditätsbedarf von ${money(liquidityBridgeNeed)}.${timing} FBC schlägt diesen Betrag als Überbrückungsfinanzierung vor.`,
-          `Операционно цель по нетто достигается, но до полного внедрения возникает временная потребность в ликвидности ${money(liquidityBridgeNeed)}.${timing} FBC предлагает эту сумму как переходное финансирование.`
-        );
-      }else{
-        $('fbcFinancingOpportunityText').textContent=T(
-          'Aktuell besteht weder eine verbleibende Ziellücke noch ein berechneter vorübergehender Liquiditätsbedarf. Eine eigene Finanzierung kann trotzdem separat geprüft werden.',
-          'Сейчас нет ни оставшегося разрыва до цели, ни рассчитанной временной потребности в ликвидности. При необходимости можно отдельно проверить собственный вариант финансирования.'
-        );
-      }
-    }
+  }
 
 const debtBox=$('fbcRFinancingCheck');
 const finCurrent=get(p,'financing.current');
@@ -7399,123 +7488,8 @@ if(debtBox){
     }
   }
 }
-    }
   }
 
-function renderSobol(p){
-  const box=$('fbcRSobol');
-  const rowsHost=$('fbcSobolRows');
-  const textHost=$('fbcSobolText');
-  if(!box)return;
-
-  const sob=
-    get(p,'sobol') ??
-    get(p,'sensitivity.sobol') ??
-    get(p,'robustness.sobol');
-
-  if(!sob){
-    box.hidden=true;
-    if(rowsHost)rowsHost.innerHTML='';
-    if(textHost)textHost.textContent='';
-    return;
-  }
-
-  let items=[];
-
-  if(Array.isArray(sob)){
-    items=sob;
-  }else if(Array.isArray(sob?.indices)){
-    items=sob.indices;
-  }else if(Array.isArray(sob?.factors)){
-    items=sob.factors;
-  }else if(Array.isArray(sob?.rows)){
-    items=sob.rows;
-  }else if(sob && typeof sob==='object'){
-    const first=sob.first_order ?? sob.first ?? sob.S1;
-    const total=sob.total_order ?? sob.total ?? sob.ST;
-
-    if(first && typeof first==='object' && !Array.isArray(first)){
-      const keys=new Set([
-        ...Object.keys(first),
-        ...(total && typeof total==='object' && !Array.isArray(total) ? Object.keys(total) : [])
-      ]);
-
-      items=[...keys].map(key=>({
-        factor:key,
-        first_order:first?.[key],
-        total_order:total?.[key]
-      }));
-    }
-  }
-
-  const rowHtml=items.map(item=>{
-    const label=String(
-      item.label ??
-      item.factor ??
-      item.variable ??
-      item.lever ??
-      item.name ??
-      item.key ??
-      ''
-    );
-
-    const first=firstFinite(
-      item.first_order,
-      item.first,
-      item.s1,
-      item.S1,
-      item.main_effect
-    );
-
-    const total=firstFinite(
-      item.total_order,
-      item.total,
-      item.st,
-      item.ST,
-      item.total_effect
-    );
-
-    if(!label || (first===null && total===null))return '';
-
-    const parts=[];
-
-    if(first!==null){
-      parts.push(`S1 ${first.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
-    }
-
-    if(total!==null){
-      parts.push(`ST ${total.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:3})}`);
-    }
-
-    return `<div class="fbc-r-change-row"><span>${esc(label)}</span><b>${esc(parts.join(' · '))}</b></div>`;
-  }).filter(Boolean);
-
-  if(rowsHost)rowsHost.innerHTML=rowHtml.join('');
-
-  const note=
-    typeof sob==='string'
-      ? sob
-      : (sob?.sentence ?? sob?.note ?? sob?.summary ?? '');
-
-  if(textHost){
-    textHost.textContent=String(
-      note ||
-      (
-        rowHtml.length
-          ? T(
-              'S1 zeigt den direkten Einfluss eines Faktors; ST berücksichtigt zusätzlich Wechselwirkungen mit anderen Faktoren.',
-              'S1 показывает прямое влияние фактора; ST дополнительно учитывает взаимодействия с другими факторами.'
-            )
-          : T(
-              'Sobol-Ergebnisse sind im Payload vorhanden, aber nicht in einer unterstützten Struktur aufbereitet.',
-              'Результаты Sobol присутствуют в payload, но имеют неподдерживаемую структуру.'
-            )
-      )
-    );
-  }
-
-  box.hidden=false;
-}
 
 function applyPayload(p){
   const mode=activeRMode();
