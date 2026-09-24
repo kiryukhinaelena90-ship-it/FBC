@@ -4353,9 +4353,9 @@ if (targetGapMessage && targetGapHeadline) {
   }
 }
   const status=$('#soloStatus');if(!complete){status.textContent=t('Vorläufig','Предварительно');status.className='status-chip'}else if(!goalEntered){status.textContent=t('Aktuelle Kalkulation','Текущий расчёт');status.className='status-chip'}else{status.textContent=a.remainMonth>=a.goal?t('Ziel erreichbar','Цель достигается'):t('Preis reicht noch nicht','Цены пока недостаточно');status.className='status-chip '+(a.remainMonth>=a.goal?'good':'bad')}
-  const scenarioReady=a.billableHours>0;$('#scenarioPrice').disabled=!scenarioReady;if(document.activeElement!==$('#scenarioPrice')){$('#scenarioPrice').value=Math.max(0,Math.min(200,a.price));$('#scenarioPriceOut').textContent=$('#scenarioPrice').value}updateScenario();
+  
 }
-function updateScenario(){const p=num('#scenarioPrice'),a=soloData(p);$('#scenarioPriceOut').textContent=p;$('#scenarioRemain').textContent=euro(a.remainMonth)}
+
 
 function employeeOwnerData(){const weekly=num('#empOwnerHours'),vac=num('#empOwnerVacation'),holidays=holidayDays2026(5),annualHours=Math.max(0,weekly*52-(vac+holidays)*(weekly/5));return{goal:num('#empOwnerGoal'),business:num('#empBusinessCosts'),insurance:num('#empOwnerInsurance'),pension:num('#empOwnerPension'),workMonth:annualHours/12,holidays}}
 function orientation(roleKey,formKey){const role=roles[roleKey]||roles.helper,factor=regions[$('#region').value]?.[1]||1;let low=Math.max(MIN_WAGE,role.range[0]*factor),high=Math.max(low,role.range[1]*factor);if(formKey==='mini')high=Math.max(low,Math.min(high,19.5));if(formKey==='student'){low=Math.max(MIN_WAGE,low*.9);high=Math.max(low,high*.88)}if(formKey==='intern'){low=MIN_WAGE;high=Math.max(low,Math.min(high,18))}return{low,high,mid:(low+high)/2}}
