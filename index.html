@@ -7227,7 +7227,13 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
 }
 async function analyze(analysis={}){
   const url=window.FBC_R_API_URL||'/api/analyze';
-  const req=buildConfig(analysis);
+  const activeMode=
+  document.querySelector('.mode-tab.active')?.dataset.mode||'solo';
+
+const req=
+  activeMode==='solo'
+    ? soloBuildConfig(analysis)
+    : buildConfig(analysis);
 
   const r=await fetch(url,{
     method:'POST',
