@@ -17,8 +17,8 @@ function parseBody(req) {
 function validateRequest(body) {
   const errors = [];
   if (!body || typeof body !== 'object') return ['body_missing'];
-  if (body.schema_version !== REQUEST_SCHEMA) errors.push('schema_version');
-  if (body.mode !== 'owner_employee') errors.push('mode');
+if (!['owner_employee', 'solo'].includes(body.mode)) errors.push('mode');
+  if (!['owner_employee', 'solo'].includes(body.mode)) errors.push('mode');
   for (const key of ['owner', 'employee', 'operating_costs', 'financing']) {
     if (!body[key] || typeof body[key] !== 'object') errors.push(key);
   }
