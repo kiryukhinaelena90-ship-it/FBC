@@ -2875,6 +2875,19 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <span data-de="Keine Eingabe-Speicherung" data-ru="Без сохранения данных">Keine Eingabe-Speicherung</span>
 </div>
   </section>
+  <section id="soloSeoIntro" class="mode-seo-intro">
+  <h2
+    data-de="Reicht mein Stundensatz wirklich aus?"
+    data-ru="Достаточна ли на самом деле моя почасовая ставка?">
+    Reicht mein Stundensatz wirklich aus?
+  </h2>
+
+  <p
+    data-de="FBC zeigt Ihnen, was von Ihrem Umsatz nach Betriebskosten, Absicherung und Steuern wirklich übrig bleibt, ob Ihr aktueller Stundensatz und Ihre abrechenbaren Stunden ausreichen und welchen Umsatz Sie für Ihr gewünschtes monatliches Netto benötigen."
+    data-ru="FBC показывает, сколько реально остаётся от вашей выручки после расходов бизнеса, страхования и налогов, достаточно ли вашей текущей ставки и оплачиваемых клиентами часов и какая выручка нужна для желаемого ежемесячного нетто.">
+    FBC zeigt Ihnen, was von Ihrem Umsatz nach Betriebskosten, Absicherung und Steuern wirklich übrig bleibt, ob Ihr aktueller Stundensatz und Ihre abrechenbaren Stunden ausreichen und welchen Umsatz Sie für Ihr gewünschtes monatliches Netto benötigen.
+  </p>
+</section>
 <section id="employeeSeoIntro" class="mode-seo-intro hidden">
   <h2 data-de="Was kostet mich mein Mitarbeiter wirklich?"
       data-ru="Сколько на самом деле стоит мне сотрудник?">
@@ -4766,8 +4779,9 @@ $$('.mode-tab').forEach(button=>button.addEventListener('click',()=>{
     flow.classList.toggle('hidden',flow.id!==mode);
   });
 
-  $('#employeeSeoIntro')?.classList.toggle('hidden',mode!=='employee');
-  $('#teamSeoIntro')?.classList.toggle('hidden',mode!=='team');
+$('#soloSeoIntro')?.classList.toggle('hidden',mode!=='solo');
+$('#employeeSeoIntro')?.classList.toggle('hidden',mode!=='employee');
+$('#teamSeoIntro')?.classList.toggle('hidden',mode!=='team');
 
   calculateAll();
 }));
