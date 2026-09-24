@@ -4330,6 +4330,28 @@ $('#soloAnnualNet').textContent =
   euro(a.remainMonth * 12);
 
   $('#soloCompleteness').textContent=complete?t('Berechnung vollständig. Änderungen werden sofort übernommen.','Расчёт заполнен. Все изменения учитываются сразу.'):t('Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.','Предварительный результат · недостающие данные можно добавить в любой момент.');
+  const targetGapMessage = $('#soloTargetGapMessage');
+const targetGapHeadline = $('#soloTargetGapHeadline');
+
+if (targetGapMessage && targetGapHeadline) {
+  if (goalEntered) {
+    const targetGap = a.goal - a.remainMonth;
+
+    targetGapMessage.classList.remove('hidden');
+
+    targetGapHeadline.textContent = targetGap > 0
+      ? t(
+          `Zum gewünschten Nettoziel fehlen aktuell ${euro(targetGap)} pro Monat.`,
+          `До желаемого чистого дохода сейчас не хватает ${euro(targetGap)} в месяц.`
+        )
+      : t(
+          `Das gewünschte Nettoziel wird aktuell um ${euro(Math.abs(targetGap))} pro Monat übertroffen.`,
+          `Желаемый чистый доход сейчас превышен на ${euro(Math.abs(targetGap))} в месяц.`
+        );
+  } else {
+    targetGapMessage.classList.add('hidden');
+  }
+}
   const status=$('#soloStatus');if(!complete){status.textContent=t('Vorläufig','Предварительно');status.className='status-chip'}else if(!goalEntered){status.textContent=t('Aktuelle Kalkulation','Текущий расчёт');status.className='status-chip'}else{status.textContent=a.remainMonth>=a.goal?t('Ziel erreichbar','Цель достигается'):t('Preis reicht noch nicht','Цены пока недостаточно');status.className='status-chip '+(a.remainMonth>=a.goal?'good':'bad')}
   const scenarioReady=a.billableHours>0;$('#scenarioPrice').disabled=!scenarioReady;if(document.activeElement!==$('#scenarioPrice')){$('#scenarioPrice').value=Math.max(0,Math.min(200,a.price));$('#scenarioPriceOut').textContent=$('#scenarioPrice').value}updateScenario();
 }
