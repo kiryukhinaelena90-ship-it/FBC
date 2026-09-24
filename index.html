@@ -1,4 +1,4 @@
-<!doctype html>   
+<!doctype html>  
 <head>
 <!-- FBC V7.2 Type System + Decision Preview · visual redesign + audit fixes · 2026-08-31 -->
   <meta charset="utf-8">
@@ -90,7 +90,8 @@ input::placeholder{color:#b8b0a8;opacity:1}
 
 /* User input: warm and editable. Native number steppers are intentionally hidden. */
 .field input,.team-row input,.cost-lines input{background:#fff9f3;border-color:#d8c7b8}
-#employeeOwnerGoalBlock{
+#employeeOwnerGoalBlock,
+#ownerMonthlyGoalBlock{
   display:block!important;
   width:100%!important;
   max-width:none!important;
@@ -102,17 +103,20 @@ input::placeholder{color:#b8b0a8;opacity:1}
   box-shadow:none!important;
 }
 
-#employeeOwnerGoalBlock > .field{
+#employeeOwnerGoalBlock > .field,
+#ownerMonthlyGoalBlock > .field{
   width:100%!important;
   max-width:none!important;
 }
 
-#employeeOwnerGoalBlock .unit{
+#employeeOwnerGoalBlock .unit,
+#ownerMonthlyGoalBlock .unit{
   width:max-content!important;
   max-width:100%!important;
 }
 
-#employeeOwnerGoalBlock #empOwnerGoal{
+#employeeOwnerGoalBlock #empOwnerGoal,
+#ownerMonthlyGoalBlock #soloGoal{
   width:100px!important;
   max-width:100px!important;
   flex:0 0 100px!important;
@@ -1627,18 +1631,6 @@ input::placeholder{color:#aab4bd!important}
   margin-top:0;
 }
 
-#solo .solo-billable-row{
-  display:grid;
-  grid-template-columns:minmax(260px,360px);
-  margin-top:14px;
-}
-
-#solo .result-goal-row{
-  margin:16px 0;
-  padding:16px;
-  border-radius:14px;
-}
-
 #solo .annual-result-card{
   margin-top:16px;
 }
@@ -3024,29 +3016,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <span id="soloTimeInfo">—</span>
 </div>
 
-<div class="solo-billable-row">
-  <label class="field">
-    <span
-      data-de="Abgerechnete Kundenstunden / Monat"
-      data-ru="Оплачиваемые клиентами часы / месяц">
-      Abgerechnete Kundenstunden / Monat
-    </span>
-
-    <input
-      id="soloBillableHoursMonth"
-      type="number"
-      min="0"
-      step="0.1"
-      placeholder="0">
-
-    <small
-      data-de="Summe der im Monat tatsächlich berechneten Kundenstunden. Kein automatisches Limit durch die Zeit-Orientierung."
-      data-ru="Сумма часов, фактически выставленных клиентам за месяц. Значение автоматически не ограничивается ориентиром рабочего времени.">
-      Summe der im Monat tatsächlich berechneten Kundenstunden. Kein automatisches Limit durch die Zeit-Orientierung.
-    </small>
-  </label>
-</div>
-
 </article>
 
     <article class="card" tabindex="0">
@@ -3276,7 +3245,13 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?
 </span>
   <div class="unit">
-<input id="soloGoal" type="number" min="0" placeholder="0">
+<input id="soloGoal"
+       class="decimal-input"
+       type="text"
+       inputmode="decimal"
+       data-valid-min="0"
+       placeholder="0"
+       style="width:100px!important;max-width:100px!important;flex:0 0 100px!important;">
 <b>€</b>
 </div>
 <small class="goal-explainer"
@@ -3291,58 +3266,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 <small id="soloCompleteness" data-de="Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen." data-ru="Предварительный результат · недостающие данные можно добавить в любой момент.">Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.</small>
 </label>
 </div>
-      <div class="price-result-section">
-<div class="price-result-heading">
-<small data-de="STUNDENSATZ · ORIENTIERUNG" data-ru="СТАВКА · ОРИЕНТИР">PREISEMPFEHLUNG · MONATSZIEL</small>
-<h3 data-de="Welcher Stundensatz ist erforderlich?" data-ru="Какая ставка необходима?">So entsteht Ihre Preisempfehlung</h3>
-<p data-de="Auch ohne Monatsziel sehen Sie den kostendeckenden Stundensatz. Mit Monatsziel wird daraus der erforderliche Stundensatz für Ihren gewünschten verfügbaren Betrag." data-ru="Даже без месячной цели показывается ставка, покрывающая расходы. С месячной целью рассчитывается ставка для желаемой доступной суммы.">Wir vergleichen Ihren aktuellen Netto-Umsatz mit dem Netto-Umsatz, den Sie für Ihr Monatsziel tatsächlich benötigen.</p>
-</div>
-<div id="soloRecommendationBridge" class="recommendation-bridge hidden">
-<div><small data-de="Aktueller Kundenumsatz netto / Monat" data-ru="Текущая выручка без НДС / месяц">Aktueller Kundenumsatz netto / Monat</small><strong id="soloBridgeCurrent">—</strong></div>
-<span>→</span>
-<div class="bridge-gap"><small id="soloBridgeGapLabel" data-de="Zusätzlich erforderlich" data-ru="Дополнительно необходимо">Zusätzlich erforderlich</small><strong id="soloBridgeGap">—</strong></div>
-<span>=</span>
-<div class="bridge-required"><small data-de="Erforderlicher Kundenumsatz netto / Monat" data-ru="Необходимая выручка без НДС / месяц">Erforderlicher Kundenumsatz netto / Monat</small><strong id="soloBridgeRequired">—</strong></div>
-</div>
-<div id="soloRecommendationDetails" class="recommendation-details hidden">
-<div><small data-de="Betriebskosten" data-ru="Расходы бизнеса">Betriebskosten</small><strong id="soloBridgeBusiness">—</strong></div>
-<div><small data-de="Private Absicherung" data-ru="Личное страхование">Private Absicherung</small><strong id="soloBridgeProtection">—</strong></div>
-<div><small data-de="Steuern · Orientierung" data-ru="Налоги · ориентир">Steuern · Orientierung</small><strong id="soloBridgeTaxes">—</strong></div>
-<div><small data-de="Gewünschter verfügbarer Betrag" data-ru="Желаемая доступная сумма">Gewünschter verfügbarer Betrag</small><strong id="soloBridgeGoal">—</strong></div>
-</div>
-<p id="soloRecommendationNote" class="recommendation-note hidden" data-de="Wichtig: Alle Beträge in dieser Übersicht sind netto, also ohne Umsatzsteuer. Die USt wird erst danach auf den empfohlenen Netto-Stundenpreis aufgeschlagen und ist kein Einkommen." data-ru="Важно: все суммы в этом обзоре указаны без НДС. НДС добавляется только затем к рекомендуемой цене часа и не является доходом.">Wichtig: Alle Beträge in dieser Übersicht sind netto, also ohne Umsatzsteuer. Die USt wird erst danach auf den empfohlenen Netto-Stundenpreis aufgeschlagen und ist kein Einkommen.</p>
-<label class="field vat-choice compact-vat-choice">
-<span data-de="USt-Satz für diese Kalkulation" data-ru="Ставка НДС для этого расчёта">USt-Satz für diese Kalkulation</span>
-<select id="soloVatMode" class="vat-mode-select">
-<option value="standard" data-de="Regelsteuersatz · 19 %" data-ru="Обычная ставка · 19 %">Regelsteuersatz · 19 %</option>
-<option value="reduced" data-de="Ermäßigter Steuersatz · 7 %" data-ru="Льготная ставка · 7 %">Ermäßigter Steuersatz · 7 %</option>
-</select>
-</label>
-<div class="price-equation compact solo-price-equation">
-<div><small id="soloRequiredNetLabel" data-de="Mindeststundensatz netto / Std." data-ru="Минимальная ставка нетто / ч">Mindeststundensatz netto / Std.</small><strong id="soloRequiredPrice">—</strong></div>
-<span>+</span>
-<div><small id="soloRequiredVatLabel">USt · 19 %</small><strong id="soloRequiredVat">—</strong></div>
-<span>=</span>
-<div class="price-gross"><small id="soloRequiredGrossLabel" data-de="Mindestpreis brutto / Std." data-ru="Минимальная цена брутто / ч">Mindestpreis brutto / Std.</small><strong id="soloRequiredGross">—</strong></div>
-</div>
-<small id="soloVatResult" class="price-explainer">—</small>
-</div>
-      <div class="scenario-panel">
-<div>
-<span class="free-badge" data-de="WAS WÄRE, WENN?" data-ru="А ЧТО, ЕСЛИ?">WAS WÄRE, WENN?</span>
-<h3 data-de="Testen Sie einen anderen Preis" data-ru="Проверьте другую цену">Testen Sie einen anderen Preis</h3>
-<p class="scenario-gesture" data-de="↔ HIER ZIEHEN · Das Ergebnis ändert sich sofort" data-ru="↔ ДВИГАЙТЕ ЗДЕСЬ · Результат изменится сразу">↔ HIER ZIEHEN · Das Ergebnis ändert sich sofort</p>
-</div>
-<label class="scenario-slider">
-<span data-de="Preis im Szenario" data-ru="Цена в сценарии">Preis im Szenario</span>
-<input id="scenarioPrice" type="range" min="0" max="200" value="0" disabled>
-<b>
-<span id="scenarioPriceOut">0</span> €</b>
-</label>
-<div class="scenario-answer">
-<small data-de="Dann bleibt bei dieser Arbeitszeit / Monat" data-ru="Тогда при этом рабочем времени останется / месяц">Dann bleibt bei dieser Arbeitszeit / Monat</small>
-<strong id="scenarioRemain">0,00 €</strong>
-</div>
+      
 </div>
     </article>
   </section>
@@ -3587,6 +3511,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
        class="decimal-input"
        type="text"
        inputmode="decimal"
+       data-valid-min="0"
        placeholder="0"
        style="width:100px!important;max-width:100px!important;flex:0 0 100px!important;">
 <b>€</b>
@@ -4175,6 +4100,8 @@ function soloStarted(){
     '#soloBillableHoursMonth',
     '#costOffice',
     '#costVehicle',
+    '#costFuel',
+'#costEnergy',
     '#costSoftware',
     '#costAccounting',
     '#costInsurance',
@@ -4191,15 +4118,27 @@ function soloStarted(){
 function teamReady(){const rows=$$('#teamRows .team-row');return hasInput('#teamOwnerNeed')&&rows.length>0&&rows.some(row=>String(row.querySelector('.team-wage').value).trim()!==''&&String(row.querySelector('.team-hours').value).trim()!=='')&&($('#legalForm').value!=='sole_trade'||hasInput('#tradeTaxRate'))}
 function zero(ids){ids.forEach(id=>{const element=$(id);if(element)element.textContent=euro(0)})}
 function pendingCard(id,pending=true){const card=$(id)?.closest('.result-card');if(card)card.classList.toggle('pending-result',pending)}
-function setSoloPending(){zero(['#soloResPrice','#soloTotalCosts','#soloResCost','#soloResRemainHour','#soloResRemainMonth','#soloProfitBeforeTax','#soloIncomeTax','#soloTradeTax','#soloTaxesTotal','#scenarioRemain']);updatePriceEquation(0,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},false);['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.add('hidden'));$('#soloVatResult').textContent=t('Bitte zuerst die markierten Felder ausfüllen.','Сначала заполните отмеченные поля.');$('#soloStatus').textContent=t('Eingaben fehlen','Нужны данные');$('#soloStatus').className='status-chip';$('#scenarioPrice').value=0;$('#scenarioPrice').disabled=true;$('#scenarioPriceOut').textContent='0';pendingCard('#soloResPrice',true)}
-function setEmployeePending(){
-  zero(['#empGross','#empAddons','#empWorkHour','#empRevenue','#empTotal','#empContribution','#companyOwnerNeed','#companyBusiness','#companyProtection','#companyEmployee','#companyTaxes','#companyTotal','#companyEmployeeRevenue','#companyRemaining']);
-  if($('#empContributionNote')) $('#empContributionNote').textContent=t('Bitte zuerst Lohn, Stunden und Kundenpreis eingeben.','Сначала введите ставку, часы и цену клиенту.');
-  if($('#companyTaxDetail')) $('#companyTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');
-  $('#empWarning')?.classList.add('hidden');
-  $('#empTargetGapMessage')?.classList.add('hidden');
-  pendingCard('#empGross',true);
-  pendingCard('#companyOwnerNeed',true);
+function setSoloPending(){
+  zero([
+    '#soloResPrice',
+    '#soloTotalCosts',
+    '#soloResCost',
+    '#soloResRemainHour',
+    '#soloResRemainMonth',
+    '#soloProfitBeforeTax',
+    '#soloIncomeTax',
+    '#soloTradeTax',
+    '#soloTaxesTotal'
+  ]);
+
+  $('#soloStatus').textContent=t(
+    'Eingaben fehlen',
+    'Нужны данные'
+  );
+
+  $('#soloStatus').className='status-chip';
+
+  pendingCard('#soloResPrice',true);
 }
 function setTeamPending(){zero(['#teamGross','#teamAddons','#teamOwnerBusiness','#teamBurden','#teamTaxes','#teamRevenue','#teamRate','#teamScenarioRemain']);$('#teamOwnerBreakdown').textContent=euro(0);$('#teamTaxDetail').textContent=t('Noch keine Berechnung.','Расчёта пока нет.');$('#teamVat').textContent=t('Bitte zuerst mindestens eine Rolle ausfüllen.','Сначала заполните хотя бы одну роль.');$('#teamScenarioPrice').disabled=true;$('#teamScenarioPrice').value=0;$('#teamScenarioPriceOut').textContent='0';pendingCard('#teamGross',true)}
 
@@ -4348,10 +4287,8 @@ function updateSolo(){
   $('#soloTimeInfo').textContent=t(`ca. ${a.time.workMonth.toFixed(1)} Arbeitsstunden pro Monat nach Urlaub und Feiertagen. ${holidayInfo(a.time.days)}`,`примерно ${a.time.workMonth.toFixed(1)} рабочих часов в месяц после отпуска и праздников. ${holidayInfo(a.time.days)}`);
   $('.pension-fixed').classList.toggle('hidden',a.pension.mode!=='fixed');
   $('#pensionInfo').textContent=a.pension.mode==='statutory'?t(`${euro(a.pension.monthly)} / Monat als vereinfachte Orientierung aus dem aktuellen Gewinn (${euro(a.profitBeforeTax)}). Maßgeblich ist grundsätzlich das nachgewiesene Arbeitseinkommen.`,`${euro(a.pension.monthly)} / месяц — упрощённый ориентир от текущей прибыли (${euro(a.profitBeforeTax)}). Официально учитывается подтверждённый Arbeitseinkommen.`):a.pension.mode==='standard'?t(`${euro(a.pension.monthly)} / Monat als aktueller Regelbeitrag.`,`${euro(a.pension.monthly)} / месяц — актуальный стандартный взнос.`):a.pension.mode==='fixed'?t(`${euro(a.pension.monthly)} / Monat nach Ihrer Eingabe.`,`${euro(a.pension.monthly)} / месяц по вашему вводу.`):t('Kein Vorsorgebetrag in dieser Orientierung.','Пенсионный взнос в этом ориентире не учтён.');
-  $('#soloResPrice').textContent=euro(a.revenue);$('#soloTotalCosts').textContent=euro(a.allCosts);$('#soloResCost').textContent=euro(a.revenue-a.allCosts);$('#soloResRemainHour').textContent=euro(a.taxMonth);$('#soloResRemainMonth').textContent=euro(a.remainMonth);$('#soloBusinessCurrent').textContent=euro(a.business);$('#soloProtectionCurrent').textContent=euro(a.personal);$('#soloProfitBeforeTax').textContent=euro(a.allCosts);$('#soloTaxDetail').textContent=taxText(a.tax);
-  const bridgeReady=goalEntered&&a.time.workMonth>0,gap=a.requiredPlan.revenue-a.revenue,requiredProtection=num('#ownerInsurance')+a.requiredPlan.pension.monthly;
-  ['#soloRecommendationBridge','#soloRecommendationDetails','#soloRecommendationNote'].forEach(id=>$(id)?.classList.toggle('hidden',!bridgeReady));
-  if(bridgeReady){$('#soloBridgeCurrent').textContent=euro(a.revenue);$('#soloBridgeRequired').textContent=euro(a.requiredPlan.revenue);$('#soloBridgeGap').textContent=euro(Math.abs(gap));$('#soloBridgeGapLabel').textContent=gap>=0?t('Zusätzlich erforderlich','Дополнительно необходимо'):t('Über dem erforderlichen Umsatz','Сверх необходимой выручки');$('#soloBridgeBusiness').textContent=euro(a.business);$('#soloBridgeProtection').textContent=euro(requiredProtection);$('#soloBridgeTaxes').textContent=euro(a.requiredPlan.taxMonth);$('#soloBridgeGoal').textContent=euro(a.goal)}
+  $('#soloResPrice').textContent=euro(a.revenue);$('#soloTotalCosts').textContent=euro(a.allCosts);$('#soloResCost').textContent=euro(a.revenue-a.allCosts);$('#soloResRemainHour').textContent=euro(a.taxMonth);$('#soloResRemainMonth').textContent=euro(a.remainMonth);$('#soloBusinessCurrent').textContent=euro(a.business);$('#soloProtectionCurrent').textContent=euro(a.personal);$('#soloProfitBeforeTax').textContent=euro(a.profitBeforeTax);$('#soloTaxDetail').textContent=taxText(a.tax);
+  
 updateAnnualTurnover('#soloAnnualTurnover',a.revenue*12);
   $('#soloAnnualBusinessCosts').textContent =
   euro(a.business * 12);
@@ -4367,13 +4304,10 @@ $('#soloAnnualTaxes').textContent =
 
 $('#soloAnnualNet').textContent =
   euro(a.remainMonth * 12);
-updatePriceEquation(a.required,{net:'#soloRequiredPrice',vat:'#soloRequiredVat',gross:'#soloRequiredGross',label:'#soloRequiredVatLabel'},a.time.workMonth>0);
-  $('#soloRequiredNetLabel').textContent=goalEntered?t('Erforderlicher Kundenpreis netto / Std.','Необходимая цена клиенту нетто / ч'):t('Mindeststundensatz netto / Std.','Минимальная ставка нетто / ч');
-  $('#soloRequiredGrossLabel').textContent=goalEntered?t('Empfohlener Rechnungspreis / Std.','Рекомендуемая цена счёта / ч'):t('Mindestpreis brutto / Std.','Минимальная цена брутто / ч');
-  $('#soloVatResult').textContent=goalEntered?t('Erforderlicher Stundensatz für Ihr Monatsziel: Betriebskosten, Absicherung, geschätzte persönliche Steuern und gewünschter verfügbarer Betrag sind berücksichtigt.','Необходимая ставка для месячной цели: учтены расходы бизнеса, страхование, ориентировочные личные налоги и желаемая доступная сумма.'):t('Mindeststundensatz zur Kostendeckung: berücksichtigt Betriebskosten, Absicherung und geschätzte Steuern. Persönliches Monatsziel noch nicht enthalten.','Минимальная ставка для покрытия затрат: учитывает расходы бизнеса, страхование и ориентировочные налоги. Личная месячная цель ещё не включена.');
+
   $('#soloCompleteness').textContent=complete?t('Berechnung vollständig. Änderungen werden sofort übernommen.','Расчёт заполнен. Все изменения учитываются сразу.'):t('Vorläufiges Ergebnis · Fehlende Angaben können Sie jederzeit ergänzen.','Предварительный результат · недостающие данные можно добавить в любой момент.');
   const status=$('#soloStatus');if(!complete){status.textContent=t('Vorläufig','Предварительно');status.className='status-chip'}else if(!goalEntered){status.textContent=t('Aktuelle Kalkulation','Текущий расчёт');status.className='status-chip'}else{status.textContent=a.remainMonth>=a.goal?t('Ziel erreichbar','Цель достигается'):t('Preis reicht noch nicht','Цены пока недостаточно');status.className='status-chip '+(a.remainMonth>=a.goal?'good':'bad')}
-  const scenarioReady=a.time.workMonth>0;$('#scenarioPrice').disabled=!scenarioReady;if(document.activeElement!==$('#scenarioPrice')){$('#scenarioPrice').value=Math.max(0,Math.min(200,a.price));$('#scenarioPriceOut').textContent=$('#scenarioPrice').value}updateScenario();
+  const scenarioReady=a.billableHours>0;$('#scenarioPrice').disabled=!scenarioReady;if(document.activeElement!==$('#scenarioPrice')){$('#scenarioPrice').value=Math.max(0,Math.min(200,a.price));$('#scenarioPriceOut').textContent=$('#scenarioPrice').value}updateScenario();
 }
 function updateScenario(){const p=num('#scenarioPrice'),a=soloData(p);$('#scenarioPriceOut').textContent=p;$('#scenarioRemain').textContent=euro(a.remainMonth)}
 
@@ -6256,6 +6190,81 @@ function financing(){
     trade_tax_rate:num('tradeTaxRate')
   };
 }
+  function soloSnapshot(){
+  const time=workTime();
+
+  const costs={
+    office:num('#costOffice'),
+    vehicle:num('#costVehicle'),
+    fuel:num('#costFuel'),
+    energy:num('#costEnergy'),
+    software:num('#costSoftware'),
+    accounting:num('#costAccounting'),
+    insurance:num('#costInsurance'),
+    material:num('#costMaterial'),
+    marketing:num('#costMarketing'),
+    other:num('#costOther')
+  };
+
+  const price=num('#soloPrice');
+  const billableHours=num('#soloBillableHoursMonth');
+
+  const ownerRevenue=
+    price * billableHours;
+
+  const operating=
+    Object.values(costs).reduce((a,b)=>a+b,0);
+
+  return{
+    schema_version:'FBC_P0_FACTUAL_1.0',
+
+    errors:[],
+
+    owner:{
+      price:price,
+      hours_week:num('#soloHours'),
+      days_week:num('#soloDays')||5,
+      vacation_days:num('#soloVacation'),
+      available_hours_month:time.workMonth,
+      billable_hours_month:billableHours,
+      monthly_target:num('#soloGoal'),
+      insurance_month:num('#ownerInsurance'),
+      pension_mode:$('#pensionMode')?.value||'none',
+      pension_fixed_month:num('#pensionFixed'),
+      holidays:time.holidays||0
+    },
+
+    employee:{
+      form:'part',
+      wage_hour:0,
+      hours_week:0,
+      days_week:5,
+      vacation_days:0,
+      direct_billing:false,
+      customer_price:0,
+      paid_available_hours_month:0,
+      billable_hours_month:0,
+      personnel_cost_month:0,
+      employer_addon_rate:0,
+      holidays:0
+    },
+
+    operating_costs:costs,
+
+    financing:financing(),
+
+    current:{
+      owner_revenue:ownerRevenue,
+      employee_revenue:0,
+      revenue:ownerRevenue,
+      operating_costs:operating,
+      personnel_cost:0
+    },
+
+    legal_form:$('#legalForm')?.value||'freelance',
+    trade_tax_rate:num('#tradeTaxRate')
+  };
+}
 function readDecisionEvidence(){
   const s=snapshot();
   const confirmed_bounds={}, cost_evidence={};
@@ -6341,7 +6350,62 @@ function readDecisionEvidence(){
 
   return {confirmed_bounds,cost_evidence};
 }
+function soloBuildConfig(analysis={}){
+  const s=soloSnapshot();
 
+  if(s.errors.length){
+    throw new Error(s.errors.join(', '));
+  }
+
+  return{
+    schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',
+    fbc_version:'FBC_USER_BASE_R1',
+    locale:RU()?'ru':'de',
+
+    mode:'solo',
+
+    objective_mode:
+      analysis.objective_mode||'grow_to_target',
+
+    owner:s.owner,
+    employee:s.employee,
+    operating_costs:s.operating_costs,
+    financing:s.financing,
+
+    legal_form:s.legal_form,
+    trade_tax_rate:s.trade_tax_rate,
+
+    confirmed_bounds:
+      analysis.confirmed_bounds??{},
+
+    cost_evidence:
+      analysis.cost_evidence??{},
+
+    mc_file:
+      analysis.mc_file??null,
+
+    horizon_months:
+      analysis.horizon_months??12,
+
+    post_target_months:
+      analysis.post_target_months??6,
+
+    variable_cost_keys:
+      analysis.variable_cost_keys??[],
+
+    mc_provenance:
+      analysis.mc_provenance??{},
+
+    demand_evidence:
+      analysis.demand_evidence??{},
+
+    min_target_probability:
+      analysis.min_target_probability??null,
+
+    min_debt_service_ratio:
+      analysis.min_debt_service_ratio??null
+  };
+}
 function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
 window.FBC_P0_PRODUCTION_BRIDGE={snapshot,financing,buildConfig,status:()=>{const s=snapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}};
 window.FBC_P1_PRODUCTION_BRIDGE={buildConfig,renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
@@ -7124,7 +7188,13 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
 }
 async function analyze(analysis={}){
   const url=window.FBC_R_API_URL||'/api/analyze';
-  const req=buildConfig(analysis);
+  const activeMode=
+  document.querySelector('.mode-tab.active')?.dataset.mode||'solo';
+
+const req=
+  activeMode==='solo'
+    ? soloBuildConfig(analysis)
+    : buildConfig(analysis);
 
   const r=await fetch(url,{
     method:'POST',
