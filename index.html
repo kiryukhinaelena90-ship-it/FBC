@@ -92,6 +92,7 @@ input::placeholder{color:#b8b0a8;opacity:1}
 .field input,.team-row input,.cost-lines input{background:#fff9f3;border-color:#d8c7b8}
 #employeeOwnerGoalBlock,
 #ownerMonthlyGoalBlock{
+#teamOwnerGoalBlock{
   display:block!important;
   width:100%!important;
   max-width:none!important;
@@ -103,10 +104,11 @@ input::placeholder{color:#b8b0a8;opacity:1}
   box-shadow:none!important;
 }
 
-#employeeOwnerGoalBlock > .field,
-#ownerMonthlyGoalBlock > .field{
-  width:100%!important;
-  max-width:none!important;
+#employeeOwnerGoalBlock .unit,
+#ownerMonthlyGoalBlock .unit,
+#teamOwnerGoalBlock .unit{
+  width:max-content!important;
+  max-width:100%!important;
 }
 
 #employeeOwnerGoalBlock .unit,
@@ -116,13 +118,13 @@ input::placeholder{color:#b8b0a8;opacity:1}
 }
 
 #employeeOwnerGoalBlock #empOwnerGoal,
-#ownerMonthlyGoalBlock #soloGoal{
+#ownerMonthlyGoalBlock #soloGoal,
+#teamOwnerGoalBlock #teamOwnerNeed{
   width:100px!important;
   max-width:100px!important;
   flex:0 0 100px!important;
 }
 .team-labels,.team-row{grid-template-columns:1.3fr 1.2fr .72fr .65fr .82fr 36px}
-.result-goal-row.team-goals{grid-template-columns:repeat(2,minmax(240px,1fr));max-width:none}
 @media(max-width:900px){.team-labels{display:none}.team-row{grid-template-columns:1fr 1fr}.team-orientation{grid-column:1/-1}}
 @media(max-width:600px){.team-row,.result-goal-row.team-goals{grid-template-columns:1fr}}
 
@@ -3814,14 +3816,20 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <div class="annual-result-row"><span data-de="Steuern · Orientierung / Jahr" data-ru="Налоги · ориентир / год">Steuern · Orientierung / Jahr</span><strong id="teamAnnualTaxes">—</strong></div>
   <div class="annual-result-row annual-result-final"><span data-de="Netto verfügbar / Jahr" data-ru="Доступно нетто / год">Netto verfügbar / Jahr</span><strong id="teamAnnualNet">—</strong></div>
 </div>
-<div class="result-goal-row team-goals">
+<div id="teamOwnerGoalBlock" class="result-goal-row">
 <label class="field">
 <span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
       data-ru="Сколько вы хотите реально оставлять себе каждый месяц?">
   Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?
 </span>
 <div class="unit">
-<input id="teamOwnerNeed" class="decimal-input" type="text" inputmode="decimal" placeholder="0">
+<input id="teamOwnerNeed"
+       class="decimal-input"
+       type="text"
+       inputmode="decimal"
+       data-valid-min="0"
+       placeholder="0"
+       style="width:100px!important;max-width:100px!important;flex:0 0 100px!important;">
 <b>€</b>
 </div>
 <small data-de="Der Betrag, der nach Betriebskosten, Absicherung und geschätzten Steuern verfügbar bleiben soll." data-ru="Сумма, которая должна остаться после расходов бизнеса, страхования и расчётных налогов.">Der Betrag, der nach Betriebskosten, Absicherung und geschätzten Steuern verfügbar bleiben soll.</small>
