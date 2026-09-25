@@ -5814,7 +5814,15 @@ function activeRMode(){
 }
 
 function activeCockpitSnapshot(mode=activeRMode()){
-  return mode==='solo' ? soloSnapshot() : snapshot();
+  if(mode==='solo'){
+    return soloSnapshot();
+  }
+
+  if(mode==='team'){
+    return teamSnapshot();
+  }
+
+  return snapshot();
 }
 
 function payloadTargetGap(p,s=activeCockpitSnapshot()){
@@ -5883,21 +5891,7 @@ function clearSensitivityDisplay(){
   }
 }
 
-function syncRModeUI(mode=activeRMode()){
-  const layer=$('fbcRLayer');
-  const pdf=$('fbcPdfBar') || document.querySelector('.fbc-pdfbar');
-
-  const host=
-    mode==='solo'
-      ? ($('soloRMount') || $('solo'))
-      : mode==='employee'
-        ? ($('employeeRMount') || $('employee'))
-        : null;
-
-  if(host){
-    if(layer && layer.parentElement!==host) host.appendChild(layer);
-    if(pdf && pdf.parentElement!==host) host.appendChild(pdf);
-  }
+function syncRModeUI
 
   if(layer) layer.classList.toggle('hidden', !host);
   if(pdf) pdf.classList.toggle('hidden', !host);
@@ -5909,15 +5903,26 @@ window.FBC_SYNC_R_MODE_UI=syncRModeUI;
 function ensureRUI(){
   const solo=$('solo');
   const emp=$('employee');
+  const team=$('team');
 
-  if((!solo&&!emp)||$('fbcRLayer')){
+  if(
+    (!solo&&!emp&&!team) ||
+    $('fbcRLayer')
+  ){
     syncRModeUI();
     return;
   }
 
-  const initialHost=activeRMode()==='solo'
-    ? ($('soloRMount') || solo)
-    : ($('employeeRMount') || emp);
+  const mode=activeRMode();
+
+  const initialHost=
+    mode==='solo'
+      ? ($('soloRMount') || solo)
+      : mode==='employee'
+        ? ($('employeeRMount') || emp)
+        : ($('teamRMount') || team);
+
+  const layer=document.createElement('article');
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
 layer.innerHTML=`
   <div class="section-kicker">
@@ -6399,9 +6404,9 @@ layer.innerHTML=`
     </div>
   </div>
 `;
-  (initialHost||emp||solo).appendChild(layer);
+  (initialHost||team||emp||solo).appendChild(layer);
 
-  [solo,emp].filter(Boolean).forEach(host=>{
+  [solo,emp,team].filter(Boolean).forEach(host=>{
     if(host.dataset.fbcRInvalidationBound)return;
     host.dataset.fbcRInvalidationBound='1';
     ['input','change'].forEach(eventName=>{
@@ -6635,7 +6640,7 @@ await runRAnalysis('fbcRunFinancing');
   });
 }
 
-  const pdf=document.createElement('div');pdf.id='fbcPdfBar';pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;(initialHost||emp||solo).appendChild(pdf);
+  const pdf=document.createElement('div');pdf.id='fbcPdfBar';pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;(initialHost||team||emp||solo).appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{if(!window.FBC_R_ANALYSIS_PAYLOAD)return;renderPdfReport();window.print()});
   syncRModeUI(activeRMode());
 async function runRAnalysis(sourceId='fbcRunAnalysis'){
@@ -7021,6 +7026,171 @@ function financing(){
 
     legal_form:$('legalForm')?.value||'freelance',
     trade_tax_rate:num('tradeTaxRate')
+  };
+}
+  function teamSnapshot(){
+  const time=modeTime('team');
+
+  const costs={
+    office:num('teamCostOffice'),
+    vehicle:num('teamCostVehicle'),
+    fuel:num('teamCostFuel'),
+    energy:num('teamCostEnergy'),
+    software:num('teamCostSoftware'),
+    accounting:num('teamCostAccounting'),
+    insurance:num('teamCostInsurance'),
+    material:num('teamCostMaterial'),
+    marketing:num('teamCostMarketing'),
+    other:num('teamCostOther')
+  };
+
+  const owner={
+    price:num('teamOwnerPrice'),
+    hours_week:num('teamOwnerHours'),
+    days_week:num('teamOwnerDays')||5,
+    vacation_days:num('teamOwnerVacation'),
+    available_hours_month:time.workMonth||0,
+    billable_hours_month:Math.max(
+      0,
+      num('teamOwnerBillableHours')
+    ),
+    monthly_target:num('teamOwnerNeed'),
+    insurance_month:num('teamOwnerInsurance'),
+    pension_mode:$('teamPensionMode')?.value||'none',
+    pension_fixed_month:num('teamPensionFixed'),
+    holidays:time.holidays||0
+  };
+
+  const employees=teamMemberRows().map((row,index)=>{
+    const role=
+      row.querySelector('.team-role')?.value||'custom';
+
+    const form=
+      row.querySelector('.team-form')?.value||'part';
+
+    const wage=
+      parseDecimal(row.querySelector('.team-wage')?.value);
+
+    const hours=
+      parseDecimal(row.querySelector('.team-hours')?.value);
+
+    const days=
+      parseDecimal(row.querySelector('.team-days')?.value)||5;
+
+    const vacation=
+      parseDecimal(row.querySelector('.team-vacation')?.value);
+
+    const direct=
+      !!row.querySelector('.team-billable')?.checked;
+
+    const price=direct
+      ? parseDecimal(row.querySelector('.team-price')?.value)
+      : 0;
+
+    const billableHours=direct
+      ? Math.max(
+          0,
+          parseDecimal(
+            row.querySelector('.team-billable-hours')?.value
+          )
+        )
+      : 0;
+
+    const e=employmentData(
+      form,
+      wage,
+      hours,
+      0,
+      0,
+      days,
+      vacation,
+      0
+    );
+
+    return{
+      id:`employee_${index+1}`,
+      label:`Mitarbeiter ${index+1} · ${roles[role]?.de||role}`,
+
+      role,
+      form,
+
+      wage_hour:wage,
+      hours_week:hours,
+      days_week:days,
+      vacation_days:vacation,
+
+      direct_billing:direct,
+      customer_price:price,
+
+      paid_available_hours_month:e.workHours||0,
+      billable_hours_month:billableHours,
+
+      personnel_cost_month:e.total||0,
+      employer_addon_rate:e.rate||0,
+      holidays:e.holidays||0,
+
+      variable_cost_per_hour:0
+    };
+  });
+
+  const operating=
+    Object.values(costs).reduce(
+      (a,b)=>a+b,
+      0
+    );
+
+  const ownerRevenue=
+    owner.price *
+    owner.billable_hours_month;
+
+  const employeeRevenue=
+    employees.reduce(
+      (sum,e)=>
+        sum+
+        (
+          e.direct_billing
+            ? e.customer_price *
+              e.billable_hours_month
+            : 0
+        ),
+      0
+    );
+
+  const personnelCost=
+    employees.reduce(
+      (sum,e)=>
+        sum+
+        Number(e.personnel_cost_month||0),
+      0
+    );
+
+  return{
+    schema_version:'FBC_P0_FACTUAL_1.0',
+
+    errors:[],
+
+    owner,
+    employees,
+
+    operating_costs:costs,
+    financing:financing(),
+
+    current:{
+      owner_revenue:ownerRevenue,
+      employee_revenue:employeeRevenue,
+      revenue:
+        ownerRevenue+
+        employeeRevenue,
+
+      operating_costs:operating,
+      personnel_cost:personnelCost
+    },
+
+    legal_form:
+      $('legalForm')?.value||'freelance',
+
+    trade_tax_rate:
+      num('tradeTaxRate')
   };
 }
   function soloSnapshot(){
