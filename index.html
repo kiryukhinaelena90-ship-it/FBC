@@ -4209,7 +4209,15 @@ const roles={
   helper:{de:'Hilfskraft',ru:'Вспомогательный персонал',range:[MIN_WAGE,17]},
   custom:{de:'Eigene Eingabe',ru:'Своя должность',range:[MIN_WAGE,30]}
 };
-const ROLE_RANK={helper:1,office:2,skilled:3,custom:3,science:4,lead:5};
+// Иерархия ролей используется только как порядок,
+// а не как коэффициент экономической ценности.
+// custom не сравниваем автоматически с типовыми ролями.
+const ROLE_ORDER=['helper','office','skilled','science','lead'];
+
+function roleOrderIndex(role){
+  const index=ROLE_ORDER.indexOf(role);
+  return index>=0 ? index : null;
+}
 const forms={
   full:{de:'Vollzeit',ru:'Полная занятость',rate:.2185,type:'employee'},part:{de:'Teilzeit',ru:'Неполная занятость',rate:.2185,type:'employee'},midi:{de:'Midijob',ru:'Midijob',rate:.2185,type:'employee'},mini:{de:'Minijob',ru:'Minijob',rate:.3117,type:'employee'},student:{de:'Werkstudent',ru:'Werkstudent',rate:.108,type:'employee'},intern:{de:'Praktikant',ru:'Практикант',rate:.2185,type:'employee'},short:{de:'Kurzfristige Beschäftigung',ru:'Краткосрочная занятость',rate:.02,type:'employee'},anu:{de:'ANÜ / Leiharbeit',ru:'ANÜ / временный персонал',rate:0,type:'external'}
 };
@@ -5180,8 +5188,7 @@ row.querySelector('.team-price-cell')
 
 gross+=a.gross;
   });
-  let lowerRankMaximum=0,currentRank=0,currentRankMaximum=0;
-  members.filter(member=>member.billable).sort((a,b)=>(ROLE_RANK[a.role]||3)-(ROLE_RANK[b.role]||3)).forEach(member=>{const rank=ROLE_RANK[member.role]||3;if(rank>currentRank){lowerRankMaximum=currentRankMaximum;currentRank=rank;currentRankMaximum=0}member.recommended=Math.max(member.rawRecommended,lowerRankMaximum?lowerRankMaximum*1.05:0);currentRankMaximum=Math.max(currentRankMaximum,member.recommended)});
+  
   members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
   row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
   const ownerBillableHours=Math.max(0,num('#teamOwnerBillableHours'));
