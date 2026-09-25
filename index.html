@@ -5891,12 +5891,52 @@ function clearSensitivityDisplay(){
   }
 }
 
-function syncRModeUI
+function syncRModeUI(mode=activeRMode()){
+  const layer=$('fbcRLayer');
+  const pdf=$('fbcPdfBar') || document.querySelector('.fbc-pdfbar');
 
-  if(layer) layer.classList.toggle('hidden', !host);
-  if(pdf) pdf.classList.toggle('hidden', !host);
+  const host=
+    mode==='solo'
+      ? ($('soloRMount') || $('solo'))
+      : mode==='employee'
+        ? ($('employeeRMount') || $('employee'))
+        : mode==='team'
+          ? ($('teamRMount') || $('team'))
+          : null;
+
+  if(host){
+    if(layer && layer.parentElement!==host){
+      host.appendChild(layer);
+    }
+
+    if(pdf && pdf.parentElement!==host){
+      host.appendChild(pdf);
+    }
+  }
+
+  if(layer){
+    layer.classList.toggle('hidden',!host);
+  }
+
+  if(pdf){
+    pdf.classList.toggle(
+      'hidden',
+      !host || mode==='team'
+    );
+  }
 
   applySensitivityModeVisibility(mode);
+
+  // Team P1 пока не подключён,
+  // поэтому второй прогон временно скрываем.
+  const evidence=$('fbcDecisionEvidence');
+
+  if(evidence){
+    evidence.classList.toggle(
+      'hidden',
+      mode==='team'
+    );
+  }
 }
 window.FBC_SYNC_R_MODE_UI=syncRModeUI;
 
@@ -5922,7 +5962,6 @@ function ensureRUI(){
         ? ($('employeeRMount') || emp)
         : ($('teamRMount') || team);
 
-  const layer=document.createElement('article');
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
 layer.innerHTML=`
   <div class="section-kicker">
@@ -7409,11 +7448,97 @@ function soloBuildConfig(analysis={}){
       analysis.min_debt_service_ratio??null
   };
 }
-function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
+function teamBuildConfig(analysis={}){
+  const s=teamSnapshot();
+
+  if(s.errors.length){
+    throw new Error(
+      s.errors.join(', ')
+    );
+  }
+
+  return{
+    schema_version:
+      'FBC_P1_COCKPIT_REQUEST_1.0',
+
+    fbc_version:
+      'FBC_USER_BASE_R1',
+
+    locale:
+      RU() ? 'ru' : 'de',
+
+    mode:'owner_team',
+
+    objective_mode:
+      analysis.objective_mode ||
+      'grow_to_target',
+
+    owner:s.owner,
+    employees:s.employees,
+
+    operating_costs:
+      s.operating_costs,
+
+    financing:
+      s.financing,
+
+    legal_form:
+      s.legal_form,
+
+    trade_tax_rate:
+      s.trade_tax_rate,
+
+    confirmed_bounds:
+      analysis.confirmed_bounds ?? {},
+
+    cost_evidence:
+      analysis.cost_evidence ?? {},
+
+    mc_file:
+      analysis.mc_file ?? null,
+
+    horizon_months:
+      analysis.horizon_months ?? 12,
+
+    post_target_months:
+      analysis.post_target_months ?? 6,
+
+    variable_cost_keys:
+      analysis.variable_cost_keys ?? [],
+
+    mc_provenance:
+      analysis.mc_provenance ?? {},
+
+    demand_evidence:
+      analysis.demand_evidence ?? {},
+
+    min_target_probability:
+      analysis.min_target_probability ?? null,
+
+    min_debt_service_ratio:
+      analysis.min_debt_service_ratio ?? null
+  };
+}
+
+
+function buildActiveRConfig(analysis={}){
+  const mode=activeRMode();
+
+  if(mode==='solo'){
+    return soloBuildConfig(analysis);
+  }
+
+  if(mode==='team'){
+    return teamBuildConfig(analysis);
+  }
+
+  return buildConfig(analysis);
+}
+  function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
 window.FBC_P0_PRODUCTION_BRIDGE={
   snapshot:()=>activeCockpitSnapshot(),
   financing,
-  buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),
+  buildConfig:analysis=>buildActiveRConfig(analysis),
   status:()=>{const s=activeCockpitSnapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}
 };
 window.FBC_P1_PRODUCTION_BRIDGE={buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
@@ -8515,10 +8640,7 @@ async function analyze(analysis={}){
   const activeMode=
   document.querySelector('.mode-tab.active')?.dataset.mode||'solo';
 
-const req=
-  activeMode==='solo'
-    ? soloBuildConfig(analysis)
-    : buildConfig(analysis);
+const req=buildActiveRConfig(analysis);
 
   const r=await fetch(url,{
     method:'POST',
@@ -8543,8 +8665,11 @@ throw new Error(
   }
 
   return applyPayload(data);
-}
-window.FBC_R_BACKEND_ADAPTER={buildRequest:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),applyPayload,analyze};
+}window.FBC_R_BACKEND_ADAPTER={
+  buildRequest:analysis=>buildActiveRConfig(analysis),
+  applyPayload,
+  analyze
+};
 
 function installStatLinks(){
   document.querySelectorAll('.fbc-stat-link').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',()=>jumpToStat(b.dataset.statTarget||'labor'))});
