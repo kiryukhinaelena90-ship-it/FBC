@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Berechnungsgrundlagen und Methodik von FUTURE Business Cockpit.">
+<title>Methodik · FUTURE Business Cockpit</title>
+<style>
+:root{
+  --paper:#f3f5f7;
+  --surface:#ffffff;
+  --ink:#1f2c38;
+  --muted:#68798a;
+  --line:#d8e0e7;
+  --navy:#17324d;
+  --navy2:#264b6b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.65;
+}
+.site-header{
+  height:72px;
+  padding:0 max(24px,calc((100vw - 1180px)/2));
+  display:flex;
+  align-items:center;
+  gap:28px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.brand{
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+  color:var(--ink);
+  text-decoration:none;
+  letter-spacing:.04em;
+  font-size:14px;
+  white-space:nowrap;
+}
+.brand strong{font-size:16px}
+.brand span{font-size:10px;color:var(--navy);font-weight:800;border-left:1px solid var(--line);padding-left:8px}
+.topnav{display:flex;gap:22px;margin-left:auto}
+.topnav a{color:var(--muted);text-decoration:none;font-size:14px}
+.topnav a:hover,.topnav a.active{color:var(--navy)}
+.topnav a.active{font-weight:700}
+.lang{display:flex;padding:3px;background:#eef3f7;border-radius:10px}
+.lang button{border:0;background:transparent;padding:7px 9px;border-radius:7px;color:var(--muted);cursor:pointer;font-weight:800}
+.lang button.active{background:var(--navy);color:#fff}
+main{
+  width:min(980px,calc(100% - 40px));
+  margin:0 auto;
+  padding:68px 0 90px;
+}
+.eyebrow{
+  margin-bottom:12px;
+  color:var(--navy);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.14em;
+}
+h1{
+  margin:0;
+  max-width:840px;
+  font-size:clamp(38px,5vw,58px);
+  line-height:1.06;
+  letter-spacing:-.04em;
+  font-weight:700;
+}
+.lead{
+  max-width:850px;
+  margin:22px 0 0;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+}
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 0;
+  margin:30px 0 48px;
+  padding:14px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  color:var(--muted);
+  font-size:12px;
+}
+.meta span{padding:0 18px;border-right:1px solid var(--line)}
+.meta span:first-child{padding-left:0}
+.meta span:last-child{border-right:0}
+.meta strong{color:var(--ink);font-weight:650}
+.method-list{counter-reset:method}
+.method-section{
+  counter-increment:method;
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  gap:8px 20px;
+  padding:30px 0 32px;
+  border-top:1px solid var(--line);
+}
+.method-section:first-child{border-top:0;padding-top:0}
+.method-number{
+  color:var(--navy2);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.08em;
+  padding-top:4px;
+}
+.method-section h2{
+  margin:0 0 12px;
+  font-size:22px;
+  line-height:1.3;
+  letter-spacing:-.02em;
+}
+.method-section p{margin:0 0 11px;color:#4f6172}
+.flow{
+  margin:17px 0 0;
+  padding-left:18px;
+  border-left:3px solid var(--navy);
+  color:var(--ink)!important;
+  font-size:14px;
+}
+.sources{margin:18px 0 0;padding:0;list-style:none}
+.sources li{
+  display:grid;
+  grid-template-columns:minmax(170px,.55fr) minmax(0,1.45fr);
+  gap:20px;
+  padding:10px 0;
+  border-bottom:1px solid #e6ebef;
+}
+.sources li:last-child{border-bottom:0}
+.sources strong{font-size:13px}
+a{color:var(--navy2)}
+.note{
+  margin-top:18px!important;
+  color:var(--muted)!important;
+  font-size:13px;
+}
+.back{
+  display:inline-block;
+  margin-top:36px;
+  color:var(--navy);
+  text-decoration:none;
+  font-weight:700;
+}
+@media(max-width:760px){
+  .topnav{display:none}
+  main{width:min(100% - 28px,980px);padding-top:44px}
+  .method-section{grid-template-columns:1fr;gap:5px;padding:25px 0}
+  .method-number{font-size:11px}
+  .sources li{grid-template-columns:1fr;gap:3px}
+  .meta span{width:100%;padding:2px 0;border-right:0}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index_team_p0_ready_methodik_v2.html">FUTURE <strong>BUSINESS COCKPIT</strong><span>Decision Support</span></a>
+  <nav class="topnav">
+    <a href="index_team_p0_ready_methodik_v2.html#calculator" data-de="Kalkulation" data-ru="Расчёт">Kalkulation</a>
+    <a class="active" href="methodik.html" data-de="Methodik" data-ru="Методика">Methodik</a>
+    <a href="index_team_p0_ready_methodik_v2.html#calculator" data-de="Kontakt" data-ru="Контакты">Kontakt</a>
+  </nav>
+  <div class="lang">
+    <button class="active" data-lang="de" type="button">DE</button>
+    <button data-lang="ru" type="button">RU</button>
+  </div>
+</header>
+
+<main>
+  <div class="eyebrow" data-de="BERECHNUNGSGRUNDLAGEN · TRANSPARENZ" data-ru="МЕТОДИКА · ПРОЗРАЧНОСТЬ">BERECHNUNGSGRUNDLAGEN · TRANSPARENZ</div>
+  <h1 data-de="Wie FUTURE Business Cockpit analysiert" data-ru="Как FUTURE Business Cockpit выполняет анализ">Wie FUTURE Business Cockpit analysiert</h1>
+  <p class="lead" data-de="FUTURE Business Cockpit verbindet betriebswirtschaftliche Kalkulation, Personalökonomie, Sensitivitätsanalyse, Finanzierung und Robustheitsprüfung. Diese öffentliche Methodik beschreibt die wirtschaftliche Logik, die verwendeten Datenquellen und die Grenzen der Auswertung, ohne interne Modellparameter, Gewichtungen oder Optimierungslogik offenzulegen." data-ru="FUTURE Business Cockpit объединяет экономический расчёт, экономику персонала, анализ чувствительности, финансирование и проверку устойчивости. Эта публичная методика описывает экономическую логику, используемые источники данных и границы анализа, не раскрывая внутренние параметры, веса и алгоритмы оптимизации модели.">FUTURE Business Cockpit verbindet betriebswirtschaftliche Kalkulation, Personalökonomie, Sensitivitätsanalyse, Finanzierung und Robustheitsprüfung. Diese öffentliche Methodik beschreibt die wirtschaftliche Logik, die verwendeten Datenquellen und die Grenzen der Auswertung, ohne interne Modellparameter, Gewichtungen oder Optimierungslogik offenzulegen.</p>
+
+  <div class="meta">
+    <span><strong data-de="Methodikstand:" data-ru="Версия методики:">Methodikstand:</strong> <span data-de="September 2026" data-ru="Сентябрь 2026">September 2026</span></span>
+    <span><strong data-de="Analytisches Kernsystem:" data-ru="Аналитическое ядро:">Analytisches Kernsystem:</strong> R</span>
+    <span><strong data-de="Geltungsbereich:" data-ru="Область применения:">Geltungsbereich:</strong> <span data-de="Solo · Mitarbeiter · Team · Finanzierung" data-ru="Solo · сотрудник · команда · финансирование">Solo · Mitarbeiter · Team · Finanzierung</span></span>
+  </div>
+
+  <div class="method-list">
+    <section class="method-section">
+      <div class="method-number">01</div>
+      <div>
+        <h2 data-de="Ziel und Aussage der Analyse" data-ru="Цель и смысл анализа">Ziel und Aussage der Analyse</h2>
+        <p data-de="Das Cockpit ist ein betriebswirtschaftliches Decision-Support-System. Es prüft nicht nur, ob Einnahmen Kosten decken, sondern ordnet ein, welche wirtschaftlichen Stellhebel das Ergebnis beeinflussen und ob ein gewünschtes Nettoziel unter den eingegebenen Bedingungen erreichbar erscheint." data-ru="Cockpit — это система поддержки экономических решений. Она проверяет не только покрытие расходов выручкой, но и то, какие экономические рычаги влияют на результат и выглядит ли заданная чистая цель достижимой при введённых условиях.">Das Cockpit ist ein betriebswirtschaftliches Decision-Support-System. Es prüft nicht nur, ob Einnahmen Kosten decken, sondern ordnet ein, welche wirtschaftlichen Stellhebel das Ergebnis beeinflussen und ob ein gewünschtes Nettoziel unter den eingegebenen Bedingungen erreichbar erscheint.</p>
+        <p class="flow" data-de="Eingaben → Ist-Zustand → Sensitivität → realistische Handlungsspielräume → Szenarien / Finanzierung → Robustheitsprüfung → Entscheidungshilfe" data-ru="Исходные данные → текущее состояние → чувствительность → реалистичные границы изменений → сценарии / финансирование → проверка устойчивости → поддержка решения">Eingaben → Ist-Zustand → Sensitivität → realistische Handlungsspielräume → Szenarien / Finanzierung → Robustheitsprüfung → Entscheidungshilfe</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">02</div>
+      <div>
+        <h2 data-de="Welche Daten in die Berechnung eingehen" data-ru="Какие данные входят в расчёт">Welche Daten in die Berechnung eingehen</h2>
+        <p data-de="Die Berechnung basiert primär auf den Angaben des Nutzers: Kundenpreise, abrechenbare Stunden, Arbeitszeit, Urlaub, Betriebskosten, Absicherung des Inhabers, Personalkosten, gewünschtes Nettoziel sowie – falls verwendet – Finanzierungsbetrag, Zinssatz und Laufzeit." data-ru="Расчёт в первую очередь основан на данных пользователя: клиентские цены, оплачиваемые часы, рабочее время, отпуск, расходы бизнеса, страховая защита владельца, расходы на персонал, желаемая чистая цель, а при использовании финансирования — сумма, процентная ставка и срок.">Die Berechnung basiert primär auf den Angaben des Nutzers: Kundenpreise, abrechenbare Stunden, Arbeitszeit, Urlaub, Betriebskosten, Absicherung des Inhabers, Personalkosten, gewünschtes Nettoziel sowie – falls verwendet – Finanzierungsbetrag, Zinssatz und Laufzeit.</p>
+        <p data-de="Externe Statistiken dienen als Orientierung und Plausibilisierung. Sie ersetzen die tatsächlichen Unternehmensdaten nicht und lösen keine Entscheidung automatisch aus." data-ru="Внешняя статистика используется для ориентира и проверки реалистичности. Она не заменяет фактические данные бизнеса и сама по себе не определяет решение.">Externe Statistiken dienen als Orientierung und Plausibilisierung. Sie ersetzen die tatsächlichen Unternehmensdaten nicht und lösen keine Entscheidung automatisch aus.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">03</div>
+      <div>
+        <h2 data-de="Personal, Arbeitskapazität und Rollenlogik" data-ru="Персонал, рабочая мощность и логика ролей">Personal, Arbeitskapazität und Rollenlogik</h2>
+        <p data-de="Bei Mitarbeitern werden Vertragszeit, verfügbare Arbeitskapazität, Urlaub und gesetzliche Feiertage von den tatsächlich abrechenbaren Kundenstunden getrennt betrachtet. Personalkosten, verfügbare Zeit und eigener Kundenumsatz werden dadurch nicht miteinander verwechselt." data-ru="Для сотрудников договорное рабочее время, доступная рабочая мощность, отпуск и официальные праздничные дни рассматриваются отдельно от фактически оплачиваемых клиентом часов. Благодаря этому расходы на сотрудника, доступное время и клиентская выручка не смешиваются.">Bei Mitarbeitern werden Vertragszeit, verfügbare Arbeitskapazität, Urlaub und gesetzliche Feiertage von den tatsächlich abrechenbaren Kundenstunden getrennt betrachtet. Personalkosten, verfügbare Zeit und eigener Kundenumsatz werden dadurch nicht miteinander verwechselt.</p>
+        <p data-de="Typische Rollen stehen für unterschiedliches Preis- und Wertschöpfungspotenzial. Eine fachlich komplexere Rolle kann einen höheren wirtschaftlichen Potenzialrahmen haben. Die Rolle wird jedoch nicht als pauschaler Score oder direkter Multiplikator des berechneten Effekts verwendet. Der konkrete Beitrag entsteht aus Kundenpreis, abrechenbarer Auslastung, Personalkosten und Deckungsbeitrag. Eigene Rollen (Custom) werden ausschließlich anhand der eingegebenen Werte beurteilt." data-ru="Типовые роли отражают различный ценовой потенциал и потенциал создания экономической ценности. Более сложная профессиональная роль может иметь более высокий экономический потенциал. При этом роль не используется как условный score или прямой множитель рассчитанного эффекта. Конкретный вклад определяется клиентской ценой, оплачиваемой загрузкой, расходами на персонал и вкладом в покрытие расходов. Собственные роли (Custom) оцениваются только по введённым значениям.">Typische Rollen stehen für unterschiedliches Preis- und Wertschöpfungspotenzial. Eine fachlich komplexere Rolle kann einen höheren wirtschaftlichen Potenzialrahmen haben. Die Rolle wird jedoch nicht als pauschaler Score oder direkter Multiplikator des berechneten Effekts verwendet. Der konkrete Beitrag entsteht aus Kundenpreis, abrechenbarer Auslastung, Personalkosten und Deckungsbeitrag. Eigene Rollen (Custom) werden ausschließlich anhand der eingegebenen Werte beurteilt.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">04</div>
+      <div>
+        <h2 data-de="Break-even, Zielerreichung und Tragfähigkeit" data-ru="Безубыточность, достижение цели и устойчивость бизнеса">Break-even, Zielerreichung und Tragfähigkeit</h2>
+        <p data-de="Break-even wird als Sicherheits- und Plausibilitätsgrenze verwendet, nicht als alleinige Zielgröße. Im Team-Modus wird zusätzlich betrachtet, ob direkt abrechenbare Mitarbeiter ihre eigenen Personalkosten decken und welchen Beitrag sie zum Betriebsergebnis leisten." data-ru="Break-even используется как граница безопасности и реалистичности, а не как единственная цель. В командном режиме дополнительно проверяется, покрывают ли напрямую оплачиваемые сотрудники собственные расходы и какой вклад они вносят в результат бизнеса.">Break-even wird als Sicherheits- und Plausibilitätsgrenze verwendet, nicht als alleinige Zielgröße. Im Team-Modus wird zusätzlich betrachtet, ob direkt abrechenbare Mitarbeiter ihre eigenen Personalkosten decken und welchen Beitrag sie zum Betriebsergebnis leisten.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">05</div>
+      <div>
+        <h2 data-de="Sensitivität und Handlungsspielräume" data-ru="Чувствительность и границы возможных изменений">Sensitivität und Handlungsspielräume</h2>
+        <p data-de="Die Sensitivitätsanalyse untersucht, wie stark einzelne wirtschaftliche Größen das Ergebnis beeinflussen. Sie ist zunächst eine Vergleichshilfe und noch keine automatische Handlungsempfehlung. Für weiterführende Szenarien werden nur bestätigte oder plausibilisierte Handlungsspielräume zugelassen." data-ru="Анализ чувствительности показывает, насколько сильно отдельные экономические параметры влияют на результат. Сначала это инструмент сравнения, а не автоматическая рекомендация. Для дальнейших сценариев допускаются только подтверждённые или проверенные на реалистичность границы изменений.">Die Sensitivitätsanalyse untersucht, wie stark einzelne wirtschaftliche Größen das Ergebnis beeinflussen. Sie ist zunächst eine Vergleichshilfe und noch keine automatische Handlungsempfehlung. Für weiterführende Szenarien werden nur bestätigte oder plausibilisierte Handlungsspielräume zugelassen.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">06</div>
+      <div>
+        <h2 data-de="Finanzierung und Kapitaldienstfähigkeit" data-ru="Финансирование и способность обслуживать долг">Finanzierung und Kapitaldienstfähigkeit</h2>
+        <p data-de="Finanzierungen werden getrennt vom operativen Grundmodell betrachtet. Entscheidend ist nicht nur die rechnerische Rate, sondern ob der Kapitaldienst unter den betrachteten Bedingungen aus dem Geschäft getragen werden kann. Marktstatistiken dienen nur als Referenz; für die individuelle Rechnung sollten nach Möglichkeit die konkreten Konditionen des Finanzierungspartners verwendet werden." data-ru="Финансирование рассматривается отдельно от базовой операционной модели. Важен не только математически рассчитанный платёж, но и то, способен ли бизнес обслуживать долг при рассматриваемых условиях. Рыночная статистика служит только ориентиром; для индивидуального расчёта по возможности используются конкретные условия кредитора.">Finanzierungen werden getrennt vom operativen Grundmodell betrachtet. Entscheidend ist nicht nur die rechnerische Rate, sondern ob der Kapitaldienst unter den betrachteten Bedingungen aus dem Geschäft getragen werden kann. Marktstatistiken dienen nur als Referenz; für die individuelle Rechnung sollten nach Möglichkeit die konkreten Konditionen des Finanzierungspartners verwendet werden.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">07</div>
+      <div>
+        <h2 data-de="Robustheit und Monte-Carlo-Prüfung" data-ru="Устойчивость и проверка Monte Carlo">Robustheit und Monte-Carlo-Prüfung</h2>
+        <p data-de="Wenn ein konkretes Szenario vorliegt, kann seine Robustheit zusätzlich unter Unsicherheit geprüft werden. Monte-Carlo-Simulationen erzeugen keine pauschale Erfolgswahrscheinlichkeit des Unternehmens, sondern prüfen, wie stabil ein konkretes Rechenergebnis gegenüber plausiblen Schwankungen ausgewählter Eingangsgrößen bleibt." data-ru="После формирования конкретного сценария его устойчивость может дополнительно проверяться в условиях неопределённости. Monte Carlo не создаёт абстрактную вероятность успеха бизнеса, а проверяет, насколько устойчив конкретный расчётный результат к реалистичным колебаниям выбранных входных параметров.">Wenn ein konkretes Szenario vorliegt, kann seine Robustheit zusätzlich unter Unsicherheit geprüft werden. Monte-Carlo-Simulationen erzeugen keine pauschale Erfolgswahrscheinlichkeit des Unternehmens, sondern prüfen, wie stabil ein konkretes Rechenergebnis gegenüber plausiblen Schwankungen ausgewählter Eingangsgrößen bleibt.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">08</div>
+      <div>
+        <h2 data-de="Analytisches Kernsystem: R" data-ru="Аналитическое ядро: R">Analytisches Kernsystem: R</h2>
+        <p data-de="Die zentrale Analyse- und Entscheidungslogik wird in einer getrennten R-Analyseumgebung ausgeführt. Dazu gehören insbesondere Sensitivitätsauswertung, wirtschaftliche Zustandsbewertung, Nebenbedingungen, Finanzierungsanalyse sowie – sofern aktiviert – Szenario-, Robustheits- und Monte-Carlo-Verfahren. Der Browser übernimmt Dateneingabe, Darstellung und vorbereitende Orientierungsrechnungen." data-ru="Ключевая аналитическая логика и логика поддержки решений выполняются в отдельной среде R. В неё входят анализ чувствительности, оценка экономического состояния, ограничения, анализ финансирования, а при активации соответствующих модулей — сценарный анализ, проверка устойчивости и Monte Carlo. Браузер отвечает за ввод данных, отображение и предварительные ориентировочные расчёты.">Die zentrale Analyse- und Entscheidungslogik wird in einer getrennten R-Analyseumgebung ausgeführt. Dazu gehören insbesondere Sensitivitätsauswertung, wirtschaftliche Zustandsbewertung, Nebenbedingungen, Finanzierungsanalyse sowie – sofern aktiviert – Szenario-, Robustheits- und Monte-Carlo-Verfahren. Der Browser übernimmt Dateneingabe, Darstellung und vorbereitende Orientierungsrechnungen.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">09</div>
+      <div>
+        <h2 data-de="Datenquellen und Aktualität" data-ru="Источники данных и актуальность">Datenquellen und Aktualität</h2>
+        <p data-de="Externe Referenzdaten werden nach Quelle, Zweck und Datenstand dokumentiert. Historische und statistische Reihen bilden einen separaten Informations- und Plausibilitätslayer und fließen nicht automatisch als Entscheidungsvorgabe in die Analyse ein." data-ru="Внешние справочные данные документируются с указанием источника, назначения и периода актуальности. Исторические и статистические ряды образуют отдельный информационный слой для проверки реалистичности и не включаются автоматически в анализ как готовое решение.">Externe Referenzdaten werden nach Quelle, Zweck und Datenstand dokumentiert. Historische und statistische Reihen bilden einen separaten Informations- und Plausibilitätslayer und fließen nicht automatisch als Entscheidungsvorgabe in die Analyse ein.</p>
+        <ul class="sources">
+          <li><strong data-de="Energie & Kraftstoff" data-ru="Энергия и топливо">Energie & Kraftstoff</strong><span><a href="https://www.destatis.de/" target="_blank" rel="noopener">Destatis</a> · <span data-de="Preisindizes und historische Referenzreihen" data-ru="индексы цен и исторические справочные ряды">Preisindizes und historische Referenzreihen</span></span></li>
+          <li><strong data-de="Arbeitskosten" data-ru="Затраты на труд">Arbeitskosten</strong><span><a href="https://www.destatis.de/" target="_blank" rel="noopener">Destatis</a> · <span data-de="Arbeitskostenstatistik" data-ru="статистика затрат на труд">Arbeitskostenstatistik</span></span></li>
+          <li><strong data-de="Finanzierungszinsen" data-ru="Процентные ставки по финансированию">Finanzierungszinsen</strong><span><a href="https://www.bundesbank.de/" target="_blank" rel="noopener">Deutsche Bundesbank</a> · <span data-de="MFI-Zinsstatistik als Marktvergleich" data-ru="статистика процентных ставок MFI как рыночный ориентир">MFI-Zinsstatistik als Marktvergleich</span></span></li>
+          <li><strong data-de="Entgelt-Plausibilisierung" data-ru="Проверка зарплатных ориентиров">Entgelt-Plausibilisierung</strong><span><a href="https://web.arbeitsagentur.de/entgeltatlas/" target="_blank" rel="noopener">Bundesagentur für Arbeit · Entgeltatlas</a> · <span data-de="beruflicher und regionaler Vergleich" data-ru="профессиональное и региональное сравнение">beruflicher und regionaler Vergleich</span></span></li>
+          <li><strong data-de="Arbeitsrechtliche Grenzwerte" data-ru="Правовые ограничения по занятости">Arbeitsrechtliche Grenzwerte</strong><span><a href="https://www.bmas.de/" target="_blank" rel="noopener">BMAS</a> / <a href="https://www.minijob-zentrale.de/" target="_blank" rel="noopener">Minijob-Zentrale</a> · <span data-de="gesetzliche Untergrenzen und Beschäftigungsregeln" data-ru="законодательные минимумы и правила занятости">gesetzliche Untergrenzen und Beschäftigungsregeln</span></span></li>
+        </ul>
+        <p class="note" data-de="Wichtig: Statistische Referenzen beschreiben Markt-, Kosten- oder Rechtsrahmen. Für die individuelle Berechnung haben die tatsächlichen Daten des Betriebs Vorrang. Datenstände einzelner Reihen können voneinander abweichen." data-ru="Важно: статистические ориентиры описывают рыночную, затратную или правовую среду. Для индивидуального расчёта приоритет имеют фактические данные конкретного бизнеса. Периоды актуальности отдельных рядов могут различаться.">Wichtig: Statistische Referenzen beschreiben Markt-, Kosten- oder Rechtsrahmen. Für die individuelle Berechnung haben die tatsächlichen Daten des Betriebs Vorrang. Datenstände einzelner Reihen können voneinander abweichen.</p>
+      </div>
+    </section>
+
+    <section class="method-section">
+      <div class="method-number">10</div>
+      <div>
+        <h2 data-de="Grenzen der Aussagekraft" data-ru="Ограничения интерпретации">Grenzen der Aussagekraft</h2>
+        <p data-de="Die Ergebnisse sind betriebswirtschaftliche Orientierung und hängen von der Qualität der Eingaben sowie den zugrunde gelegten Annahmen ab. Prognosen, Sensitivitätsanalysen und Simulationen sind keine Garantie für zukünftige Ergebnisse. FUTURE Business Cockpit ersetzt keine individuelle Steuer-, Rechts-, Versicherungs-, Lohnabrechnungs-, Kredit- oder Anlageberatung." data-ru="Результаты являются ориентиром для экономического анализа и зависят от качества исходных данных и используемых предпосылок. Прогнозы, анализ чувствительности и симуляции не гарантируют будущий результат. FUTURE Business Cockpit не заменяет индивидуальную налоговую, юридическую, страховую, зарплатную, кредитную или инвестиционную консультацию.">Die Ergebnisse sind betriebswirtschaftliche Orientierung und hängen von der Qualität der Eingaben sowie den zugrunde gelegten Annahmen ab. Prognosen, Sensitivitätsanalysen und Simulationen sind keine Garantie für zukünftige Ergebnisse. FUTURE Business Cockpit ersetzt keine individuelle Steuer-, Rechts-, Versicherungs-, Lohnabrechnungs-, Kredit- oder Anlageberatung.</p>
+      </div>
+    </section>
+  </div>
+
+  <a class="back" href="index_team_p0_ready_methodik_v2.html#calculator" data-de="← Zurück zum Cockpit" data-ru="← Вернуться в Cockpit">← Zurück zum Cockpit</a>
+</main>
+<script>
+(function(){
+  const buttons=[...document.querySelectorAll('.lang button')];
+  function setLang(next){
+    document.documentElement.lang=next;
+    document.querySelectorAll('[data-de]').forEach(el=>{
+      const value=el.dataset[next];
+      if(value!==undefined) el.textContent=value;
+    });
+    buttons.forEach(b=>b.classList.toggle('active',b.dataset.lang===next));
+  }
+  buttons.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+})();
+</script>
+</body>
+</html>
