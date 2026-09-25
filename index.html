@@ -5170,24 +5170,146 @@ function calculateTeam(){
   refreshOwnerTimeInfos();
   const owner=modeOwner('team'),members=[];
   let gross=0,addons=0,billableHours=0,employeeRevenue=0,recommendedRevenue=0,hasBillable=false,teamStarted=hasInput('#teamOwnerPrice')||hasInput('#teamOwnerHours')||hasInput('#teamOwnerDays')||modeCosts('team')>0;
-  $$('#teamRows .team-row').forEach(row=>{
-    const role=row.querySelector('.team-role').value,form=row.querySelector('.team-form').value,wage=parseDecimal(row.querySelector('.team-wage').value),hours=parseDecimal(row.querySelector('.team-hours').value),days=parseDecimal(row.querySelector('.team-days').value)||5,vacation=parseDecimal(row.querySelector('.team-vacation').value),billable=row.querySelector('.team-billable').checked,price=billable?parseDecimal(row.querySelector('.team-price').value):0,actualBillable=billable?Math.max(0,parseDecimal(row.querySelector('.team-billable-hours').value)):0,a=employmentData(form,wage,hours,0,0,days,vacation,0),o=orientation(role,form),rawRecommended=rolePriceRecommendation(role,form,wage,hours,days,vacation),priceInput=row.querySelector('.team-price');a.billableHours=actualBillable;a.revenue=price*actualBillable;a.contribution=a.revenue-a.total;
-   priceInput.disabled=!billable;
+$$('#teamRows .team-row').forEach(row=>{
+  const role=row.querySelector('.team-role').value;
+  const form=row.querySelector('.team-form').value;
+  const wage=parseDecimal(row.querySelector('.team-wage').value);
+  const hours=parseDecimal(row.querySelector('.team-hours').value);
+  const days=parseDecimal(row.querySelector('.team-days').value)||5;
+  const vacation=parseDecimal(row.querySelector('.team-vacation').value);
 
-const billableHoursInput=row.querySelector('.team-billable-hours');
-const billableHoursBox=row.querySelector('.team-billable-hours-box');
+  const billable=row.querySelector('.team-billable').checked;
 
-if(billableHoursInput){
-  billableHoursInput.disabled=!billable;
-}
+  const price=billable
+    ? parseDecimal(row.querySelector('.team-price').value)
+    : 0;
 
-billableHoursBox?.classList.toggle('is-disabled',!billable);
+  const actualBillable=billable
+    ? Math.max(
+        0,
+        parseDecimal(
+          row.querySelector('.team-billable-hours').value
+        )
+      )
+    : 0;
 
-row.querySelector('.team-price-cell')
-  .classList.toggle('is-disabled',!billable);
+  const a=employmentData(
+    form,
+    wage,
+    hours,
+    0,
+    0,
+    days,
+    vacation,
+    0
+  );
 
-gross+=a.gross;
+  const o=orientation(role,form);
+
+  const rawRecommended=rolePriceRecommendation(
+    role,
+    form,
+    wage,
+    hours,
+    days,
+    vacation
+  );
+
+  const priceInput=row.querySelector('.team-price');
+  const billableHoursInput=row.querySelector('.team-billable-hours');
+  const billableHoursBox=row.querySelector('.team-billable-hours-box');
+
+  a.billableHours=actualBillable;
+  a.revenue=price*actualBillable;
+  a.contribution=a.revenue-a.total;
+
+  priceInput.disabled=!billable;
+
+  if(billableHoursInput){
+    billableHoursInput.disabled=!billable;
+  }
+
+  billableHoursBox?.classList.toggle(
+    'is-disabled',
+    !billable
+  );
+
+  row.querySelector('.team-price-cell')
+    .classList.toggle(
+      'is-disabled',
+      !billable
+    );
+
+  gross+=a.gross;
+  addons+=a.addons;
+
+  if(billable){
+    billableHours+=a.billableHours;
+    employeeRevenue+=a.revenue;
+    hasBillable=true;
+  }
+
+  teamStarted=
+    teamStarted ||
+    wage>0 ||
+    hours>0 ||
+    (billable && price>0);
+
+  members.push({
+    row,
+    role,
+    billable,
+    a,
+    o,
+    rawRecommended,
+    recommended:rawRecommended
   });
+});
+
+
+// Структура клиентских цен по ролям.
+// Роль задаёт только порядок, но не экономический коэффициент.
+// Фиксированного повышения +5 % больше нет.
+
+const comparableMembers=members
+  .filter(member=>
+    member.billable &&
+    roleOrderIndex(member.role)!==null
+  )
+  .sort((a,b)=>
+    roleOrderIndex(a.role)-roleOrderIndex(b.role)
+  );
+
+let lowerRoleMaximum=0;
+let currentLevel=null;
+let currentLevelMaximum=0;
+
+comparableMembers.forEach(member=>{
+  const level=roleOrderIndex(member.role);
+
+  if(currentLevel===null || level!==currentLevel){
+
+    if(currentLevel!==null){
+      lowerRoleMaximum=Math.max(
+        lowerRoleMaximum,
+        currentLevelMaximum
+      );
+    }
+
+    currentLevel=level;
+    currentLevelMaximum=0;
+  }
+
+  member.recommended=Math.max(
+    member.rawRecommended,
+    lowerRoleMaximum
+  );
+
+  currentLevelMaximum=Math.max(
+    currentLevelMaximum,
+    member.recommended
+  );
+});
   
   members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
   row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
