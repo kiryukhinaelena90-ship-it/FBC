@@ -2952,14 +2952,25 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 #team .team-member-card .team-row-fields{
   display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-columns:1.15fr 1.1fr .95fr .72fr .72fr .72fr 1.15fr !important;
   gap:12px!important;
   align-items:start!important;
+}
+  #team .team-member-card .team-price-cell{
+  justify-content:flex-start;
+}
+
+#team .team-member-card .team-billable-line{
+  margin-top:10px;
+}
+
+#team .team-member-card .team-billable-hours-box{
+  margin-top:14px;
 }
 #team .team-member-card .team-row-fields>label>small{
   min-height:34px;display:flex;align-items:flex-end;margin:0 0 6px!important;
 }
-#team .team-member-card .team-price-cell>small{min-height:34px;display:flex;align-items:flex-end;margin:0 0 6px!important}
+#team .team-member-card .team-price-cell>small{min-height:42px;display:flex;align-items:flex-end;margin:0 0 6px!important}
 #team .team-member-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px}
 #team .team-member-footer .remove-team{
   width:auto!important;height:38px!important;padding:0 12px!important;
@@ -2971,7 +2982,14 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 
 @media(max-width:1050px){
-  #team .team-member-card .team-row-fields{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #team .team-member-card .team-row-fields{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+}
+  @media(max-width:700px){
+  #team .team-member-card .team-row-fields{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
 }
 @media(max-width:760px){
   #team .team-builder .team-heading{flex-direction:column}
@@ -2986,6 +3004,22 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 </style>
 
+
+
+<style id="fbc-team-p0-ui-fix-20260925">
+/* Team P0: динамическая чувствительность, экономика сотрудников и предварительная ориентация. */
+.fbc-decision-guidance{margin:14px 0 12px}
+.fbc-decision-guidance[hidden]{display:none!important}
+.fbc-decision-guidance-title{display:block;margin-bottom:8px;font-size:13px;font-weight:750;color:var(--ui-navy)}
+.fbc-decision-guidance-list{display:grid;gap:8px}
+.fbc-decision-guidance-item{padding:10px 12px;border:1px solid #dfe6eb;border-radius:10px;background:#fbfcfd}
+.fbc-decision-guidance-item strong{display:block;margin-bottom:3px;font-size:13px;color:var(--ui-text)}
+.fbc-decision-guidance-item small{display:block;color:var(--ui-muted);line-height:1.4}
+.fbc-team-economics-list{display:grid;gap:10px}
+.fbc-team-economics-card{border:1px solid #dfe6eb;border-radius:10px;padding:11px 12px;background:#fbfcfd}
+.fbc-team-economics-card h4{margin:0 0 8px;font-size:13px}
+.fbc-team-economics-card .fbc-r-change-row{padding:5px 0}
+</style>
 
 <style id="fbc-mobile-cost-lines-audit-fix">
 /* Full-cockpit audit 2026-09-25: prevent Betriebskosten rows from overflowing narrow screens. */
@@ -3840,7 +3874,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
      Economic interpretation now belongs to the R analysis after sensitivity. -->
 </article>
 
-<article class="card result-card" tabindex="0" id="teamAnalysisPrep">
+<article class="card result-card hidden" tabindex="0" id="teamAnalysisPrep">
 
   <div class="section-kicker"
        data-de="R · DECISION SUPPORT · TEAM"
@@ -4034,20 +4068,56 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
       <small data-de="Urlaub/Jahr" data-ru="Отпуск/год">Urlaub/Jahr</small>
       <input class="team-vacation" type="number" min="0" max="60" step="1" value="30" data-auto-vacation="true">
     </label>
-    <label class="team-price-cell">
-      <span class="team-billable-line">
-        <input class="team-billable" type="checkbox" checked>
-        <b data-de="An Kunden abrechnen" data-ru="Выставляется клиенту">An Kunden abrechnen</b>
-      </span>
-      <small data-de="Aktueller Rechnungspreis ohne USt · €/Std." data-ru="Текущая цена клиенту без НДС · €/ч">Aktueller Rechnungspreis ohne USt · €/Std.</small>
-      <input class="team-price decimal-input" type="text" inputmode="decimal" placeholder="0">
-    </label>
-    <label class="team-field team-billable-hours-field">
-      <small data-de="Abrechenbare Kundenstunden / Monat" data-ru="Оплачиваемые клиентом часы / месяц">Abrechenbare Kundenstunden / Monat</small>
-      <input class="team-billable-hours" type="number" min="0" step="0.1" placeholder="0">
-    </label>
+<label class="team-price-cell">
+  <small data-de="Aktueller Rechnungspreis ohne USt · €/Std."
+         data-ru="Текущая цена клиенту без НДС · €/ч">
+    Aktueller Rechnungspreis ohne USt · €/Std.
+  </small>
+
+  <input class="team-price decimal-input"
+         type="text"
+         inputmode="decimal"
+         placeholder="0">
+
+  <span class="team-billable-line">
+    <input class="team-billable" type="checkbox" checked>
+    <b data-de="An Kunden abrechnen"
+       data-ru="Выставляется клиенту">
+      An Kunden abrechnen
+    </b>
+  </span>
+</label>
+  </div>
+<div class="employee-billable-hours-box team-billable-hours-box">
+  <div class="employee-billable-hours-copy">
+    <span data-de="Abrechenbare Kundenstunden / Monat"
+          data-ru="Оплачиваемые клиентом часы / месяц">
+      Abrechenbare Kundenstunden / Monat
+    </span>
+    <small data-de="Summe der Stunden, die einem oder mehreren Kunden berechnet werden."
+           data-ru="Сумма часов, которые выставляются одному или нескольким клиентам.">
+      Summe der Stunden, die einem oder mehreren Kunden berechnet werden.
+    </small>
+    <small class="employee-capacity-reference">
+      <span
+        data-de="Arbeitskapazität Mitarbeiter:"
+        data-ru="Рабочая мощность сотрудника:"
+      >Arbeitskapazität Mitarbeiter:</span>
+      <strong class="team-capacity-hours">—</strong>
+    </small>
   </div>
 
+  <label class="employee-billable-hours-input">
+    <div class="unit unit-inside">
+      <input class="team-billable-hours"
+             type="number"
+             min="0"
+             step="0.1"
+             placeholder="0">
+      <b>h</b>
+    </div>
+  </label>
+</div>
   <div class="orientation-box team-orientation-box">
     <div>
       <small data-de="Vorläufige Orientierung nach Bundesland und Rolle" data-ru="Предварительный ориентир по земле и роли">Vorläufige Orientierung nach Bundesland und Rolle</small>
@@ -4163,7 +4233,15 @@ const roles={
   helper:{de:'Hilfskraft',ru:'Вспомогательный персонал',range:[MIN_WAGE,17]},
   custom:{de:'Eigene Eingabe',ru:'Своя должность',range:[MIN_WAGE,30]}
 };
-const ROLE_RANK={helper:1,office:2,skilled:3,custom:3,science:4,lead:5};
+// Иерархия ролей используется только как порядок,
+// а не как коэффициент экономической ценности.
+// custom не сравниваем автоматически с типовыми ролями.
+const ROLE_ORDER=['helper','office','skilled','science','lead'];
+
+function roleOrderIndex(role){
+  const index=ROLE_ORDER.indexOf(role);
+  return index>=0 ? index : null;
+}
 const forms={
   full:{de:'Vollzeit',ru:'Полная занятость',rate:.2185,type:'employee'},part:{de:'Teilzeit',ru:'Неполная занятость',rate:.2185,type:'employee'},midi:{de:'Midijob',ru:'Midijob',rate:.2185,type:'employee'},mini:{de:'Minijob',ru:'Minijob',rate:.3117,type:'employee'},student:{de:'Werkstudent',ru:'Werkstudent',rate:.108,type:'employee'},intern:{de:'Praktikant',ru:'Практикант',rate:.2185,type:'employee'},short:{de:'Kurzfristige Beschäftigung',ru:'Краткосрочная занятость',rate:.02,type:'employee'},anu:{de:'ANÜ / Leiharbeit',ru:'ANÜ / временный персонал',rate:0,type:'external'}
 };
@@ -5061,7 +5139,26 @@ const applySchedule=()=>{
 const confirmValue=input=>{
   input.classList.remove('is-suggestion');
 };
+// Автоматически подставленное значение — это ориентир.
+// При первом вводе пользователь должен заменить его,
+// а не дописать цифры к существующему значению.
+const selectSuggestionOnFocus=input=>{
+  if(!input)return;
 
+  input.addEventListener('focus',()=>{
+    if(input.classList.contains('is-suggestion')){
+      setTimeout(()=>{
+        input.select();
+      },0);
+    }
+  });
+};
+
+[
+  hours,
+  days,
+  vacation
+].forEach(selectSuggestionOnFocus);
 const applyTeamVacation=()=>{
   days.dataset.autoDays='false';
 
@@ -5116,14 +5213,158 @@ function calculateTeam(){
   refreshOwnerTimeInfos();
   const owner=modeOwner('team'),members=[];
   let gross=0,addons=0,billableHours=0,employeeRevenue=0,recommendedRevenue=0,hasBillable=false,teamStarted=hasInput('#teamOwnerPrice')||hasInput('#teamOwnerHours')||hasInput('#teamOwnerDays')||modeCosts('team')>0;
-  $$('#teamRows .team-row').forEach(row=>{
-    const role=row.querySelector('.team-role').value,form=row.querySelector('.team-form').value,wage=parseDecimal(row.querySelector('.team-wage').value),hours=parseDecimal(row.querySelector('.team-hours').value),days=parseDecimal(row.querySelector('.team-days').value)||5,vacation=parseDecimal(row.querySelector('.team-vacation').value),billable=row.querySelector('.team-billable').checked,price=billable?parseDecimal(row.querySelector('.team-price').value):0,actualBillable=billable?Math.max(0,parseDecimal(row.querySelector('.team-billable-hours').value)):0,a=employmentData(form,wage,hours,0,0,days,vacation,0),o=orientation(role,form),rawRecommended=rolePriceRecommendation(role,form,wage,hours,days,vacation),priceInput=row.querySelector('.team-price');a.billableHours=actualBillable;a.revenue=price*actualBillable;a.contribution=a.revenue-a.total;
-    priceInput.disabled=!billable;row.querySelector('.team-price-cell').classList.toggle('is-disabled',!billable);gross+=a.gross;addons+=a.addons;if(billable){billableHours+=a.billableHours;employeeRevenue+=a.revenue;hasBillable=true}teamStarted=teamStarted||wage>0||hours>0||(billable&&price>0);members.push({row,role,billable,a,o,rawRecommended,recommended:rawRecommended});
+$$('#teamRows .team-row').forEach(row=>{
+  const role=row.querySelector('.team-role').value;
+  const form=row.querySelector('.team-form').value;
+  const wage=parseDecimal(row.querySelector('.team-wage').value);
+  const hours=parseDecimal(row.querySelector('.team-hours').value);
+  const days=parseDecimal(row.querySelector('.team-days').value)||5;
+  const vacation=parseDecimal(row.querySelector('.team-vacation').value);
+
+  const billable=row.querySelector('.team-billable').checked;
+
+  const price=billable
+    ? parseDecimal(row.querySelector('.team-price').value)
+    : 0;
+
+  const actualBillable=billable
+    ? Math.max(
+        0,
+        parseDecimal(
+          row.querySelector('.team-billable-hours').value
+        )
+      )
+    : 0;
+
+  const a=employmentData(
+    form,
+    wage,
+    hours,
+    0,
+    0,
+    days,
+    vacation,
+    0
+  );
+
+  const o=orientation(role,form);
+
+  const rawRecommended=rolePriceRecommendation(
+    role,
+    form,
+    wage,
+    hours,
+    days,
+    vacation
+  );
+
+  const priceInput=row.querySelector('.team-price');
+  const billableHoursInput=row.querySelector('.team-billable-hours');
+  const billableHoursBox=row.querySelector('.team-billable-hours-box');
+
+  a.billableHours=actualBillable;
+  a.revenue=price*actualBillable;
+  a.contribution=a.revenue-a.total;
+
+  priceInput.disabled=!billable;
+
+  if(billableHoursInput){
+    billableHoursInput.disabled=!billable;
+  }
+
+  billableHoursBox?.classList.toggle(
+    'is-disabled',
+    !billable
+  );
+
+  row.querySelector('.team-price-cell')
+    .classList.toggle(
+      'is-disabled',
+      !billable
+    );
+
+  gross+=a.gross;
+  addons+=a.addons;
+
+  if(billable){
+    billableHours+=a.billableHours;
+    employeeRevenue+=a.revenue;
+    hasBillable=true;
+  }
+
+  teamStarted=
+    teamStarted ||
+    wage>0 ||
+    hours>0 ||
+    (billable && price>0);
+
+  members.push({
+    row,
+    role,
+    billable,
+    a,
+    o,
+    rawRecommended,
+    recommended:rawRecommended
   });
-  let lowerRankMaximum=0,currentRank=0,currentRankMaximum=0;
-  members.filter(member=>member.billable).sort((a,b)=>(ROLE_RANK[a.role]||3)-(ROLE_RANK[b.role]||3)).forEach(member=>{const rank=ROLE_RANK[member.role]||3;if(rank>currentRank){lowerRankMaximum=currentRankMaximum;currentRank=rank;currentRankMaximum=0}member.recommended=Math.max(member.rawRecommended,lowerRankMaximum?lowerRankMaximum*1.05:0);currentRankMaximum=Math.max(currentRankMaximum,member.recommended)});
+});
+
+
+// Структура клиентских цен по ролям.
+// Роль задаёт только порядок, но не экономический коэффициент.
+// Фиксированного повышения +5 % больше нет.
+
+const comparableMembers=members
+  .filter(member=>
+    member.billable &&
+    roleOrderIndex(member.role)!==null
+  )
+  .sort((a,b)=>
+    roleOrderIndex(a.role)-roleOrderIndex(b.role)
+  );
+
+let lowerRoleMaximum=0;
+let currentLevel=null;
+let currentLevelMaximum=0;
+
+comparableMembers.forEach(member=>{
+  const level=roleOrderIndex(member.role);
+
+  if(currentLevel===null || level!==currentLevel){
+
+    if(currentLevel!==null){
+      lowerRoleMaximum=Math.max(
+        lowerRoleMaximum,
+        currentLevelMaximum
+      );
+    }
+
+    currentLevel=level;
+    currentLevelMaximum=0;
+  }
+
+  member.recommended=Math.max(
+    member.rawRecommended,
+    lowerRoleMaximum
+  );
+
+  currentLevelMaximum=Math.max(
+    currentLevelMaximum,
+    member.recommended
+  );
+});
+  
   members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
-  row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
+  row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const capacityHours=
+  row.querySelector('.team-capacity-hours');
+
+if(capacityHours){
+  capacityHours.textContent=
+    `${a.workHours.toLocaleString(
+      lang==='ru' ? 'ru-RU' : 'de-DE',
+      {maximumFractionDigits:1}
+    )} h / ${t('Monat','месяц')}`;
+}const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
   const ownerBillableHours=Math.max(0,num('#teamOwnerBillableHours'));
   const maxMemberRecommended=Math.max(0,...members.filter(member=>member.billable).map(member=>member.recommended)),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+employeeRevenue,business=owner.business+gross+addons,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('team',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimateEmployee(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,monthlyGoal=num('#teamOwnerNeed'),goalEntered=hasInput('#teamOwnerNeed')&&monthlyGoal>0,required=solveModeRevenue('team',business,owner.insurance,monthlyGoal),ownerBaseRate=hasBillable?maxMemberRecommended:(ownerBillableHours?required.revenue/ownerBillableHours:0),baseRecommendedRevenue=ownerBaseRate*ownerBillableHours+members.filter(member=>member.billable).reduce((sum,member)=>sum+member.recommended*member.a.billableHours,0),targetFactor=proportionalTargetFactor(required.revenue,baseRecommendedRevenue,goalEntered),ownerRecommended=hasBillable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   members.forEach(member=>{member.finalRecommended=member.billable?member.recommended*targetFactor:member.recommended});
@@ -5625,7 +5866,15 @@ function activeRMode(){
 }
 
 function activeCockpitSnapshot(mode=activeRMode()){
-  return mode==='solo' ? soloSnapshot() : snapshot();
+  if(mode==='solo'){
+    return soloSnapshot();
+  }
+
+  if(mode==='team'){
+    return teamSnapshot();
+  }
+
+  return snapshot();
 }
 
 function payloadTargetGap(p,s=activeCockpitSnapshot()){
@@ -5658,7 +5907,9 @@ function payloadFinancingActive(p){
 function applySensitivityModeVisibility(mode=activeRMode()){
   const allowed = mode==='solo'
     ? new Set(['owner_price','owner_hours','operating_costs'])
-    : new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs']);
+    : mode==='employee'
+      ? new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs'])
+      : new Set(['owner_price','owner_hours','operating_costs']);
 
   document.querySelectorAll('#fbcSensitivityList .fbc-sens-row').forEach(row=>{
     row.classList.toggle('hidden',!allowed.has(row.dataset.sensKey));
@@ -5703,32 +5954,68 @@ function syncRModeUI(mode=activeRMode()){
       ? ($('soloRMount') || $('solo'))
       : mode==='employee'
         ? ($('employeeRMount') || $('employee'))
-        : null;
+        : mode==='team'
+          ? ($('teamRMount') || $('team'))
+          : null;
 
   if(host){
-    if(layer && layer.parentElement!==host) host.appendChild(layer);
-    if(pdf && pdf.parentElement!==host) host.appendChild(pdf);
+    if(layer && layer.parentElement!==host){
+      host.appendChild(layer);
+    }
+
+    if(pdf && pdf.parentElement!==host){
+      host.appendChild(pdf);
+    }
   }
 
-  if(layer) layer.classList.toggle('hidden', !host);
-  if(pdf) pdf.classList.toggle('hidden', !host);
+  if(layer){
+    layer.classList.toggle('hidden',!host);
+  }
+
+  if(pdf){
+    pdf.classList.toggle(
+      'hidden',
+      !host || mode==='team'
+    );
+  }
 
   applySensitivityModeVisibility(mode);
+
+  // Team P1 пока не подключён,
+  // поэтому второй прогон временно скрываем.
+  const evidence=$('fbcDecisionEvidence');
+
+  if(evidence){
+    evidence.classList.toggle(
+      'hidden',
+      mode==='team'
+    );
+  }
 }
 window.FBC_SYNC_R_MODE_UI=syncRModeUI;
 
 function ensureRUI(){
   const solo=$('solo');
   const emp=$('employee');
+  const team=$('team');
 
-  if((!solo&&!emp)||$('fbcRLayer')){
+  if(
+    (!solo&&!emp&&!team) ||
+    $('fbcRLayer')
+  ){
     syncRModeUI();
     return;
   }
 
-  const initialHost=activeRMode()==='solo'
-    ? ($('soloRMount') || solo)
-    : ($('employeeRMount') || emp);
+  const mode=activeRMode();
+
+  const initialHost=
+    mode==='solo'
+      ? ($('soloRMount') || solo)
+      : mode==='employee'
+        ? ($('employeeRMount') || emp)
+        : ($('teamRMount') || team);
+
   const layer=document.createElement('article');layer.id='fbcRLayer';layer.className='card result-card';
 layer.innerHTML=`
   <div class="section-kicker">
@@ -5904,6 +6191,14 @@ layer.innerHTML=`
         </p>
       </div>
       <span class="fbc-step-badge">3</span>
+    </div>
+
+    <div class="fbc-r-detailbox fbc-decision-guidance" id="fbcDecisionGuidance" hidden>
+      <strong class="fbc-decision-guidance-title">
+        ${T('Was Sie zuerst prüfen sollten','Что стоит проверить в первую очередь')}
+      </strong>
+      <div class="fbc-decision-guidance-list" id="fbcDecisionGuidanceList"></div>
+      <small id="fbcDecisionGuidanceFoot"></small>
     </div>
 
     <details class="fbc-decision-evidence" id="fbcDecisionEvidence" open>
@@ -6210,9 +6505,9 @@ layer.innerHTML=`
     </div>
   </div>
 `;
-  (initialHost||emp||solo).appendChild(layer);
+  (initialHost||team||emp||solo).appendChild(layer);
 
-  [solo,emp].filter(Boolean).forEach(host=>{
+  [solo,emp,team].filter(Boolean).forEach(host=>{
     if(host.dataset.fbcRInvalidationBound)return;
     host.dataset.fbcRInvalidationBound='1';
     ['input','change'].forEach(eventName=>{
@@ -6446,7 +6741,7 @@ await runRAnalysis('fbcRunFinancing');
   });
 }
 
-  const pdf=document.createElement('div');pdf.id='fbcPdfBar';pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;(initialHost||emp||solo).appendChild(pdf);
+  const pdf=document.createElement('div');pdf.id='fbcPdfBar';pdf.className='fbc-pdfbar';pdf.innerHTML=`<small>${T('PDF ist der letzte Schritt nach validierter R-Analyse.','PDF — последний шаг после валидированного R-анализа.')}</small><button id="fbcPdfButton" type="button" disabled>PDF</button>`;(initialHost||team||emp||solo).appendChild(pdf);
   $('fbcPdfButton').addEventListener('click',()=>{if(!window.FBC_R_ANALYSIS_PAYLOAD)return;renderPdfReport();window.print()});
   syncRModeUI(activeRMode());
 async function runRAnalysis(sourceId='fbcRunAnalysis'){
@@ -6834,6 +7129,171 @@ function financing(){
     trade_tax_rate:num('tradeTaxRate')
   };
 }
+  function teamSnapshot(){
+  const time=modeTime('team');
+
+  const costs={
+    office:num('teamCostOffice'),
+    vehicle:num('teamCostVehicle'),
+    fuel:num('teamCostFuel'),
+    energy:num('teamCostEnergy'),
+    software:num('teamCostSoftware'),
+    accounting:num('teamCostAccounting'),
+    insurance:num('teamCostInsurance'),
+    material:num('teamCostMaterial'),
+    marketing:num('teamCostMarketing'),
+    other:num('teamCostOther')
+  };
+
+  const owner={
+    price:num('teamOwnerPrice'),
+    hours_week:num('teamOwnerHours'),
+    days_week:num('teamOwnerDays')||5,
+    vacation_days:num('teamOwnerVacation'),
+    available_hours_month:time.workMonth||0,
+    billable_hours_month:Math.max(
+      0,
+      num('teamOwnerBillableHours')
+    ),
+    monthly_target:num('teamOwnerNeed'),
+    insurance_month:num('teamOwnerInsurance'),
+    pension_mode:$('teamPensionMode')?.value||'none',
+    pension_fixed_month:num('teamPensionFixed'),
+    holidays:time.holidays||0
+  };
+
+  const employees=teamMemberRows().map((row,index)=>{
+    const role=
+      row.querySelector('.team-role')?.value||'custom';
+
+    const form=
+      row.querySelector('.team-form')?.value||'part';
+
+    const wage=
+      parseDecimal(row.querySelector('.team-wage')?.value);
+
+    const hours=
+      parseDecimal(row.querySelector('.team-hours')?.value);
+
+    const days=
+      parseDecimal(row.querySelector('.team-days')?.value)||5;
+
+    const vacation=
+      parseDecimal(row.querySelector('.team-vacation')?.value);
+
+    const direct=
+      !!row.querySelector('.team-billable')?.checked;
+
+    const price=direct
+      ? parseDecimal(row.querySelector('.team-price')?.value)
+      : 0;
+
+    const billableHours=direct
+      ? Math.max(
+          0,
+          parseDecimal(
+            row.querySelector('.team-billable-hours')?.value
+          )
+        )
+      : 0;
+
+    const e=employmentData(
+      form,
+      wage,
+      hours,
+      0,
+      0,
+      days,
+      vacation,
+      0
+    );
+
+    return{
+      id:`employee_${index+1}`,
+      label:`Mitarbeiter ${index+1} · ${roles[role]?.de||role}`,
+
+      role,
+      form,
+
+      wage_hour:wage,
+      hours_week:hours,
+      days_week:days,
+      vacation_days:vacation,
+
+      direct_billing:direct,
+      customer_price:price,
+
+      paid_available_hours_month:e.workHours||0,
+      billable_hours_month:billableHours,
+
+      personnel_cost_month:e.total||0,
+      employer_addon_rate:e.rate||0,
+      holidays:e.holidays||0,
+
+      variable_cost_per_hour:0
+    };
+  });
+
+  const operating=
+    Object.values(costs).reduce(
+      (a,b)=>a+b,
+      0
+    );
+
+  const ownerRevenue=
+    owner.price *
+    owner.billable_hours_month;
+
+  const employeeRevenue=
+    employees.reduce(
+      (sum,e)=>
+        sum+
+        (
+          e.direct_billing
+            ? e.customer_price *
+              e.billable_hours_month
+            : 0
+        ),
+      0
+    );
+
+  const personnelCost=
+    employees.reduce(
+      (sum,e)=>
+        sum+
+        Number(e.personnel_cost_month||0),
+      0
+    );
+
+  return{
+    schema_version:'FBC_P0_FACTUAL_1.0',
+
+    errors:[],
+
+    owner,
+    employees,
+
+    operating_costs:costs,
+    financing:financing(),
+
+    current:{
+      owner_revenue:ownerRevenue,
+      employee_revenue:employeeRevenue,
+      revenue:
+        ownerRevenue+
+        employeeRevenue,
+
+      operating_costs:operating,
+      personnel_cost:personnelCost
+    },
+
+    legal_form:
+      $('legalForm')?.value||'freelance',
+
+    trade_tax_rate:
+      num('tradeTaxRate')
+  };
+}
   function soloSnapshot(){
   const time=workTime();
 
@@ -7050,14 +7510,115 @@ function soloBuildConfig(analysis={}){
       analysis.min_debt_service_ratio??null
   };
 }
-function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
+function teamBuildConfig(analysis={}){
+  const s=teamSnapshot();
+
+  if(s.errors.length){
+    throw new Error(
+      s.errors.join(', ')
+    );
+  }
+
+  return{
+    schema_version:
+      'FBC_P1_COCKPIT_REQUEST_1.0',
+
+    fbc_version:
+      'FBC_USER_BASE_R1',
+
+    locale:
+      RU() ? 'ru' : 'de',
+
+    mode:'owner_team',
+
+    objective_mode:
+      analysis.objective_mode ||
+      'grow_to_target',
+
+    owner:s.owner,
+    employees:s.employees,
+
+    operating_costs:
+      s.operating_costs,
+
+    financing:
+      s.financing,
+
+    legal_form:
+      s.legal_form,
+
+    trade_tax_rate:
+      s.trade_tax_rate,
+
+    confirmed_bounds:
+      analysis.confirmed_bounds ?? {},
+
+    cost_evidence:
+      analysis.cost_evidence ?? {},
+
+    mc_file:
+      analysis.mc_file ?? null,
+
+    horizon_months:
+      analysis.horizon_months ?? 12,
+
+    post_target_months:
+      analysis.post_target_months ?? 6,
+
+    variable_cost_keys:
+      analysis.variable_cost_keys ?? [],
+
+    mc_provenance:
+      analysis.mc_provenance ?? {},
+
+    demand_evidence:
+      analysis.demand_evidence ?? {},
+
+    min_target_probability:
+      analysis.min_target_probability ?? null,
+
+    min_debt_service_ratio:
+      analysis.min_debt_service_ratio ?? null
+  };
+}
+
+
+function buildActiveRConfig(analysis={}){
+  const mode=activeRMode();
+
+  if(mode==='solo'){
+    return soloBuildConfig(analysis);
+  }
+
+  if(mode==='team'){
+    return teamBuildConfig(analysis);
+  }
+
+  return buildConfig(analysis);
+}
+  function buildConfig(analysis={}){const s=snapshot();if(s.errors.length)throw new Error(s.errors.join(', '));return{schema_version:'FBC_P1_COCKPIT_REQUEST_1.0',fbc_version:'FBC_USER_BASE_R1',locale:RU()?'ru':'de',mode:'owner_employee',objective_mode:analysis.objective_mode||'grow_to_target',owner:s.owner,employee:s.employee,operating_costs:s.operating_costs,financing:s.financing,legal_form:s.legal_form,trade_tax_rate:s.trade_tax_rate,confirmed_bounds:analysis.confirmed_bounds??{},cost_evidence:analysis.cost_evidence??{},mc_file:analysis.mc_file??null,horizon_months:analysis.horizon_months??12,post_target_months:analysis.post_target_months??6,variable_cost_keys:analysis.variable_cost_keys??[],mc_provenance:analysis.mc_provenance??{},demand_evidence:analysis.demand_evidence??{},min_target_probability:analysis.min_target_probability??null,min_debt_service_ratio:analysis.min_debt_service_ratio??null};}
 window.FBC_P0_PRODUCTION_BRIDGE={
   snapshot:()=>activeCockpitSnapshot(),
   financing,
-  buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),
+  buildConfig:analysis=>buildActiveRConfig(analysis),
   status:()=>{const s=activeCockpitSnapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}
 };
-window.FBC_P1_PRODUCTION_BRIDGE={buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
+window.FBC_P1_PRODUCTION_BRIDGE={
+  buildConfig:analysis=>buildActiveRConfig(analysis),
+
+  renderPayload:p=>
+    window.FBC_R_BACKEND_ADAPTER.applyPayload(p),
+
+  status:()=>({
+    ready:
+      window.FBC_P0_PRODUCTION_BRIDGE
+        .status()
+        .ready,
+
+    schema:
+      'FBC_P1_COCKPIT_REQUEST_1.0'
+  })
+};
 window.FBC_P2_ASSURANCE_BRIDGE={apply:p=>{window.FBC_P2_ASSURANCE_PAYLOAD=p?.assurance||p?.audit||null;return window.FBC_P2_ASSURANCE_PAYLOAD}};
 window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=firstFinite(get(p||{},'post_decision.capital_service_ratio'),get(p||{},'financing.dscr'));if($('fbcRDSCR'))$('fbcRDSCR').textContent=v===null?'—':v.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2});return v}};
 
@@ -7088,14 +7649,13 @@ function chart(host,data,key){
 }
 
 function renderSensitivity(p,mode=activeRMode()){
-  const rows=[...document.querySelectorAll('#fbcSensitivityList .fbc-sens-row')];
-  if(!rows.length)return;
+  const list=$('fbcSensitivityList');
+  if(!list)return;
 
-  const allowed = mode==='solo'
-    ? new Set(['owner_price','owner_hours','operating_costs'])
-    : new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs']);
-
-  applySensitivityModeVisibility(mode);
+  // Сохраняем исходную разметку Solo/Employee один раз.
+  if(!window.FBC_DEFAULT_SENSITIVITY_MARKUP){
+    window.FBC_DEFAULT_SENSITIVITY_MARKUP=list.innerHTML;
+  }
 
   const candidates=
     get(p,'sensitivity.local') ??
@@ -7104,12 +7664,57 @@ function renderSensitivity(p,mode=activeRMode()){
     get(p,'differential_influence.normalized');
 
   const data=Array.isArray(candidates)?candidates:[];
+
+  if(mode==='team'){
+    const visible=data.filter(item=>{
+      const pct=finiteNumber(
+        item.net_change_pct ??
+        item.relative_net_change_pct ??
+        item.elasticity_pct ??
+        item.effect_pct
+      );
+      return pct!==null;
+    });
+
+    list.innerHTML=visible.map(item=>{
+      const key=String(item.lever??item.variable??item.key??'');
+      const label=String(item.label??item.actor_label??key);
+      const perturb=finiteNumber(item.perturbation_pct);
+      const step=perturb===null?'':`${perturb>0?'+':''}${perturb.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} %`;
+      return `
+        <div class="fbc-sens-row" data-sens-key="${esc(key)}">
+          <div class="fbc-sens-label">
+            <strong>${esc(label)}</strong>
+            <small>${esc(step)}</small>
+          </div>
+          <div class="fbc-sens-track"><div class="fbc-sens-fill"></div></div>
+          <div class="fbc-sens-value"><strong>—</strong><small>${T('R-Wert','значение R')}</small></div>
+        </div>`;
+    }).join('');
+
+    if(!visible.length){
+      list.innerHTML=`<small>${T('Noch keine Team-Sensitivitätswerte im R-Payload.','В R-payload пока нет значений чувствительности команды.')}</small>`;
+    }
+  }else{
+    if(list.innerHTML!==window.FBC_DEFAULT_SENSITIVITY_MARKUP){
+      list.innerHTML=window.FBC_DEFAULT_SENSITIVITY_MARKUP;
+    }
+    applySensitivityModeVisibility(mode);
+  }
+
+  const rows=[...list.querySelectorAll('.fbc-sens-row')];
   const byKey={};
 
   data.forEach(x=>{
     const k=String(x.lever??x.variable??x.key??'');
     if(k)byKey[k]=x;
   });
+
+  const allowed = mode==='solo'
+    ? new Set(['owner_price','owner_hours','operating_costs'])
+    : mode==='employee'
+      ? new Set(['owner_price','owner_hours','employee_customer_price','employee_billable_hours','operating_costs'])
+      : null;
 
   const values=[];
 
@@ -7118,37 +7723,15 @@ function renderSensitivity(p,mode=activeRMode()){
     const valueBox=row.querySelector('.fbc-sens-value');
     const fill=row.querySelector('.fbc-sens-fill');
 
-    if(!allowed.has(key)){
+    if(allowed && !allowed.has(key)){
       row.classList.add('hidden');
-      if(valueBox){
-        const strong=valueBox.querySelector('strong');
-        const small=valueBox.querySelector('small');
-        if(strong)strong.textContent='—';
-        if(small)small.textContent=T('R-Wert','значение R');
-      }
-      if(fill){
-        fill.style.width='8px';
-        fill.style.opacity='.28';
-      }
       return;
     }
 
     row.classList.remove('hidden');
     const item=byKey[key];
 
-    if(!item){
-      if(valueBox){
-        const strong=valueBox.querySelector('strong');
-        const small=valueBox.querySelector('small');
-        if(strong)strong.textContent='—';
-        if(small)small.textContent=T('noch nicht im R-Payload','ещё нет в R-payload');
-      }
-      if(fill){
-        fill.style.width='8px';
-        fill.style.opacity='.28';
-      }
-      return;
-    }
+    if(!item)return;
 
     const netPct=finiteNumber(
       item.net_change_pct ??
@@ -7206,8 +7789,8 @@ function renderSensitivity(p,mode=activeRMode()){
 
   if(!values.length){
     ft.textContent=T(
-      'Die konkreten Sensitivitätswerte werden angezeigt, sobald sie vom R-Backend geliefert werden. Der stärkste Faktor wird anschließend automatisch hervorgehoben.',
-      'Конкретные значения чувствительности появятся после передачи их R-бэкендом. Самый сильный фактор затем будет автоматически выделен.'
+      'Die konkreten Sensitivitätswerte werden angezeigt, sobald sie vom R-Backend geliefert werden.',
+      'Конкретные значения чувствительности появятся после передачи их R-бэкендом.'
     );
     return;
   }
@@ -7217,10 +7800,104 @@ function renderSensitivity(p,mode=activeRMode()){
   const label=top.item.label || top.row.querySelector('.fbc-sens-label strong')?.textContent || top.key;
 
   ft.textContent=T(
-    `Von den aktuell gemessenen Faktoren reagiert Ihr Monatsnetto rechnerisch am stärksten auf „${label}“. Ob Sie diesen Faktor tatsächlich verändern möchten, legen Sie im nächsten Schritt selbst fest.`,
-    `Из измеренных факторов месячное нетто математически сильнее всего реагирует на «${label}». Решать, хотите ли вы действительно менять этот фактор, вы будете на следующем шаге.`
+    `Von den aktuell gemessenen Faktoren reagiert Ihr Monatsnetto rechnerisch am stärksten auf „${label}“. Die konkrete Orientierung im nächsten Schritt berücksichtigt zusätzlich Elastizität, Auslastung und Kostendeckung.`,
+    `Из измеренных факторов месячное нетто математически сильнее всего реагирует на «${label}». Конкретная ориентация на следующем шаге дополнительно учитывает эластичность, загрузку и покрытие затрат.`
   );
 }
+
+
+
+function renderDecisionGuidance(p,mode=activeRMode()){
+  const box=$('fbcDecisionGuidance');
+  const list=$('fbcDecisionGuidanceList');
+  const foot=$('fbcDecisionGuidanceFoot');
+  if(!box||!list)return;
+
+  const g=get(p,'decision_guidance');
+  const candidates=Array.isArray(g?.candidates)?g.candidates:[];
+
+  if(!g || !candidates.length){
+    box.hidden=true;
+    list.innerHTML='';
+    if(foot)foot.textContent='';
+    return;
+  }
+
+  const reasonText=c=>{
+    const lever=String(c.lever||'');
+    const actor=String(c.actor_label||'');
+
+    if(lever==='operating_costs'){
+      return T(
+        'Eine moderate Kostensenkung verbessert das Monatsnetto im standardisierten Test. Prüfen Sie nur Kostenpositionen, die betrieblich tatsächlich veränderbar sind.',
+        'Умеренное снижение расходов улучшает месячное нетто в стандартизированном тесте. Проверяйте только те статьи, которые действительно можно изменить в бизнесе.'
+      );
+    }
+
+    if(lever==='owner_price'){
+      return T(
+        'Eine moderate Preiserhöhung bleibt auch nach Berücksichtigung der modellierten Nachfragewirkung positiv.',
+        'Умеренное повышение цены сохраняет положительный эффект даже после учёта модельной реакции спроса.'
+      );
+    }
+
+    if(lever==='owner_hours'){
+      return T(
+        'Zusätzliche abrechenbare Stunden wirken positiv; die aktuelle Auslastungszone wurde dabei bereits berücksichtigt.',
+        'Дополнительные оплачиваемые часы дают положительный эффект; текущая зона загрузки уже учтена.'
+      );
+    }
+
+    if(/_customer_price$/.test(lever) || lever==='employee_customer_price'){
+      return T(
+        `Der Kundenpreis von ${actor||'diesem Teammitglied'} zeigt nach Nachfrageelastizität einen positiven Effekt.`,
+        `Клиентская цена ${actor||'этого сотрудника'} даёт положительный эффект после учёта эластичности спроса.`
+      );
+    }
+
+    if(/_billable_hours$/.test(lever) || lever==='employee_billable_hours'){
+      return T(
+        `Die abrechenbaren Stunden von ${actor||'diesem Teammitglied'} zeigen unter Berücksichtigung der Auslastung einen positiven Effekt.`,
+        `Оплачиваемые часы ${actor||'этого сотрудника'} дают положительный эффект с учётом текущей загрузки.`
+      );
+    }
+
+    return T(
+      'Dieser Hebel zeigt im standardisierten Test einen positiven Effekt auf das Monatsnetto.',
+      'Этот рычаг показывает положительный эффект на месячное нетто в стандартизированном тесте.'
+    );
+  };
+
+  const titleText=c=>{
+    const lever=String(c.lever||'');
+    if(lever==='operating_costs')return T('Betriebskosten prüfen','Проверить расходы бизнеса');
+    if(lever==='owner_price')return T('Kundenpreis der Inhaberin / des Inhabers prüfen','Проверить клиентскую цену владельца');
+    if(lever==='owner_hours')return T('Abrechenbare Stunden der Inhaberin / des Inhabers prüfen','Проверить оплачиваемые часы владельца');
+    return String(c.lever_label||c.actor_label||lever);
+  };
+
+  list.innerHTML=candidates.map(c=>`
+    <div class="fbc-decision-guidance-item">
+      <strong>${esc(titleText(c))}</strong>
+      <small>${esc(reasonText(c))}</small>
+    </div>
+  `).join('');
+
+  if(foot){
+    foot.textContent=mode==='team'
+      ? T(
+          'Dies ist die mathematische Vororientierung des ersten Team-Laufs. Reale Änderungsgrenzen werden erst mit Team-P1 bestätigt.',
+          'Это математическая предварительная ориентация первого Team-прогона. Реальные границы изменений будут подтверждаться после подключения Team-P1.'
+        )
+      : T(
+          'Prüfen Sie anschließend nur die Veränderungen, die in Ihrem Unternehmen tatsächlich möglich sind.',
+          'Дальше подтверждайте только те изменения, которые действительно возможны в вашем бизнесе.'
+        );
+  }
+
+  box.hidden=false;
+}
+
 
 function renderEconomicsStep2(p,mode=activeRMode()){
   const section=$('fbcEconomicsSection');
@@ -7238,6 +7915,79 @@ function renderEconomicsStep2(p,mode=activeRMode()){
 
   const setText=(id,value)=>{if($(id))$(id).textContent=value;};
   const status=$('fbcEconomicsStatus');
+
+  // Отдельный Team-рендер: по каждому сотруднику показываем его собственную экономику.
+  let teamHost=$('fbcTeamEconomicsList');
+  if(!teamHost){
+    teamHost=document.createElement('div');
+    teamHost.id='fbcTeamEconomicsList';
+    teamHost.className='fbc-team-economics-list';
+    $('fbcEconomicsBox')?.appendChild(teamHost);
+  }
+
+  const singleIds=[
+    'fbcEconomicsStatus',
+    'fbcEconomicsRow1Label','fbcEconomicsRow1Value',
+    'fbcEconomicsRow2Label','fbcEconomicsRow2Value',
+    'fbcEconomicsRow3Label','fbcEconomicsRow3Value',
+    'fbcEconomicsHoursTitle',
+    'fbcEconomicsHoursCurrentLabel','fbcEconomicsHoursCurrent',
+    'fbcEconomicsHoursBELabel','fbcEconomicsHoursBE',
+    'fbcEconomicsHoursGap','fbcEconomicsText'
+  ];
+
+  if(mode==='team'){
+    singleIds.forEach(id=>{
+      const el=$(id);
+      if(el)el.hidden=true;
+    });
+    teamHost.hidden=false;
+
+    const employees=get(p,'team_economics.employees') ?? get(p,'break_even.employees') ?? [];
+    const rows=Array.isArray(employees)?employees:[];
+
+    setText('fbcEconomicsTitle',T('Team · Wirtschaftlichkeit und Kostendeckung','Команда · экономика и покрытие затрат'));
+    setText('fbcEconomicsIntro',T(
+      'FBC prüft für jedes Teammitglied Kosten, Kundenumsatz, Ergebnisbeitrag, Wirtschaftlichkeitsfaktor und nachhaltige Kostendeckung.',
+      'FBC отдельно проверяет по каждому сотруднику расходы, клиентскую выручку, вклад в результат, коэффициент экономической эффективности и устойчивое покрытие затрат.'
+    ));
+
+    teamHost.innerHTML=rows.map(e=>{
+      const billable=e.direct_billing===true;
+      const covered=e.cost_coverage_ok===true;
+      const statusText=!billable
+        ? T('interne / nicht direkt abrechenbare Rolle','внутренняя / напрямую не выставляемая клиенту роль')
+        : covered
+          ? T('Personalkosten gedeckt','расходы на сотрудника покрываются')
+          : T('Kostendeckung noch offen','расходы на сотрудника пока не покрываются');
+
+      const factor=finiteNumber(e.economic_factor);
+      const be=finiteNumber(e.break_even_hours);
+      const hours=finiteNumber(e.expected_billable_hours);
+      const contribution=finiteNumber(e.result_contribution_month);
+
+      return `
+        <div class="fbc-team-economics-card">
+          <h4>${esc(e.label||e.role_label||e.id||T('Teammitglied','Сотрудник'))}</h4>
+          <div class="fbc-r-change-row"><span>${T('Status','Статус')}</span><b>${esc(statusText)}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Personalkosten / Monat','Расходы на сотрудника / месяц')}</span><b>${money(e.personnel_cost_month)}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Kundenumsatz / Monat','Клиентская выручка / месяц')}</span><b>${billable?money(e.revenue_month):'—'}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Beitrag zum Betriebsergebnis','Вклад в результат бизнеса')}</span><b>${money(contribution)}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Wirtschaftlichkeitsfaktor','Коэффициент экономической эффективности')}</span><b>${factor===null?'—':factor.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2})}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Aktuell abrechenbare Stunden','Текущие оплачиваемые часы')}</span><b>${hours===null?'—':hours.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h'}</b></div>
+          <div class="fbc-r-change-row"><span>${T('Kostendeckung ab','Покрытие затрат с')}</span><b>${be===null?'—':be.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})+' h'}</b></div>
+        </div>`;
+    }).join('') || `<small>${T('Noch keine Team-Wirtschaftlichkeitsdaten im R-Payload.','В R-payload пока нет экономических данных команды.')}</small>`;
+
+    section.hidden=false;
+    return;
+  }
+
+  singleIds.forEach(id=>{
+    const el=$(id);
+    if(el)el.hidden=false;
+  });
+  teamHost.hidden=true;
 
   if(mode==='solo'){
     const revenue=firstFinite(
@@ -7565,6 +8315,7 @@ function renderSobol(p){
 }
 
 
+
 function renderDecisionDetails(p){
   const box=$('fbcRChanges');
   const shbox=$('fbcRShapley');
@@ -7890,6 +8641,7 @@ function applyPayload(p){
 
   renderSensitivity(baselinePayload,mode);
   renderEconomicsStep2(baselinePayload,mode);
+  renderDecisionGuidance(baselinePayload,mode);
 
   const exp=get(p,'recommendation.explanation.sentence')??get(p,'recommendation.explanation');
 
@@ -8156,10 +8908,7 @@ async function analyze(analysis={}){
   const activeMode=
   document.querySelector('.mode-tab.active')?.dataset.mode||'solo';
 
-const req=
-  activeMode==='solo'
-    ? soloBuildConfig(analysis)
-    : buildConfig(analysis);
+const req=buildActiveRConfig(analysis);
 
   const r=await fetch(url,{
     method:'POST',
@@ -8184,8 +8933,11 @@ throw new Error(
   }
 
   return applyPayload(data);
-}
-window.FBC_R_BACKEND_ADAPTER={buildRequest:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),applyPayload,analyze};
+}window.FBC_R_BACKEND_ADAPTER={
+  buildRequest:analysis=>buildActiveRConfig(analysis),
+  applyPayload,
+  analyze
+};
 
 function installStatLinks(){
   document.querySelectorAll('.fbc-stat-link').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',()=>jumpToStat(b.dataset.statTarget||'labor'))});
