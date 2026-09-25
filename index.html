@@ -5164,7 +5164,21 @@ function calculateTeam(){
   let gross=0,addons=0,billableHours=0,employeeRevenue=0,recommendedRevenue=0,hasBillable=false,teamStarted=hasInput('#teamOwnerPrice')||hasInput('#teamOwnerHours')||hasInput('#teamOwnerDays')||modeCosts('team')>0;
   $$('#teamRows .team-row').forEach(row=>{
     const role=row.querySelector('.team-role').value,form=row.querySelector('.team-form').value,wage=parseDecimal(row.querySelector('.team-wage').value),hours=parseDecimal(row.querySelector('.team-hours').value),days=parseDecimal(row.querySelector('.team-days').value)||5,vacation=parseDecimal(row.querySelector('.team-vacation').value),billable=row.querySelector('.team-billable').checked,price=billable?parseDecimal(row.querySelector('.team-price').value):0,actualBillable=billable?Math.max(0,parseDecimal(row.querySelector('.team-billable-hours').value)):0,a=employmentData(form,wage,hours,0,0,days,vacation,0),o=orientation(role,form),rawRecommended=rolePriceRecommendation(role,form,wage,hours,days,vacation),priceInput=row.querySelector('.team-price');a.billableHours=actualBillable;a.revenue=price*actualBillable;a.contribution=a.revenue-a.total;
-    priceInput.disabled=!billable;row.querySelector('.team-price-cell').classList.toggle('is-disabled',!billable);gross+=a.gross;addons+=a.addons;if(billable){billableHours+=a.billableHours;employeeRevenue+=a.revenue;hasBillable=true}teamStarted=teamStarted||wage>0||hours>0||(billable&&price>0);members.push({row,role,billable,a,o,rawRecommended,recommended:rawRecommended});
+   priceInput.disabled=!billable;
+
+const billableHoursInput=row.querySelector('.team-billable-hours');
+const billableHoursBox=row.querySelector('.team-billable-hours-box');
+
+if(billableHoursInput){
+  billableHoursInput.disabled=!billable;
+}
+
+billableHoursBox?.classList.toggle('is-disabled',!billable);
+
+row.querySelector('.team-price-cell')
+  .classList.toggle('is-disabled',!billable);
+
+gross+=a.gross;
   });
   let lowerRankMaximum=0,currentRank=0,currentRankMaximum=0;
   members.filter(member=>member.billable).sort((a,b)=>(ROLE_RANK[a.role]||3)-(ROLE_RANK[b.role]||3)).forEach(member=>{const rank=ROLE_RANK[member.role]||3;if(rank>currentRank){lowerRankMaximum=currentRankMaximum;currentRank=rank;currentRankMaximum=0}member.recommended=Math.max(member.rawRecommended,lowerRankMaximum?lowerRankMaximum*1.05:0);currentRankMaximum=Math.max(currentRankMaximum,member.recommended)});
