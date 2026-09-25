@@ -2318,7 +2318,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   #fbcPdfReport{display:block!important;background:#fff;color:#1f2f3d;font-family:Inter,Arial,sans-serif}
   #fbcPdfReport .pdf-title{font-size:17pt;font-weight:800;margin-bottom:4mm}
   #fbcPdfReport .pdf-sub{font-size:8.5pt;color:#607080;margin-bottom:5mm}
-  #fbcPdfReport .pdf-top{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-bottom:5mm}
+#fbcPdfReport .pdf-top{display:grid;grid-template-columns:repeat(2,1fr);gap:3mm;margin-bottom:5mm}
   #fbcPdfReport .pdf-top>div{border:1px solid #dfe6eb;border-radius:3mm;padding:3mm}
   #fbcPdfReport small{display:block;color:#687684;font-size:7.5pt}
   #fbcPdfReport strong{display:block;margin-top:1mm;font-size:12pt}
@@ -5224,7 +5224,16 @@ function renderPdfReport(){
     : '';
 
   host.innerHTML=`<div class="pdf-title">FUTURE Business Cockpit</div><div class="pdf-sub">${T('R-Backend-Report · Werte aus dem aktuellen Cockpit; R-Werte nur wenn Payload vorliegt.','R-отчёт · текущие данные Cockpit; R-значения только при наличии payload.')}</div>
-  <div class="pdf-top"><div><small>${T('Aktuelles Netto','Текущее нетто')}</small><strong>${money(current)}</strong></div><div><small>${T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации')}</small><strong>${money(projected)}</strong></div><div><small>${T('Verbleibender Abstand zum Nettoziel','Оставшийся разрыв до цели')}</small><strong>${money(remainingGap)}</strong></div></div>
+ <div class="pdf-top">
+  <div>
+    <small>${T('Aktuelles Netto','Текущее нетто')}</small>
+    <strong>${money(current)}</strong>
+  </div>
+  <div>
+    <small>${T('Erwartetes Netto nach Optimierung','Ожидаемое нетто после оптимизации')}</small>
+    <strong>${money(projected)}</strong>
+  </div>
+</div>
   <h2>${T('AKTUELLER STAND','ТЕКУЩЕЕ СОСТОЯНИЕ')}</h2>
   <div class="pdf-row"><span>${T('Inhaberpreis / abrechenbare Stunden','Цена владельца / оплачиваемые часы')}</span><b>${money(owner.price)} / ${ownerHours.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h/Monat</b></div>
   ${mode==='employee'?`<div class="pdf-row"><span>${T('Mitarbeiter','Сотрудник')}</span><b>${esc(employeeForm)} · ${money(employee.wage_hour)}/h · ${employeeHours.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:1})} h fakturiert</b></div><div class="pdf-row"><span>${T('Personalkosten','Расходы на персонал')}</span><b>${money(employee.personnel_cost_month)}</b></div>`:''}
@@ -7692,7 +7701,20 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
       false,
       optimizationNote ? T(`Optimierung: ${optimizationNote}`,`Оптимизация: ${optimizationNote}`) : ''
     );
-    if(Number.isFinite(remainingGapFazit) && remainingGapFazit>0.01) add(T('Verbleibender Abstand zum Nettoziel','Оставшийся разрыв до цели по нетто'),money(remainingGapFazit));
+    if(Number.isFinite(targetFazit) && Number.isFinite(projectedNetFazit)){
+  add(
+    T('Nettoziel','Цель по нетто'),
+    projectedNetFazit >= targetFazit
+      ? T(
+          `Das Nettoziel von ${money(targetFazit)} wird mit den geprüften operativen Anpassungen erreicht.`,
+          `Цель по нетто ${money(targetFazit)} достигается с учётом проверенных операционных изменений.`
+        )
+      : T(
+          `Das Nettoziel von ${money(targetFazit)} wird mit den geprüften operativen Anpassungen noch nicht vollständig erreicht.`,
+          `Цель по нетто ${money(targetFazit)} с учётом проверенных операционных изменений пока достигается не полностью.`
+        )
+  );
+}
 
     const requestedAmountFazit=num('fbcFinAmount');
     const financingFreshFazit=
@@ -7701,12 +7723,10 @@ if(hasFinalDecision && $('fbcRFazit') && $('fbcRFazitText')){
 
     if(financingFreshFazit){
       const payment=Number.isFinite(finMaxFazit)?finMaxFazit:finFirstFazit;
-      const needText=Number.isFinite(remainingGapFazit) && remainingGapFazit>0.01
-        ? T(
-            `Das Nettoziel von ${Number.isFinite(targetFazit)?money(targetFazit):'—'} wird operativ noch nicht vollständig erreicht. Für den verbleibenden Finanzierungsbedarf von ${money(remainingGapFazit)} wurde eine Finanzierung in Höhe von ${money(finAmountFazit)} geprüft.`,
-            `Цель по нетто ${Number.isFinite(targetFazit)?money(targetFazit):'—'} операционно ещё не достигается полностью. Для оставшейся потребности в финансировании ${money(remainingGapFazit)} проверено финансирование на сумму ${money(finAmountFazit)}.`
-          )
-        : T(`Geprüfte Finanzierung: ${money(finAmountFazit)}.`,`Проверенное финансирование: ${money(finAmountFazit)}.`);
+const needText=T(
+  `Geprüfte Finanzierung: ${money(finAmountFazit)}.`,
+  `Проверенное финансирование: ${money(finAmountFazit)}.`
+);
       let coverage='';
       if(Number.isFinite(payment)) coverage += T(` Monatliche Belastung bis zu ${money(payment)}.`,` Ежемесячная нагрузка до ${money(payment)}.`);
       if(Number.isFinite(finDscrFazit)){
