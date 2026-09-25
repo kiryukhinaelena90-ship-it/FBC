@@ -3387,7 +3387,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
     </article>
 
-    <article class="card result-card" tabindex="0">
+    <article class="card result-card hidden" tabindex="0" id="teamAnalysisPrep">
       <div class="step">04</div>
 <div class="result-heading">
 <div>
@@ -3580,6 +3580,16 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
           <span data-de="Arbeitskapazität Mitarbeiter:" data-ru="Рабочая мощность сотрудника:">Arbeitskapazität Mitarbeiter:</span>
           <strong id="empCapacityHours">—</strong>
         </small>
+      <small class="employee-capacity-reference">
+  <span
+    data-de="Arbeitskapazität Mitarbeiter:"
+    data-ru="Рабочая мощность сотрудника:"
+  >
+    Arbeitskapazität Mitarbeiter:
+  </span>
+
+  <strong class="team-capacity-hours">—</strong>
+</small>
       </div>
       <label class="field employee-billable-hours-input">
         <span data-de="Abrechenbare Stunden" data-ru="Оплачиваемые клиентом/клиентами часы">Abrechenbare Stunden</span>
@@ -5115,7 +5125,26 @@ const applySchedule=()=>{
 const confirmValue=input=>{
   input.classList.remove('is-suggestion');
 };
+// Автоматически подставленное значение — это ориентир.
+// При первом вводе пользователь должен заменить его,
+// а не дописать цифры к существующему значению.
+const selectSuggestionOnFocus=input=>{
+  if(!input)return;
 
+  input.addEventListener('focus',()=>{
+    if(input.classList.contains('is-suggestion')){
+      setTimeout(()=>{
+        input.select();
+      },0);
+    }
+  });
+};
+
+[
+  hours,
+  days,
+  vacation
+].forEach(selectSuggestionOnFocus);
 const applyTeamVacation=()=>{
   days.dataset.autoDays='false';
 
@@ -5312,7 +5341,16 @@ comparableMembers.forEach(member=>{
 });
   
   members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
-  row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
+  row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const capacityHours=
+  row.querySelector('.team-capacity-hours');
+
+if(capacityHours){
+  capacityHours.textContent=
+    `${a.workHours.toLocaleString(
+      lang==='ru' ? 'ru-RU' : 'de-DE',
+      {maximumFractionDigits:1}
+    )} h / ${t('Monat','месяц')}`;
+}const formKey=row.querySelector('.team-form').value,external=a.form.type==='external',miniInvalid=formKey==='mini'&&a.gross>MINIJOB_LIMIT;row.querySelector('.team-hours').classList.toggle('input-error',miniInvalid);row.querySelector('.team-wage').classList.toggle('input-error',parseDecimal(row.querySelector('.team-wage').value)>0&&parseDecimal(row.querySelector('.team-wage').value)<MIN_WAGE&&!external)});
   const ownerBillableHours=Math.max(0,num('#teamOwnerBillableHours'));
   const maxMemberRecommended=Math.max(0,...members.filter(member=>member.billable).map(member=>member.recommended)),ownerRevenue=owner.price*ownerBillableHours,totalRevenue=ownerRevenue+employeeRevenue,business=owner.business+gross+addons,profit=Math.max(0,totalRevenue-business),pension=updateModePanels('team',owner,profit),protection=owner.insurance+pension.monthly,totalCosts=business+protection,tax=taxEstimateEmployee(profit*12),taxMonth=tax.total/12,remain=totalRevenue-totalCosts-taxMonth,monthlyGoal=num('#teamOwnerNeed'),goalEntered=hasInput('#teamOwnerNeed')&&monthlyGoal>0,required=solveModeRevenue('team',business,owner.insurance,monthlyGoal),ownerBaseRate=hasBillable?maxMemberRecommended:(ownerBillableHours?required.revenue/ownerBillableHours:0),baseRecommendedRevenue=ownerBaseRate*ownerBillableHours+members.filter(member=>member.billable).reduce((sum,member)=>sum+member.recommended*member.a.billableHours,0),targetFactor=proportionalTargetFactor(required.revenue,baseRecommendedRevenue,goalEntered),ownerRecommended=hasBillable?ownerBaseRate*targetFactor:ownerBaseRate,goalPrompt=t('Bitte Monatsziel eingeben','Введите месячную цель');
   members.forEach(member=>{member.finalRecommended=member.billable?member.recommended*targetFactor:member.recommended});
@@ -7541,7 +7579,22 @@ window.FBC_P0_PRODUCTION_BRIDGE={
   buildConfig:analysis=>buildActiveRConfig(analysis),
   status:()=>{const s=activeCockpitSnapshot();return{ready:s.errors.length===0,errors:s.errors,snapshot:s}}
 };
-window.FBC_P1_PRODUCTION_BRIDGE={buildConfig:analysis=>activeRMode()==='solo'?soloBuildConfig(analysis):buildConfig(analysis),renderPayload:p=>window.FBC_R_BACKEND_ADAPTER.applyPayload(p),status:()=>({ready:window.FBC_P0_PRODUCTION_BRIDGE.status().ready,schema:'FBC_P1_COCKPIT_REQUEST_1.0'})};
+window.FBC_P1_PRODUCTION_BRIDGE={
+  buildConfig:analysis=>buildActiveRConfig(analysis),
+
+  renderPayload:p=>
+    window.FBC_R_BACKEND_ADAPTER.applyPayload(p),
+
+  status:()=>({
+    ready:
+      window.FBC_P0_PRODUCTION_BRIDGE
+        .status()
+        .ready,
+
+    schema:
+      'FBC_P1_COCKPIT_REQUEST_1.0'
+  })
+};
 window.FBC_P2_ASSURANCE_BRIDGE={apply:p=>{window.FBC_P2_ASSURANCE_PAYLOAD=p?.assurance||p?.audit||null;return window.FBC_P2_ASSURANCE_PAYLOAD}};
 window.FBC_CAPITAL_SERVICE_BRIDGE={apply:p=>{const v=firstFinite(get(p||{},'post_decision.capital_service_ratio'),get(p||{},'financing.dscr'));if($('fbcRDSCR'))$('fbcRDSCR').textContent=v===null?'—':v.toLocaleString(RU()?'ru-RU':'de-DE',{maximumFractionDigits:2});return v}};
 
