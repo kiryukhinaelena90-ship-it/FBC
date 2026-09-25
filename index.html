@@ -2952,9 +2952,20 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 #team .team-member-card .team-row-fields{
   display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-columns:1.15fr 1.1fr .95fr .72fr .72fr .72fr 1.15fr !important;
   gap:12px!important;
   align-items:start!important;
+}
+  #team .team-member-card .team-price-cell{
+  justify-content:flex-start;
+}
+
+#team .team-member-card .team-billable-line{
+  margin-top:10px;
+}
+
+#team .team-member-card .team-billable-hours-box{
+  margin-top:14px;
 }
 #team .team-member-card .team-row-fields>label>small{
   min-height:34px;display:flex;align-items:flex-end;margin:0 0 6px!important;
@@ -2971,7 +2982,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 
 
 @media(max-width:1050px){
-  #team .team-member-card .team-row-fields{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #team .team-member-card .team-row-fields{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
 }
 @media(max-width:760px){
   #team .team-builder .team-heading{flex-direction:column}
@@ -4034,20 +4047,48 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
       <small data-de="Urlaub/Jahr" data-ru="Отпуск/год">Urlaub/Jahr</small>
       <input class="team-vacation" type="number" min="0" max="60" step="1" value="30" data-auto-vacation="true">
     </label>
-    <label class="team-price-cell">
-      <span class="team-billable-line">
-        <input class="team-billable" type="checkbox" checked>
-        <b data-de="An Kunden abrechnen" data-ru="Выставляется клиенту">An Kunden abrechnen</b>
-      </span>
-      <small data-de="Aktueller Rechnungspreis ohne USt · €/Std." data-ru="Текущая цена клиенту без НДС · €/ч">Aktueller Rechnungspreis ohne USt · €/Std.</small>
-      <input class="team-price decimal-input" type="text" inputmode="decimal" placeholder="0">
-    </label>
-    <label class="team-field team-billable-hours-field">
-      <small data-de="Abrechenbare Kundenstunden / Monat" data-ru="Оплачиваемые клиентом часы / месяц">Abrechenbare Kundenstunden / Monat</small>
-      <input class="team-billable-hours" type="number" min="0" step="0.1" placeholder="0">
-    </label>
+<label class="team-price-cell">
+  <small data-de="Aktueller Rechnungspreis ohne USt · €/Std."
+         data-ru="Текущая цена клиенту без НДС · €/ч">
+    Aktueller Rechnungspreis ohne USt · €/Std.
+  </small>
+
+  <input class="team-price decimal-input"
+         type="text"
+         inputmode="decimal"
+         placeholder="0">
+
+  <span class="team-billable-line">
+    <input class="team-billable" type="checkbox" checked>
+    <b data-de="An Kunden abrechnen"
+       data-ru="Выставляется клиенту">
+      An Kunden abrechnen
+    </b>
+  </span>
+</label>
+  </div>
+<div class="employee-billable-hours-box team-billable-hours-box">
+  <div class="employee-billable-hours-copy">
+    <span data-de="Abrechenbare Kundenstunden / Monat"
+          data-ru="Оплачиваемые клиентом часы / месяц">
+      Abrechenbare Kundenstunden / Monat
+    </span>
+    <small data-de="Summe der Stunden, die einem oder mehreren Kunden berechnet werden."
+           data-ru="Сумма часов, которые выставляются одному или нескольким клиентам.">
+      Summe der Stunden, die einem oder mehreren Kunden berechnet werden.
+    </small>
   </div>
 
+  <label class="employee-billable-hours-input">
+    <div class="unit">
+      <input class="team-billable-hours"
+             type="number"
+             min="0"
+             step="0.1"
+             placeholder="0">
+    </div>
+  </label>
+</div>
   <div class="orientation-box team-orientation-box">
     <div>
       <small data-de="Vorläufige Orientierung nach Bundesland und Rolle" data-ru="Предварительный ориентир по земле и роли">Vorläufige Orientierung nach Bundesland und Rolle</small>
