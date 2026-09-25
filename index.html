@@ -91,7 +91,8 @@ input::placeholder{color:#b8b0a8;opacity:1}
 /* User input: warm and editable. Native number steppers are intentionally hidden. */
 .field input,.team-row input,.cost-lines input{background:#fff9f3;border-color:#d8c7b8}
 #employeeOwnerGoalBlock,
-#ownerMonthlyGoalBlock{
+#ownerMonthlyGoalBlock,
+#teamOwnerGoalBlock{
   display:block!important;
   width:100%!important;
   max-width:none!important;
@@ -104,25 +105,27 @@ input::placeholder{color:#b8b0a8;opacity:1}
 }
 
 #employeeOwnerGoalBlock > .field,
-#ownerMonthlyGoalBlock > .field{
+#ownerMonthlyGoalBlock > .field,
+#teamOwnerGoalBlock > .field{
   width:100%!important;
   max-width:none!important;
 }
 
 #employeeOwnerGoalBlock .unit,
-#ownerMonthlyGoalBlock .unit{
+#ownerMonthlyGoalBlock .unit,
+#teamOwnerGoalBlock .unit{
   width:max-content!important;
   max-width:100%!important;
 }
 
 #employeeOwnerGoalBlock #empOwnerGoal,
-#ownerMonthlyGoalBlock #soloGoal{
+#ownerMonthlyGoalBlock #soloGoal,
+#teamOwnerGoalBlock #teamOwnerNeed{
   width:100px!important;
   max-width:100px!important;
   flex:0 0 100px!important;
 }
 .team-labels,.team-row{grid-template-columns:1.3fr 1.2fr .72fr .65fr .82fr 36px}
-.result-goal-row.team-goals{grid-template-columns:repeat(2,minmax(240px,1fr));max-width:none}
 @media(max-width:900px){.team-labels{display:none}.team-row{grid-template-columns:1fr 1fr}.team-orientation{grid-column:1/-1}}
 @media(max-width:600px){.team-row,.result-goal-row.team-goals{grid-template-columns:1fr}}
 
@@ -621,6 +624,19 @@ input::placeholder{color:#b8b0a8;opacity:1}
 .owner-profile-card .owner-top-grid > .field{
   width:auto!important;
   min-width:0!important;
+}
+@media(max-width:1100px){
+  .owner-profile-card .owner-top-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:600px){
+  .owner-profile-card .owner-top-grid{
+    grid-template-columns:1fr!important;
+  }
+  .owner-profile-card .owner-top-grid > .field > span{
+    min-height:0;
+  }
 }
 
 .employee-profile-card label.team-price-cell{
@@ -2953,29 +2969,6 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 #team .team-limit-inline{margin-right:auto;color:var(--ui-muted,var(--muted));font-size:11px}
 #team #addTeamMember:disabled{background:#e3e9ee!important;color:#8d99a3!important;cursor:not-allowed!important}
 
-#team .team-analysis-prep .fbc-r-title-row{align-items:center}
-#team .team-analysis-prep .fbc-r-primary:disabled{background:#dfe6ec!important;color:#7f8c98!important;cursor:not-allowed!important}
-#team .team-analysis-prep-note{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
-#team .team-analysis-roadmap{display:grid;gap:0;margin-top:18px;border-top:1px solid var(--ui-line,var(--line))}
-#team .team-analysis-stage{
-  display:grid;
-  grid-template-columns:42px minmax(0,1fr);
-  gap:14px;
-  align-items:start;
-  padding:14px 2px;
-  border-bottom:1px solid var(--ui-line,var(--line));
-}
-#team .team-analysis-stage>span{
-  width:32px;height:32px;display:grid;place-items:center;
-  border:1px solid var(--ui-line,var(--line));border-radius:9px;
-  color:var(--ui-navy,#17324d);font-size:11px;font-weight:800;
-  background:#f7fafc;
-}
-#team .team-analysis-stage strong{display:block;font-size:14px;font-weight:650;color:var(--ink)}
-#team .team-analysis-stage small{display:block;margin-top:3px;color:var(--muted);font-size:11px;line-height:1.4}
-#team .team-analysis-stage.is-team-economics{background:#f8fafb;padding-left:8px;padding-right:8px}
-#team .team-analysis-stage.is-team-economics>span{background:#eef3f7}
-#team .team-analysis-stage.is-team-economics strong{color:var(--ui-navy,#17324d)}
 
 @media(max-width:1050px){
   #team .team-member-card .team-row-fields{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -2985,9 +2978,11 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   #team .team-builder-status{width:100%;min-width:0;text-align:left}
   #team .team-member-toggle{align-items:flex-start}
   #team .team-member-details{padding:13px}
-  #team .team-member-card .team-row-fields{grid-template-columns:1fr!important}
   #team .team-member-footer{align-items:stretch;flex-direction:column}
   #team .team-member-footer .remove-team{width:100%!important}
+}
+@media(max-width:520px){
+  #team .team-member-card .team-row-fields{grid-template-columns:1fr!important}
 }
 </style>
 
@@ -3814,14 +3809,20 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   <div class="annual-result-row"><span data-de="Steuern · Orientierung / Jahr" data-ru="Налоги · ориентир / год">Steuern · Orientierung / Jahr</span><strong id="teamAnnualTaxes">—</strong></div>
   <div class="annual-result-row annual-result-final"><span data-de="Netto verfügbar / Jahr" data-ru="Доступно нетто / год">Netto verfügbar / Jahr</span><strong id="teamAnnualNet">—</strong></div>
 </div>
-<div class="result-goal-row team-goals">
+<div id="teamOwnerGoalBlock" class="result-goal-row">
 <label class="field">
 <span data-de="Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?"
       data-ru="Сколько вы хотите реально оставлять себе каждый месяц?">
   Wie viel möchten Sie wirklich jeden Monat für sich übrig haben?
 </span>
 <div class="unit">
-<input id="teamOwnerNeed" class="decimal-input" type="text" inputmode="decimal" placeholder="0">
+<input id="teamOwnerNeed"
+       class="decimal-input"
+       type="text"
+       inputmode="decimal"
+       data-valid-min="0"
+       placeholder="0"
+       style="width:100px!important;max-width:100px!important;flex:0 0 100px!important;">
 <b>€</b>
 </div>
 <small data-de="Der Betrag, der nach Betriebskosten, Absicherung und geschätzten Steuern verfügbar bleiben soll." data-ru="Сумма, которая должна остаться после расходов бизнеса, страхования и расчётных налогов.">Der Betrag, der nach Betriebskosten, Absicherung und geschätzten Steuern verfügbar bleiben soll.</small>
@@ -3839,37 +3840,142 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
      Economic interpretation now belongs to the R analysis after sensitivity. -->
 </article>
 
-<article class="card result-card team-analysis-prep" tabindex="0" id="teamAnalysisPrep">
-  <div class="section-kicker" data-de="R · DECISION SUPPORT · TEAM" data-ru="R · АНАЛИТИКА И РЕШЕНИЯ · КОМАНДА">R · DECISION SUPPORT · TEAM</div>
-  <div class="fbc-r-title-row">
-    <h2 data-de="Analyse, Robustheit und Entscheidung" data-ru="Анализ, устойчивость и решение">Analyse, Robustheit und Entscheidung</h2>
-    <button class="fbc-r-primary" type="button" id="teamRunAnalysisPrepared" disabled data-de="Team analysieren" data-ru="Анализировать команду">Team analysieren</button>
-  </div>
-  <p class="team-analysis-prep-note" data-de="Der Frontend-Ablauf ist vorbereitet. Die Berechnung wird im nächsten Schritt mit dem Team-R-Modell verbunden; bis dahin werden hier keine vorläufigen Empfehlungen erzeugt." data-ru="Frontend-последовательность подготовлена. На следующем шаге она будет подключена к R-модели Team; до этого здесь не формируются предварительные рекомендации.">Der Frontend-Ablauf ist vorbereitet. Die Berechnung wird im nächsten Schritt mit dem Team-R-Modell verbunden; bis dahin werden hier keine vorläufigen Empfehlungen erzeugt.</p>
+<article class="card result-card" tabindex="0" id="teamAnalysisPrep">
 
-  <div class="team-analysis-roadmap" aria-label="Team Analyseablauf">
-    <div class="team-analysis-stage">
-      <span>01</span><div><strong data-de="Sensitivität & Elastizität" data-ru="Чувствительность и эластичность">Sensitivität & Elastizität</strong><small data-de="Preis, abrechenbare Stunden, Betriebskosten und die Reaktion der Nachfrage auf Preisänderungen." data-ru="Цена, оплачиваемые часы, расходы бизнеса и реакция спроса на изменение цены.">Preis, abrechenbare Stunden, Betriebskosten und die Reaktion der Nachfrage auf Preisänderungen.</small></div>
-    </div>
-    <div class="team-analysis-stage is-team-economics">
-      <span>02</span><div><strong data-de="Team · Wirtschaftlichkeit und Kostendeckung" data-ru="Команда · экономика и покрытие затрат">Team · Wirtschaftlichkeit und Kostendeckung</strong><small data-de="Je Teammitglied: Personalkosten, erwarteter Kundenumsatz, Wirtschaftlichkeitsfaktor, Ergebnisbeitrag und nachhaltiger Break-even unter Berücksichtigung der Auslastungskoeffizienten." data-ru="По каждому сотруднику: расходы, ожидаемая выручка от клиентов, коэффициент экономической эффективности, вклад в результат и устойчивый break-even с учётом коэффициентов загрузки.">Je Teammitglied: Personalkosten, erwarteter Kundenumsatz, Wirtschaftlichkeitsfaktor, Ergebnisbeitrag und nachhaltiger Break-even unter Berücksichtigung der Auslastungskoeffizienten.</small></div>
-    </div>
-    <div class="team-analysis-stage">
-      <span>03</span><div><strong data-de="Handlungsspielräume" data-ru="Рамки изменений">Handlungsspielräume</strong><small data-de="Nur bestätigte Preis-, Stunden- und Kostenbereiche werden als Optimierungshebel zugelassen." data-ru="В оптимизацию допускаются только подтверждённые диапазоны цены, часов и расходов.">Nur bestätigte Preis-, Stunden- und Kostenbereiche werden als Optimierungshebel zugelassen.</small></div>
-    </div>
-    <div class="team-analysis-stage">
-      <span>04</span><div><strong data-de="Optimierung & Shapley" data-ru="Оптимизация и Shapley">Optimierung & Shapley</strong><small data-de="Robuste Kombination innerhalb der bestätigten Grenzen; Beiträge werden verständlich nach Inhaber, Teammitgliedern und Kosten erklärt." data-ru="Устойчивая комбинация в подтверждённых границах; вклад объясняется по владельцу, сотрудникам и расходам.">Robuste Kombination innerhalb der bestätigten Grenzen; Beiträge werden verständlich nach Inhaber, Teammitgliedern und Kosten erklärt.</small></div>
-    </div>
-    <div class="team-analysis-stage">
-      <span>05</span><div><strong data-de="Break-even" data-ru="Break-even">Break-even</strong><small data-de="Betriebs-Break-even sowie Kostendeckung der direkt abrechenbaren Teammitglieder nach der ausgewählten Kombination." data-ru="Break-even бизнеса и покрытие затрат напрямую оплачиваемых сотрудников после выбранной комбинации.">Betriebs-Break-even sowie Kostendeckung der direkt abrechenbaren Teammitglieder nach der ausgewählten Kombination.</small></div>
-    </div>
-    <div class="team-analysis-stage">
-      <span>06</span><div><strong data-de="Kostenrisiko · Monte Carlo" data-ru="Риск затрат · Monte Carlo">Kostenrisiko · Monte Carlo</strong><small data-de="Die ausgewählte Entscheidung wird unter Kosten- und Arbeitskostenrisiken geprüft; der Optimierer wird dabei nicht neu gestartet." data-ru="Выбранное решение проверяется при рисках затрат и расходов на персонал; оптимизатор при этом не запускается заново.">Die ausgewählte Entscheidung wird unter Kosten- und Arbeitskostenrisiken geprüft; der Optimierer wird dabei nicht neu gestartet.</small></div>
-    </div>
-    <div class="team-analysis-stage">
-      <span>07</span><div><strong data-de="Gesamtergebnis & Fazit" data-ru="Итоговый результат и вывод">Gesamtergebnis & Fazit</strong><small data-de="Aktueller Stand, optimierte Kombination, Zielerreichung, Teamwirkung und Robustheit in einer gemeinsamen Schlussbewertung." data-ru="Текущее состояние, оптимизированная комбинация, достижение цели, влияние команды и устойчивость в едином итоговом выводе.">Aktueller Stand, optimierte Kombination, Zielerreichung, Teamwirkung und Robustheit in einer gemeinsamen Schlussbewertung.</small></div>
-    </div>
+  <div class="section-kicker"
+       data-de="R · DECISION SUPPORT · TEAM"
+       data-ru="R · АНАЛИТИКА И РЕШЕНИЯ · КОМАНДА">
+    R · DECISION SUPPORT · TEAM
   </div>
+
+  <div class="fbc-r-title-row">
+    <h2 data-de="Analyse, Robustheit und Entscheidung"
+        data-ru="Анализ, устойчивость и решение">
+      Analyse, Robustheit und Entscheidung
+    </h2>
+
+    <button class="fbc-r-primary"
+            type="button"
+            id="teamRunAnalysisPrepared"
+            disabled
+            data-de="Team analysieren"
+            data-ru="Анализировать команду">
+      Team analysieren
+    </button>
+  </div>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Vororientierung: Welche Faktoren wirken besonders stark?"
+            data-ru="Предварительная ориентация: какие факторы влияют сильнее всего?">
+          Vororientierung: Welche Faktoren wirken besonders stark?
+        </h3>
+        <p data-de="Preis, abrechenbare Stunden, Betriebskosten und Nachfrageeffekte werden zunächst auf ihre rechnerische Wirkung geprüft."
+           data-ru="Сначала проверяется расчётное влияние цены, оплачиваемых часов, расходов бизнеса и реакции спроса.">
+          Preis, abrechenbare Stunden, Betriebskosten und Nachfrageeffekte werden zunächst auf ihre rechnerische Wirkung geprüft.
+        </p>
+      </div>
+      <span class="fbc-step-badge">1</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Team · Wirtschaftlichkeit und Kostendeckung"
+            data-ru="Команда · экономика и покрытие затрат">
+          Team · Wirtschaftlichkeit und Kostendeckung
+        </h3>
+        <p data-de="Für jedes Teammitglied werden Personalkosten, erwarteter Kundenumsatz, Wirtschaftlichkeitsfaktor, Ergebnisbeitrag und nachhaltiger Break-even geprüft."
+           data-ru="По каждому сотруднику проверяются расходы, ожидаемая выручка от клиентов, коэффициент экономической эффективности, вклад в результат и устойчивый break-even.">
+          Für jedes Teammitglied werden Personalkosten, erwarteter Kundenumsatz, Wirtschaftlichkeitsfaktor, Ergebnisbeitrag und nachhaltiger Break-even geprüft.
+        </p>
+      </div>
+      <span class="fbc-step-badge">2</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Welche Veränderungen sind für Ihr Unternehmen realistisch?"
+            data-ru="Какие изменения реально возможны для вашего бизнеса?">
+          Welche Veränderungen sind für Ihr Unternehmen realistisch?
+        </h3>
+        <p data-de="Nur bestätigte Preis-, Stunden- und Kostenbereiche werden später als Optimierungshebel zugelassen."
+           data-ru="В оптимизацию позже допускаются только подтверждённые диапазоны цены, часов и расходов.">
+          Nur bestätigte Preis-, Stunden- und Kostenbereiche werden später als Optimierungshebel zugelassen.
+        </p>
+      </div>
+      <span class="fbc-step-badge">3</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Empfohlene Kombination"
+            data-ru="Рекомендуемая комбинация">
+          Empfohlene Kombination
+        </h3>
+        <p data-de="FBC berechnet die geeignete Kombination innerhalb der bestätigten Grenzen und erklärt anschließend die Beiträge der verwendeten Hebel."
+           data-ru="FBC рассчитывает подходящую комбинацию в подтверждённых границах и затем объясняет вклад использованных рычагов.">
+          FBC berechnet die geeignete Kombination innerhalb der bestätigten Grenzen und erklärt anschließend die Beiträge der verwendeten Hebel.
+        </p>
+      </div>
+      <span class="fbc-step-badge">4</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Break-even und Kostendeckung"
+            data-ru="Break-even и покрытие затрат">
+          Break-even und Kostendeckung
+        </h3>
+        <p data-de="Geprüft werden der Break-even des Betriebs und die Kostendeckung der direkt abrechenbaren Teammitglieder."
+           data-ru="Проверяются break-even бизнеса и покрытие затрат сотрудников, напрямую выставляемых клиентам.">
+          Geprüft werden der Break-even des Betriebs und die Kostendeckung der direkt abrechenbaren Teammitglieder.
+        </p>
+      </div>
+      <span class="fbc-step-badge">5</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Kostenrisiko und Robustheit"
+            data-ru="Риск затрат и устойчивость">
+          Kostenrisiko und Robustheit
+        </h3>
+        <p data-de="Die ausgewählte Kombination wird anschließend unter Kosten- und Arbeitskostenrisiken mit Monte Carlo geprüft."
+           data-ru="Выбранная комбинация затем проверяется методом Monte Carlo с учётом рисков затрат и расходов на персонал.">
+          Die ausgewählte Kombination wird anschließend unter Kosten- und Arbeitskostenrisiken mit Monte Carlo geprüft.
+        </p>
+      </div>
+      <span class="fbc-step-badge">6</span>
+    </div>
+  </section>
+
+  <section class="fbc-analysis-section">
+    <div class="fbc-analysis-heading">
+      <div>
+        <h3 data-de="Gesamtergebnis und Fazit"
+            data-ru="Итоговый результат и вывод">
+          Gesamtergebnis und Fazit
+        </h3>
+        <p data-de="Aktueller Stand, Teamwirkung, optimierte Kombination, Zielerreichung und Robustheit werden abschließend gemeinsam eingeordnet."
+           data-ru="Текущее состояние, влияние команды, оптимизированная комбинация, достижение цели и устойчивость объединяются в итоговой оценке.">
+          Aktueller Stand, Teamwirkung, optimierte Kombination, Zielerreichung und Robustheit werden abschließend gemeinsam eingeordnet.
+        </p>
+      </div>
+      <span class="fbc-step-badge">7</span>
+    </div>
+  </section>
+
 </article>
   </section>
 <div id="teamRMount" class="fbc-r-mount"></div>
@@ -4552,7 +4658,7 @@ function employmentData(formKey,wage,hours,extraCost=0,customerPrice=0,days=5,va
 
 function ownerModeMarkup(p){
   const who=p==='emp'?['INHABER/IN + MITARBEITER','ВЛАДЕЛЕЦ + СОТРУДНИК']:['TEAMCHECK · INHABER/IN UND BETRIEB','TEAMCHECK · ВЛАДЕЛЕЦ И БИЗНЕС'];
-  return `<article class="card ${p==='emp'?'owner-profile-card':''}" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2>
+  return `<article class="card ${(p==='emp' || p==='team')?'owner-profile-card':''}" tabindex="0"><div class="step">01</div><div class="section-kicker" data-de="${who[0]} · EIGENSTÄNDIGE EINGABEN" data-ru="${who[1]} · НЕЗАВИСИМЫЕ ДАННЫЕ">${who[0]} · EIGENSTÄNDIGE EINGABEN</div><h2 data-de="Preis und Arbeitszeit des Inhabers" data-ru="Цена и рабочее время владельца">Preis und Arbeitszeit des Inhabers</h2>
 <div class="field-grid owner-top-grid">
   <label class="field">
     <span data-de="Kundenpreis netto / Std." data-ru="Цена клиенту без НДС / ч">Kundenpreis netto / Std.</span>
