@@ -1,5 +1,8 @@
 const REQUEST_SCHEMA = 'FBC_P1_COCKPIT_REQUEST_1.0';
-const RESPONSE_SCHEMA = 'fbc_decision_payload_v1';
+const RESPONSE_SCHEMAS = [
+  'fbc_decision_payload_v1',
+  'fbc_team_decision_payload_v1'
+];
 
 function json(res, status, body) {
   res.status(status);
@@ -16,33 +19,133 @@ function parseBody(req) {
 
 function validateRequest(body) {
   const errors = [];
-  if (!body || typeof body !== 'object') return ['body_missing'];
-if (!['owner_employee', 'solo'].includes(body.mode)) errors.push('mode');
-  if (!['owner_employee', 'solo'].includes(body.mode)) errors.push('mode');
-  for (const key of ['owner', 'employee', 'operating_costs', 'financing']) {
-    if (!body[key] || typeof body[key] !== 'object') errors.push(key);
+
+  if (!body || typeof body !== 'object') {
+    return ['body_missing'];
   }
+
+  if (body.schema_version !== REQUEST_SCHEMA) {
+    errors.push('schema_version');
+  }
+
+  const allowedModes = [
+    'solo',
+    'owner_employee',
+    'owner_team'
+  ];
+
+  if (!allowedModes.includes(body.mode)) {
+    errors.push('mode');
+  }
+
+  for (const key of ['owner', 'operating_costs', 'financing']) {
+    if (!body[key] || typeof body[key] !== 'object') {
+      errors.push(key);
+    }
+  }
+
+  if (body.mode === 'owner_employee') {
+    if (!body.employee || typeof body.employee !== 'object') {
+      errors.push('employee');
+    }
+  }
+
+  if (body.mode === 'owner_team') {
+    if (
+      !Array.isArray(body.employees) ||
+      body.employees.length < 1 ||
+      body.employees.length > 5
+    ) {
+      errors.push('employees');
+    }
+  }
+
   if (body.owner) {
     for (const key of ['price', 'billable_hours_month', 'monthly_target']) {
-      if (!Number.isFinite(Number(body.owner[key]))) errors.push(`owner.${key}`);
+      if (!Number.isFinite(Number(body.owner[key]))) {
+        errors.push(`owner.${key}`);
+      }
     }
   }
-  if (body.employee?.direct_billing) {
+
+  if (
+    body.mode === 'owner_employee' &&
+    body.employee?.direct_billing
+  ) {
     for (const key of ['customer_price', 'billable_hours_month']) {
-      if (!Number.isFinite(Number(body.employee[key]))) errors.push(`employee.${key}`);
+      if (!Number.isFinite(Number(body.employee[key]))) {
+        errors.push(`employee.${key}`);
+      }
     }
   }
+
+  if (
+    body.mode === 'owner_team' &&
+    Array.isArray(body.employees)
+  ) {
+    body.employees.forEach((employee, index) => {
+      if (!employee || typeof employee !== 'object') {
+        errors.push(`employees.${index}`);
+        return;
+      }
+
+      if (employee.direct_billing) {
+        for (const key of ['customer_price', 'billable_hours_month']) {
+          if (!Number.isFinite(Number(employee[key]))) {
+            errors.push(`employees.${index}.${key}`);
+          }
+        }
+      }
+    });
+  }
+
   return [...new Set(errors)];
 }
 
 function validateResponse(payload) {
-  if (!payload || typeof payload !== 'object') return ['payload_missing'];
-  const errors = [];
-  if (payload.schema_version !== RESPONSE_SCHEMA) errors.push('schema_version');
-  for (const key of ['current', 'recommendation', 'target_path', 'post_decision', 'break_even', 'financing', 'production_meta']) {
-    if (!payload[key] || typeof payload[key] !== 'object') errors.push(key);
+  if (!payload || typeof payload !== 'object') {
+    return ['payload_missing'];
   }
-  return errors;
+
+  const errors = [];
+
+  if (!RESPONSE_SCHEMAS.includes(payload.schema_version)) {
+    errors.push('schema_version');
+  }
+
+  if (payload.schema_version === 'fbc_team_decision_payload_v1') {
+    for (const key of [
+      'current',
+      'sensitivity',
+      'team_economics',
+      'decision_guidance',
+      'recommendation',
+      'post_decision',
+      'break_even',
+      'financing',
+      'production_meta'
+    ]) {
+      if (!payload[key] || typeof payload[key] !== 'object') {
+        errors.push(key);
+      }
+    }
+  } else {
+    for (const key of [
+      'current',
+      'recommendation',
+      'target_path',
+      'post_decision',
+      'break_even',
+      'financing',
+      'production_meta'
+    ]) {
+      if (!payload[key] || typeof payload[key] !== 'object') {
+        errors.push(key);
+      }
+    }
+  }
+
+  return [...new Set(errors)];
 }
 
 function backendUrl() {
