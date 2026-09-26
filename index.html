@@ -2415,33 +2415,94 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
   .fbc-bound-months{justify-content:flex-start}
 }
 
-/* Team P1 · max. 3 bestätigte Hebel */
-.fbc-team-evidence{margin-top:14px}
-.fbc-team-evidence .fbc-decision-body{padding-top:2px}
-.fbc-team-evidence-note{display:block;margin:0 0 10px;color:#687684;font-size:11px;line-height:1.45}
-.fbc-team-p1-list{display:grid;gap:8px}
-.fbc-team-p1-row{padding:11px 0;border-top:1px solid #e8edf0}
+/* Team P1 · gleiche visuelle Sprache wie Solo / Employee */
+.fbc-team-evidence{margin-top:12px}
+.fbc-team-evidence .fbc-decision-body{padding-top:0}
+.fbc-team-p1-list{display:block}
+.fbc-team-p1-row{
+  position:relative;
+  border-top:1px solid #e8edf0;
+  padding:10px 0;
+}
 .fbc-team-p1-row:first-child{border-top:0}
-.fbc-team-p1-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:center}
-.fbc-team-p1-head input[type="checkbox"]{width:16px;height:16px;margin:0}
-.fbc-team-p1-title{font-size:12px;font-weight:750;color:#344c5d}
-.fbc-team-p1-other{border:0;background:transparent;color:#284e6d;font-size:11px;font-weight:750;cursor:pointer;padding:4px 0}
-.fbc-team-p1-select{display:none;width:100%;margin:8px 0 0;height:36px;border:1px solid #cfc5bb;border-radius:9px;background:#fff;padding:0 34px 0 10px}
+.fbc-team-p1-row.fbc-bound-row{
+  grid-template-columns:minmax(260px,1fr) 180px;
+  gap:14px;
+  align-items:start;
+}
+.fbc-team-p1-main{min-width:0}
+.fbc-team-p1-main .fbc-bound-toggle{
+  margin:0;
+  min-height:34px;
+}
+.fbc-team-p1-title{
+  font-size:12px;
+  font-weight:750;
+  color:#344c5d;
+}
+.fbc-team-p1-other{
+  display:inline-block;
+  margin:2px 0 0 24px;
+  border:0;
+  background:transparent;
+  color:#284e6d;
+  font-size:10.5px;
+  font-weight:750;
+  cursor:pointer;
+  padding:2px 0;
+}
+.fbc-team-p1-select{
+  display:none;
+  width:min(100%,460px);
+  height:36px;
+  margin:7px 0 0 24px;
+  border:1px solid #cfc5bb;
+  border-radius:9px;
+  background:#fff;
+  padding:0 34px 0 10px;
+}
 .fbc-team-p1-row.is-changing .fbc-team-p1-select{display:block}
-.fbc-team-p1-controls{display:grid;grid-template-columns:minmax(150px,.9fr) minmax(120px,.65fr) 95px;gap:9px;align-items:end;margin-top:8px}
-.fbc-team-p1-controls label{display:flex;flex-direction:column;gap:4px}
-.fbc-team-p1-controls label>span{font-size:10px;color:#687684}
-.fbc-team-p1-controls input,.fbc-team-p1-controls select{height:36px;border:1px solid #cfc5bb;border-radius:9px;background:#fff;padding:0 10px}
-.fbc-team-p1-current{font-size:10px;color:#687684;line-height:1.35;margin-top:5px}
-.fbc-team-cost-select-wrap{display:none}
-.fbc-team-p1-row[data-lever="operating_costs"] .fbc-team-cost-select-wrap{display:flex}
-.fbc-team-p1-row[data-lever="operating_costs"] .fbc-team-bound-wrap{display:flex}
-.fbc-team-p1-row:not([data-lever="operating_costs"]) .fbc-team-cost-select-wrap{display:none}
-.fbc-team-p1-limit-note{margin-top:9px;color:#687684;font-size:10px;line-height:1.4}
+.fbc-team-p1-current{
+  margin:5px 0 0 24px;
+  font-size:10px;
+  line-height:1.4;
+  color:#7b8994;
+}
+.fbc-team-cost-select-wrap{
+  display:none;
+  margin:7px 0 0 24px;
+  max-width:460px;
+}
+.fbc-team-p1-row[data-lever="operating_costs"] .fbc-team-cost-select-wrap{display:block}
+.fbc-team-cost-select-wrap select{
+  width:100%;
+  height:36px;
+  border:1px solid #cfc5bb;
+  border-radius:9px;
+  background:#fff;
+  padding:0 34px 0 10px;
+}
+.fbc-team-bound-unit{width:180px;justify-self:end}
+.fbc-team-bound-unit input{width:130px}
+.fbc-team-p1-bound:disabled{
+  background:#f5f7f8;
+  color:#9aa6af;
+}
+.fbc-team-p1-limit-note{
+  display:block;
+  margin-top:9px;
+  color:#687684;
+  font-size:10px;
+  line-height:1.4;
+}
+.fbc-team-implementation-details{margin-top:12px}
+.fbc-team-implementation-grid label[hidden]{display:none}
 @media(max-width:760px){
-  .fbc-team-p1-controls{grid-template-columns:1fr}
-  .fbc-team-p1-head{grid-template-columns:auto 1fr}
-  .fbc-team-p1-other{grid-column:2;justify-self:start}
+  .fbc-team-p1-row.fbc-bound-row{grid-template-columns:1fr}
+  .fbc-team-bound-unit{width:100%;justify-self:stretch}
+  .fbc-team-bound-unit input{width:100%}
+  .fbc-team-p1-select,
+  .fbc-team-cost-select-wrap{max-width:none}
 }
 </style>
 
@@ -6380,26 +6441,39 @@ layer.innerHTML=`
     </details>
 
     <details class="fbc-decision-evidence fbc-team-evidence hidden" id="fbcTeamDecisionEvidence" open>
-      <summary>${T('Handlungsspielräume für Team festlegen','Задать реальные рамки для команды')}</summary>
+      <summary>${T('Handlungsspielräume festlegen','Задать реальные рамки изменений')}</summary>
       <div class="fbc-decision-body">
         <p class="fbc-decision-help">
           ${T(
-            'FBC schlägt aus dem ersten Lauf bis zu drei Hebel zur Prüfung vor. Sie können jeden davon durch einen anderen zulässigen Hebel ersetzen. In einen Team-P1-Lauf gehen maximal drei bestätigte Hebel ein.',
-            'FBC предлагает по итогам первого прогона до трёх рычагов для проверки. Каждый из них можно заменить другим допустимым рычагом. Во второй Team-прогон попадает максимум три подтверждённых рычага.'
+            'Bestätigen Sie nur Veränderungen, die in Ihrem Betrieb wirklich möglich sind. FBC schlägt bis zu drei Hebel vor; jeden davon können Sie ersetzen. Pro Team-Prognose werden maximal drei bestätigte Hebel optimiert.',
+            'Подтвердите только те изменения, которые действительно возможны в вашем бизнесе. FBC предлагает до трёх рычагов; любой из них можно заменить. В одном Team-прогнозе оптимизируется максимум три подтверждённых рычага.'
           )}
         </p>
+
         <div class="fbc-team-p1-list" id="fbcTeamP1List"></div>
+
+        <details class="fbc-implementation-details fbc-team-implementation-details">
+          <summary>${T('Weitere Angaben zur Umsetzung','Дополнительные параметры внедрения')}</summary>
+          <p>${T(
+            'Optional: Geben Sie an, nach wie vielen Monaten eine bestätigte Änderung vollständig wirksam sein soll. Ohne Änderung verwendet FBC 1 Monat.',
+            'Необязательно: укажите, через сколько месяцев подтверждённое изменение должно полностью вступить в силу. Если ничего не менять, FBC использует 1 месяц.'
+          )}</p>
+          <div class="fbc-implementation-grid fbc-team-implementation-grid" id="fbcTeamImplementationGrid"></div>
+        </details>
+
         <small class="fbc-team-p1-limit-note">
           ${T(
-            'Nicht ausgewählte Hebel bleiben unverändert. So bleibt die Optimierung auch bei mehreren Teammitgliedern begrenzt und nachvollziehbar.',
-            'Невыбранные рычаги остаются без изменений. Это ограничивает размерность оптимизации даже при нескольких сотрудниках и делает расчёт понятнее.'
+            'Nicht bestätigte Hebel bleiben unverändert. Das begrenzt die Optimierung auch bei mehreren Teammitgliedern und hält die Berechnung nachvollziehbar.',
+            'Неподтверждённые рычаги остаются без изменений. Это ограничивает оптимизацию даже при нескольких сотрудниках и делает расчёт понятным.'
           )}
         </small>
+
         <div class="fbc-evidence-action">
           <button class="fbc-r-primary" type="button" id="fbcRunTeamEvidenceAnalysis">
-            ${T('Team-Handlungsspielräume auswerten','Оценить рамки Team-прогона')}
+            ${T('Team-Prognose berechnen','Рассчитать Team-прогноз')}
           </button>
         </div>
+
         <div class="fbc-analysis-progress" id="fbcTeamEvidenceProgress" aria-live="polite">
           <div class="fbc-analysis-progress-track"><div class="fbc-analysis-progress-fill"></div></div>
           <small class="fbc-analysis-progress-text">
@@ -6416,6 +6490,7 @@ layer.innerHTML=`
   <section
   class="fbc-analysis-section"
   id="fbcRecommendationSection"
+  hidden
 >
     <div class="fbc-analysis-heading">
       <div>
@@ -7536,14 +7611,23 @@ function teamP1OptionByKey(key,s=teamSnapshot()){
 function renderTeamDecisionEvidence(p){
   const host=$('fbcTeamP1List');
   const evidence=$('fbcTeamDecisionEvidence');
-  if(!host||!evidence)return;
+  const implGrid=$('fbcTeamImplementationGrid');
+  if(!host||!evidence||!implGrid)return;
 
   const s=teamSnapshot();
   const opts=teamP1LeverOptions(s);
   const guidance=get(p,'decision_guidance');
-  const suggested=Array.isArray(guidance?.candidates)
-    ? guidance.candidates.map(x=>String(x.lever||'')).filter(Boolean)
-    : [];
+
+  const suggestedSource=
+    Array.isArray(guidance?.confirmation_candidates)
+      ? guidance.confirmation_candidates
+      : Array.isArray(guidance?.candidates)
+        ? guidance.candidates
+        : [];
+
+  const suggested=suggestedSource
+    .map(x=>String(x?.lever||''))
+    .filter(Boolean);
 
   const uniqueSuggested=[];
   suggested.forEach(k=>{
@@ -7556,44 +7640,103 @@ function renderTeamDecisionEvidence(p){
     `<option value="">${T('Hebel auswählen','Выберите рычаг')}</option>`,
     ...opts.map(o=>`<option value="${esc(o.key)}">${esc(o.label)}</option>`)
   ].join('');
+
   const costLabels=teamP1CostLabels();
-  const positiveCosts=Object.entries(s.operating_costs||{}).filter(([,v])=>Number(v)>0);
-  const costOptions=[`<option value="">${T('Kostenposition wählen','Выберите статью расходов')}</option>`]
-    .concat(positiveCosts.map(([k])=>`<option value="${esc(k)}">${esc(costLabels[k]||k)}</option>`))
-    .join('');
+  const positiveCosts=Object.entries(s.operating_costs||{})
+    .filter(([,v])=>Number(v)>0);
+
+  const costOptions=[
+    `<option value="">${T('Kostenposition wählen','Выберите статью расходов')}</option>`,
+    ...positiveCosts.map(([k])=>`<option value="${esc(k)}">${esc(costLabels[k]||k)}</option>`)
+  ].join('');
+
+  const fmtCurrent=o=>{
+    if(!o){
+      return T(
+        'Wählen Sie bei Bedarf einen anderen zulässigen Hebel.',
+        'При необходимости выберите другой допустимый рычаг.'
+      );
+    }
+
+    if(o.current===null){
+      return T(
+        'Bitte konkrete Kostenposition wählen.',
+        'Выберите конкретную статью расходов.'
+      );
+    }
+
+    return T(
+      `Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit}`,
+      `Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit}`
+    );
+  };
+
+  const unitLabel=o=>{
+    if(!o)return '—';
+    if(o.direction==='down')return '€';
+    return o.unit||'';
+  };
 
   host.innerHTML=[0,1,2].map(i=>{
     const key=uniqueSuggested[i]||'';
     const o=opts.find(x=>x.key===key)||null;
-    const currentText=!o
-      ? T('Wählen Sie bei Bedarf einen anderen zulässigen Hebel.','При необходимости выберите другой допустимый рычаг.')
-      : o.current===null
-        ? T('Bitte konkrete Kostenposition wählen.','Выберите конкретную статью расходов.')
-        : T(`Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit}`,`Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit}`);
+
     return `
-      <div class="fbc-team-p1-row${o?'':' is-changing'}" data-team-slot="${i}" data-lever="${esc(o?.key||'')}">
-        <div class="fbc-team-p1-head">
-          <input type="checkbox" class="fbc-team-p1-on" aria-label="${T('Hebel bestätigen','Подтвердить рычаг')}">
-          <strong class="fbc-team-p1-title">${esc(o?.label||T('Weiteren Hebel auswählen','Выбрать другой рычаг'))}</strong>
-          <button type="button" class="fbc-team-p1-other">${T('Anderer Hebel','Другой рычаг')}</button>
-        </div>
-        <select class="fbc-team-p1-select">${optionHtml}</select>
-        <div class="fbc-team-p1-controls">
-          <label class="fbc-team-cost-select-wrap">
-            <span>${T('Kostenposition','Статья расходов')}</span>
+      <div class="fbc-team-p1-row fbc-bound-row${o?'':' is-changing'}"
+           data-team-slot="${i}"
+           data-lever="${esc(o?.key||'')}">
+        <div class="fbc-team-p1-main">
+          <label class="fbc-bound-toggle">
+            <input type="checkbox"
+                   class="fbc-team-p1-on"
+                   aria-label="${T('Hebel bestätigen','Подтвердить рычаг')}">
+            <span class="fbc-team-p1-title">
+              ${esc(o?.label||T('Weiteren Hebel auswählen','Выбрать другой рычаг'))}
+            </span>
+          </label>
+
+          <button type="button" class="fbc-team-p1-other">
+            ${T('Anderer Hebel','Другой рычаг')}
+          </button>
+
+          <select class="fbc-team-p1-select">${optionHtml}</select>
+
+          <div class="fbc-team-cost-select-wrap">
             <select class="fbc-team-cost-key">${costOptions}</select>
-          </label>
-          <label class="fbc-team-bound-wrap">
-            <span class="fbc-team-bound-label">${o?.direction==='down'?T('Neuer Betrag','Новая сумма'):T('Obergrenze','Верхняя граница')}</span>
-            <input class="fbc-team-p1-bound" type="text" inputmode="decimal" placeholder="${o?.unit||''}">
-          </label>
-          <label>
-            <span>${T('Wirksam in','Вступит в силу через')}</span>
-            <input class="fbc-team-p1-months" type="number" min="0" step="1" value="1">
-          </label>
+          </div>
+
+          <div class="fbc-team-p1-current">${esc(fmtCurrent(o))}</div>
         </div>
-        <div class="fbc-team-p1-current">${esc(currentText)}</div>
+
+        <div class="unit fbc-team-bound-unit">
+          <input class="fbc-team-p1-bound"
+                 type="text"
+                 inputmode="decimal"
+                 ${o?'':'disabled'}
+                 placeholder="${o?.direction==='down'?'€':esc(o?.unit||'')}">
+          <b class="fbc-team-unit-label">${esc(unitLabel(o))}</b>
+        </div>
       </div>`;
+  }).join('');
+
+  implGrid.innerHTML=[0,1,2].map(i=>{
+    const key=uniqueSuggested[i]||'';
+    const o=opts.find(x=>x.key===key)||null;
+    return `
+      <label data-team-impl-slot="${i}" ${o?'':'hidden'}>
+        <span class="fbc-team-impl-label">
+          ${esc(o?.label||T(`Hebel ${i+1}`,`Рычаг ${i+1}`))}
+        </span>
+        <div class="unit">
+          <input class="fbc-team-p1-months"
+                 data-team-month-slot="${i}"
+                 type="number"
+                 min="0"
+                 step="1"
+                 value="1">
+          <b>${T('Mon.','мес.')}</b>
+        </div>
+      </label>`;
   }).join('');
 
   host.querySelectorAll('.fbc-team-p1-row').forEach((row,i)=>{
@@ -7601,32 +7744,44 @@ function renderTeamDecisionEvidence(p){
     if(sel)sel.value=uniqueSuggested[i]||'';
   });
 
+  const refreshImplementation=row=>{
+    const slot=String(row?.dataset?.teamSlot??'');
+    const key=row?.dataset?.lever||'';
+    const o=teamP1OptionByKey(key,s);
+    const label=implGrid.querySelector(`[data-team-impl-slot="${slot}"]`);
+    if(!label)return;
+    label.hidden=!o;
+    const title=label.querySelector('.fbc-team-impl-label');
+    if(title)title.textContent=o?.label||T(`Hebel ${Number(slot)+1}`,`Рычаг ${Number(slot)+1}`);
+  };
+
   const refreshRow=row=>{
     const key=row.querySelector('.fbc-team-p1-select')?.value||'';
     const o=teamP1OptionByKey(key,s);
-    if(!o){
-      row.dataset.lever='';
-      const title=row.querySelector('.fbc-team-p1-title');
-      if(title)title.textContent=T('Weiteren Hebel auswählen','Выбрать другой рычаг');
-      const bound=row.querySelector('.fbc-team-p1-bound');
-      if(bound){bound.value='';bound.placeholder='';}
-      const cur=row.querySelector('.fbc-team-p1-current');
-      if(cur)cur.textContent=T('Wählen Sie bei Bedarf einen anderen zulässigen Hebel.','При необходимости выберите другой допустимый рычаг.');
-      return;
-    }
-    row.dataset.lever=o.key;
+
+    row.dataset.lever=o?.key||'';
+
     const title=row.querySelector('.fbc-team-p1-title');
-    if(title)title.textContent=o.label;
-    const label=row.querySelector('.fbc-team-bound-label');
-    if(label)label.textContent=o.direction==='down'
-      ? T('Neuer Betrag','Новая сумма')
-      : T('Obergrenze','Верхняя граница');
+    if(title){
+      title.textContent=o?.label||T('Weiteren Hebel auswählen','Выбрать другой рычаг');
+    }
+
     const bound=row.querySelector('.fbc-team-p1-bound');
-    if(bound){bound.value='';bound.placeholder=o.unit||'';}
+    if(bound){
+      bound.value='';
+      bound.disabled=!o;
+      bound.placeholder=o
+        ? (o.direction==='down'?'€':o.unit||'')
+        : '';
+    }
+
+    const unit=row.querySelector('.fbc-team-unit-label');
+    if(unit)unit.textContent=o ? (o.direction==='down'?'€':o.unit||'') : '—';
+
     const cur=row.querySelector('.fbc-team-p1-current');
-    if(cur)cur.textContent=o.current===null
-      ? T('Bitte konkrete Kostenposition wählen.','Выберите конкретную статью расходов.')
-      : T(`Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit}`,`Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit}`);
+    if(cur)cur.textContent=fmtCurrent(o);
+
+    refreshImplementation(row);
   };
 
   host.onclick=e=>{
@@ -7635,21 +7790,32 @@ function renderTeamDecisionEvidence(p){
     const row=btn.closest('.fbc-team-p1-row');
     row?.classList.toggle('is-changing');
   };
+
   host.onchange=e=>{
     if(e.target.matches('.fbc-team-p1-select')){
       const row=e.target.closest('.fbc-team-p1-row');
       refreshRow(row);
       row?.classList.remove('is-changing');
     }
+
     if(e.target.matches('.fbc-team-cost-key')){
       const row=e.target.closest('.fbc-team-p1-row');
       const key=e.target.value;
       const cur=Number(s.operating_costs?.[key]||0);
       const label=teamP1CostLabels()[key]||key;
       const text=row?.querySelector('.fbc-team-p1-current');
-      if(text)text.textContent=key
-        ? T(`Aktuell · ${label}: ${cur.toLocaleString('de-DE',{maximumFractionDigits:2})} € / Monat`,`Сейчас · ${label}: ${cur.toLocaleString('ru-RU',{maximumFractionDigits:2})} € / месяц`)
-        : T('Bitte konkrete Kostenposition wählen.','Выберите конкретную статью расходов.');
+
+      if(text){
+        text.textContent=key
+          ? T(
+              `Aktuell · ${label}: ${cur.toLocaleString('de-DE',{maximumFractionDigits:2})} € / Monat`,
+              `Сейчас · ${label}: ${cur.toLocaleString('ru-RU',{maximumFractionDigits:2})} € / месяц`
+            )
+          : T(
+              'Bitte konkrete Kostenposition wählen.',
+              'Выберите конкретную статью расходов.'
+            );
+      }
     }
   };
 
@@ -7661,54 +7827,132 @@ function renderTeamDecisionEvidence(p){
 function readTeamDecisionEvidence(){
   const s=teamSnapshot();
   const confirmed_bounds={}, cost_evidence={};
+
   const rows=[...document.querySelectorAll('#fbcTeamP1List .fbc-team-p1-row')]
     .filter(row=>row.querySelector('.fbc-team-p1-on')?.checked);
 
   if(rows.length<1){
-    throw new Error(T('Bestätigen Sie mindestens einen Team-Hebel.','Подтвердите хотя бы один рычаг для команды.'));
+    throw new Error(T(
+      'Bestätigen Sie mindestens einen Team-Hebel.',
+      'Подтвердите хотя бы один рычаг для команды.'
+    ));
   }
+
   if(rows.length>3){
-    throw new Error(T('Für einen Team-Lauf sind maximal drei Hebel zulässig.','Для одного Team-прогона можно выбрать максимум три рычага.'));
+    throw new Error(T(
+      'Für einen Team-Lauf sind maximal drei Hebel zulässig.',
+      'Для одного Team-прогона можно выбрать максимум три рычага.'
+    ));
   }
 
   const used=new Set();
+
   rows.forEach(row=>{
-    const lever=row.dataset.lever||row.querySelector('.fbc-team-p1-select')?.value||'';
-    if(!lever)throw new Error(T('Bitte Hebel auswählen.','Выберите рычаг.'));
-    if(used.has(lever))throw new Error(T('Jeder Hebel darf nur einmal gewählt werden.','Каждый рычаг можно выбрать только один раз.'));
+    const lever=
+      row.dataset.lever ||
+      row.querySelector('.fbc-team-p1-select')?.value ||
+      '';
+
+    if(!lever){
+      throw new Error(T('Bitte Hebel auswählen.','Выберите рычаг.'));
+    }
+
+    if(used.has(lever)){
+      throw new Error(T(
+        'Jeder Hebel darf nur einmal gewählt werden.',
+        'Каждый рычаг можно выбрать только один раз.'
+      ));
+    }
     used.add(lever);
 
-    const months=Math.max(0,Math.round(parseDecimal(row.querySelector('.fbc-team-p1-months')?.value)||0));
-    const implementation={months_to_full:months,mode:'linear',source_type:'user_confirmed'};
-    const bound=parseDecimal(row.querySelector('.fbc-team-p1-bound')?.value);
+    const slot=String(row.dataset.teamSlot??'');
+    const monthsInput=document.querySelector(
+      `#fbcTeamImplementationGrid .fbc-team-p1-months[data-team-month-slot="${slot}"]`
+    );
+
+    const months=Math.max(
+      0,
+      Math.round(parseDecimal(monthsInput?.value)||0)
+    );
+
+    const implementation={
+      months_to_full:months,
+      mode:'linear',
+      source_type:'user_confirmed'
+    };
+
+    const bound=parseDecimal(
+      row.querySelector('.fbc-team-p1-bound')?.value
+    );
 
     if(lever==='operating_costs'){
       const key=row.querySelector('.fbc-team-cost-key')?.value||'';
       const current=Number(s.operating_costs?.[key]||0);
-      if(!key)throw new Error(T('Bitte Kostenposition auswählen.','Выберите статью расходов.'));
-      if(!Number.isFinite(bound)||bound<0||bound>=current){
-        throw new Error(T('Der bestätigte Kostenbetrag muss unter dem aktuellen Wert liegen.','Подтверждённая сумма расходов должна быть ниже текущей.'));
+
+      if(!key){
+        throw new Error(T(
+          'Bitte Kostenposition auswählen.',
+          'Выберите статью расходов.'
+        ));
       }
+
+      if(!Number.isFinite(bound)||bound<0||bound>=current){
+        throw new Error(T(
+          'Der bestätigte Kostenbetrag muss unter dem aktuellen Wert liegen.',
+          'Подтверждённая сумма расходов должна быть ниже текущей.'
+        ));
+      }
+
       cost_evidence[key]={
-        lower:bound,upper:current,source_type:'user_confirmed',
-        reason:T('Vom Nutzer bestätigte Kostensenkung','Подтверждённое пользователем снижение расходов'),
+        lower:bound,
+        upper:current,
+        source_type:'user_confirmed',
+        reason:T(
+          'Vom Nutzer bestätigte Kostensenkung',
+          'Подтверждённое пользователем снижение расходов'
+        ),
         implementation
       };
       return;
     }
 
     const o=teamP1OptionByKey(lever,s);
-    if(!o)throw new Error(T('Unbekannter Team-Hebel.','Неизвестный рычаг команды.'));
+
+    if(!o){
+      throw new Error(T(
+        'Unbekannter Team-Hebel.',
+        'Неизвестный рычаг команды.'
+      ));
+    }
+
     const current=Number(o.current||0);
+
     if(!Number.isFinite(bound)||bound<=current){
-      throw new Error(`${o.label}: ${T('Obergrenze muss über dem aktuellen Wert liegen.','верхняя граница должна быть выше текущего значения.')}`);
+      throw new Error(
+        `${o.label}: ${T(
+          'Obergrenze muss über dem aktuellen Wert liegen.',
+          'верхняя граница должна быть выше текущего значения.'
+        )}`
+      );
     }
+
     if(Number.isFinite(o.maxAllowed) && bound>o.maxAllowed+1e-8){
-      throw new Error(`${o.label}: ${T('Obergrenze darf die verfügbare Monatskapazität nicht überschreiten.','верхняя граница не должна превышать доступную месячную загрузку.')}`);
+      throw new Error(
+        `${o.label}: ${T(
+          'Obergrenze darf die verfügbare Monatskapazität nicht überschreiten.',
+          'верхняя граница не должна превышать доступную месячную загрузку.'
+        )}`
+      );
     }
+
     confirmed_bounds[lever]={
-      lower:current,upper:bound,source_type:'user_confirmed',
-      reason:T('Vom Nutzer bestätigter Handlungsspielraum','Подтверждённый пользователем диапазон изменения'),
+      lower:current,
+      upper:bound,
+      source_type:'user_confirmed',
+      reason:T(
+        'Vom Nutzer bestätigter Handlungsspielraum',
+        'Подтверждённый пользователем диапазон изменения'
+      ),
       implementation
     };
   });
@@ -8162,12 +8406,19 @@ function renderDecisionGuidance(p,mode=activeRMode()){
   if(!box||!list)return;
 
   const g=get(p,'decision_guidance');
-  const candidates=Array.isArray(g?.candidates)?g.candidates:[];
+
+  const candidates=
+    Array.isArray(g?.display_guidance)
+      ? g.display_guidance
+      : Array.isArray(g?.candidates)
+        ? g.candidates
+        : [];
 
   if(!g || !candidates.length){
     box.hidden=true;
     list.innerHTML='';
     if(foot)foot.textContent='';
+
     if(mode==='team'){
       const runContext=window.FBC_R_RUN_CONTEXT || 'baseline';
       if(runContext==='baseline' || !window.FBC_TEAM_P1_CONTROLS_RENDERED){
@@ -8180,6 +8431,14 @@ function renderDecisionGuidance(p,mode=activeRMode()){
   const reasonText=c=>{
     const lever=String(c.lever||'');
     const actor=String(c.actor_label||'');
+    const type=String(c.guidance_type||'');
+
+    if(type==='employee_cost_coverage'){
+      return T(
+        'Prüfen Sie, ob sich die abrechenbaren Stunden und/oder der Kundenpreis realistisch erhöhen lassen.',
+        'Проверьте, можно ли реалистично увеличить оплачиваемые часы и/или клиентскую цену.'
+      );
+    }
 
     if(lever==='operating_costs'){
       return T(
@@ -8190,29 +8449,29 @@ function renderDecisionGuidance(p,mode=activeRMode()){
 
     if(lever==='owner_price'){
       return T(
-        'Eine moderate Preiserhöhung könnte sich auch unter Berücksichtigung der modellierten Nachfragewirkung positiv auf das Ergebnis auswirken.',
-        'Умеренное повышение цены могло бы положительно повлиять на результат даже с учётом модельной реакции спроса.'
+        'Eine moderate Erhöhung des Kundenpreises könnte sich auch unter Berücksichtigung der modellierten Nachfragereaktion positiv auf das Gesamtergebnis auswirken.',
+        'Умеренное повышение клиентской цены владельца могло бы положительно повлиять на общий результат даже с учётом модельной реакции спроса.'
       );
     }
 
     if(lever==='owner_hours'){
       return T(
-        'Zusätzliche abrechenbare Stunden könnten das Ergebnis verbessern; die aktuelle Auslastungszone wird dabei berücksichtigt.',
-        'Дополнительные оплачиваемые часы могли бы улучшить результат; при оценке учитывается текущая зона загрузки.'
+        'Zusätzliche abrechenbare Stunden der Inhaberin / des Inhabers könnten das Gesamtergebnis spürbar verbessern; die aktuelle Auslastungszone wird dabei berücksichtigt.',
+        'Дополнительные оплачиваемые часы владельца могли бы заметно улучшить общий результат; при оценке учитывается текущая зона загрузки.'
       );
     }
 
     if(/_customer_price$/.test(lever) || lever==='employee_customer_price'){
       return T(
-        `Ein höherer Kundenpreis von ${actor||'diesem Teammitglied'} könnte sich auch nach Berücksichtigung der Nachfrageelastizität positiv auf das Ergebnis auswirken.`,
-        `Повышение клиентской цены ${actor||'этого сотрудника'} могло бы положительно повлиять на результат с учётом эластичности спроса.`
+        `Ein höherer Kundenpreis von ${actor||'diesem Teammitglied'} könnte sich auch nach Berücksichtigung der Nachfrageelastizität positiv auf das Gesamtergebnis auswirken.`,
+        `Повышение клиентской цены ${actor||'этого сотрудника'} могло бы положительно повлиять на общий результат с учётом эластичности спроса.`
       );
     }
 
     if(/_billable_hours$/.test(lever) || lever==='employee_billable_hours'){
       return T(
-        `Mehr abrechenbare Stunden von ${actor||'diesem Teammitglied'} könnten das Ergebnis unter Berücksichtigung der aktuellen Auslastung verbessern.`,
-        `Увеличение оплачиваемых часов ${actor||'этого сотрудника'} могло бы улучшить результат с учётом текущей загрузки.`
+        `Mehr abrechenbare Stunden von ${actor||'diesem Teammitglied'} könnten das Gesamtergebnis unter Berücksichtigung der aktuellen Auslastung verbessern.`,
+        `Увеличение оплачиваемых часов ${actor||'этого сотрудника'} могло бы улучшить общий результат с учётом текущей загрузки.`
       );
     }
 
@@ -8224,9 +8483,57 @@ function renderDecisionGuidance(p,mode=activeRMode()){
 
   const titleText=c=>{
     const lever=String(c.lever||'');
+    const actor=String(c.actor_label||'');
+    const type=String(c.guidance_type||'');
+
+    if(type==='employee_cost_coverage'){
+      return T(
+        `${actor||'Dieses Teammitglied'} deckt die eigenen Kosten derzeit noch nicht.`,
+        `${actor||'Этот сотрудник'} пока не покрывает собственные затраты.`
+      );
+    }
+
+    if(type==='global_strongest'){
+      if(lever==='owner_hours'){
+        return T(
+          'Die Auslastung der Inhaberin / des Inhabers hat derzeit den stärksten Einfluss auf das Gesamtergebnis.',
+          'На общий результат бизнеса сейчас сильнее всего влияет загрузка владельца.'
+        );
+      }
+
+      if(lever==='owner_price'){
+        return T(
+          'Der Kundenpreis der Inhaberin / des Inhabers hat derzeit den stärksten Einfluss auf das Gesamtergebnis.',
+          'На общий результат бизнеса сейчас сильнее всего влияет клиентская цена владельца.'
+        );
+      }
+
+      if(lever==='operating_costs'){
+        return T(
+          'Die Betriebskosten haben derzeit den stärksten Einfluss auf das Gesamtergebnis.',
+          'На общий результат бизнеса сейчас сильнее всего влияют операционные расходы.'
+        );
+      }
+
+      if(/_customer_price$/.test(lever)){
+        return T(
+          `Der Kundenpreis von ${actor||'diesem Teammitglied'} hat derzeit den stärksten Einfluss auf das Gesamtergebnis.`,
+          `На общий результат бизнеса сейчас сильнее всего влияет клиентская цена ${actor||'этого сотрудника'}.`
+        );
+      }
+
+      if(/_billable_hours$/.test(lever)){
+        return T(
+          `Die abrechenbaren Stunden von ${actor||'diesem Teammitglied'} haben derzeit den stärksten Einfluss auf das Gesamtergebnis.`,
+          `На общий результат бизнеса сейчас сильнее всего влияют оплачиваемые часы ${actor||'этого сотрудника'}.`
+        );
+      }
+    }
+
     if(lever==='operating_costs')return T('Betriebskosten prüfen','Проверить расходы бизнеса');
     if(lever==='owner_price')return T('Kundenpreis der Inhaberin / des Inhabers prüfen','Проверить клиентскую цену владельца');
     if(lever==='owner_hours')return T('Abrechenbare Stunden der Inhaberin / des Inhabers prüfen','Проверить оплачиваемые часы владельца');
+
     return String(c.lever_label||c.actor_label||lever);
   };
 
@@ -8238,15 +8545,24 @@ function renderDecisionGuidance(p,mode=activeRMode()){
   `).join('');
 
   if(foot){
+    const hasCoverageIssue=candidates.some(
+      c=>String(c?.guidance_type||'')==='employee_cost_coverage'
+    );
+
     foot.textContent=mode==='team'
       ? T(
-          'Dies ist die mathematische Vororientierung des ersten Team-Laufs. Die realistischen Änderungsgrenzen bestätigen Sie im nächsten Schritt selbst.',
-          'Это математическая предварительная ориентация первого Team-прогона. Реалистичные границы изменений вы сами подтверждаете на следующем шаге.'
+          'Mitarbeiter mit offener Kostendeckung werden als strukturelle Themen separat gezeigt. Der letzte Hinweis zeigt den stärksten Hebel für das Gesamtergebnis. Die realistischen Grenzen bestätigen Sie selbst.',
+          'Сотрудники с непокрытыми затратами показываются отдельно как структурная проблема. Последний пункт показывает самый сильный рычаг для общего результата. Реалистичные границы вы подтверждаете сами.'
         )
-      : T(
-          'Prüfen Sie anschließend nur die Veränderungen, die in Ihrem Unternehmen tatsächlich möglich sind.',
-          'Дальше подтверждайте только те изменения, которые действительно возможны в вашем бизнесе.'
-        );
+      : hasCoverageIssue
+        ? T(
+            'Die offene Kostendeckung des Mitarbeiters wird getrennt von der globalen finanziellen Sensitivität gezeigt. Die realistischen Grenzen bestätigen Sie selbst.',
+            'Непокрытые затраты сотрудника показываются отдельно от общей финансовой чувствительности. Реалистичные границы вы подтверждаете сами.'
+          )
+        : T(
+            'Prüfen Sie anschließend nur die Veränderungen, die in Ihrem Unternehmen tatsächlich möglich sind.',
+            'Дальше подтверждайте только те изменения, которые действительно возможны в вашем бизнесе.'
+          );
   }
 
   if(mode==='team'){
@@ -8693,9 +9009,25 @@ function renderDecisionDetails(p){
   const payloadStatus=String(p?.status||'');
 const recommendationSection=$('fbcRecommendationSection');
 
+const decisionRunContext=window.FBC_R_RUN_CONTEXT || 'baseline';
+const p0Statuses=new Set([
+  'no_evidenced_lever',
+  'team_p0_no_evidenced_lever'
+]);
+
 const hasOptimizedDecision =
-  payloadStatus !== 'no_evidenced_lever' &&
+  decisionRunContext !== 'baseline' &&
+  !p0Statuses.has(payloadStatus) &&
   Array.isArray(changes);
+
+if(recommendationSection){
+  recommendationSection.hidden=!hasOptimizedDecision;
+}
+
+if(box && !hasOptimizedDecision){
+  box.hidden=true;
+  box.innerHTML='';
+}
   let targetReached=get(p,'recommendation.target_reached');
   if(typeof targetReached!=='boolean') targetReached=get(p,'target_path.target_reached_within_horizon');
   if(typeof targetReached!=='boolean'){
