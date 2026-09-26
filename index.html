@@ -4336,7 +4336,9 @@ window.FBC_TRACK = function(name, data){
   line-height:1.25!important;
 }
 #empApplyRecommendedPrice[data-price-visible="1"]{font-variant-numeric:tabular-nums lining-nums}
-.fbc-legal-info{width:min(1180px,calc(100% - 32px));margin:22px auto 30px}
+.fbc-legal-info{
+  display:none!important;
+}
 .fbc-legal-info details{background:#fff;border:1px solid var(--ui-line,var(--line));border-radius:12px;margin:10px 0;overflow:hidden}
 .fbc-legal-info summary{cursor:pointer;padding:14px 16px;font-weight:650;color:var(--ui-navy,#17324d);list-style:none}
 .fbc-legal-info summary::-webkit-details-marker{display:none}
@@ -10370,24 +10372,6 @@ window.FBC_STATISTICS_LAYER={open:openStat,close:closeStat,history:HIST,meta:MET
 })();
 </script>
 
-
-<script id="fbc-v82-legal-links">
-(()=>{
-  const bind=(linkId,detailsId)=>{
-    const link=document.getElementById(linkId),details=document.getElementById(detailsId);
-    if(!link||!details)return;
-    link.addEventListener('click',event=>{
-      event.preventDefault();
-      details.open=true;
-      details.scrollIntoView({behavior:'smooth',block:'start'});
-      try{history.replaceState(null,'','#'+detailsId)}catch(e){}
-    });
-  };
-  bind('datenschutzLink','datenschutz');
-  bind('impressumLink','impressum');
-  bind('nutzungsbedingungenLink','nutzungsbedingungen');
-})();
-</script>
 
 </body>
 </html>
