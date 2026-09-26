@@ -7582,35 +7582,22 @@ function teamP1LeverOptions(s=teamSnapshot()){
     }
   ];
 
-  const ownerCurrent=
-    Number(s.owner?.billable_hours_month||0);
+const ownerCurrent=
+  Number(s.owner?.billable_hours_month||0);
 
-  const ownerCapRaw=
-    Number(s.owner?.available_hours_month);
-
-  const ownerCap=
-    Number.isFinite(ownerCapRaw)
-      ? ownerCapRaw
-      : null;
-
-  // Клиентские часы владельца предлагаем только,
-  // если при текущей ёмкости ещё есть запас.
-  if(
-    ownerCap===null ||
-    ownerCap>ownerCurrent+1e-8
-  ){
-    out.push({
-      key:'owner_hours',
-      label:T(
-        'Abrechenbare Kundenstunden der Inhaberin / des Inhabers',
-        'Клиентские часы владельца'
-      ),
-      unit:'h / Monat',
-      current:ownerCurrent,
-      direction:'up',
-      maxAllowed:ownerCap
-    });
-  }
+// Для владельца физическая месячная ёмкость не является hard cap.
+// Более высокая загрузка оценивается R через модель устойчивости.
+out.push({
+  key:'owner_hours',
+  label:T(
+    'Abrechenbare Kundenstunden der Inhaberin / des Inhabers',
+    'Клиентские часы владельца'
+  ),
+  unit:'h / Monat',
+  current:ownerCurrent,
+  direction:'up',
+  maxAllowed:null
+});
 
   (Array.isArray(s.employees)?s.employees:[])
     .forEach(e=>{
