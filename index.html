@@ -2189,10 +2189,9 @@ input[type="number"]::-webkit-outer-spin-button{
 .fbc-premium-includes span::before{content:"✓";margin-right:6px;color:#54758f;font-weight:800}
 .fbc-premium-section{position:relative}
 .fbc-premium-section.fbc-premium-locked> :not(.fbc-analysis-heading){filter:blur(6px);opacity:.48;pointer-events:none;user-select:none}
-.fbc-premium-section.fbc-premium-locked::after{content:attr(data-lock-label);position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);z-index:8;width:min(360px,calc(100% - 32px));padding:12px 16px;border:1px solid #d5e0e7;border-radius:11px;background:rgba(249,252,253,.96);box-shadow:0 8px 24px rgba(30,55,75,.08);text-align:center;color:#526b7e;font-size:12px;font-weight:650}
-.fbc-premium-section.fbc-premium-locked .fbc-analysis-heading{opacity:.78}
-.fbc-premium-section.fbc-premium-locked .fbc-step-badge{background:#edf2f5;color:#7f8e99}
-@media(max-width:700px){.fbc-premium-includes{grid-template-columns:1fr 1fr}}
+.fbc-premium-section.fbc-premium-locked::after{
+  display:none!important;
+}
 @media(max-width:460px){.fbc-premium-includes{grid-template-columns:1fr}}
 </style>
 
