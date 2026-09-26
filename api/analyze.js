@@ -237,7 +237,7 @@ export default async function handler(req, res) {
       return json(res, 502, {
         error: 'invalid_r_payload',
         fields: responseErrors,
-        expected_schema: RESPONSE_SCHEMA
+        expected_schema: RESPONSE_SCHEMAS
       });
     }
 
