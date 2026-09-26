@@ -5361,7 +5361,7 @@ function updateEmployee(){
   const refEmployment=employmentData(formKey,refWage,refHours,0,0,refDays,refVacation,0);
   const costReferenceRate=Number(refEmployment.workHour)||0;
   const hasActualPayroll=hasInput('#empWage')&&hasInput('#empHours');
-  const recommended=(hasActualPayroll&&actualBillable>0&&emp.total>0)?emp.total/actualBillable:costReferenceRate;
+  const recommended=costReferenceRate;
   const empPriceBtn=$('#empApplyRecommendedPrice');
   empPriceBtn.dataset.recommendedPrice=String(recommended);
   if(billable && Number.isFinite(recommended) && recommended>0){
