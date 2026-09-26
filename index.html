@@ -2197,12 +2197,7 @@ input[type="number"]::-webkit-outer-spin-button{
 </style>
 
 
-<!-- Google Analytics 4 · measurement ID from FBC release handoff -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RZXWPLS4J4"></script>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
-</script>
+<!-- Vercel Web Analytics is loaded through the first-party Vercel endpoint. -->
 
 
 <style id="fbc-r-merge-style">
@@ -3185,6 +3180,67 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 }
 </style>
 
+
+<!-- Vercel Web Analytics · first-party, cookie-free page analytics -->
+<script>
+window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+window.FBC_TRACK = function(name, data){
+  try{
+    if(typeof window.va !== 'function') return;
+    const clean = {};
+    if(data && typeof data === 'object'){
+      Object.entries(data).slice(0,2).forEach(([key,value])=>{
+        if(['string','number','boolean'].includes(typeof value) || value === null){
+          clean[String(key).slice(0,255)] = typeof value === 'string' ? value.slice(0,255) : value;
+        }
+      });
+    }
+    window.va('event',{name:String(name||'event').slice(0,255),data:clean});
+  }catch(e){
+    console.debug('FBC analytics event skipped', e);
+  }
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+
+<style id="fbc-v83-button-layout">
+/* v8.3 · action buttons must stay readable in DE/RU and on narrow screens */
+#employee .orientation-box button,
+#team .orientation-box button,
+#team .apply-team-wage,
+#team .apply-team-price,
+#fbcRunAnalysis,
+#fbcRunEvidenceAnalysis,
+#fbcRunTeamEvidenceAnalysis,
+#fbcRunFinancing,
+#starsBuyButton,
+#fbcPdfButton{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px;
+  max-width:100%!important;
+  padding:10px 14px!important;
+  line-height:1.25!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+  text-align:center!important;
+}
+#empApplyRecommendedPrice{min-width:230px!important;font-variant-numeric:tabular-nums lining-nums}
+#team .apply-team-price{font-variant-numeric:tabular-nums lining-nums}
+@media(max-width:600px){
+  #employee .orientation-box button,
+  #team .orientation-box button,
+  #fbcRunAnalysis,
+  #fbcRunEvidenceAnalysis,
+  #fbcRunTeamEvidenceAnalysis,
+  #fbcRunFinancing,
+  #starsBuyButton,
+  #fbcPdfButton{width:100%!important;min-width:0!important}
+}
+</style>
+
 </head>
 <body>
 <header class="site-header">
@@ -3740,7 +3796,7 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
        <small data-de="Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung" data-ru="Ориентировочная цена клиенту / ч · только покрытие затрат, не R-рекомендация">Kostenorientierter Kundenpreis / Std. · reine Kostendeckung, keine R-Empfehlung</small>
         <strong id="empRecommendedPrice">—</strong>
       </div>
-      <button id="empApplyRecommendedPrice" type="button" data-de="Kostendeckenden Satz übernehmen" data-ru="Подставить ставку покрытия затрат">Kostendeckenden Satz übernehmen</button>
+      <button id="empApplyRecommendedPrice" type="button" aria-live="polite">Kostendeckenden Satz übernehmen</button>
     </div>
     <button class="fbc-stat-link" type="button" data-stat-target="labor" data-de="Arbeitskosten · Statistik & Prognose" data-ru="Затраты на труд · статистика и прогноз">Arbeitskosten · Statistik & Prognose</button>
   </div>
@@ -4269,6 +4325,124 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </div>
 </template>
 
+
+<style id="fbc-v82-fixes">
+/* v8.2 · robust employee price CTA + embedded legal information */
+#empApplyRecommendedPrice{
+  min-width:210px!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  text-align:center!important;
+  line-height:1.25!important;
+}
+#empApplyRecommendedPrice[data-price-visible="1"]{font-variant-numeric:tabular-nums lining-nums}
+.fbc-legal-info{width:min(1180px,calc(100% - 32px));margin:22px auto 30px}
+.fbc-legal-info details{background:#fff;border:1px solid var(--ui-line,var(--line));border-radius:12px;margin:10px 0;overflow:hidden}
+.fbc-legal-info summary{cursor:pointer;padding:14px 16px;font-weight:650;color:var(--ui-navy,#17324d);list-style:none}
+.fbc-legal-info summary::-webkit-details-marker{display:none}
+.fbc-legal-info summary::after{content:"+";float:right;color:var(--ui-muted,var(--muted))}
+.fbc-legal-info details[open] summary::after{content:"−"}
+.fbc-legal-body{padding:0 16px 16px;color:var(--ui-text,var(--ink));font-size:13px;line-height:1.55}
+.fbc-legal-body h3{font-size:14px;margin:16px 0 5px;color:var(--ui-navy,#17324d)}
+.fbc-legal-body p{margin:5px 0}
+.fbc-legal-body ul{margin:6px 0 8px 20px;padding:0}
+.fbc-legal-note{margin-top:12px;padding:10px 12px;background:#f4f7f9;border-left:3px solid var(--ui-steel,#6686a0);color:var(--ui-muted,var(--muted))}
+html[lang="de"] .fbc-legal-ru{display:none!important}
+html[lang="ru"] .fbc-legal-de{display:none!important}
+@media(max-width:600px){#empApplyRecommendedPrice{width:100%!important}.fbc-legal-info{width:min(100% - 20px,1180px)}}
+</style>
+
+
+<section class="fbc-legal-info" aria-label="Rechtliche Informationen">
+  <details id="datenschutz">
+    <summary data-de="Datenschutz" data-ru="Защита данных">Datenschutz</summary>
+    <div class="fbc-legal-body fbc-legal-de">
+      <h3>1. Verantwortlicher und Kontakt</h3>
+      <p>FUTURE Business Cockpit · Kontakt: <a href="mailto:info@futurebusinesscockpit.de">info@futurebusinesscockpit.de</a></p>
+      <p>Die vollständige Anbieteranschrift ist vor dem produktiven Start im Impressum zu ergänzen.</p>
+
+      <h3>2. Eingaben im Business Cockpit</h3>
+      <p>Die von Ihnen in die Kalkulationsfelder eingegebenen Werte werden im Browser für die laufende Berechnung verarbeitet. FUTURE Business Cockpit speichert diese Kalkulationsfelder nicht in <code>localStorage</code> oder <code>sessionStorage</code>.</p>
+      <p>Wenn Sie eine R-Analyse starten, werden die für die Berechnung erforderlichen Eingaben an den eigenen Analyse-Endpunkt <code>/api/analyze</code> übertragen, damit das Ergebnis berechnet und an Ihren Browser zurückgegeben werden kann.</p>
+
+      <h3>3. Hosting bei Vercel</h3>
+      <p>Die Website wird über Vercel bereitgestellt. Beim Aufruf können technisch notwendige Verbindungs- und Protokolldaten verarbeitet werden, insbesondere IP-Adresse, Zeitpunkt, angeforderte Seite sowie Browser- und Geräteinformationen. Diese Verarbeitung dient der Auslieferung, Stabilität und Sicherheit des Dienstes.</p>
+
+      <h3>4. Telegram Mini App und Telegram Stars</h3>
+      <p>Wenn Sie FUTURE Business Cockpit innerhalb von Telegram nutzen, stellt Telegram der Mini App technische Sitzungsdaten (<code>initData</code>) bereit. Für die Prüfung einer Freischaltung bzw. die Erstellung einer Stars-Rechnung können <code>initData</code>, der gewählte Produktbereich und eine Berechnungs-ID an die Zahlungs-Endpunkte des Dienstes übermittelt werden. Für die Verarbeitung innerhalb von Telegram gelten zusätzlich die Datenschutzbestimmungen von Telegram.</p>
+
+      <h3>5. Kontakt per E-Mail</h3>
+      <p>Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen übermittelten Kontaktdaten und Nachrichteninhalte zur Bearbeitung Ihrer Anfrage verarbeitet.</p>
+
+      <h3>6. Webanalyse mit Vercel Web Analytics</h3>
+      <p>Zur Reichweitenmessung und Verbesserung des FUTURE Business Cockpit wird Vercel Web Analytics eingesetzt. Die Analyse ist in die Vercel-Infrastruktur integriert und verwendet nach Angaben von Vercel keine Cookies. Erfasst werden insbesondere Seitenaufrufe sowie zusammengefasste technische Informationen wie Referrer, Land, Gerät, Betriebssystem und Browser.</p>
+      <p>Soweit der verwendete Vercel-Tarif dies unterstützt, können zusätzlich anonyme Produkt-Ereignisse erfasst werden, zum Beispiel die Auswahl von Solo, Mitarbeiter oder Team, Beginn bzw. Abschluss eines Kalkulationsvorgangs sowie das Öffnen einer Freischaltung. In diese Analyseereignisse werden keine Werte aus den Kalkulationsfeldern, keine Namen und keine E-Mail-Adressen aufgenommen.</p>
+
+      <h3>7. Rechtsgrundlagen und Speicherdauer</h3>
+      <p>Soweit personenbezogene Daten für die Bereitstellung des Dienstes, eine von Ihnen angeforderte Analyse, eine Zahlung oder die Bearbeitung einer Anfrage erforderlich sind, erfolgt die Verarbeitung insbesondere zur Vertragserfüllung bzw. Durchführung vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO) oder zur technischen Bereitstellung und Sicherheit auf Grundlage berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO). Daten werden nur so lange verarbeitet, wie dies für den jeweiligen Zweck oder aufgrund gesetzlicher Pflichten erforderlich ist.</p>
+
+      <h3>8. Ihre Rechte</h3>
+      <p>Sie haben – soweit die gesetzlichen Voraussetzungen vorliegen – Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.</p>
+
+      <div class="fbc-legal-note">Stand: 26.09.2026. Vor dem produktiven Start müssen insbesondere vollständige Anbieteranschrift, Hosting-/Auftragsverarbeiter und tatsächliche Zahlungsanbieter ergänzt bzw. mit der finalen technischen Konfiguration abgeglichen werden.</div>
+    </div>
+    <div class="fbc-legal-body fbc-legal-ru">
+      <h3>1. Ответственный и контакт</h3>
+      <p>FUTURE Business Cockpit · Контакт: <a href="mailto:info@futurebusinesscockpit.de">info@futurebusinesscockpit.de</a></p>
+      <p>Полный адрес поставщика услуги необходимо добавить в Impressum до рабочего запуска.</p>
+
+      <h3>2. Данные, введённые в Business Cockpit</h3>
+      <p>Значения, введённые в поля расчёта, обрабатываются в браузере для текущего расчёта. FUTURE Business Cockpit не сохраняет эти поля в <code>localStorage</code> или <code>sessionStorage</code>.</p>
+      <p>При запуске R-анализа необходимые для расчёта данные передаются на собственный endpoint <code>/api/analyze</code>, чтобы рассчитать результат и вернуть его в браузер.</p>
+
+      <h3>3. Хостинг Vercel</h3>
+      <p>Сайт размещён на инфраструктуре Vercel. При открытии могут обрабатываться технически необходимые данные соединения и журналов: IP-адрес, время запроса, запрошенная страница, сведения о браузере и устройстве. Эти данные нужны для доставки сайта, стабильности и безопасности сервиса.</p>
+
+      <h3>4. Telegram Mini App и Telegram Stars</h3>
+      <p>При использовании внутри Telegram платформа передаёт Mini App технические данные сессии (<code>initData</code>). Для проверки разблокировки или создания счёта Stars могут передаваться <code>initData</code>, выбранный раздел продукта и идентификатор расчёта. Для обработки данных внутри Telegram дополнительно действуют правила конфиденциальности Telegram.</p>
+
+      <h3>5. Контакт по электронной почте</h3>
+      <p>Если вы пишете нам по электронной почте, указанные вами контактные данные и содержание сообщения обрабатываются для ответа на запрос.</p>
+
+      <h3>6. Веб-аналитика Vercel Web Analytics</h3>
+      <p>Для измерения посещаемости и улучшения FUTURE Business Cockpit используется Vercel Web Analytics. Аналитика встроена в инфраструктуру Vercel и, согласно информации Vercel, не использует cookies. Учитываются, в частности, просмотры страниц и агрегированные технические сведения: источник перехода, страна, устройство, операционная система и браузер.</p>
+      <p>Если используемый тариф Vercel поддерживает custom events, дополнительно могут учитываться анонимные продуктовые события: выбор Solo/Mitarbeiter/Team, начало и завершение расчёта и открытие платной разблокировки. Значения из расчётных полей, имена и e-mail в эти аналитические события не передаются.</p>
+
+      <h3>7. Правовые основания и срок хранения</h3>
+      <p>Если для предоставления сервиса, запрошенного анализа, оплаты или ответа на обращение возникают персональные данные, обработка осуществляется, в частности, для исполнения договора/преддоговорных действий (ст. 6(1)(b) GDPR) либо для технической работы и безопасности сервиса на основании законного интереса (ст. 6(1)(f) GDPR). Данные обрабатываются только столько, сколько необходимо для соответствующей цели или выполнения законных обязанностей.</p>
+
+      <h3>8. Ваши права</h3>
+      <p>При наличии предусмотренных законом условий вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение. Также можно обратиться с жалобой в надзорный орган по защите данных.</p>
+
+      <div class="fbc-legal-note">Версия от 26.09.2026. До рабочего запуска необходимо дополнить полный адрес поставщика, сведения о хостинге/обработчиках и фактических платёжных провайдерах и сверить текст с окончательной технической конфигурацией.</div>
+    </div>
+  </details>
+
+  <details id="impressum">
+    <summary>Impressum</summary>
+    <div class="fbc-legal-body fbc-legal-de">
+      <p><strong>FUTURE Business Cockpit</strong><br>Website: futurebusinesscockpit.de<br>E-Mail: <a href="mailto:info@futurebusinesscockpit.de">info@futurebusinesscockpit.de</a></p>
+      <div class="fbc-legal-note">Für die produktive Veröffentlichung müssen Name/Unternehmensbezeichnung, ladungsfähige Anschrift und weitere gesetzlich erforderliche Angaben ergänzt werden.</div>
+    </div>
+    <div class="fbc-legal-body fbc-legal-ru">
+      <p><strong>FUTURE Business Cockpit</strong><br>Сайт: futurebusinesscockpit.de<br>E-Mail: <a href="mailto:info@futurebusinesscockpit.de">info@futurebusinesscockpit.de</a></p>
+      <div class="fbc-legal-note">До рабочего запуска необходимо добавить имя/название компании, полноценный почтовый адрес и другие обязательные по закону сведения.</div>
+    </div>
+  </details>
+
+  <details id="nutzungsbedingungen">
+    <summary data-de="Nutzungsbedingungen" data-ru="Условия использования">Nutzungsbedingungen</summary>
+    <div class="fbc-legal-body fbc-legal-de">
+      <p>FUTURE Business Cockpit stellt betriebswirtschaftliche Rechen- und Entscheidungshilfen bereit. Ergebnisse sind Orientierungswerte und ersetzen keine Steuer-, Rechts-, Versicherungs- oder Lohnabrechnungsberatung.</p>
+      <p>Für kostenpflichtige Bereiche ist eine einmalige Freischaltung vorgesehen; ein Abonnement ist nicht vorgesehen. Die endgültigen Zahlungsbedingungen werden mit der produktiven Zahlungsanbindung ergänzt.</p>
+    </div>
+    <div class="fbc-legal-body fbc-legal-ru">
+      <p>FUTURE Business Cockpit предоставляет расчётные и аналитические инструменты для бизнеса. Результаты являются ориентировочными и не заменяют налоговую, юридическую, страховую консультацию или расчёт заработной платы.</p>
+      <p>Для платных разделов предусмотрена разовая разблокировка без подписки. Окончательные условия оплаты будут дополнены при подключении рабочего платёжного решения.</p>
+    </div>
+  </details>
+</section>
+
 <footer class="site-footer">
 <div class="footer-grid">
 <section>
@@ -4283,9 +4457,9 @@ gtag('js',new Date());gtag('config','G-RZXWPLS4J4',{anonymize_ip:true});
 </section>
 <section>
 <h2 data-de="Rechtliches" data-ru="Правовая информация">Rechtliches</h2>
-<a href="#calculator" title="In der Testversion nicht separat eingebettet">Impressum</a>
-<a href="#calculator" title="In der Testversion nicht separat eingebettet">Datenschutz</a>
-<a href="#calculator" title="In der Testversion nicht separat eingebettet" data-de="Nutzungsbedingungen" data-ru="Условия использования">Nutzungsbedingungen</a>
+<a href="#impressum" id="impressumLink">Impressum</a>
+<a href="#datenschutz" id="datenschutzLink">Datenschutz</a>
+<a href="#nutzungsbedingungen" id="nutzungsbedingungenLink" data-de="Nutzungsbedingungen" data-ru="Условия использования">Nutzungsbedingungen</a>
 </section>
 <section>
 <h2 data-de="Kontakt" data-ru="Контакты">Kontakt</h2>
@@ -4308,7 +4482,7 @@ window.FUTURE_SITE = Object.freeze({
   siteUrl: "https://futurebusinesscockpit.de",
   telegramUrl: "https://t.me/FutureBusinessCockpitBot", // public bot URL only; never place bot token here
   feedbackEndpoint: "", // Netlify Function; Telegram token stays server-side
-  analyticsId: "G-RZXWPLS4J4", // GA4 property from v6 handoff
+  analyticsProvider: "vercel",
   webPrices: Object.freeze({employee:14.90, team:19.90}),
   webCheckout: Object.freeze({employee:"", team:""}), // add hosted checkout URLs when browser payment is connected
   stars: Object.freeze({employee:450, team:500}),
@@ -5162,7 +5336,14 @@ function updateEmployee(){
     );
     $('#empRecommendedPrice').textContent=t('Rolle und Beschäftigungsform wählen','Выберите роль и форму занятости');
     $('#empApplyWage').disabled=true;
-    $('#empApplyRecommendedPrice').disabled=true;
+    const emptyPriceBtn=$('#empApplyRecommendedPrice');
+    if(emptyPriceBtn){
+      emptyPriceBtn.textContent=t('Kostendeckenden Satz übernehmen','Подставить ставку покрытия затрат');
+      emptyPriceBtn.title='';
+      delete emptyPriceBtn.dataset.priceVisible;
+      emptyPriceBtn.dataset.recommendedPrice='0';
+      emptyPriceBtn.disabled=true;
+    }
     $('#empWarning').textContent='';
     $('#empWarning').classList.add('hidden');
     pendingCard('#empGross',true);
@@ -5171,8 +5352,31 @@ function updateEmployee(){
   }
 
   $('#empApplyWage').disabled=false;
-  const wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0,costReferenceRate=rolePriceRecommendation(role,formKey,wage,hours,days,vacation),hasActualPayroll=hasInput('#empWage')&&hasInput('#empHours'),recommended=(hasActualPayroll&&actualBillable>0&&emp.total>0)?emp.total/actualBillable:costReferenceRate;
-  $('#empApplyRecommendedPrice').dataset.recommendedPrice=String(recommended);
+  const wage=num('#empWage'),hours=num('#empHours'),days=num('#empDays')||5,vacation=num('#empVacation'),customerPrice=billable?num('#empCustomerPrice'):0,o=orientation(role,formKey),emp=employmentData(formKey,wage,hours,0,0,days,vacation,0),owner=modeOwner('emp'),maxMiniMonth=wage?MINIJOB_LIMIT/wage:0,maxMiniWeek=maxMiniMonth*12/52,actualBillable=billable?Math.max(0,num('#empBillableHoursMonth')):0;
+  const refSchedule=scheduleOrientation(formKey);
+  const refWage=hasInput('#empWage')?wage:o.mid;
+  const refHours=hasInput('#empHours')?hours:refSchedule.hours;
+  const refDays=hasInput('#empDays')?Math.max(1,num('#empDays')):refSchedule.days;
+  const refVacation=hasInput('#empVacation')?vacation:refSchedule.companyVacation;
+  const refEmployment=employmentData(formKey,refWage,refHours,0,0,refDays,refVacation,0);
+  const costReferenceRate=Number(refEmployment.workHour)||0;
+  const hasActualPayroll=hasInput('#empWage')&&hasInput('#empHours');
+  const recommended=(hasActualPayroll&&actualBillable>0&&emp.total>0)?emp.total/actualBillable:costReferenceRate;
+  const empPriceBtn=$('#empApplyRecommendedPrice');
+  empPriceBtn.dataset.recommendedPrice=String(recommended);
+  if(billable && Number.isFinite(recommended) && recommended>0){
+    const recDe=Number(recommended).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const recRu=Number(recommended).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2});
+    empPriceBtn.textContent=t(`Übernehmen · ${recDe} € / Std.`,`Подставить · ${recRu} € / ч`);
+    empPriceBtn.title=t(`Kostenorientierten Kundenpreis von ${recDe} € pro Stunde übernehmen`,`Подставить ориентировочную цену клиенту ${recRu} € в час`);
+    empPriceBtn.dataset.priceVisible='1';
+    empPriceBtn.disabled=false;
+  }else{
+    empPriceBtn.textContent=t('Kostendeckenden Satz übernehmen','Подставить ставку покрытия затрат');
+    empPriceBtn.title='';
+    delete empPriceBtn.dataset.priceVisible;
+    empPriceBtn.disabled=true;
+  }
 emp.billableHours=actualBillable;
   emp.revenue=customerPrice*actualBillable;
   emp.contribution=emp.revenue-emp.total;
@@ -5549,7 +5753,7 @@ comparableMembers.forEach(member=>{
   );
 });
   
-  members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
+  members.forEach(member=>{const {row,role,billable,a,o,recommended}=member,button=row.querySelector('.apply-team-price');row.dataset.recommendedPrice=String(recommended);button.disabled=!billable||recommended<=0;button.classList.toggle('hidden',!billable);if(button){const dePrice=Number(recommended||0).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});const ruPrice=Number(recommended||0).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2});button.dataset.de=billable&&recommended>0?`Übernehmen · ${dePrice} € / Std.`:'Kostendeckenden Satz übernehmen';button.dataset.ru=billable&&recommended>0?`Подставить · ${ruPrice} € / ч`:'Подставить ставку покрытия затрат';button.textContent=t(button.dataset.de,button.dataset.ru);}row.querySelector('.team-price-recommendation').textContent=billable?`${euro(recommended)} / Std. netto`:'—';row.querySelector('.team-price-orientation').classList.toggle('hidden',!billable);if(billable)recommendedRevenue+=recommended*a.billableHours;row.querySelector('.team-wage-range').textContent=`${euro(o.low)} – ${euro(o.high)} / Std. brutto`;
   row.querySelector('.team-schedule-info').textContent=scheduleText(row.querySelector('.team-form').value);const capacityHours=
   row.querySelector('.team-capacity-hours');
 
@@ -5898,7 +6102,7 @@ window.addEventListener('pageshow',event=>{
 
 <script>
 (function(){
-  const send=(name,params={})=>{ if(typeof window.gtag==='function') window.gtag('event',name,params); };
+  const send=(name,params={})=>{ window.FBC_TRACK?.(name,params); };
   let started=false, completed=false;
   document.addEventListener('input',e=>{
     if(!started && e.target.closest('#calculator')){ started=true; send('calculation_start'); }
@@ -6049,7 +6253,7 @@ window.addEventListener('pageshow',event=>{
     if(!inTelegram()){
       const url=webCheckout[currentMode];
       if(url){
-        if(typeof window.gtag==='function')window.gtag('event','paywall_click',{scope:currentMode,channel:'web',price:webPrices[currentMode]});
+        window.FBC_TRACK?.('paywall_click',{scope:currentMode,channel:'web'});
         location.href=url;
         return;
       }
@@ -6066,7 +6270,7 @@ window.addEventListener('pageshow',event=>{
     try{
       const r=await fetch('/api/telegram-stars-invoice',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({initData:webapp.initData,scope:currentMode,calcId:currentCalcId})});
       const d=await r.json(); if(!r.ok||!d.invoiceLink)throw new Error(d.error||'Invoice konnte nicht erstellt werden');
-      if(typeof window.gtag==='function')window.gtag('event','paywall_click',{scope:currentMode,channel:'telegram',stars:d.stars});
+      window.FBC_TRACK?.('paywall_click',{scope:currentMode,channel:'telegram'});
       webapp.openInvoice(d.invoiceLink,async invoiceStatus=>{
         if(invoiceStatus==='paid'){
           setStatus(lang()==='ru'?'Платёж получен, подтверждаю…':'Zahlung erhalten, Bestätigung läuft…');
@@ -6075,7 +6279,7 @@ window.addEventListener('pageshow',event=>{
             if(await telegramStatus(currentMode,currentCalcId)){
               syncPremiumSections(currentMode,true);
               checkout.hidden=true;
-              if(typeof window.gtag==='function')window.gtag('event','stars_payment_complete',{scope:currentMode,stars:stars[currentMode]});
+              window.FBC_TRACK?.('payment_complete',{scope:currentMode,channel:'telegram'});
               return;
             }
           }
@@ -10163,6 +10367,25 @@ function openStat(key){ensureModal();const m=$s('fbcRefStatModal'),mm=META[key];
 function closeStat(){const m=$s('fbcRefStatModal');if(m){m.classList.remove('is-open');m.setAttribute('aria-hidden','true')}document.body.style.overflow='';}
 document.addEventListener('fbc:open-stat',e=>openStat(e.detail?.key||'labor'));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStat()});
 window.FBC_STATISTICS_LAYER={open:openStat,close:closeStat,history:HIST,meta:META};
+})();
+</script>
+
+
+<script id="fbc-v82-legal-links">
+(()=>{
+  const bind=(linkId,detailsId)=>{
+    const link=document.getElementById(linkId),details=document.getElementById(detailsId);
+    if(!link||!details)return;
+    link.addEventListener('click',event=>{
+      event.preventDefault();
+      details.open=true;
+      details.scrollIntoView({behavior:'smooth',block:'start'});
+      try{history.replaceState(null,'','#'+detailsId)}catch(e){}
+    });
+  };
+  bind('datenschutzLink','datenschutz');
+  bind('impressumLink','impressum');
+  bind('nutzungsbedingungenLink','nutzungsbedingungen');
 })();
 </script>
 
