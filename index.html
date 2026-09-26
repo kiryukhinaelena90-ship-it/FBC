@@ -1,4 +1,4 @@
-<!doctype html>  
+<!doctype html> 
 <head>
 <!-- FBC V7.2 Type System + Decision Preview · visual redesign + audit fixes · 2026-08-31 -->
   <meta charset="utf-8">
@@ -7569,38 +7569,109 @@ function teamP1CostLabels(){
 
 function teamP1LeverOptions(s=teamSnapshot()){
   const out=[
-    {key:'owner_price',label:T('Kundenpreis der Inhaberin / des Inhabers','Клиентская цена владельца'),unit:'€ / h',current:Number(s.owner?.price||0),direction:'up',maxAllowed:null},
-    {key:'owner_hours',label:T('Abrechenbare Stunden der Inhaberin / des Inhabers','Оплачиваемые часы владельца'),unit:'h / Monat',current:Number(s.owner?.billable_hours_month||0),direction:'up',maxAllowed:Number(s.owner?.available_hours_month||0)||null}
-  ];
-
-  (Array.isArray(s.employees)?s.employees:[]).forEach(e=>{
-    if(!e?.direct_billing)return;
-    out.push({
-      key:`${e.id}_customer_price`,
-      label:T(`Kundenpreis · ${e.label}`,`Клиентская цена · ${e.label}`),
+    {
+      key:'owner_price',
+      label:T(
+        'Kundenpreis der Inhaberin / des Inhabers',
+        'Клиентская цена владельца'
+      ),
       unit:'€ / h',
-      current:Number(e.customer_price||0),
+      current:Number(s.owner?.price||0),
       direction:'up',
       maxAllowed:null
-    });
+    }
+  ];
+
+  const ownerCurrent=
+    Number(s.owner?.billable_hours_month||0);
+
+  const ownerCapRaw=
+    Number(s.owner?.available_hours_month);
+
+  const ownerCap=
+    Number.isFinite(ownerCapRaw)
+      ? ownerCapRaw
+      : null;
+
+  // Клиентские часы владельца предлагаем только,
+  // если при текущей ёмкости ещё есть запас.
+  if(
+    ownerCap===null ||
+    ownerCap>ownerCurrent+1e-8
+  ){
     out.push({
-      key:`${e.id}_billable_hours`,
-      label:T(`Abrechenbare Stunden · ${e.label}`,`Оплачиваемые часы · ${e.label}`),
+      key:'owner_hours',
+      label:T(
+        'Abrechenbare Kundenstunden der Inhaberin / des Inhabers',
+        'Клиентские часы владельца'
+      ),
       unit:'h / Monat',
-      current:Number(e.billable_hours_month||0),
+      current:ownerCurrent,
       direction:'up',
-      maxAllowed:Number(e.paid_available_hours_month||0)||null
+      maxAllowed:ownerCap
     });
-  });
+  }
+
+  (Array.isArray(s.employees)?s.employees:[])
+    .forEach(e=>{
+
+      if(!e?.direct_billing)return;
+
+      out.push({
+        key:`${e.id}_customer_price`,
+        label:T(
+          `Kundenpreis · ${e.label}`,
+          `Клиентская цена · ${e.label}`
+        ),
+        unit:'€ / h',
+        current:Number(e.customer_price||0),
+        direction:'up',
+        maxAllowed:null
+      });
+
+      const currentHours=
+        Number(e.billable_hours_month||0);
+
+      const paidCapRaw=
+        Number(e.paid_available_hours_month);
+
+      const paidCap=
+        Number.isFinite(paidCapRaw)
+          ? paidCapRaw
+          : null;
+
+      // Рост клиентских часов предлагаем только тогда,
+      // когда по текущему договору ещё есть свободная ёмкость.
+      if(
+        paidCap===null ||
+        paidCap>currentHours+1e-8
+      ){
+        out.push({
+          key:`${e.id}_billable_hours`,
+          label:T(
+            `Abrechenbare Kundenstunden · ${e.label}`,
+            `Клиентские часы · ${e.label}`
+          ),
+          unit:'h / Monat',
+          current:currentHours,
+          direction:'up',
+          maxAllowed:paidCap
+        });
+      }
+    });
 
   out.push({
     key:'operating_costs',
-    label:T('Betriebskosten senken','Снизить расходы бизнеса'),
+    label:T(
+      'Betriebskosten senken',
+      'Снизить расходы бизнеса'
+    ),
     unit:'€ / Monat',
     current:null,
     direction:'down',
     maxAllowed:null
   });
+
   return out;
 }
 
@@ -7665,10 +7736,25 @@ function renderTeamDecisionEvidence(p){
       );
     }
 
-    return T(
-      `Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit}`,
-      `Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit}`
-    );
+const isHours=
+  String(o.key||'').endsWith('_hours') ||
+  String(o.key||'').endsWith('_billable_hours');
+
+const hasCap=
+  isHours &&
+  Number.isFinite(o.maxAllowed);
+
+if(hasCap){
+  return T(
+    `Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit} · max. ${Number(o.maxAllowed).toLocaleString('de-DE',{maximumFractionDigits:1})} h bei aktueller Kapazität`,
+    `Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit} · максимум при текущей ёмкости: ${Number(o.maxAllowed).toLocaleString('ru-RU',{maximumFractionDigits:1})} ч`
+  );
+}
+
+return T(
+  `Aktuell: ${Number(o.current).toLocaleString('de-DE',{maximumFractionDigits:1})} ${o.unit}`,
+  `Сейчас: ${Number(o.current).toLocaleString('ru-RU',{maximumFractionDigits:1})} ${o.unit}`
+);
   };
 
   const unitLabel=o=>{
@@ -7939,8 +8025,8 @@ function readTeamDecisionEvidence(){
     if(Number.isFinite(o.maxAllowed) && bound>o.maxAllowed+1e-8){
       throw new Error(
         `${o.label}: ${T(
-          'Obergrenze darf die verfügbare Monatskapazität nicht überschreiten.',
-          'верхняя граница не должна превышать доступную месячную загрузку.'
+'Die Obergrenze der abrechenbaren Kundenstunden darf die verfügbare Monatskapazität nicht überschreiten.',
+'Верхняя граница клиентских часов не должна превышать доступную месячную ёмкость.'
         )}`
       );
     }
